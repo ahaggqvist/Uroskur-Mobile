@@ -59,7 +59,7 @@
 
                 <Image Grid.Row="3" Source="clock.png" WidthRequest="13"
                        HeightRequest="13" />
-                <TimePicker Grid.Row="3" Grid.Column="3" x:Name="StartTimePicker" Format="HH"
+                <TimePicker Grid.Row="3" Grid.Column="3" x:Name="StartTimePicker" Format="HH:mm"
                             Time="{Binding Time}" />
 
                 <Label Grid.Row="4" Grid.Column="2" Text="Speed" FontFamily="RobotoLight" TextTransform="Uppercase"

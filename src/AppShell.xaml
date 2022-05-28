@@ -15,34 +15,34 @@
 
     <FlyoutItem Title="ROUTES">
         <ShellContent
-            Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
-            Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+            Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
+            Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"
             Shell.NavBarIsVisible="True" Route="RoutesPage" ContentTemplate="{DataTemplate local:RoutesPage}" />
     </FlyoutItem>
     <FlyoutItem Title="SETTINGS">
         <ShellContent Shell.NavBarIsVisible="True" Route="SettingsPage"
-                      Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
-                      Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                      Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
+                      Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"
                       ContentTemplate="{DataTemplate local:SettingsPage}" />
     </FlyoutItem>
     <FlyoutItem Title="ABOUT">
         <ShellContent Shell.NavBarIsVisible="True" Route="AboutPage"
-                      Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
-                      Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                      Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
+                      Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"
                       ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
 
     <ShellContent Route="RoutePage"
-                  Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
-                  Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                  Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
+                  Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"
                   Shell.FlyoutBehavior="Disabled"
                   Shell.TabBarIsVisible="False"
                   Shell.NavBarIsVisible="True"
                   ContentTemplate="{DataTemplate local:RoutePage}" />
 
     <ShellContent Route="ForecastPage"
-                  Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
-                  Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                  Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
+                  Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource White}}"
                   Shell.FlyoutBehavior="Disabled"
                   Shell.TabBarIsVisible="False"
                   Shell.NavBarIsVisible="True"

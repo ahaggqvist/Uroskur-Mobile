@@ -23,9 +23,9 @@
                 <RowDefinition Height="20" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackLayout Grid.Row="0">
+            <StackLayout Grid.Row="0" Margin="0,5,0,0" HorizontalOptions="Center">
                 <Label
-                    Text="{Binding ForecastForDates}" FontSize="10"
+                    Text="{Binding ForecastForDates}" FontSize="7" TextTransform="Uppercase"
                     FontFamily="RobotoLight" />
             </StackLayout>
 
@@ -54,7 +54,7 @@
                        VerticalTextAlignment="Center" FontSize="8" FontFamily="RobotoLight" TextTransform="Uppercase" />
                 <Label Grid.Column="3"
                        HorizontalTextAlignment="Center"
-                       Text="Chance of Rain (%)"
+                       Text="Chance of Rain"
                        VerticalTextAlignment="Center" FontSize="8" FontFamily="RobotoLight" TextTransform="Uppercase" />
                 <Label Grid.Column="4"
                        HorizontalTextAlignment="Center"
@@ -94,25 +94,24 @@
                             <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
                                          Grid.Column="1">
                                 <Label
-                                    Text="{Binding Hourly.Temp, StringFormat='{0:N1}'}" FontFamily="RobotoLight" />
+                                    Text="{Binding Hourly.Temp, StringFormat='{0:N1}'}" />
                             </StackLayout>
                             <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
                                          Grid.Column="2">
                                 <Label
-                                    Text="{Binding Hourly.FeelsLike, StringFormat='{0:N1}'}" FontFamily="RobotoLight" />
+                                    Text="{Binding Hourly.FeelsLike, StringFormat='{0:N1}'}" />
                             </StackLayout>
 
                             <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
                                          Grid.Column="3">
                                 <Label
-                                    Text="{Binding Hourly.Pop, StringFormat='{0:P1}'}" FontFamily="RobotoLight" />
+                                    Text="{Binding Hourly.Pop, StringFormat='{0:P1}'}" />
                             </StackLayout>
 
                             <HorizontalStackLayout Padding="0,0,0,5" VerticalOptions="Center"
                                                    HorizontalOptions="Center"
                                                    Grid.Column="4">
-                                <Label Text="{Binding Hourly.WindSpeed, StringFormat='{0:N1}'}" Margin="0,3,5,0"
-                                       FontFamily="RobotoLight" />
+                                <Label Text="{Binding Hourly.WindSpeed, StringFormat='{0:N1}'}" Margin="0,3,5,0" />
                                 <Label Text="{Binding WindIcon}" FontFamily="Weathericons" FontSize="14" />
                             </HorizontalStackLayout>
 

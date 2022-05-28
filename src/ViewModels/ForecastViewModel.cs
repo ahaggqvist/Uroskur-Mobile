@@ -151,7 +151,7 @@ public partial class ForecastViewModel : BaseViewModel
                 var startDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds((double)firstDt);
                 var endDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds((double)lastDt);
 
-                _forecastForDates = $"Forecast: {startDateTime:ddd, dd MMM HH:mm} - {endDateTime:ddd, dd MMM HH:mm}";
+                _forecastForDates = $"Based on OpenWeather 48-hour forecast between {startDateTime:ddd, dd MMM HH:mm} and {endDateTime:ddd, dd MMM HH:mm}";
 
                 OnPropertyChanged(nameof(ForecastForDates));
 

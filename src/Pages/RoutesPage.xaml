@@ -51,19 +51,19 @@
                                                Text="{Binding Name}" />
                                         <Label
                                             FontFamily="RobotoLight"
-                                            Text="{Binding CreatedAt, StringFormat='{0:dddd, dd MMMM yyyy}', Converter={StaticResource stringToDateTime}}" />
+                                            Text="{Binding CreatedAt, StringFormat='{0:ddd, dd MMM yyyy}', Converter={StaticResource stringToDateTime}}" />
                                         <Grid ColumnDefinitions="Auto,Auto,Auto,*">
                                             <StackLayout Padding="0,12,0,0">
                                                 <Image Source="bike.png" WidthRequest="11"
                                                        HeightRequest="11" />
                                             </StackLayout>
-                                            <Label Padding="10,10,0,0" Grid.Column="1" TextColor="#333"
+                                            <Label Padding="10,10,0,0" Grid.Column="1"
                                                    FontFamily="RobotoLight"
                                                    Text="{Binding Distance, StringFormat='{0:0.00} KM', Converter={StaticResource meterToKilometer}}" />
-                                            <Label Padding="10,10,0,0" Grid.Column="2" TextColor="#333"
+                                            <Label Padding="10,10,0,0" Grid.Column="2"
                                                    FontFamily="RobotoLight"
                                                    Text="{Binding ElevationGain, StringFormat='{0:0} M'}" />
-                                            <Label Padding="10,10,0,0" Grid.Column="3" TextColor="#333"
+                                            <Label Padding="10,10,0,0" Grid.Column="3"
                                                    FontFamily="RobotoLight"
                                                    Text="{Binding EstimatedMovingTimeFormatted}" />
                                         </Grid>
