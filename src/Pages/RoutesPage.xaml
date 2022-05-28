@@ -54,7 +54,7 @@
                                             Text="{Binding CreatedAt, StringFormat='{0:ddd, dd MMM yyyy}', Converter={StaticResource stringToDateTime}}" />
                                         <Grid ColumnDefinitions="Auto,Auto,Auto,*">
                                             <StackLayout Padding="0,12,0,0">
-                                                <Image Source="bike.png" WidthRequest="11"
+                                                <Image Source="{Binding RouteTypeImage}" WidthRequest="11"
                                                        HeightRequest="11" />
                                             </StackLayout>
                                             <Label Padding="10,10,0,0" Grid.Column="1"

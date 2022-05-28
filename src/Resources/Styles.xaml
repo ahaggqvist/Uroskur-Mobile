@@ -394,7 +394,7 @@
 
     <Style x:Key="BaseStyle" TargetType="Element">
         <Setter Property="Shell.BackgroundColor"
-                Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}" />
+                Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkGray}}" />
         <Setter Property="Shell.ForegroundColor"
                 Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter Property="Shell.TitleColor"

@@ -69,6 +69,8 @@ public partial class Routes
             return $"{timeSpan.Hours}H {timeSpan.Minutes}M";
         }
     }
+
+    public string RouteTypeImage => Type == 1 ? "bike.png" : "run.png";
 }
 
 public class Map
