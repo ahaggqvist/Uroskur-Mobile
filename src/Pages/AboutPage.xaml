@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:Uroskur.Models"
+             xmlns:viewmodel="clr-namespace:Uroskur.ViewModels"
+             xmlns:converter="clr-namespace:Uroskur.Converters"
+             x:Class="Uroskur.Pages.AboutPage"
+             x:DataType="viewmodel:AboutViewModel">
+
+    <Shell.TitleView>
+        <StackLayout VerticalOptions="Center">
+            <Label Text="{Binding Title}"
+                   TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
+                   FontSize="13" TextTransform="Uppercase" />
+        </StackLayout>
+    </Shell.TitleView>
+
+    <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
+        <StackLayout>
+            <Label Text="Monkey Cache" FontFamily="RobotoLight" TextTransform="Uppercase"
+                   Margin="0,5,0,0" />
+            <Label Text="https://github.com/jamesmontemagno/monkey-cache" TextColor="#666" FontFamily="RobotoLight" />
+            <Label Text="Polly" FontFamily="RobotoLight" TextTransform="Uppercase"
+                   Margin="0,5,0,0" />
+            <Label Text="https://github.com/App-vNext/Polly" TextColor="#666" FontFamily="RobotoLight" />
+            <Label Text="Newtonsoft.Json" FontFamily="RobotoLight" TextTransform="Uppercase"
+                   Margin="0,5,0,0" />
+            <Label Text="https://www.newtonsoft.com/json" TextColor="#666" FontFamily="RobotoLight" />
+            <Label Text="Microsoft.Toolkit.Mvvm" FontFamily="RobotoLight" TextTransform="Uppercase"
+                   Margin="0,5,0,0" />
+            <Label Text="https://github.com/CommunityToolkit/WindowsCommunityToolkit" TextColor="#666"
+                   FontFamily="RobotoLight" />
+            <Label Text="Tabler icons" FontFamily="RobotoLight" TextTransform="Uppercase"
+                   Margin="0,5,0,0" />
+            <Label Text="https://github.com/tabler/tabler-icons" TextColor="#666" FontFamily="RobotoLight" />
+            <Image Source="cptblwith_strava.png" WidthRequest="150" HorizontalOptions="Start" />
+        </StackLayout>
+    </Grid>
+</ContentPage>
