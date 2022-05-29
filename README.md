@@ -5,5 +5,5 @@ Like the ASP.NET version Uroskur fetches a forecast for the next 48 hours from O
 
 ## Screenshots
 <img src="https://i.ibb.co/bKMYfFH/routes.png" width="200" height="400" />
-<img src="https://i.ibb.co/XJf4swk/route.png" width="200" height="400" />
-<img src="https://i.ibb.co/kDgQdBy/forecast.png" width="200" height="400" />
+<img src="https://i.ibb.co/kqhFnYj/route.png" width="200" height="400" />
+<img src="https://i.ibb.co/pXvScsX/forecast.png" width="200" height="400" />
