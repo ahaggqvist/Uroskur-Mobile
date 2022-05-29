@@ -3,14 +3,13 @@
 [QueryProperty(nameof(ForecastRoute), nameof(ForecastRoute))]
 public partial class ForecastViewModel : BaseViewModel
 {
-    private const int FirstForecastHour = 0;
-    private const int LastForecastHour = 47;
     private readonly IOpenWeatherService _openWeatherService;
     private readonly Dictionary<long, string> _weatherIconsDictionary;
     private readonly string[] _windDirection = { "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N" };
     private readonly Dictionary<string, string> _windIconsDictionary;
     [ObservableProperty] private string? _emptyViewMessage;
-    [ObservableProperty] private string? _forecastForDates;
+    [ObservableProperty] private string? _forecastIssuedAt;
+    [ObservableProperty] private string? _forecastIssuedFor;
     [ObservableProperty] private ForecastRoute? _forecastRoute;
 
     public ForecastViewModel(IOpenWeatherService openWeatherService)
@@ -133,50 +132,33 @@ public partial class ForecastViewModel : BaseViewModel
             }
 
             var hour = _forecastRoute.Time!.Value.Hours;
-            var dateTime = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
-            //var dateTime = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
+            //var forecastIssuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
+            var forecastIssuedFor = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
 
-            var unixTime = (int)dateTime.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-            var athleteId = _forecastRoute?.Routes?.Athlete?.Id.ToString()!;
-            var routeId = _forecastRoute?.Routes?.Id.ToString()!;
+            var unixTime = (int)forecastIssuedFor.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            var route = _forecastRoute?.Routes;
+            var athlete = route?.Athlete;
+            var athleteId = athlete?.Id.ToString();
+            var routeId = route?.Id.ToString();
             var temperatures = await _openWeatherService.FindForecastAsync(routeId, athleteId);
 
-            var temperaturesEnumerable = temperatures.ToList();
-            if (temperaturesEnumerable.Count > 0)
+            var temperaturesList = temperatures.ToList();
+            if (temperaturesList.Count > 0)
             {
-                var temperature = temperaturesEnumerable.ElementAt(0);
-                var firstDt = temperature.Hourly![FirstForecastHour].Dt;
-                var lastDt = temperature.Hourly[LastForecastHour].Dt;
-
-                var startDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds((double)firstDt);
-                var endDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds((double)lastDt);
-
-                _forecastForDates = $"Based on OpenWeather 48-hour forecast between {startDateTime:ddd, dd MMM HH:mm} and {endDateTime:ddd, dd MMM HH:mm}";
-
-                OnPropertyChanged(nameof(ForecastForDates));
-
-                if (dateTime < startDateTime)
+                var temperature = temperaturesList.ElementAt(0);
+                var dt = temperature.Hourly![0].Dt;
+                if (dt != null)
                 {
-                    _emptyViewMessage =
-                        "The start time is before the forecast start time";
-                    OnPropertyChanged(nameof(EmptyViewMessage));
+                    var issuedAt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds((double)dt);
+                    _forecastIssuedAt = $"OpenWeather forecast issued at {issuedAt:ddd, dd MMM HH:mm}";
+                    OnPropertyChanged(nameof(ForecastIssuedAt));
                 }
 
-                else if (dateTime > startDateTime)
-                {
-                    _emptyViewMessage =
-                        "The start time is after the forecast end time";
-                    OnPropertyChanged(nameof(EmptyViewMessage));
-                }
-                else
-                {
-                    _emptyViewMessage =
-                        "Sorry, we couldn't generate a forecast";
-                    OnPropertyChanged(nameof(EmptyViewMessage));
-                }
+                _forecastIssuedFor = $"{forecastIssuedFor:ddd, dd MMM}";
+                OnPropertyChanged(nameof(ForecastIssuedFor));
             }
 
-            foreach (var (temperature, index) in temperaturesEnumerable.WithIndex())
+            foreach (var (temperature, index) in temperaturesList.WithIndex())
             {
                 var km = index * 10 + 10;
                 var speed = _forecastRoute!.Speed!.Value;
@@ -190,8 +172,8 @@ public partial class ForecastViewModel : BaseViewModel
                 }
 
                 var weatherIconId = hourly?.Weather?[0].Id;
-                var windDeg = hourly?.WindDeg!.Value;
-                var windIconId = _windDirection[(int)Math.Round((double)windDeg / 22.5, 0)];
+                var windDeg = hourly?.WindDeg!.Value ?? 0L;
+                var windIconId = _windDirection[(int)Math.Round(windDeg / 22.5, 0)];
                 var unixTimeDateTime = UnixTimeToDateTime(km, speed, unixTime);
 
                 var forecast = new Forecast

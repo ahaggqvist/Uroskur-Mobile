@@ -20,20 +20,20 @@
         <StackLayout>
             <Label Text="Monkey Cache" FontFamily="RobotoLight" TextTransform="Uppercase"
                    Margin="0,5,0,0" />
-            <Label Text="https://github.com/jamesmontemagno/monkey-cache" TextColor="#666" FontFamily="RobotoLight" />
+            <Label Text="https://github.com/jamesmontemagno/monkey-cache" FontFamily="RobotoLight" />
             <Label Text="Polly" FontFamily="RobotoLight" TextTransform="Uppercase"
                    Margin="0,5,0,0" />
-            <Label Text="https://github.com/App-vNext/Polly" TextColor="#666" FontFamily="RobotoLight" />
+            <Label Text="https://github.com/App-vNext/Polly" FontFamily="RobotoLight" />
             <Label Text="Newtonsoft.Json" FontFamily="RobotoLight" TextTransform="Uppercase"
                    Margin="0,5,0,0" />
-            <Label Text="https://www.newtonsoft.com/json" TextColor="#666" FontFamily="RobotoLight" />
+            <Label Text="https://www.newtonsoft.com/json" FontFamily="RobotoLight" />
             <Label Text="Microsoft.Toolkit.Mvvm" FontFamily="RobotoLight" TextTransform="Uppercase"
                    Margin="0,5,0,0" />
-            <Label Text="https://github.com/CommunityToolkit/WindowsCommunityToolkit" TextColor="#666"
+            <Label Text="https://github.com/CommunityToolkit/WindowsCommunityToolkit"
                    FontFamily="RobotoLight" />
             <Label Text="Tabler icons" FontFamily="RobotoLight" TextTransform="Uppercase"
                    Margin="0,5,0,0" />
-            <Label Text="https://github.com/tabler/tabler-icons" TextColor="#666" FontFamily="RobotoLight" />
+            <Label Text="https://github.com/tabler/tabler-icons" FontFamily="RobotoLight" />
             <Image Source="cptblwith_strava.png" WidthRequest="150" HorizontalOptions="Start" />
         </StackLayout>
     </Grid>

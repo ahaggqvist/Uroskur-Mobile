@@ -69,7 +69,7 @@
                                         </Grid>
                                     </StackLayout>
                                 </Grid>
-                                <BoxView Color="#F0F0F0"
+                                <BoxView Color="#E0E0E0"
                                          HeightRequest="0.5"
                                          HorizontalOptions="Fill" />
                             </StackLayout>
