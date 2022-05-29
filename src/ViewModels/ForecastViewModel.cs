@@ -131,9 +131,10 @@ public partial class ForecastViewModel : BaseViewModel
                 today = today.AddDays(1);
             }
 
-            var hour = _forecastRoute.Time!.Value.Hours;
-            //var forecastIssuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
-            var forecastIssuedFor = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
+            var timeSpan = _forecastRoute.Time;
+            var hour = timeSpan!.Value.Hours;
+            var forecastIssuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
+            //var forecastIssuedFor = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
 
             var unixTime = (int)forecastIssuedFor.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             var route = _forecastRoute?.Routes;
