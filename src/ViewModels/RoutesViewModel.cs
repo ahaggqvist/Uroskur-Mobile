@@ -17,7 +17,7 @@ public class RoutesViewModel : BaseViewModel
         GetRoutesCommand = new Command(async () => await GetRoutesAsync().ConfigureAwait(false));
     }
 
-    public ObservableCollection<Routes> Routes { get; } = new();
+    public ObservableCollection<Routes> Routes { get; set; } = new();
 
     public ICommand GetRoutesCommand { get; }
 
@@ -45,6 +45,8 @@ public class RoutesViewModel : BaseViewModel
             {
                 Routes.Add(route);
             }
+
+            Routes.Sort(c => c.OrderBy(r => r.Name));
         }
         catch (Exception ex)
         {

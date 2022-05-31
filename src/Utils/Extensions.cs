@@ -62,4 +62,13 @@ public static class Extensions
     {
         return self.Select((item, index) => (item, index));
     }
+
+    public static void Sort<T, TKey>(this ObservableCollection<T> collection, Func<ObservableCollection<T>, TKey> sort)
+    {
+        var sorted = (sort(collection) as IOrderedEnumerable<T> ?? throw new InvalidOperationException()).ToArray();
+        for (var i = 0; i < sorted.Length; i++)
+        {
+            collection.Move(collection.IndexOf(sorted[i]), i);
+        }
+    }
 }

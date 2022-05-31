@@ -84,19 +84,17 @@ public class StravaService : IStravaService
         }
 
         var authorizationToken = await AuthorizationTokenByAthleteIdAsync(athleteId);
-        var key = routeId;
 
-        //Barrel.Current.Empty(key);
-        Debug.WriteLine($"Is gxp cache expired: {Barrel.Current.IsExpired(key)}.");
+        Debug.WriteLine($"Is gxp cache expired: {Barrel.Current.IsExpired(routeId)}.");
 
-        var gpx = Barrel.Current.Get<string>(key);
+        var gpx = Barrel.Current.Get<string>(routeId);
         try
         {
-            if (string.IsNullOrEmpty(gpx) || Barrel.Current.IsExpired(key))
+            if (string.IsNullOrEmpty(gpx) || Barrel.Current.IsExpired(routeId))
             {
                 gpx = await _stravaClient.GetGxpAsync(routeId, authorizationToken);
 
-                Barrel.Current.Add(key, gpx, TimeSpan.FromHours(HoursToExpire));
+                Barrel.Current.Add(routeId, gpx, TimeSpan.FromHours(HoursToExpire));
 
                 Debug.WriteLine($"Cache gxp route with route ID: {routeId}.");
             }

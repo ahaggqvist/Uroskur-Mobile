@@ -45,7 +45,6 @@ public class OpenWeatherService : IOpenWeatherService
                 var key =
                     $"{location.Lat.ToString(CultureInfo.InvariantCulture)}{location.Lon.ToString(CultureInfo.InvariantCulture)}";
 
-                //Barrel.Current.Empty(key);
                 Debug.WriteLine($"Is forecast cache expired: {Barrel.Current.IsExpired(key)}.");
 
                 if (Barrel.Current.IsExpired(key))
