@@ -1,24 +1,36 @@
-﻿namespace Uroskur.ViewModels;
+﻿using Microcharts;
+using SkiaSharp;
+
+namespace Uroskur.ViewModels;
 
 [QueryProperty(nameof(ForecastRoute), nameof(ForecastRoute))]
 public partial class ForecastViewModel : BaseViewModel
 {
     private readonly IOpenWeatherService _openWeatherService;
+
     private readonly Dictionary<long, string> _weatherIconsDictionary;
+
     private readonly string[] _windDirection = { "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N" };
+
     private readonly Dictionary<string, string> _windIconsDictionary;
+
+    [ObservableProperty] private LineChart? _chanceOfRainLineChart;
+
     [ObservableProperty] private string? _emptyViewMessage;
+
     [ObservableProperty] private string? _forecastIssuedAt;
+
     [ObservableProperty] private string? _forecastIssuedFor;
+
     [ObservableProperty] private ForecastRoute? _forecastRoute;
+
+    [ObservableProperty] private LineChart? _tempLineChart;
 
     public ForecastViewModel(IOpenWeatherService openWeatherService)
     {
         Title = "Forecast Route";
 
         _openWeatherService = openWeatherService;
-
-        GetForecastCommand = new Command(async () => await GetForecastAsync().ConfigureAwait(false));
 
         _weatherIconsDictionary = new Dictionary<long, string>
         {
@@ -107,31 +119,17 @@ public partial class ForecastViewModel : BaseViewModel
 
     public ObservableCollection<Forecast> Forecasts { get; } = new();
 
-    public ICommand GetForecastCommand { get; }
-
     public async Task GetForecastAsync()
     {
-        if (_forecastRoute == null)
-        {
-            return;
-        }
-
-        if (IsBusy)
-        {
-            return;
-        }
-
         try
         {
-            IsBusy = true;
-
             var today = DateTime.Today;
             if (_forecastRoute is { Day: "TOMORROW" })
             {
                 today = today.AddDays(1);
             }
 
-            var timeSpan = _forecastRoute.Time;
+            var timeSpan = _forecastRoute!.Time;
             var hour = timeSpan!.Value.Hours;
             var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
             //var issuedFor = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
@@ -189,6 +187,13 @@ public partial class ForecastViewModel : BaseViewModel
 
                 Forecasts.Add(forecast);
             }
+
+            if (Forecasts.Count != 0)
+            {
+                GetTempChart();
+
+                GetChanceOfRainChart();
+            }
         }
         catch (Exception ex)
         {
@@ -199,6 +204,166 @@ public partial class ForecastViewModel : BaseViewModel
             IsBusy = false;
             IsRefreshing = false;
         }
+    }
+
+    public void GetTempChart()
+    {
+        TempLineChart = new LineChart
+        {
+            LineMode = LineMode.Spline,
+            LineAreaAlpha = 32,
+            LabelOrientation = Orientation.Horizontal,
+            ValueLabelOrientation = Orientation.Horizontal,
+            IsAnimated = true,
+            BackgroundColor = SKColor.Parse("#fff"),
+            LabelColor = SKColor.Parse("#000"),
+            LabelTextSize = 25,
+            ValueLabelTextSize = 25,
+            SerieLabelTextSize = 20,
+            LegendOption = SeriesLegendOption.Top,
+            ShowYAxisLines = false,
+            ShowYAxisText = false,
+            EnableYFadeOutGradient = false,
+            Series = new List<ChartSerie>
+            {
+                new()
+                {
+                    Name = "TEMP (°C)",
+                    Color = SKColor.Parse("#fe824d"),
+                    Entries = TempEntries()
+                },
+                new()
+                {
+                    Name = "FEELS LIKE (°C)",
+                    Color = SKColor.Parse("#4dc9fe"),
+                    Entries = FeelsLikeEntries(false)
+                }
+            }
+        };
+    }
+
+    public void GetChanceOfRainChart()
+    {
+        ChanceOfRainLineChart = new LineChart
+        {
+            LineMode = LineMode.Spline,
+            LineAreaAlpha = 32,
+            LabelOrientation = Orientation.Horizontal,
+            ValueLabelOrientation = Orientation.Horizontal,
+            IsAnimated = true,
+            BackgroundColor = SKColor.Parse("#fff"),
+            LabelColor = SKColor.Parse("#000"),
+            LabelTextSize = 25,
+            ValueLabelTextSize = 25,
+            SerieLabelTextSize = 20,
+            LegendOption = SeriesLegendOption.Top,
+            ShowYAxisLines = false,
+            ShowYAxisText = false,
+            EnableYFadeOutGradient = false,
+            Series = new List<ChartSerie>
+            {
+                new()
+                {
+                    Name = "CHANCE OF RAIN (%)",
+                    Color = SKColor.Parse("#fe824d"),
+                    Entries = ChanceOfRainEntries()
+                },
+                new()
+                {
+                    Name = "CLOUDINESS (%)",
+                    Color = SKColor.Parse("#4dc9fe"),
+                    Entries = CloudinessEntries(false)
+                }
+            }
+        };
+    }
+
+    private IEnumerable<ChartEntry> TempEntries(bool withLabel = true)
+    {
+        var chartEntries = new List<ChartEntry>();
+
+        foreach (var forecast in Forecasts)
+        {
+            var hourly = forecast.Hourly;
+            if (hourly == null)
+            {
+                continue;
+            }
+
+            var temp = Math.Round(hourly.Temp!.Value, 1);
+            var chartEntry = new ChartEntry((float?)temp)
+                { ValueLabel = temp.ToString(CultureInfo.InvariantCulture), Label = withLabel ? forecast.UnixDateTime.ToString("HH:mm") : null };
+
+            chartEntries.Add(chartEntry);
+        }
+
+        return chartEntries;
+    }
+
+    private IEnumerable<ChartEntry> FeelsLikeEntries(bool withLabel = true)
+    {
+        var chartEntries = new List<ChartEntry>();
+
+        foreach (var forecast in Forecasts)
+        {
+            var hourly = forecast.Hourly;
+            if (hourly == null)
+            {
+                continue;
+            }
+
+            var feelsLike = Math.Round(hourly.FeelsLike!.Value, 1);
+            var chartEntry = new ChartEntry((float?)feelsLike)
+                { ValueLabel = feelsLike.ToString(CultureInfo.InvariantCulture), Label = withLabel ? forecast.UnixDateTime.ToString("HH:mm") : null };
+
+            chartEntries.Add(chartEntry);
+        }
+
+        return chartEntries;
+    }
+
+    private IEnumerable<ChartEntry> ChanceOfRainEntries(bool withLabel = true)
+    {
+        var chartEntries = new List<ChartEntry>();
+
+        foreach (var forecast in Forecasts)
+        {
+            var hourly = forecast.Hourly;
+            if (hourly == null)
+            {
+                continue;
+            }
+
+            var chanceOfRain = Math.Round(hourly.Pop!.Value * 100);
+            var chartEntry = new ChartEntry((float?)chanceOfRain)
+                { ValueLabel = chanceOfRain.ToString(CultureInfo.InvariantCulture), Label = withLabel ? forecast.UnixDateTime.ToString("HH:mm") : null };
+
+            chartEntries.Add(chartEntry);
+        }
+
+        return chartEntries;
+    }
+
+    private IEnumerable<ChartEntry> CloudinessEntries(bool withLabel = true)
+    {
+        var chartEntries = new List<ChartEntry>();
+
+        foreach (var forecast in Forecasts)
+        {
+            var hourly = forecast.Hourly;
+            if (hourly == null)
+            {
+                continue;
+            }
+
+            var cloudiness = hourly.Clouds!.Value;
+            var chartEntry = new ChartEntry(cloudiness)
+                { ValueLabel = cloudiness.ToString(CultureInfo.InvariantCulture), Label = withLabel ? forecast.UnixDateTime.ToString("HH:mm") : null };
+
+            chartEntries.Add(chartEntry);
+        }
+
+        return chartEntries;
     }
 
     private static DateTime UnixTimeToDateTime(int km, int speed, int unixTime)

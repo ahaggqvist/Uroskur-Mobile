@@ -2,6 +2,7 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              xmlns:model="clr-namespace:Uroskur.Models"
              xmlns:viewmodel="clr-namespace:Uroskur.ViewModels"
              xmlns:converter="clr-namespace:Uroskur.Converters"
@@ -17,119 +18,135 @@
     </Shell.TitleView>
 
     <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
-        <Grid RowSpacing="0" ColumnSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20" />
-                <RowDefinition Height="20" />
-                <RowDefinition Height="20" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <StackLayout Grid.Row="0" Margin="0,5,0,0" HorizontalOptions="Center">
-                <Label
-                    Text="{Binding ForecastIssuedAt}" FontSize="8" TextTransform="Uppercase"
-                    FontFamily="RobotoLight" />
-            </StackLayout>
-            <StackLayout Grid.Row="1" Margin="0,0,0,0" HorizontalOptions="Center">
-                <Label
-                    Text="{Binding ForecastIssuedFor}" />
-            </StackLayout>
+        <ScrollView>
+            <Grid RowSpacing="0" ColumnSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0" Margin="0,5,0,0" HorizontalOptions="Center">
+                    <Label
+                        Text="{Binding ForecastIssuedAt}" FontSize="8" TextTransform="Uppercase"
+                        FontFamily="RobotoLight" />
+                </StackLayout>
+                <StackLayout Grid.Row="1" Margin="0,0,0,0" HorizontalOptions="Center">
+                    <Label
+                        Text="{Binding ForecastIssuedFor}" />
+                </StackLayout>
 
-            <Grid Grid.Row="2" RowSpacing="0" ColumnSpacing="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="70" />
-                    <ColumnDefinition Width="70" />
-                    <ColumnDefinition Width="70" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="50" />
-                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="2" RowSpacing="0" ColumnSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0"
-                       HorizontalTextAlignment="Center"
-                       Text="Time (Km)"
-                       VerticalTextAlignment="Center"
-                       FontSize="8" FontFamily="RobotoLight" TextTransform="Uppercase" />
-                <Label Grid.Column="1"
-                       HorizontalTextAlignment="Center"
-                       Text="Temp (°C)"
-                       VerticalTextAlignment="Center" FontSize="8" FontFamily="RobotoLight" TextTransform="Uppercase" />
-                <Label Grid.Column="2"
-                       HorizontalTextAlignment="Center"
-                       Text="Feels Like (°C)"
-                       VerticalTextAlignment="Center" FontSize="8" FontFamily="RobotoLight" TextTransform="Uppercase" />
-                <Label Grid.Column="3"
-                       HorizontalTextAlignment="Center"
-                       Text="Chance of Rain"
-                       VerticalTextAlignment="Center" FontSize="8" FontFamily="RobotoLight" TextTransform="Uppercase" />
-                <Label Grid.Column="4"
-                       HorizontalTextAlignment="Center"
-                       Text="Wind (M/S)"
-                       VerticalTextAlignment="Center" FontSize="8" FontFamily="RobotoLight" TextTransform="Uppercase" />
-                <Label Grid.Column="5"
-                       HorizontalTextAlignment="Center"
-                       Text="" />
+                    <Label Grid.Column="0"
+                           HorizontalTextAlignment="Center"
+                           Text="Time (Km)"
+                           VerticalTextAlignment="Center"
+                           FontSize="8" FontFamily="RobotoLight" TextTransform="Uppercase" />
+                    <Label Grid.Column="1"
+                           HorizontalTextAlignment="Center"
+                           Text="Temp (°C)"
+                           VerticalTextAlignment="Center" FontSize="8" FontFamily="RobotoLight"
+                           TextTransform="Uppercase" />
+                    <Label Grid.Column="2"
+                           HorizontalTextAlignment="Center"
+                           Text="Feels Like (°C)"
+                           VerticalTextAlignment="Center" FontSize="8" FontFamily="RobotoLight"
+                           TextTransform="Uppercase" />
+                    <Label Grid.Column="3"
+                           HorizontalTextAlignment="Center"
+                           Text="Chance of Rain"
+                           VerticalTextAlignment="Center" FontSize="8" FontFamily="RobotoLight"
+                           TextTransform="Uppercase" />
+                    <Label Grid.Column="4"
+                           HorizontalTextAlignment="Center"
+                           Text="Wind (M/S)"
+                           VerticalTextAlignment="Center" FontSize="8" FontFamily="RobotoLight"
+                           TextTransform="Uppercase" />
+                    <Label Grid.Column="5"
+                           HorizontalTextAlignment="Center"
+                           Text="" />
+                </Grid>
+
+                <CollectionView Grid.Row="3" ItemsSource="{Binding Forecasts}" SelectionMode="None"
+                                ItemSizingStrategy="MeasureFirstItem"
+                                VerticalOptions="FillAndExpand">
+                    <CollectionView.EmptyView>
+                        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="Sorry, we couldn't generate a forecast" TextTransform="Uppercase" />
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Forecast">
+                            <Grid
+                                ColumnSpacing="0"
+                                RowSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="50" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
+                                             Grid.Column="0">
+                                    <Label
+                                        Text="{Binding TimeKmFormatted}" />
+                                </StackLayout>
+                                <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
+                                             Grid.Column="1">
+                                    <Label
+                                        Text="{Binding Hourly.Temp, StringFormat='{0:N1}'}" />
+                                </StackLayout>
+                                <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
+                                             Grid.Column="2">
+                                    <Label
+                                        Text="{Binding Hourly.FeelsLike, StringFormat='{0:N1}'}" />
+                                </StackLayout>
+
+                                <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
+                                             Grid.Column="3">
+                                    <Label
+                                        Text="{Binding Hourly.Pop, StringFormat='{0:P1}'}" />
+                                </StackLayout>
+
+                                <HorizontalStackLayout Padding="0,0,0,5" VerticalOptions="Center"
+                                                       HorizontalOptions="Center"
+                                                       Grid.Column="4">
+                                    <Label Text="{Binding Hourly.WindSpeed, StringFormat='{0:N1}'}" Margin="0,3,5,0" />
+                                    <Label Text="{Binding WindIcon}" FontFamily="Weathericons" FontSize="14" />
+                                </HorizontalStackLayout>
+
+                                <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
+                                             Grid.Column="5">
+                                    <Label Text="{Binding WeatherIcon}" FontFamily="Weathericons" FontSize="14" />
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <StackLayout Grid.Row="4">
+                    <Label x:Name="temperatureChartViewLabel" TextTransform="Uppercase" Margin="0,5,0,0"
+                           FontFamily="RobotoLight"
+                           FontSize="10" />
+                    <microcharts:ChartView Chart="{Binding TempLineChart}" HeightRequest="210" />
+                    <Label x:Name="chanceOfRainChartViewLabel" TextTransform="Uppercase" Margin="0,5,0,0"
+                           FontFamily="RobotoLight"
+                           FontSize="10" />
+                    <microcharts:ChartView Chart="{Binding ChanceOfRainLineChart}" HeightRequest="210" />
+                </StackLayout>
             </Grid>
-
-            <CollectionView Grid.Row="3" ItemsSource="{Binding Forecasts}" SelectionMode="None"
-                            ItemSizingStrategy="MeasureFirstItem"
-                            VerticalOptions="FillAndExpand">
-                <CollectionView.EmptyView>
-                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                        <Label Text="Sorry, we couldn't generate a forecast" TextTransform="Uppercase" />
-                    </StackLayout>
-                </CollectionView.EmptyView>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Forecast">
-                        <Grid
-                            ColumnSpacing="0"
-                            RowSpacing="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="70" />
-                                <ColumnDefinition Width="70" />
-                                <ColumnDefinition Width="70" />
-                                <ColumnDefinition Width="80" />
-                                <ColumnDefinition Width="50" />
-                                <ColumnDefinition Width="50" />
-                            </Grid.ColumnDefinitions>
-                            <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
-                                         Grid.Column="0">
-                                <Label
-                                    Text="{Binding TimeKmFormatted}" FontFamily="RobotoLight" />
-                            </StackLayout>
-                            <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
-                                         Grid.Column="1">
-                                <Label
-                                    Text="{Binding Hourly.Temp, StringFormat='{0:N1}'}" />
-                            </StackLayout>
-                            <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
-                                         Grid.Column="2">
-                                <Label
-                                    Text="{Binding Hourly.FeelsLike, StringFormat='{0:N1}'}" />
-                            </StackLayout>
-
-                            <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
-                                         Grid.Column="3">
-                                <Label
-                                    Text="{Binding Hourly.Pop, StringFormat='{0:P1}'}" />
-                            </StackLayout>
-
-                            <HorizontalStackLayout Padding="0,0,0,5" VerticalOptions="Center"
-                                                   HorizontalOptions="Center"
-                                                   Grid.Column="4">
-                                <Label Text="{Binding Hourly.WindSpeed, StringFormat='{0:N1}'}" Margin="0,3,5,0" />
-                                <Label Text="{Binding WindIcon}" FontFamily="Weathericons" FontSize="14" />
-                            </HorizontalStackLayout>
-
-                            <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
-                                         Grid.Column="5">
-                                <Label Text="{Binding WeatherIcon}" FontFamily="Weathericons" FontSize="14" />
-                            </StackLayout>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Grid>
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        </ScrollView>
+        <ActivityIndicator x:Name="activityIndicator" />
     </Grid>
-
 </ContentPage>

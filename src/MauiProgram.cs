@@ -1,4 +1,6 @@
-﻿namespace Uroskur;
+﻿using SkiaSharp.Views.Maui.Controls.Hosting;
+
+namespace Uroskur;
 
 public static class MauiProgram
 {
@@ -6,7 +8,7 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
         builder
-            .UseMauiApp<App>().ConfigureServices().ConfigurePages().ConfigureViewModels().ConfigureUtils()
+            .UseMauiApp<App>().UseSkiaSharp().ConfigureServices().ConfigurePages().ConfigureViewModels().ConfigureUtils()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("Roboto-Light.ttf", "RobotoLight");

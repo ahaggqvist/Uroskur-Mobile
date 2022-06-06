@@ -53,10 +53,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microcharts" Version="1.0.0.1" />
+		<PackageReference Include="Microcharts.Maui" Version="1.0.0.1" />
 		<PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
 		<PackageReference Include="MonkeyCache.FileStore" Version="2.0.0-beta" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta1" />
 		<PackageReference Include="Polly" Version="7.2.3" />
+		<PackageReference Include="SkiaSharp" Version="2.88.1-preview.1" />
 	</ItemGroup>
 
 	<ItemGroup>

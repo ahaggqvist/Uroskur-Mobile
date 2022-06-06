@@ -13,6 +13,6 @@ public class LoadingViewModel : BaseViewModel
 
     public async void NavigateTo()
     {
-        await _routingService.NavigateToAsync($"//{nameof(RoutesPage)}").ConfigureAwait(false);
+        await _routingService.NavigateToAsync($"//{nameof(RoutesPage)}");
     }
 }

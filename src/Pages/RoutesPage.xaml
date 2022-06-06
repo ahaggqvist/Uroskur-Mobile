@@ -23,7 +23,6 @@
 
     <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
         <RefreshView
-            Grid.RowSpan="2"
             Command="{Binding GetRoutesCommand}"
             IsRefreshing="{Binding IsRefreshing}">
             <ScrollView>

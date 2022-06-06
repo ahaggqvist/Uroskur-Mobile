@@ -4,6 +4,7 @@
 public partial class RouteViewModel : BaseViewModel
 {
     private const string DefaultDay = "TODAY";
+
     private const string DefaultSpeed = "30";
 
     private readonly IRoutingService _routingService;
@@ -43,6 +44,6 @@ public partial class RouteViewModel : BaseViewModel
             { nameof(ForecastRoute), forecast }
         };
 
-        await _routingService.NavigateToAsync(nameof(ForecastPage), dictionary).ConfigureAwait(false);
+        await _routingService.NavigateToAsync(nameof(ForecastPage), dictionary);
     }
 }

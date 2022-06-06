@@ -15,11 +15,26 @@ public partial class ForecastPage
     {
         base.OnAppearing();
 
+        ActivityIndicator(true, true);
+
         await Task.Delay(1000);
 
-        if (_forecastViewModel.Forecasts.Count == 0)
+        if (_forecastViewModel.Forecasts.Count != 0)
         {
-            await _forecastViewModel.GetForecastAsync();
+            return;
         }
+
+        await _forecastViewModel.GetForecastAsync();
+
+        temperatureChartViewLabel.Text = "TEMPERATURES";
+        chanceOfRainChartViewLabel.Text = "CHANCE OF RAIN AND CLOUDINESS";
+
+        ActivityIndicator(false, false);
+    }
+
+    private void ActivityIndicator(bool isRunning, bool isVisible)
+    {
+        activityIndicator.IsRunning = isRunning;
+        activityIndicator.IsVisible = isVisible;
     }
 }
