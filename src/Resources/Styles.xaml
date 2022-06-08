@@ -6,7 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Style TargetType="ActivityIndicator">
-        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="Color" Value="Black" />
         <Setter Property="HeightRequest" Value="40" />
     </Style>
 
@@ -31,9 +31,9 @@
 
     <Style TargetType="Button">
         <Setter Property="TextColor"
-                Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Primary}}" />
+                Value="Black" />
         <Setter Property="BackgroundColor"
-                Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+                Value="#4fc3f7" />
         <Setter Property="FontFamily" Value="RobotoRegular" />
         <Setter Property="TextTransform" Value="Uppercase" />
         <Setter Property="FontSize" Value="12" />
@@ -48,7 +48,7 @@
                             <Setter Property="TextColor"
                                     Value="{AppThemeBinding Light={StaticResource DarkGray}, Dark={StaticResource LightGray}}" />
                             <Setter Property="BackgroundColor"
-                                    Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
+                                    Value="#4fc3f7" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>

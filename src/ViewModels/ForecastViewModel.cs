@@ -219,7 +219,7 @@ public partial class ForecastViewModel : BaseViewModel
             LabelColor = SKColor.Parse("#000"),
             LabelTextSize = 25,
             ValueLabelTextSize = 25,
-            SerieLabelTextSize = 20,
+            SerieLabelTextSize = 25,
             LegendOption = SeriesLegendOption.Top,
             ShowYAxisLines = false,
             ShowYAxisText = false,
@@ -228,13 +228,13 @@ public partial class ForecastViewModel : BaseViewModel
             {
                 new()
                 {
-                    Name = "TEMP (°C)",
-                    Color = SKColor.Parse("#fe824d"),
+                    Name = "Temp (°C)",
+                    Color = SKColor.Parse("#FC4C02"),
                     Entries = TempEntries()
                 },
                 new()
                 {
-                    Name = "FEELS LIKE (°C)",
+                    Name = "Feels Like (°C)",
                     Color = SKColor.Parse("#4dc9fe"),
                     Entries = FeelsLikeEntries(false)
                 }
@@ -255,7 +255,7 @@ public partial class ForecastViewModel : BaseViewModel
             LabelColor = SKColor.Parse("#000"),
             LabelTextSize = 25,
             ValueLabelTextSize = 25,
-            SerieLabelTextSize = 20,
+            SerieLabelTextSize = 25,
             LegendOption = SeriesLegendOption.Top,
             ShowYAxisLines = false,
             ShowYAxisText = false,
@@ -264,13 +264,13 @@ public partial class ForecastViewModel : BaseViewModel
             {
                 new()
                 {
-                    Name = "CHANCE OF RAIN (%)",
-                    Color = SKColor.Parse("#fe824d"),
+                    Name = "Chance of Rain (%)",
+                    Color = SKColor.Parse("#FC4C02"),
                     Entries = ChanceOfRainEntries()
                 },
                 new()
                 {
-                    Name = "CLOUDINESS (%)",
+                    Name = "Cloudiness (%)",
                     Color = SKColor.Parse("#4dc9fe"),
                     Entries = CloudinessEntries(false)
                 }

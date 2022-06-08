@@ -6,13 +6,13 @@
              xmlns:viewmodel="clr-namespace:Uroskur.ViewModels"
              xmlns:converter="clr-namespace:Uroskur.Converters"
              x:Class="Uroskur.Pages.RoutesPage"
-             x:DataType="viewmodel:RoutesViewModel">
+             x:DataType="viewmodel:RoutesViewModel"
+             BackgroundColor="White">
 
     <Shell.TitleView>
         <StackLayout VerticalOptions="Center">
-            <Label Text="{Binding Title}"
-                   TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
-                   FontSize="13" TextTransform="Uppercase" />
+            <Label Text="{Binding Title}" TextColor="White"
+                   FontSize="20" FontFamily="RobotoMedium" />
         </StackLayout>
     </Shell.TitleView>
 
@@ -21,62 +21,60 @@
         <converter:MeterToKilometerConverter x:Key="meterToKilometer" />
     </ContentPage.Resources>
 
-    <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
+    <Grid ColumnDefinitions="*,Auto">
         <RefreshView
             Command="{Binding GetRoutesCommand}"
-            IsRefreshing="{Binding IsRefreshing}">
-            <ScrollView>
-                <CollectionView ItemsSource="{Binding Routes}" SelectionMode="None">
-                    <CollectionView.EmptyView>
-                        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                            <Label Text="Sorry, we couldn't find any routes" TextTransform="Uppercase" />
+            IsRefreshing="{Binding IsRefreshing}" HorizontalOptions="Center">
+            <CollectionView ItemsSource="{Binding Routes}" SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label Text="Sorry, we couldn't find any routes" TextTransform="Uppercase" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Routes">
+                        <StackLayout>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                            </StackLayout.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*">
+                                <StackLayout Grid.Column="0" VerticalOptions="Start"
+                                             Padding="8,10,0,15" MaximumWidthRequest="200">
+                                    <Label FontSize="16"
+                                           FontFamily="RobotoBold"
+                                           Text="{Binding Name}" />
+                                    <Label
+                                        FontFamily="RobotoLight" FontSize="11"
+                                        Text="{Binding CreatedAt, StringFormat='{0:ddd, dd MMM yyyy}', Converter={StaticResource stringToDateTime}}" />
+                                    <Grid ColumnDefinitions="Auto,Auto,Auto,*">
+                                        <StackLayout Padding="0,12,0,0">
+                                            <Image Source="{Binding RouteTypeImage}" WidthRequest="13"
+                                                   HeightRequest="13" />
+                                        </StackLayout>
+                                        <Label Grid.Column="1" Padding="10,10,0,0"
+                                               FontSize="13"
+                                               Text="{Binding Distance, StringFormat='{0:0.00} KM', Converter={StaticResource meterToKilometer}}" />
+                                        <Label Grid.Column="2" Padding="10,10,0,0"
+                                               FontSize="13"
+                                               Text="{Binding ElevationGain, StringFormat='{0:0} M'}" />
+                                        <Label Grid.Column="3" Padding="10,10,0,0"
+                                               FontSize="13"
+                                               Text="{Binding EstimatedMovingTimeFormatted}" />
+                                    </Grid>
+                                </StackLayout>
+                                <StackLayout Grid.Column="1" VerticalOptions="Start" Padding="0,10,0,8">
+                                    <Image Source="{Binding MapUrls.RetinaUrl}" Aspect="AspectFill" WidthRequest="180"
+                                           HeightRequest="65" />
+                                </StackLayout>
+                            </Grid>
+                            <BoxView Color="{StaticResource LightGray}"
+                                     HeightRequest="0.5"
+                                     HorizontalOptions="Fill" />
                         </StackLayout>
-                    </CollectionView.EmptyView>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Routes">
-                            <StackLayout>
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                                </StackLayout.GestureRecognizers>
-                                <Grid ColumnDefinitions="Auto,*">
-                                    <StackLayout Padding="0,10,0,15">
-                                        <Image Source="{Binding MapUrls.RetinaUrl}" Aspect="AspectFit"
-                                               HeightRequest="45" WidthRequest="80" />
-                                    </StackLayout>
-                                    <StackLayout Grid.Column="1" VerticalOptions="Start"
-                                                 Padding="8,10,0,15">
-                                        <Label FontSize="18"
-                                               FontFamily="RobotoRegular"
-                                               Text="{Binding Name}" />
-                                        <Label
-                                            FontFamily="RobotoLight"
-                                            Text="{Binding CreatedAt, StringFormat='{0:ddd, dd MMM yyyy}', Converter={StaticResource stringToDateTime}}" />
-                                        <Grid ColumnDefinitions="Auto,Auto,Auto,*">
-                                            <StackLayout Padding="0,12,0,0">
-                                                <Image Source="{Binding RouteTypeImage}" WidthRequest="11"
-                                                       HeightRequest="11" />
-                                            </StackLayout>
-                                            <Label Padding="10,10,0,0" Grid.Column="1"
-                                                   FontFamily="RobotoLight"
-                                                   Text="{Binding Distance, StringFormat='{0:0.00} KM', Converter={StaticResource meterToKilometer}}" />
-                                            <Label Padding="10,10,0,0" Grid.Column="2"
-                                                   FontFamily="RobotoLight"
-                                                   Text="{Binding ElevationGain, StringFormat='{0:0} M'}" />
-                                            <Label Padding="10,10,0,0" Grid.Column="3"
-                                                   FontFamily="RobotoLight"
-                                                   Text="{Binding EstimatedMovingTimeFormatted}" />
-                                        </Grid>
-                                    </StackLayout>
-                                </Grid>
-                                <BoxView Color="#E0E0E0"
-                                         HeightRequest="0.5"
-                                         HorizontalOptions="Fill" />
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </ScrollView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </RefreshView>
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <ActivityIndicator Grid.Column="0" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
     </Grid>
 </ContentPage>

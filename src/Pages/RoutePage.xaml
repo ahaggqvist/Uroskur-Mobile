@@ -10,9 +10,8 @@
 
     <Shell.TitleView>
         <StackLayout VerticalOptions="Center">
-            <Label Text="{Binding Routes.Name}"
-                   TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
-                   FontSize="13" TextTransform="Uppercase" />
+            <Label Text="{Binding Title}" TextColor="White"
+                   FontSize="20" FontFamily="RobotoMedium" />
         </StackLayout>
     </Shell.TitleView>
 
@@ -24,28 +23,32 @@
     <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
         <StackLayout>
             <Label Text="{Binding Routes.Name}" FontSize="16"
-                   FontFamily="RobotoRegular" Padding="0,5,0,0" />
+                   FontFamily="RobotoBold" Margin="0,5,0,0" />
+            <StackLayout Margin="0,5,0,5">
+                <Image Source="{Binding Routes.MapUrls.RetinaUrl}" Aspect="AspectFit" />
+            </StackLayout>
             <Grid ColumnDefinitions="Auto,Auto,Auto,*">
-                <Image Grid.Column="0" Source="{Binding Routes.RouteTypeImage}" WidthRequest="11"
-                       HeightRequest="11" />
+                <Image Grid.Column="0" Source="{Binding Routes.RouteTypeImage}" WidthRequest="13"
+                       HeightRequest="13" />
                 <Label Grid.Column="1" Padding="10,5,0,5"
-                       FontFamily="RobotoLight"
+                       FontSize="13"
                        Text="{Binding Routes.Distance, StringFormat='{0:0.00} KM', Converter={StaticResource meterToKilometer}}" />
                 <Label Grid.Column="2" Padding="10,5,0,5"
-                       FontFamily="RobotoLight"
+                       FontSize="13"
                        Text="{Binding Routes.ElevationGain, StringFormat='{0:0} M'}" />
                 <Label Grid.Column="3" Padding="10,5,0,5"
-                       FontFamily="RobotoLight"
+                       FontSize="13"
                        Text="{Binding Routes.EstimatedMovingTimeFormatted}" />
             </Grid>
             <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*"
                   ColumnSpacing="5" RowSpacing="0" Margin="0,0,0,10">
-                <Label Grid.Row="0" Grid.Column="2" Text="Day" FontFamily="RobotoLight" TextTransform="Uppercase"
+                <Label Grid.Row="0" Grid.Column="2" Text="Day" FontFamily="RobotoLight"
                        Margin="0,5,0,-5" />
 
                 <Image Grid.Row="1" Source="calendar.png" WidthRequest="13"
                        HeightRequest="13" />
-                <Picker Grid.Row="1" Grid.Column="1" x:Name="StartDatePicker" SelectedItem="{Binding Day}">
+                <Picker Grid.Row="1" Grid.Column="1" x:Name="StartDatePicker" SelectedItem="{Binding Day}"
+                        FontSize="13">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>TODAY</x:String>
@@ -54,21 +57,21 @@
                     </Picker.ItemsSource>
                 </Picker>
 
-                <Label Grid.Row="2" Grid.Column="2" Text="Time" FontFamily="RobotoLight" TextTransform="Uppercase"
+                <Label Grid.Row="2" Grid.Column="2" Text="Time" FontFamily="RobotoLight"
                        Margin="0,10,0,-5" />
 
                 <Image Grid.Row="3" Source="clock.png" WidthRequest="13"
                        HeightRequest="13" />
                 <TimePicker Grid.Row="3" Grid.Column="3" x:Name="StartTimePicker" Format="HH:mm"
-                            Time="{Binding Time}" />
+                            Time="{Binding Time}" FontSize="13" />
 
-                <Label Grid.Row="4" Grid.Column="2" Text="Speed" FontFamily="RobotoLight" TextTransform="Uppercase"
+                <Label Grid.Row="4" Grid.Column="2" Text="Speed" FontFamily="RobotoLight"
                        Margin="0,10,0,-5" />
 
                 <Image Grid.Row="5" Source="gauge.png" WidthRequest="13"
                        HeightRequest="13" />
                 <Picker Grid.Row="5" Grid.Column="1" x:Name="AverageSpeedPicker"
-                        SelectedItem="{Binding Speed}">
+                        SelectedItem="{Binding Speed}" FontSize="13">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>10</x:String>
@@ -80,11 +83,10 @@
                     </Picker.ItemsSource>
                 </Picker>
             </Grid>
-            <Button Text="Forecast Route"
-                    WidthRequest="150" HeightRequest="35" Command="{Binding NavigateToCommand}" />
-            <StackLayout Margin="0,10,0,0">
-                <Image Source="{Binding Routes.MapUrls.RetinaUrl}" Aspect="AspectFit" WidthRequest="300" />
-            </StackLayout>
+            <Button Text="Forecast Route" TextColor="White" FontSize="13" FontFamily="RobotoMedium"
+                    TextTransform="Default" VerticalOptions="Center"
+                    HeightRequest="30" Command="{Binding NavigateToCommand}" CornerRadius="2" BackgroundColor="#FC4C02"
+                    Padding="0,0,0,0" Margin="0,0,0,10" />
         </StackLayout>
     </Grid>
 </ContentPage>

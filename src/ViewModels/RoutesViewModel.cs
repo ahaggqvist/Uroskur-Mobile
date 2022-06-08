@@ -46,6 +46,16 @@ public class RoutesViewModel : BaseViewModel
                 Routes.Add(route);
             }
 
+            foreach (var route in routes)
+            {
+                Routes.Add(route);
+            }
+
+            foreach (var route in routes)
+            {
+                Routes.Add(route);
+            }
+
             Routes.Sort(c => c.OrderBy(r => r.Name));
         }
         catch (Exception ex)

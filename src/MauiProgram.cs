@@ -13,6 +13,8 @@ public static class MauiProgram
             {
                 fonts.AddFont("Roboto-Light.ttf", "RobotoLight");
                 fonts.AddFont("Roboto-Regular.ttf", "RobotoRegular");
+                fonts.AddFont("Roboto-Medium.ttf", "RobotoMedium");
+                fonts.AddFont("Roboto-Bold.ttf", "RobotoBold");
                 fonts.AddFont("weathericons-regular-webfont.ttf", "Weathericons");
             });
 

@@ -10,43 +10,43 @@
         <ShellContent Route="LoadingPage" Shell.FlyoutBehavior="Disabled"
                       Shell.TabBarIsVisible="False"
                       Shell.NavBarIsVisible="False"
-                      Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
-                      Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource DarkGray}}"
+                      Shell.ForegroundColor="White"
+                      Shell.BackgroundColor="#FC4C02"
                       ContentTemplate="{DataTemplate local:LoadingPage}" />
+
+        <ShellContent Route="RoutePage"
+                      Shell.ForegroundColor="White"
+                      Shell.BackgroundColor="#FC4C02"
+                      Shell.FlyoutBehavior="Disabled"
+                      Shell.TabBarIsVisible="False"
+                      Shell.NavBarIsVisible="True"
+                      ContentTemplate="{DataTemplate local:RoutePage}" />
+
+        <ShellContent Route="ForecastPage"
+                      Shell.ForegroundColor="White"
+                      Shell.BackgroundColor="#FC4C02"
+                      Shell.FlyoutBehavior="Disabled"
+                      Shell.TabBarIsVisible="False"
+                      Shell.NavBarIsVisible="True"
+                      ContentTemplate="{DataTemplate local:ForecastPage}" />
     </TabBar>
 
-    <FlyoutItem Title="ROUTES">
+    <FlyoutItem Title="Routes">
         <ShellContent
-            Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
-            Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource DarkGray}}"
+            Shell.ForegroundColor="White"
+            Shell.BackgroundColor="#FC4C02"
             Shell.NavBarIsVisible="True" Route="RoutesPage" ContentTemplate="{DataTemplate local:RoutesPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="SETTINGS">
+    <FlyoutItem Title="Settings">
         <ShellContent Shell.NavBarIsVisible="True" Route="SettingsPage"
-                      Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
-                      Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource DarkGray}}"
+                      Shell.ForegroundColor="White"
+                      Shell.BackgroundColor="#FC4C02"
                       ContentTemplate="{DataTemplate local:SettingsPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="ABOUT">
+    <FlyoutItem Title="About">
         <ShellContent Shell.NavBarIsVisible="True" Route="AboutPage"
-                      Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
-                      Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource DarkGray}}"
+                      Shell.ForegroundColor="White"
+                      Shell.BackgroundColor="#FC4C02"
                       ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
-
-    <ShellContent Route="RoutePage"
-                  Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
-                  Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource DarkGray}}"
-                  Shell.FlyoutBehavior="Disabled"
-                  Shell.TabBarIsVisible="False"
-                  Shell.NavBarIsVisible="True"
-                  ContentTemplate="{DataTemplate local:RoutePage}" />
-
-    <ShellContent Route="ForecastPage"
-                  Shell.ForegroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}"
-                  Shell.BackgroundColor="{AppThemeBinding Light={StaticResource Dark}, Dark={StaticResource DarkGray}}"
-                  Shell.FlyoutBehavior="Disabled"
-                  Shell.TabBarIsVisible="False"
-                  Shell.NavBarIsVisible="True"
-                  ContentTemplate="{DataTemplate local:ForecastPage}" />
 </Shell>

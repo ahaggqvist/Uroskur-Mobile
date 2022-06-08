@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.ViewModels;
 
-public partial class SettingsViewModel : BaseViewModel
+public class SettingsViewModel : BaseViewModel
 {
     private readonly IPreferencesService _preferencesService;
     private readonly IStravaService _stravaService;

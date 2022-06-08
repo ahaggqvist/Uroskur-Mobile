@@ -1,6 +1,6 @@
 namespace Uroskur.Pages;
 
-public partial class ForecastPage
+public class ForecastPage
 {
     private readonly ForecastViewModel _forecastViewModel;
 
@@ -26,8 +26,8 @@ public partial class ForecastPage
 
         await _forecastViewModel.GetForecastAsync();
 
-        temperatureChartViewLabel.Text = "TEMPERATURES";
-        chanceOfRainChartViewLabel.Text = "CHANCE OF RAIN AND CLOUDINESS";
+        temperatureChartViewLabel.Text = "Temperatures";
+        chanceOfRainChartViewLabel.Text = "Chance of Rain and Cloudiness";
 
         ActivityIndicator(false, false);
     }
