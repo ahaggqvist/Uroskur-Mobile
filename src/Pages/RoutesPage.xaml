@@ -53,10 +53,10 @@
                                         </StackLayout>
                                         <Label Grid.Column="1" Padding="10,10,0,0"
                                                FontSize="13"
-                                               Text="{Binding Distance, StringFormat='{0:0.00} KM', Converter={StaticResource meterToKilometer}}" />
+                                               Text="{Binding Distance, StringFormat='{0:0.00} km', Converter={StaticResource meterToKilometer}}" />
                                         <Label Grid.Column="2" Padding="10,10,0,0"
                                                FontSize="13"
-                                               Text="{Binding ElevationGain, StringFormat='{0:0} M'}" />
+                                               Text="{Binding ElevationGain, StringFormat='{0:0} m'}" />
                                         <Label Grid.Column="3" Padding="10,10,0,0"
                                                FontSize="13"
                                                Text="{Binding EstimatedMovingTimeFormatted}" />

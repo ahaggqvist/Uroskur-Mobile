@@ -46,13 +46,13 @@
 
             <Label Text="Strava Client Id" FontFamily="RobotoLight"
                    Margin="0,5,0,0" />
-            <Entry Text="{Binding StravaClientId}" FontSize="13" />
+            <Entry Text="{Binding StravaClientId}" TextColor="Black" FontSize="13" />
             <Label Text="Strava Client Secret" FontFamily="RobotoLight"
                    Margin="0,5,0,0" />
-            <Entry Text="{Binding StravaClientSecret}" FontSize="13" />
+            <Entry Text="{Binding StravaClientSecret}" TextColor="Black" FontSize="13" />
             <Label Text="Openweather App Id" FontFamily="RobotoLight"
                    Margin="0,5,0,0" />
-            <Entry Text="{Binding OpenWeatherAppId}" FontSize="13" />
+            <Entry Text="{Binding OpenWeatherAppId}" TextColor="Black" FontSize="13" />
 
             <Button Text="Save Settings" TextColor="White" FontSize="13" FontFamily="RobotoMedium"
                     TextTransform="Default" VerticalOptions="Center"

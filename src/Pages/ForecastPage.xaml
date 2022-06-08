@@ -53,11 +53,11 @@
                            FontSize="10" FontFamily="RobotoLight" />
                     <Label Grid.Column="1"
                            HorizontalTextAlignment="Center"
-                           Text="Temp (°C)"
+                           Text="Temp °C"
                            VerticalTextAlignment="Center" FontSize="10" FontFamily="RobotoLight" />
                     <Label Grid.Column="2"
                            HorizontalTextAlignment="Center"
-                           Text="Feels Like (°C)"
+                           Text="Feels Like °C"
                            VerticalTextAlignment="Center" FontSize="10" FontFamily="RobotoLight" />
                     <Label Grid.Column="3"
                            HorizontalTextAlignment="Center"
@@ -65,7 +65,7 @@
                            VerticalTextAlignment="Center" FontSize="10" FontFamily="RobotoLight" />
                     <Label Grid.Column="4"
                            HorizontalTextAlignment="Center"
-                           Text="Wind (M/S)"
+                           Text="Wind m/s"
                            VerticalTextAlignment="Center" FontSize="10" FontFamily="RobotoLight" />
                     <Label Grid.Column="5"
                            HorizontalTextAlignment="Center"

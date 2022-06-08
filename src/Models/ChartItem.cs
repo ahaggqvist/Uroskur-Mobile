@@ -1,5 +1,3 @@
-using Microcharts;
-
 namespace Uroskur.Models;
 
 public class ChartItem

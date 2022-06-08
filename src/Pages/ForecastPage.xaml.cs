@@ -1,6 +1,6 @@
 namespace Uroskur.Pages;
 
-public class ForecastPage
+public partial class ForecastPage
 {
     private readonly ForecastViewModel _forecastViewModel;
 

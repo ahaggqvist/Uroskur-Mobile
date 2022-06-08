@@ -1,7 +1,4 @@
-﻿using Microcharts;
-using SkiaSharp;
-
-namespace Uroskur.ViewModels;
+﻿namespace Uroskur.ViewModels;
 
 [QueryProperty(nameof(ForecastRoute), nameof(ForecastRoute))]
 public partial class ForecastViewModel : BaseViewModel
@@ -124,7 +121,7 @@ public partial class ForecastViewModel : BaseViewModel
         try
         {
             var today = DateTime.Today;
-            if (_forecastRoute is { Day: "TOMORROW" })
+            if (_forecastRoute is { Day: "Tomorrow" })
             {
                 today = today.AddDays(1);
             }
@@ -149,11 +146,11 @@ public partial class ForecastViewModel : BaseViewModel
                 if (dt != null)
                 {
                     var issuedAt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds((double)dt);
-                    _forecastIssuedAt = $"OpenWeather forecast issued at {issuedAt:ddd, dd MMM HH:mm}";
+                    _forecastIssuedAt = $"OpenWeather Forecast Issued at {issuedAt:ddd, d MMM HH:mm}";
                     OnPropertyChanged(nameof(ForecastIssuedAt));
                 }
 
-                _forecastIssuedFor = $"{issuedFor:ddd, dd MMM}";
+                _forecastIssuedFor = $"{issuedFor:dddd, d MMM}";
                 OnPropertyChanged(nameof(ForecastIssuedFor));
             }
 
@@ -228,13 +225,13 @@ public partial class ForecastViewModel : BaseViewModel
             {
                 new()
                 {
-                    Name = "Temp (°C)",
+                    Name = "Temp °C",
                     Color = SKColor.Parse("#FC4C02"),
                     Entries = TempEntries()
                 },
                 new()
                 {
-                    Name = "Feels Like (°C)",
+                    Name = "Feels Like °C",
                     Color = SKColor.Parse("#4dc9fe"),
                     Entries = FeelsLikeEntries(false)
                 }
@@ -264,13 +261,13 @@ public partial class ForecastViewModel : BaseViewModel
             {
                 new()
                 {
-                    Name = "Chance of Rain (%)",
+                    Name = "Chance of Rain %",
                     Color = SKColor.Parse("#FC4C02"),
                     Entries = ChanceOfRainEntries()
                 },
                 new()
                 {
-                    Name = "Cloudiness (%)",
+                    Name = "Cloudiness %",
                     Color = SKColor.Parse("#4dc9fe"),
                     Entries = CloudinessEntries(false)
                 }

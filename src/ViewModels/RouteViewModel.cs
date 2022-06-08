@@ -1,21 +1,21 @@
 ﻿namespace Uroskur.ViewModels;
 
 [QueryProperty(nameof(Routes), nameof(Routes))]
-public class RouteViewModel : BaseViewModel
+public partial class RouteViewModel : BaseViewModel
 {
-    private const string DefaultDay = "TODAY";
+    private const string DefaultDay = "Today";
 
     private const string DefaultSpeed = "30";
 
     private readonly IRoutingService _routingService;
 
-    [ObservableProperty] private readonly string _day;
+    [ObservableProperty] private string _day;
 
     [ObservableProperty] private Routes? _routes;
 
-    [ObservableProperty] private readonly string _speed;
+    [ObservableProperty] private string _speed;
 
-    [ObservableProperty] private readonly TimeSpan _time;
+    [ObservableProperty] private TimeSpan _time;
 
     public RouteViewModel(IRoutingService routingService)
     {

@@ -66,7 +66,7 @@ public partial class Routes
             }
 
             var timeSpan = TimeSpan.FromSeconds((double)EstimatedMovingTime);
-            return $"{timeSpan.Hours}H {timeSpan.Minutes}M";
+            return $"{timeSpan.Hours}h {timeSpan.Minutes}m";
         }
     }
 

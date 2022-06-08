@@ -14,7 +14,7 @@ public class Forecast
 
     public string? WindIconId { get; set; }
 
-    public string TimeKmFormatted => $"{UnixDateTime.ToString("HH:mm")}";
+    public string TimeKmFormatted => $"{UnixDateTime:HH:mm}";
 
     //public string TimeKmFormatted => $"{UnixDateTime.ToString("HH:mm")} ({Km})";
 }

@@ -2,7 +2,7 @@
 
 public class AboutViewModel : BaseViewModel
 {
-    public AboutViewModel(IRoutingService routingService)
+    public AboutViewModel()
     {
         Title = "About";
     }

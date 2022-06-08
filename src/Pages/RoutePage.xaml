@@ -32,10 +32,10 @@
                        HeightRequest="13" />
                 <Label Grid.Column="1" Padding="10,5,0,5"
                        FontSize="13"
-                       Text="{Binding Routes.Distance, StringFormat='{0:0.00} KM', Converter={StaticResource meterToKilometer}}" />
+                       Text="{Binding Routes.Distance, StringFormat='{0:0.00} km', Converter={StaticResource meterToKilometer}}" />
                 <Label Grid.Column="2" Padding="10,5,0,5"
                        FontSize="13"
-                       Text="{Binding Routes.ElevationGain, StringFormat='{0:0} M'}" />
+                       Text="{Binding Routes.ElevationGain, StringFormat='{0:0} m'}" />
                 <Label Grid.Column="3" Padding="10,5,0,5"
                        FontSize="13"
                        Text="{Binding Routes.EstimatedMovingTimeFormatted}" />
@@ -51,8 +51,8 @@
                         FontSize="13">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
-                            <x:String>TODAY</x:String>
-                            <x:String>TOMORROW</x:String>
+                            <x:String>Today</x:String>
+                            <x:String>Tomorrow</x:String>
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>

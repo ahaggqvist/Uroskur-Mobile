@@ -3,7 +3,9 @@
 public class RoutesViewModel : BaseViewModel
 {
     private readonly IPreferencesService _preferencesService;
+
     private readonly IRoutingService _routingService;
+
     private readonly IStravaService _stravaService;
 
     public RoutesViewModel(IStravaService stravaService, IRoutingService routingService, IPreferencesService preferencesService)
@@ -39,16 +41,6 @@ public class RoutesViewModel : BaseViewModel
             if (Routes.Count != 0)
             {
                 Routes.Clear();
-            }
-
-            foreach (var route in routes)
-            {
-                Routes.Add(route);
-            }
-
-            foreach (var route in routes)
-            {
-                Routes.Add(route);
             }
 
             foreach (var route in routes)
