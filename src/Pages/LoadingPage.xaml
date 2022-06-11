@@ -7,7 +7,7 @@
              x:DataType="viewmodel:LoadingViewModel"
              Shell.PresentationMode="ModalAnimated"
              Title="{Binding Title}">
-    <StackLayout>
-        <ActivityIndicator IsRunning="True" IsVisible="True" />
-    </StackLayout>
+    <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
+        <ActivityIndicator Grid.Column="0" IsRunning="True" IsVisible="True" />
+    </Grid>
 </ContentPage>
