@@ -15,7 +15,7 @@
         </StackLayout>
     </Shell.TitleView>
 
-    <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
+    <StackLayout Margin="5,0,5,0">
         <StackLayout>
             <Label Text="Monkey Cache" FontFamily="RobotoLight" TextTransform="Uppercase"
                    Margin="0,5,0,0" />
@@ -37,5 +37,5 @@
             <Label Text="https://github.com/microcharts-dotnet/Microcharts" />
             <Image Source="cptblwith_strava.png" WidthRequest="150" HorizontalOptions="Start" />
         </StackLayout>
-    </Grid>
+    </StackLayout>
 </ContentPage>

@@ -21,14 +21,14 @@
         <converter:MeterToKilometerConverter x:Key="meterToKilometer" />
     </ContentPage.Resources>
 
-    <Grid ColumnDefinitions="*,Auto">
+    <StackLayout Margin="5,0,5,0">
         <RefreshView
             Command="{Binding GetRoutesCommand}"
             IsRefreshing="{Binding IsRefreshing}" HorizontalOptions="Center">
             <CollectionView ItemsSource="{Binding Routes}" SelectionMode="None">
                 <CollectionView.EmptyView>
                     <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                        <Label Text="Sorry, we couldn't find any routes" TextTransform="Uppercase" />
+                        <Label Text="Sorry, We Couldn't Find any Routes" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
@@ -75,6 +75,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
-        <ActivityIndicator Grid.Column="0" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-    </Grid>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+    </StackLayout>
 </ContentPage>

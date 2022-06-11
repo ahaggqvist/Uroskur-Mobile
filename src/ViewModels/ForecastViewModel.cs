@@ -130,7 +130,6 @@ public partial class ForecastViewModel : BaseViewModel
             var hour = timeSpan!.Value.Hours;
             var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
             //var issuedFor = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
-
             var unixTime = (int)issuedFor.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             var route = _forecastRoute?.Routes;
             var athlete = route?.Athlete;
@@ -146,7 +145,7 @@ public partial class ForecastViewModel : BaseViewModel
                 if (dt != null)
                 {
                     var issuedAt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds((double)dt);
-                    _forecastIssuedAt = $"OpenWeather Forecast Issued at {issuedAt:ddd, d MMM HH:mm}";
+                    _forecastIssuedAt = $"OpenWeather Forecast Issued at {issuedAt:ddd, d MMM H:mm}";
                     OnPropertyChanged(nameof(ForecastIssuedAt));
                 }
 

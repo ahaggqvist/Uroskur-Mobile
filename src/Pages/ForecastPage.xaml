@@ -16,8 +16,8 @@
         </StackLayout>
     </Shell.TitleView>
 
-    <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
-        <ScrollView>
+    <ScrollView VerticalOptions="FillAndExpand">
+        <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
             <Grid RowSpacing="0" ColumnSpacing="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="25" />
@@ -77,7 +77,7 @@
                                 VerticalOptions="FillAndExpand">
                     <CollectionView.EmptyView>
                         <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                            <Label Text="Sorry, we couldn't generate a forecast" TextTransform="Uppercase" />
+                            <Label Text="Sorry, We Couldn't Generate a Forecast" />
                         </StackLayout>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
@@ -141,7 +141,7 @@
                     <microcharts:ChartView Chart="{Binding ChanceOfRainLineChart}" HeightRequest="210" />
                 </StackLayout>
             </Grid>
-        </ScrollView>
-        <ActivityIndicator x:Name="activityIndicator" />
-    </Grid>
+            <ActivityIndicator x:Name="activityIndicator" />
+        </Grid>
+    </ScrollView>
 </ContentPage>

@@ -20,7 +20,7 @@
         <converter:MeterToKilometerConverter x:Key="meterToKilometer" />
     </ContentPage.Resources>
 
-    <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
+    <StackLayout Margin="5,0,5,0">
         <StackLayout>
             <Label Text="{Binding Routes.Name}" FontSize="16"
                    FontFamily="RobotoBold" Margin="0,5,0,0" />
@@ -88,5 +88,5 @@
                     HeightRequest="30" Command="{Binding NavigateToCommand}" CornerRadius="2" BackgroundColor="#FC4C02"
                     Padding="0,0,0,0" Margin="0,0,0,10" />
         </StackLayout>
-    </Grid>
+    </StackLayout>
 </ContentPage>
