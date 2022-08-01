@@ -21,7 +21,7 @@
     </ContentPage.Resources>
 
     <Grid Margin="5,0,5,0">
-        <StackLayout Grid.Column="0">
+        <StackLayout>
             <Label Text="{Binding Routes.Name}" FontSize="16"
                    FontFamily="RobotoBold" Margin="0,5,0,0" />
             <Label
@@ -51,8 +51,13 @@
                        FontSize="13"
                        Text="{Binding Routes.EstimatedMovingTimeFormatted}" />
             </Grid>
-            <StackLayout Margin="0,5,0,5">
-                <Image Source="{Binding Routes.MapUrls.RetinaUrl}" Aspect="AspectFit" />
+            <StackLayout>
+                <Image Aspect="AspectFill" WidthRequest="380" HeightRequest="146">
+                    <Image.Source>
+                        <UriImageSource Uri="{Binding Routes.MapUrls.RetinaUrl}"
+                                        CacheValidity="10:00:00.0" />
+                    </Image.Source>
+                </Image>
             </StackLayout>
             <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*"
                   ColumnSpacing="5" RowSpacing="0" Margin="0,0,0,10">
@@ -99,8 +104,8 @@
             </Grid>
             <Button Text="Forecast Route" TextColor="White" FontSize="13" FontFamily="RobotoMedium"
                     TextTransform="Default" VerticalOptions="Center"
-                    HeightRequest="30" Command="{Binding NavigateToCommand}" CornerRadius="2" BackgroundColor="#FC4C02"
-                    Padding="0,0,0,0" Margin="0,0,0,10" />
+                    HeightRequest="35" Command="{Binding NavigateToCommand}" CornerRadius="2" BackgroundColor="#FC4C02"
+                    Margin="0,0,0,10" />
         </StackLayout>
     </Grid>
 </ContentPage>

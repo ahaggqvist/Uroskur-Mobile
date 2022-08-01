@@ -39,9 +39,9 @@
 
             <Button Text="Connect with Strava" TextColor="White" FontSize="13" FontFamily="RobotoMedium"
                     TextTransform="Default" VerticalOptions="Center"
-                    HeightRequest="30" Command="{Binding TokenExchangeCommand}" CornerRadius="2"
+                    HeightRequest="35" Command="{Binding TokenExchangeCommand}" CornerRadius="2"
                     BackgroundColor="#FC4C02"
-                    Padding="0,0,0,0" Margin="0,10,0,10" />
+                    Margin="0,10,0,10" />
 
 
             <Label Text="Strava Client Id" FontFamily="RobotoLight"
@@ -56,9 +56,9 @@
 
             <Button Text="Save Settings" TextColor="White" FontSize="13" FontFamily="RobotoMedium"
                     TextTransform="Default" VerticalOptions="Center"
-                    HeightRequest="30" Command="{Binding SavePreferencesCommand}" CornerRadius="2"
+                    HeightRequest="35" Command="{Binding SavePreferencesCommand}" CornerRadius="2"
                     BackgroundColor="#FC4C02"
-                    Padding="0,0,0,0" Margin="0,10,0,0" />
+                    Margin="0,10,0,0" />
         </StackLayout>
     </Grid>
 </ContentPage>

@@ -38,7 +38,7 @@
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                             </StackLayout.GestureRecognizers>
                             <StackLayout VerticalOptions="Start"
-                                         Padding="8,5,0,0" MaximumWidthRequest="200">
+                                         Padding="8,5,0,0">
                                 <Label FontSize="16"
                                        FontFamily="RobotoBold"
                                        Text="{Binding Name}" />
@@ -71,7 +71,12 @@
                                 </Grid>
                             </StackLayout>
                             <StackLayout VerticalOptions="StartAndExpand" Padding="0,0,0,8">
-                                <Image Source="{Binding MapUrls.RetinaUrl}" Aspect="AspectFill" />
+                                <Image Aspect="AspectFill" WidthRequest="380" HeightRequest="146">
+                                    <Image.Source>
+                                        <UriImageSource Uri="{Binding MapUrls.RetinaUrl}"
+                                                        CacheValidity="10:00:00.0" />
+                                    </Image.Source>
+                                </Image>
                             </StackLayout>
                             <BoxView Color="{StaticResource LightGray}"
                                      HeightRequest="0.5"
