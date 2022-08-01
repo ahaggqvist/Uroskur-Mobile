@@ -51,13 +51,13 @@
                                                HeightRequest="13" />
                                     </StackLayout>
                                     <Label Grid.Column="1" Padding="10,10,0,0"
-                                           FontSize="13"
+                                           FontSize="11"
                                            Text="Distance" FontFamily="RobotoLight" />
                                     <Label Grid.Column="2" Padding="10,10,0,0"
-                                           FontSize="13"
+                                           FontSize="11"
                                            Text="Elev. Gain" FontFamily="RobotoLight" />
                                     <Label Grid.Column="3" Padding="10,10,0,0"
-                                           FontSize="13"
+                                           FontSize="11"
                                            Text="Est. Moving Time" FontFamily="RobotoLight" />
                                     <Label Grid.Row="1" Grid.Column="1" Padding="10,0,0,0"
                                            FontSize="13"
