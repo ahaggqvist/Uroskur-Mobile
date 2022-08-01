@@ -17,10 +17,14 @@ public partial class RoutesPage
 
         await Task.Delay(500);
 
-        if (_routesViewModel.Routes.Count == 0)
+        if (_routesViewModel.Routes.Count != 0)
         {
-            await _routesViewModel.GetRoutesAsync();
+            return;
         }
+
+        await _routesViewModel.GetRoutesAsync();
+
+        emptyRoutesLabel.Text = "Sorry, We Couldn't Find any Routes";
     }
 
     private void TapGestureRecognizer_Tapped(object sender, EventArgs e)

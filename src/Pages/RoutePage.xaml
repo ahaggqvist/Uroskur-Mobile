@@ -10,7 +10,7 @@
 
     <Shell.TitleView>
         <StackLayout VerticalOptions="Center">
-            <Label Text="{Binding Title}" TextColor="White"
+            <Label Text="{Binding Routes.Name}" TextColor="White"
                    FontSize="20" FontFamily="RobotoMedium" />
         </StackLayout>
     </Shell.TitleView>
@@ -24,22 +24,36 @@
         <StackLayout Grid.Column="0">
             <Label Text="{Binding Routes.Name}" FontSize="16"
                    FontFamily="RobotoBold" Margin="0,5,0,0" />
-            <StackLayout Margin="0,5,0,5">
-                <Image Source="{Binding Routes.MapUrls.RetinaUrl}" Aspect="AspectFit" />
-            </StackLayout>
-            <Grid ColumnDefinitions="Auto,Auto,Auto,*">
-                <Image Grid.Column="0" Source="{Binding Routes.RouteTypeImage}" WidthRequest="13"
-                       HeightRequest="13" />
-                <Label Grid.Column="1" Padding="10,5,0,5"
+            <Label
+                FontFamily="RobotoLight" FontSize="11"
+                Text="{Binding Routes.CreatedAt, StringFormat='Created on {0:ddd, d MMM yyyy}', Converter={StaticResource stringToDateTime}}" />
+            <Grid RowDefinitions="30,30" ColumnDefinitions="Auto,Auto,Auto,*">
+                <StackLayout Padding="0,12,0,0">
+                    <Image Source="{Binding Routes.RouteTypeImage}" WidthRequest="13"
+                           HeightRequest="13" />
+                </StackLayout>
+                <Label Grid.Column="1" Padding="10,10,0,0"
+                       FontSize="13"
+                       Text="Distance" />
+                <Label Grid.Column="2" Padding="10,10,0,0"
+                       FontSize="13"
+                       Text="Elev. Gain " />
+                <Label Grid.Column="3" Padding="10,10,0,0"
+                       FontSize="13"
+                       Text="Est. Moving Time" />
+                <Label Grid.Row="1" Grid.Column="1" Padding="10,0,0,0"
                        FontSize="13"
                        Text="{Binding Routes.Distance, StringFormat='{0:0.00} km', Converter={StaticResource meterToKilometer}}" />
-                <Label Grid.Column="2" Padding="10,5,0,5"
+                <Label Grid.Row="1" Grid.Column="2" Padding="10,0,0,0"
                        FontSize="13"
                        Text="{Binding Routes.ElevationGain, StringFormat='{0:0} m'}" />
-                <Label Grid.Column="3" Padding="10,5,0,5"
+                <Label Grid.Row="1" Grid.Column="3" Padding="10,0,0,0"
                        FontSize="13"
                        Text="{Binding Routes.EstimatedMovingTimeFormatted}" />
             </Grid>
+            <StackLayout Margin="0,5,0,5">
+                <Image Source="{Binding Routes.MapUrls.RetinaUrl}" Aspect="AspectFit" />
+            </StackLayout>
             <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*"
                   ColumnSpacing="5" RowSpacing="0" Margin="0,0,0,10">
                 <Label Grid.Row="0" Grid.Column="2" Text="Day" FontFamily="RobotoLight"

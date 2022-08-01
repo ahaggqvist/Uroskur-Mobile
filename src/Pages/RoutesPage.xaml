@@ -28,7 +28,7 @@
             <CollectionView ItemsSource="{Binding Routes}" SelectionMode="None">
                 <CollectionView.EmptyView>
                     <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                        <Label Text="Sorry, We Couldn't Find any Routes" />
+                        <Label x:Name="emptyRoutesLabel" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
@@ -37,36 +37,42 @@
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                             </StackLayout.GestureRecognizers>
-                            <Grid ColumnDefinitions="Auto,*">
-                                <StackLayout Grid.Column="0" VerticalOptions="Start"
-                                             Padding="8,10,0,15" MaximumWidthRequest="200">
-                                    <Label FontSize="16"
-                                           FontFamily="RobotoBold"
-                                           Text="{Binding Name}" />
-                                    <Label
-                                        FontFamily="RobotoLight" FontSize="11"
-                                        Text="{Binding CreatedAt, StringFormat='{0:ddd, dd MMM yyyy}', Converter={StaticResource stringToDateTime}}" />
-                                    <Grid ColumnDefinitions="Auto,Auto,Auto,*">
-                                        <StackLayout Padding="0,12,0,0">
-                                            <Image Source="{Binding RouteTypeImage}" WidthRequest="13"
-                                                   HeightRequest="13" />
-                                        </StackLayout>
-                                        <Label Grid.Column="1" Padding="10,10,0,0"
-                                               FontSize="13"
-                                               Text="{Binding Distance, StringFormat='{0:0.00} km', Converter={StaticResource meterToKilometer}}" />
-                                        <Label Grid.Column="2" Padding="10,10,0,0"
-                                               FontSize="13"
-                                               Text="{Binding ElevationGain, StringFormat='{0:0} m'}" />
-                                        <Label Grid.Column="3" Padding="10,10,0,0"
-                                               FontSize="13"
-                                               Text="{Binding EstimatedMovingTimeFormatted}" />
-                                    </Grid>
-                                </StackLayout>
-                                <StackLayout Grid.Column="1" VerticalOptions="Start" Padding="0,10,0,8">
-                                    <Image Source="{Binding MapUrls.RetinaUrl}" Aspect="AspectFill" WidthRequest="180"
-                                           HeightRequest="65" />
-                                </StackLayout>
-                            </Grid>
+                            <StackLayout VerticalOptions="Start"
+                                         Padding="8,5,0,0" MaximumWidthRequest="200">
+                                <Label FontSize="16"
+                                       FontFamily="RobotoBold"
+                                       Text="{Binding Name}" />
+                                <Label
+                                    FontFamily="RobotoLight" FontSize="11"
+                                    Text="{Binding CreatedAt, StringFormat='Created on {0:ddd, d MMM yyyy}', Converter={StaticResource stringToDateTime}}" />
+                                <Grid RowDefinitions="30,30" ColumnDefinitions="Auto,Auto,Auto,*">
+                                    <StackLayout Padding="0,12,0,0">
+                                        <Image Source="{Binding RouteTypeImage}" WidthRequest="13"
+                                               HeightRequest="13" />
+                                    </StackLayout>
+                                    <Label Grid.Column="1" Padding="10,10,0,0"
+                                           FontSize="13"
+                                           Text="Distance" />
+                                    <Label Grid.Column="2" Padding="10,10,0,0"
+                                           FontSize="13"
+                                           Text="Elev. Gain " />
+                                    <Label Grid.Column="3" Padding="10,10,0,0"
+                                           FontSize="13"
+                                           Text="Est. Moving Time" />
+                                    <Label Grid.Row="1" Grid.Column="1" Padding="10,0,0,0"
+                                           FontSize="13"
+                                           Text="{Binding Distance, StringFormat='{0:0.00} km', Converter={StaticResource meterToKilometer}}" />
+                                    <Label Grid.Row="1" Grid.Column="2" Padding="10,0,0,0"
+                                           FontSize="13"
+                                           Text="{Binding ElevationGain, StringFormat='{0:0} m'}" />
+                                    <Label Grid.Row="1" Grid.Column="3" Padding="10,0,0,0"
+                                           FontSize="13"
+                                           Text="{Binding EstimatedMovingTimeFormatted}" />
+                                </Grid>
+                            </StackLayout>
+                            <StackLayout VerticalOptions="StartAndExpand" Padding="0,0,0,8">
+                                <Image Source="{Binding MapUrls.RetinaUrl}" Aspect="AspectFill" />
+                            </StackLayout>
                             <BoxView Color="{StaticResource LightGray}"
                                      HeightRequest="0.5"
                                      HorizontalOptions="Fill" />

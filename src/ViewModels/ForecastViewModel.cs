@@ -25,8 +25,6 @@ public partial class ForecastViewModel : BaseViewModel
 
     public ForecastViewModel(IOpenWeatherService openWeatherService)
     {
-        Title = "Forecast Route";
-
         _openWeatherService = openWeatherService;
 
         _weatherIconsDictionary = new Dictionary<long, string>

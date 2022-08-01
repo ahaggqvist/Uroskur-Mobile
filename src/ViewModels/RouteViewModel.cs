@@ -19,8 +19,6 @@ public partial class RouteViewModel : BaseViewModel
 
     public RouteViewModel(IRoutingService routingService)
     {
-        Title = "Route";
-
         _routingService = routingService;
 
         _time = DateTime.Now.TimeOfDay;
