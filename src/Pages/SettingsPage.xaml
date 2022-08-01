@@ -39,7 +39,7 @@
 
             <Button Text="Connect with Strava" TextColor="White" FontSize="13" FontFamily="RobotoMedium"
                     TextTransform="Default" VerticalOptions="Center"
-                    HeightRequest="35" Command="{Binding TokenExchangeCommand}" CornerRadius="2"
+                    HeightRequest="38" Command="{Binding TokenExchangeCommand}" CornerRadius="2"
                     BackgroundColor="#FC4C02"
                     Margin="0,10,0,10" />
 
@@ -56,7 +56,7 @@
 
             <Button Text="Save Settings" TextColor="White" FontSize="13" FontFamily="RobotoMedium"
                     TextTransform="Default" VerticalOptions="Center"
-                    HeightRequest="35" Command="{Binding SavePreferencesCommand}" CornerRadius="2"
+                    HeightRequest="38" Command="{Binding SavePreferencesCommand}" CornerRadius="2"
                     BackgroundColor="#FC4C02"
                     Margin="0,10,0,0" />
         </StackLayout>

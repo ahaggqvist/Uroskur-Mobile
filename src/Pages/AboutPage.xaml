@@ -17,7 +17,7 @@
 
     <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
         <StackLayout Grid.Column="0">
-            <Label Text="Monkey Cache" FontFamily="RobotoLight" TextTransform="Uppercase"
+            <Label Text="Monkey Cache" FontFamily="RobotoLight"
                    Margin="0,5,0,0" />
             <Label Text="https://github.com/jamesmontemagno/monkey-cache" />
             <Label Text="Polly" FontFamily="RobotoLight"
