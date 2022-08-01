@@ -1,5 +1,5 @@
-# Uroskur MAUI version
-.NET MAUI version of Uroskur. A learning project to try out .NET MAUI.
+# Uroskur .NET MAUI
+Multi-platform version of Uroskur. A learning project to try out .NET MAUI.
 
 Like the ASP.NET version Uroskur fetches a forecast for the next 48 hours from OpenWeather and routes from Strava and displays the weather conditions along your route based upon your pace, time of day and start date.
 
