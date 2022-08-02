@@ -2,7 +2,7 @@
 
 public class OpenWeatherClient : IOpenWeatherClient
 {
-    private const int MaxLocations = 10;
+    private const int MaxLocations = 100;
     private const int MaxRetryAttempts = 3;
     private const int PauseBetweenFailures = 2;
     private readonly AppSettings? _appSettings;
