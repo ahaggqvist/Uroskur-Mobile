@@ -38,17 +38,17 @@
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                             </StackLayout.GestureRecognizers>
                             <StackLayout VerticalOptions="Start"
-                                         Padding="8,5,0,0">
+                                         Padding="0,5,0,0">
                                 <Label FontSize="16"
                                        FontFamily="RobotoBold"
                                        Text="{Binding Name}" />
                                 <Label
                                     FontFamily="RobotoLight" FontSize="11"
                                     Text="{Binding CreatedAt, StringFormat='Created on {0:ddd, d MMM yyyy}', Converter={StaticResource stringToDateTime}}" />
-                                <Grid RowDefinitions="30,30" ColumnDefinitions="Auto,Auto,Auto,*">
-                                    <StackLayout Padding="0,12,0,0">
-                                        <Image Source="{Binding RouteTypeImage}" WidthRequest="13"
-                                               HeightRequest="13" />
+                                <Grid RowDefinitions="25,25" ColumnDefinitions="Auto,Auto,Auto,*">
+                                    <StackLayout Grid.RowSpan="2" VerticalOptions="Center">
+                                        <Image Source="{Binding RouteTypeImage}" WidthRequest="20"
+                                               HeightRequest="20" />
                                     </StackLayout>
                                     <Label Grid.Column="1" Padding="10,10,0,0"
                                            FontSize="11"
@@ -71,7 +71,7 @@
                                 </Grid>
                             </StackLayout>
                             <StackLayout VerticalOptions="StartAndExpand" Padding="0,0,0,8">
-                                <Image Aspect="AspectFill" WidthRequest="380" HeightRequest="146">
+                                <Image Aspect="AspectFill" WidthRequest="385" HeightRequest="148">
                                     <Image.Source>
                                         <UriImageSource Uri="{Binding MapUrls.RetinaUrl}"
                                                         CacheValidity="10:00:00.0" />
