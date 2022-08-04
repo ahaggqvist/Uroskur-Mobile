@@ -2,6 +2,8 @@
 
 public static class DistanceHelper
 {
+    private const int Kilometers = 10;
+
     public static double CalculateTotalDistance(IEnumerable<Location> locations)
     {
         var d = 0d;
@@ -37,23 +39,31 @@ public static class DistanceHelper
 
     public static IEnumerable<Location> GetEvenDistances(IEnumerable<Location> locations)
     {
+
         var distances = new List<Location>();
         var i = 0;
         var total = 0d;
-        foreach (var (_, current, next) in locations.GetItems())
+        var enumerable = locations as Location[] ?? locations.ToArray();
+        foreach (var (_, current, next) in enumerable.GetItems())
         {
             total += CalculateDistance(current.Lat, current.Lon,
                 next.Lat,
                 next.Lon);
 
             var d = Math.Round(total, 1);
-            if (d % 10 != 0 || !(Math.Abs(d - i) > 0))
+            if (d % Kilometers != 0 || !(Math.Abs(d - i) > 0))
             {
                 continue;
             }
 
             distances.Add(current);
             i = (int)d;
+        }
+
+        // Add 1 location if route length is less than 10 km
+        if (distances.Count == 0 && enumerable.Any())
+        {
+            distances.Add(enumerable[0]);
         }
 
         return distances;
