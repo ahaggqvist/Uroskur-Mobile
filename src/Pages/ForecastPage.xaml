@@ -48,24 +48,21 @@
 
                     <Label Grid.Column="0"
                            HorizontalTextAlignment="Center"
-                           Text="Time"
+                           x:Name="tableTimeLabel"
                            VerticalTextAlignment="Center"
                            FontSize="10" FontFamily="RobotoLight" />
                     <Label Grid.Column="1"
                            HorizontalTextAlignment="Center"
-                           Text="Temp °C"
+                           x:Name="tableTempLabel"
                            VerticalTextAlignment="Center" FontSize="10" FontFamily="RobotoLight" />
                     <Label Grid.Column="2"
-                           HorizontalTextAlignment="Center"
-                           Text="Feels Like °C"
+                           HorizontalTextAlignment="Center" x:Name="tableFeelsLikeLabel"
                            VerticalTextAlignment="Center" FontSize="10" FontFamily="RobotoLight" />
                     <Label Grid.Column="3"
-                           HorizontalTextAlignment="Center"
-                           Text="Chance of Rain"
+                           HorizontalTextAlignment="Center" x:Name="tableChanceOfRainLabel"
                            VerticalTextAlignment="Center" FontSize="10" FontFamily="RobotoLight" />
                     <Label Grid.Column="4"
-                           HorizontalTextAlignment="Center"
-                           Text="Wind m/s"
+                           HorizontalTextAlignment="Center" x:Name="tableWindLabel"
                            VerticalTextAlignment="Center" FontSize="10" FontFamily="RobotoLight" />
                     <Label Grid.Column="5"
                            HorizontalTextAlignment="Center"
@@ -131,11 +128,11 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <StackLayout Grid.Row="4">
-                    <Label x:Name="temperatureChartViewLabel" Margin="0,5,0,0"
+                    <Label x:Name="chartViewTemperatureLabel" Margin="0,5,0,0"
                            FontFamily="RobotoMedium"
                            FontSize="13" />
                     <microcharts:ChartView Chart="{Binding TempLineChart}" HeightRequest="210" />
-                    <Label x:Name="chanceOfRainChartViewLabel" Margin="0,5,0,0"
+                    <Label x:Name="chartViewChanceOfRainLabel" Margin="0,5,0,0"
                            FontFamily="RobotoMedium"
                            FontSize="13" />
                     <microcharts:ChartView Chart="{Binding ChanceOfRainLineChart}" HeightRequest="210" />

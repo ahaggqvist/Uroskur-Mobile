@@ -26,8 +26,14 @@ public partial class ForecastPage
 
         await _forecastViewModel.GetForecastAsync();
 
-        temperatureChartViewLabel.Text = "Temperatures";
-        chanceOfRainChartViewLabel.Text = "Chance of Rain and Cloudiness";
+        chartViewTemperatureLabel.Text = "Temperatures";
+        chartViewChanceOfRainLabel.Text = "Chance of Rain and Cloudiness";
+
+        tableTempLabel.Text = "Temp °C";
+        tableTimeLabel.Text = "Time";
+        tableFeelsLikeLabel.Text = "Feels Like °C";
+        tableChanceOfRainLabel.Text = "Chance of Rain";
+        tableWindLabel.Text = "Wind m/s";
 
         ActivityIndicator(false, false);
     }
