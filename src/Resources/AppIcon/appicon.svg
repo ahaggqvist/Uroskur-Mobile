@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="456px" height="456px" viewBox="0 0 456 456" version="1.1" preserveAspectRatio="xMidYMid meet">
-<g id="surface1">
+<clipPath id="clipCircle">
+<circle r="185" cx="185" cy="185"/>
+</clipPath>
+<g id="surface1" clip-path="url(#clipCircle)">
 <path style=" stroke: #fff;fill-rule:nonzero;fill: #fff;fill-opacity:1;" d="M 283.496094 32.144531 L 283.496094 60.132812 L 311.484375 60.132812 L 311.484375 4.148438 L 283.496094 4.148438 Z M 283.496094 32.144531 "/>
 <path style=" stroke: #fff;fill-rule:nonzero;fill: #fff;fill-opacity:1;" d="M 188.589844 49.636719 L 178.964844 59.257812 L 198.648438 78.9375 L 218.328125 98.617188 L 228.125 88.824219 L 238.003906 78.9375 L 218.589844 59.523438 C 207.832031 48.765625 198.90625 40.015625 198.644531 40.015625 C 198.386719 40.015625 193.835938 44.386719 188.589844 49.636719 Z M 188.589844 49.636719 "/>
 <path style=" stroke: #fff;fill-rule:nonzero;fill: #fff;fill-opacity:1;" d="M 376.390625 59.523438 L 356.976562 78.9375 L 366.859375 88.824219 L 376.65625 98.617188 L 396.335938 78.9375 L 416.019531 59.257812 L 406.394531 49.636719 C 401.148438 44.386719 396.597656 40.015625 396.335938 40.015625 C 396.074219 40.015625 387.148438 48.761719 376.390625 59.523438 Z M 376.390625 59.523438 "/>
