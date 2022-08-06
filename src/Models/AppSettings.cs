@@ -2,6 +2,8 @@
 
 public class AppSettings
 {
+    public bool IsDevelopment { get; set; } = false;
+
     public string StravaAuthorizationTokenMobileUrl { get; set; } = string.Empty;
 
     public string StravaAuthorizationTokenUrl { get; set; } = string.Empty;

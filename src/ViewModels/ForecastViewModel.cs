@@ -3,11 +3,13 @@
 [QueryProperty(nameof(ForecastRoute), nameof(ForecastRoute))]
 public partial class ForecastViewModel : BaseViewModel
 {
+    private readonly AppSettings _appSettings;
     private readonly IOpenWeatherService _openWeatherService;
 
     private readonly Dictionary<long, string> _weatherIconsDictionary;
 
-    private readonly string[] _windDirection = { "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N" };
+    private readonly string[] _windDirection =
+        { "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N" };
 
     private readonly Dictionary<string, string> _windIconsDictionary;
 
@@ -23,9 +25,10 @@ public partial class ForecastViewModel : BaseViewModel
 
     [ObservableProperty] private LineChart? _tempLineChart;
 
-    public ForecastViewModel(IOpenWeatherService openWeatherService)
+    public ForecastViewModel(IOpenWeatherService openWeatherService, AppSettings appSettings)
     {
         _openWeatherService = openWeatherService;
+        _appSettings = appSettings;
 
         _weatherIconsDictionary = new Dictionary<long, string>
         {
@@ -119,15 +122,13 @@ public partial class ForecastViewModel : BaseViewModel
         try
         {
             var today = DateTime.Today;
-            if (_forecastRoute is { Day: "Tomorrow" })
-            {
-                today = today.AddDays(1);
-            }
+            if (_forecastRoute is { Day: "Tomorrow" }) today = today.AddDays(1);
 
             var timeSpan = _forecastRoute!.Time;
             var hour = timeSpan!.Value.Hours;
             var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
-            //var issuedFor = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
+            if (_appSettings.IsDevelopment) issuedFor = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
+
             var unixTime = (int)issuedFor.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             var route = _forecastRoute?.Routes;
             var athlete = route?.Athlete;
@@ -159,10 +160,7 @@ public partial class ForecastViewModel : BaseViewModel
                 var seconds = 3600 * time + unixTime;
                 var hourly = temperature.Hourly?.Find(h => h.Dt!.Value == seconds);
 
-                if (hourly == null)
-                {
-                    continue;
-                }
+                if (hourly == null) continue;
 
                 var weatherIconId = hourly?.Weather?[0].Id;
                 var windDeg = hourly?.WindDeg!.Value ?? 0L;
@@ -279,14 +277,14 @@ public partial class ForecastViewModel : BaseViewModel
         foreach (var forecast in Forecasts)
         {
             var hourly = forecast.Hourly;
-            if (hourly == null)
-            {
-                continue;
-            }
+            if (hourly == null) continue;
 
             var temp = Math.Round(hourly.Temp!.Value, 1);
             var chartEntry = new ChartEntry((float?)temp)
-                { ValueLabel = temp.ToString(CultureInfo.InvariantCulture), Label = withLabel ? forecast.UnixDateTime.ToString("HH:mm") : null };
+            {
+                ValueLabel = temp.ToString(CultureInfo.InvariantCulture),
+                Label = withLabel ? forecast.UnixDateTime.ToString("HH:mm") : null
+            };
 
             chartEntries.Add(chartEntry);
         }
@@ -301,14 +299,14 @@ public partial class ForecastViewModel : BaseViewModel
         foreach (var forecast in Forecasts)
         {
             var hourly = forecast.Hourly;
-            if (hourly == null)
-            {
-                continue;
-            }
+            if (hourly == null) continue;
 
             var feelsLike = Math.Round(hourly.FeelsLike!.Value, 1);
             var chartEntry = new ChartEntry((float?)feelsLike)
-                { ValueLabel = feelsLike.ToString(CultureInfo.InvariantCulture), Label = withLabel ? forecast.UnixDateTime.ToString("HH:mm") : null };
+            {
+                ValueLabel = feelsLike.ToString(CultureInfo.InvariantCulture),
+                Label = withLabel ? forecast.UnixDateTime.ToString("HH:mm") : null
+            };
 
             chartEntries.Add(chartEntry);
         }
@@ -323,14 +321,14 @@ public partial class ForecastViewModel : BaseViewModel
         foreach (var forecast in Forecasts)
         {
             var hourly = forecast.Hourly;
-            if (hourly == null)
-            {
-                continue;
-            }
+            if (hourly == null) continue;
 
             var chanceOfRain = Math.Round(hourly.Pop!.Value * 100);
             var chartEntry = new ChartEntry((float?)chanceOfRain)
-                { ValueLabel = chanceOfRain.ToString(CultureInfo.InvariantCulture), Label = withLabel ? forecast.UnixDateTime.ToString("HH:mm") : null };
+            {
+                ValueLabel = chanceOfRain.ToString(CultureInfo.InvariantCulture),
+                Label = withLabel ? forecast.UnixDateTime.ToString("HH:mm") : null
+            };
 
             chartEntries.Add(chartEntry);
         }
@@ -345,14 +343,14 @@ public partial class ForecastViewModel : BaseViewModel
         foreach (var forecast in Forecasts)
         {
             var hourly = forecast.Hourly;
-            if (hourly == null)
-            {
-                continue;
-            }
+            if (hourly == null) continue;
 
             var cloudiness = hourly.Clouds!.Value;
             var chartEntry = new ChartEntry(cloudiness)
-                { ValueLabel = cloudiness.ToString(CultureInfo.InvariantCulture), Label = withLabel ? forecast.UnixDateTime.ToString("HH:mm") : null };
+            {
+                ValueLabel = cloudiness.ToString(CultureInfo.InvariantCulture),
+                Label = withLabel ? forecast.UnixDateTime.ToString("HH:mm") : null
+            };
 
             chartEntries.Add(chartEntry);
         }
@@ -362,6 +360,7 @@ public partial class ForecastViewModel : BaseViewModel
 
     private static DateTime UnixTimeToDateTime(int km, int speed, int unixTime)
     {
-        return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(3600 * ((double)km / speed) + unixTime).ToLocalTime();
+        return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local)
+            .AddSeconds(3600 * ((double)km / speed) + unixTime).ToLocalTime();
     }
 }
