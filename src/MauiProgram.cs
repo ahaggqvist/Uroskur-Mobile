@@ -4,7 +4,7 @@ namespace Uroskur;
 
 public static class MauiProgram
 {
-    private const bool IsDevelopment = false;
+    private const bool IsDevelopment = true;
     private const string AppSettingsProduction = "appsettings.json";
     private const string AppSettingsDevelopment = "appsettings.Development.json";
 

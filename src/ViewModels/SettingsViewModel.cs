@@ -1,4 +1,6 @@
-﻿namespace Uroskur.ViewModels;
+﻿using CommunityToolkit.Mvvm.Input;
+
+namespace Uroskur.ViewModels;
 
 public partial class SettingsViewModel : BaseViewModel
 {
@@ -27,7 +29,7 @@ public partial class SettingsViewModel : BaseViewModel
     }
 
 
-    [ICommand]
+    [RelayCommand]
     private void SavePreferences()
     {
         _preferencesService.SavePreferences(new AppPreferences
@@ -38,7 +40,7 @@ public partial class SettingsViewModel : BaseViewModel
         });
     }
 
-    [ICommand]
+    [RelayCommand]
     private async void TokenExchange()
     {
         ResetStravaPreferences();

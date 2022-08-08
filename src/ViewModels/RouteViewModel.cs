@@ -1,4 +1,6 @@
-﻿namespace Uroskur.ViewModels;
+﻿using CommunityToolkit.Mvvm.Input;
+
+namespace Uroskur.ViewModels;
 
 [QueryProperty(nameof(Routes), nameof(Routes))]
 public partial class RouteViewModel : BaseViewModel
@@ -26,7 +28,7 @@ public partial class RouteViewModel : BaseViewModel
         _speed = DefaultSpeed;
     }
 
-    [ICommand]
+    [RelayCommand]
     private async void NavigateTo()
     {
         var forecast = new ForecastRoute
