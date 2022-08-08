@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.Models;
 
-public class Forecast
+public class LocationForecast
 {
     public int Km { get; set; }
 
@@ -15,6 +15,4 @@ public class Forecast
     public string? WindIconId { get; set; }
 
     public string TimeKmFormatted => $"{UnixDateTime:HH:mm}";
-
-    //public string TimeKmFormatted => $"{UnixDateTime.ToString("HH:mm")} ({Km})";
 }

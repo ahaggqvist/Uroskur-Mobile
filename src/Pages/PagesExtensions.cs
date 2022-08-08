@@ -7,7 +7,7 @@ public static class PagesExtensions
         builder.Services.AddTransient<LoadingPage>();
         builder.Services.AddTransient<RoutePage>();
         builder.Services.AddTransient<RoutesPage>();
-        builder.Services.AddTransient<SettingsPage>();
+        builder.Services.AddTransient<PreferencesPage>();
         builder.Services.AddTransient<ForecastPage>();
         builder.Services.AddTransient<AboutPage>();
         return builder;

@@ -1,13 +1,13 @@
 ﻿namespace Uroskur.Services;
 
-public class OpenWeatherService : IOpenWeatherService
+public class WeatherService : IWeatherService
 {
     private const int HoursToExpire = 1;
     private readonly IOpenWeatherClient _openWeatherClient;
     private readonly IPreferencesService _preferencesService;
     private readonly IStravaService _stravaService;
 
-    public OpenWeatherService(IOpenWeatherClient openWeatherClient, IStravaService stravaService, IPreferencesService preferencesService)
+    public WeatherService(IOpenWeatherClient openWeatherClient, IStravaService stravaService, IPreferencesService preferencesService)
     {
         _openWeatherClient = openWeatherClient;
         _stravaService = stravaService;

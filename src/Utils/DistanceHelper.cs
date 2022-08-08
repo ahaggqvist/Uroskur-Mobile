@@ -39,7 +39,6 @@ public static class DistanceHelper
 
     public static IEnumerable<Location> GetEvenDistances(IEnumerable<Location> locations)
     {
-
         var distances = new List<Location>();
         var i = 0;
         var total = 0d;

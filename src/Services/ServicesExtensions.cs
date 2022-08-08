@@ -7,7 +7,7 @@ public static class ServicesExtensions
         builder.Services.AddSingleton<IRoutingService, RoutingService>();
         builder.Services.AddScoped<IPreferencesService, PreferencesService>();
         builder.Services.AddScoped<IStravaService, StravaService>();
-        builder.Services.AddScoped<IOpenWeatherService, OpenWeatherService>();
+        builder.Services.AddScoped<IWeatherService, WeatherService>();
         return builder;
     }
 }

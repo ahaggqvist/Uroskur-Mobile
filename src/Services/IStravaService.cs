@@ -1,4 +1,6 @@
-﻿namespace Uroskur.Services;
+﻿using Uroskur.Models.Strava;
+
+namespace Uroskur.Services;
 
 public interface IStravaService
 {

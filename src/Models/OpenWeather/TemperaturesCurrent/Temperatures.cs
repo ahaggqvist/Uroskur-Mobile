@@ -1,4 +1,4 @@
-﻿namespace Uroskur.Models.TemperaturesCurrent;
+﻿namespace Uroskur.Models.OpenWeather.TemperaturesCurrent;
 
 public partial class Temperatures
 {

@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.Models;
 
-public class AppPreferences
+public class Preferences
 {
     private string? _openWeatherAppId;
     private string? _stravaAccessToken;

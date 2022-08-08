@@ -60,7 +60,7 @@
 		<PackageReference Include="MonkeyCache.FileStore" Version="2.0.0-beta" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta1" />
 		<PackageReference Include="Polly" Version="7.2.3" />
-		<PackageReference Include="SkiaSharp" Version="2.88.1-preview.1" />
+		<PackageReference Include="SkiaSharp" Version="2.88.1-preview.91" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -73,8 +73,8 @@
 		<Compile Update="Pages\AboutPage.xaml.cs">
 		  <DependentUpon>AboutPage.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Pages\SettingsPage.xaml.cs">
-			<DependentUpon>SettingsPage.xaml</DependentUpon>
+		<Compile Update="Pages\PreferencesPage.xaml.cs">
+			<DependentUpon>PreferencesPage.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Pages\ForecastPage.xaml.cs">
 			<DependentUpon>ForecastPage.xaml</DependentUpon>
@@ -100,8 +100,13 @@
 		<MauiXaml Update="Pages\AboutPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Pages\SettingsPage.xaml">
+		<MauiXaml Update="Pages\PreferencesPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Models\Smhi\" />
+	  <Folder Include="Models\Yr\" />
 	</ItemGroup>
 </Project>

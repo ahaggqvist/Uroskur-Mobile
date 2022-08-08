@@ -1,4 +1,4 @@
-﻿namespace Uroskur.Models;
+﻿namespace Uroskur.Models.Strava;
 
 public partial class AuthorizationToken
 {

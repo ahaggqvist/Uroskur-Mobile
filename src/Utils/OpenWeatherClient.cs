@@ -21,7 +21,7 @@ public class OpenWeatherClient : IOpenWeatherClient
             throw new ArgumentException("Locations are null.");
         }
 
-        locations = locations.ToImmutableList();
+        locations = locations.ToImmutableArray();
         if (locations.Count() > MaxLocations)
         {
             throw new ArgumentException("Locations exceed maximum.");
@@ -35,7 +35,7 @@ public class OpenWeatherClient : IOpenWeatherClient
         var forecastUrl = _appSettings?.ForecastUrl;
         if (string.IsNullOrEmpty(forecastUrl))
         {
-            throw new ArgumentException("ForecastRoute url is invalid.");
+            throw new ArgumentException("ForecastQuery url is invalid.");
         }
 
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
@@ -85,7 +85,7 @@ public class OpenWeatherClient : IOpenWeatherClient
         var forecastUrl = _appSettings?.ForecastUrl;
         if (string.IsNullOrEmpty(forecastUrl))
         {
-            throw new ArgumentException("ForecastRoute url is invalid.");
+            throw new ArgumentException("ForecastQuery url is invalid.");
         }
 
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);

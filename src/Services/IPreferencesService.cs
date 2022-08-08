@@ -4,9 +4,9 @@ public interface IPreferencesService
 {
     string FindPreference(string key);
 
-    AppPreferences FindPreferences();
+    Preferences FindPreferences();
 
     void SavePreference(string key, string value);
 
-    void SavePreferences(AppPreferences appPreferences);
+    void SavePreferences(Preferences preferences);
 }

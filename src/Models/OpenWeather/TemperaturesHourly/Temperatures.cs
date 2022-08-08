@@ -1,4 +1,4 @@
-﻿namespace Uroskur.Models.TemperaturesHourly;
+﻿namespace Uroskur.Models.OpenWeather.TemperaturesHourly;
 
 public partial class Temperatures
 {

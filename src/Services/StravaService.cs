@@ -1,4 +1,6 @@
-﻿namespace Uroskur.Services;
+﻿using Uroskur.Models.Strava;
+
+namespace Uroskur.Services;
 
 public class StravaService : IStravaService
 {
@@ -110,13 +112,13 @@ public class StravaService : IStravaService
             Debug.WriteLine($"Total locations: {parsedLocations.Count}");
 
             var distances = DistanceHelper.GetEvenDistances(parsedLocations);
-            var locations = distances.ToImmutableList();
-            if (locations.Count <= MaxDistances)
+            var locations = distances.ToImmutableArray();
+            if (locations.Length <= MaxDistances)
             {
                 return locations;
             }
 
-            Debug.WriteLine($"Even distances: {locations.Count} exceed maximum: {MaxDistances}.");
+            Debug.WriteLine($"Even distances: {locations.Length} exceed maximum: {MaxDistances}.");
         }
         catch (Exception ex)
         {

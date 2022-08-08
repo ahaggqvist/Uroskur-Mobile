@@ -19,7 +19,7 @@ public partial class ForecastPage
 
         await Task.Delay(1000);
 
-        if (_forecastViewModel.Forecasts.Count != 0)
+        if (_forecastViewModel.LocationForecasts.Count != 0)
         {
             return;
         }

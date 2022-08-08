@@ -1,8 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿namespace Uroskur.ViewModels;
 
-namespace Uroskur.ViewModels;
-
-public partial class SettingsViewModel : BaseViewModel
+public partial class PreferencesViewModel : BaseViewModel
 {
     private readonly IPreferencesService _preferencesService;
     private readonly IStravaService _stravaService;
@@ -18,7 +16,7 @@ public partial class SettingsViewModel : BaseViewModel
     [ObservableProperty] private string? _stravaRefreshToken;
     [ObservableProperty] private string? _stravaUsername;
 
-    public SettingsViewModel(IPreferencesService preferencesService, IStravaService stravaService)
+    public PreferencesViewModel(IPreferencesService preferencesService, IStravaService stravaService)
     {
         Title = "Settings";
 
@@ -28,11 +26,10 @@ public partial class SettingsViewModel : BaseViewModel
         LoadPreferences();
     }
 
-
     [RelayCommand]
     private void SavePreferences()
     {
-        _preferencesService.SavePreferences(new AppPreferences
+        _preferencesService.SavePreferences(new Preferences
         {
             OpenWeatherAppId = _openWeatherAppId!,
             StravaClientId = _stravaClientId!,

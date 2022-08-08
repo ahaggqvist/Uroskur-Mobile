@@ -1,4 +1,4 @@
-namespace Uroskur.Models;
+namespace Uroskur.Models.Microcharts;
 
 public class ChartItem
 {

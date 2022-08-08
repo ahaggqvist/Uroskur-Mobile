@@ -8,9 +8,8 @@ public static class ViewModelExtensions
         builder.Services.AddTransient<RoutesViewModel>();
         builder.Services.AddTransient<RouteViewModel>();
         builder.Services.AddTransient<ForecastViewModel>();
-        builder.Services.AddTransient<SettingsViewModel>();
+        builder.Services.AddTransient<PreferencesViewModel>();
         builder.Services.AddTransient<AboutViewModel>();
-
         return builder;
     }
 }

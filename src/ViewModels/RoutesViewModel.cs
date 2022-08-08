@@ -3,9 +3,7 @@
 public class RoutesViewModel : BaseViewModel
 {
     private readonly IPreferencesService _preferencesService;
-
     private readonly IRoutingService _routingService;
-
     private readonly IStravaService _stravaService;
 
     public RoutesViewModel(IStravaService stravaService, IRoutingService routingService, IPreferencesService preferencesService)

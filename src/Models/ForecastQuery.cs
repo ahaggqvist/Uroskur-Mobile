@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.Models;
 
-public class ForecastRoute
+public class ForecastQuery
 {
     public Routes? Routes { get; set; }
 

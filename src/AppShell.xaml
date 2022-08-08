@@ -41,7 +41,7 @@
         <ShellContent Shell.NavBarIsVisible="True" Route="SettingsPage"
                       Shell.ForegroundColor="White"
                       Shell.BackgroundColor="#FC4C02"
-                      ContentTemplate="{DataTemplate local:SettingsPage}" />
+                      ContentTemplate="{DataTemplate local:PreferencesPage}" />
     </FlyoutItem>
     <FlyoutItem Title="About">
         <ShellContent Shell.NavBarIsVisible="True" Route="AboutPage"

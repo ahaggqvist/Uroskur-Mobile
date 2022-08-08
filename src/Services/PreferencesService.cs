@@ -4,12 +4,12 @@ public class PreferencesService : IPreferencesService
 {
     public string FindPreference(string key)
     {
-        return Preferences.Get(key, string.Empty);
+        return Microsoft.Maui.Storage.Preferences.Get(key, string.Empty);
     }
 
-    public AppPreferences FindPreferences()
+    public Preferences FindPreferences()
     {
-        return new AppPreferences
+        return new Preferences
         {
             OpenWeatherAppId = FindPreference("openweatherAppId"),
             StravaAccessToken = FindPreference("stravaAccessToken"),
@@ -26,20 +26,20 @@ public class PreferencesService : IPreferencesService
 
     public void SavePreference(string key, string value)
     {
-        Preferences.Set(key, value);
+        Microsoft.Maui.Storage.Preferences.Set(key, value);
     }
 
-    public void SavePreferences(AppPreferences appPreferences)
+    public void SavePreferences(Preferences preferences)
     {
-        SavePreference("openweatherAppId", appPreferences.OpenWeatherAppId!);
-        SavePreference("stravaAccessToken", appPreferences.StravaAccessToken!);
-        SavePreference("stravaAthleteId", appPreferences.StravaAthleteId!);
-        SavePreference("stravaClientId", appPreferences.StravaClientId!);
-        SavePreference("stravaClientSecret", appPreferences.StravaClientSecret!);
-        SavePreference("stravaExpiresAt", appPreferences.StravaExpiresAt!);
-        SavePreference("stravaFirstname", appPreferences.StravaFirstname!);
-        SavePreference("stravaLastname", appPreferences.StravaLastname!);
-        SavePreference("stravaRefreshToken", appPreferences.StravaRefreshToken!);
-        SavePreference("stravaUsername", appPreferences.StravaUsername!);
+        SavePreference("openweatherAppId", preferences.OpenWeatherAppId!);
+        SavePreference("stravaAccessToken", preferences.StravaAccessToken!);
+        SavePreference("stravaAthleteId", preferences.StravaAthleteId!);
+        SavePreference("stravaClientId", preferences.StravaClientId!);
+        SavePreference("stravaClientSecret", preferences.StravaClientSecret!);
+        SavePreference("stravaExpiresAt", preferences.StravaExpiresAt!);
+        SavePreference("stravaFirstname", preferences.StravaFirstname!);
+        SavePreference("stravaLastname", preferences.StravaLastname!);
+        SavePreference("stravaRefreshToken", preferences.StravaRefreshToken!);
+        SavePreference("stravaUsername", preferences.StravaUsername!);
     }
 }
