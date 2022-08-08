@@ -108,9 +108,6 @@ public class StravaService : IStravaService
             }
 
             var parsedLocations = GpxParser.GpxToLocations(gpx);
-
-            Debug.WriteLine($"Total locations: {parsedLocations.Count}");
-
             var distances = DistanceHelper.GetEvenDistances(parsedLocations);
             var locations = distances.ToImmutableArray();
             if (locations.Length <= MaxDistances)

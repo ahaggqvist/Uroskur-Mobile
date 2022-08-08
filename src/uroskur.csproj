@@ -104,9 +104,4 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Models\Smhi\" />
-	  <Folder Include="Models\Yr\" />
-	</ItemGroup>
 </Project>

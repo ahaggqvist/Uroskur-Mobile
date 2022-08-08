@@ -1,6 +1,6 @@
-﻿namespace Uroskur.Models.OpenWeather.TemperaturesCurrent;
+﻿namespace Uroskur.Models.OpenWeather;
 
-public partial class Temperatures
+public partial class OpenWeatherForecast
 {
     [JsonProperty("lat", NullValueHandling = NullValueHandling.Ignore)]
     public double? Lat { get; set; }
@@ -16,9 +16,6 @@ public partial class Temperatures
 
     [JsonProperty("hourly", NullValueHandling = NullValueHandling.Ignore)]
     public List<Hourly>? Hourly { get; set; }
-
-    [JsonProperty("current", NullValueHandling = NullValueHandling.Ignore)]
-    public Hourly? Current { get; set; }
 }
 
 public class Hourly
@@ -42,7 +39,7 @@ public class Hourly
     public double? DewPoint { get; set; }
 
     [JsonProperty("uvi", NullValueHandling = NullValueHandling.Ignore)]
-    public long? Uvi { get; set; }
+    public double? Uvi { get; set; }
 
     [JsonProperty("clouds", NullValueHandling = NullValueHandling.Ignore)]
     public long? Clouds { get; set; }
@@ -63,7 +60,19 @@ public class Hourly
     public List<Weather>? Weather { get; set; }
 
     [JsonProperty("pop", NullValueHandling = NullValueHandling.Ignore)]
-    public long? Pop { get; set; }
+    public double? Pop { get; set; }
+
+    [JsonProperty("snow", NullValueHandling = NullValueHandling.Ignore)]
+    public Rain? Snow { get; set; }
+
+    [JsonProperty("rain", NullValueHandling = NullValueHandling.Ignore)]
+    public Rain? Rain { get; set; }
+}
+
+public class Rain
+{
+    [JsonProperty("1h", NullValueHandling = NullValueHandling.Ignore)]
+    public double? The1H { get; set; }
 }
 
 public class Weather
@@ -72,7 +81,7 @@ public class Weather
     public long? Id { get; set; }
 
     [JsonProperty("main", NullValueHandling = NullValueHandling.Ignore)]
-    public string? Main { get; set; }
+    public Main? Main { get; set; }
 
     [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
     public string? Description { get; set; }
@@ -81,17 +90,27 @@ public class Weather
     public string? Icon { get; set; }
 }
 
-public partial class Temperatures
+public enum Main
 {
-    public static Temperatures? FromJson(string json)
+    Clear,
+    Clouds,
+    Rain,
+    Snow
+}
+
+public partial class OpenWeatherForecast
+{
+    public static OpenWeatherForecast? FromJson(string json)
     {
-        return JsonConvert.DeserializeObject<Temperatures>(json, Converter.Settings);
+        Debug.WriteLine($"Temperatures JSON: {json}");
+
+        return JsonConvert.DeserializeObject<OpenWeatherForecast>(json, Converter.Settings);
     }
 }
 
-public static class SerializeTemperatures
+public static class Serialize
 {
-    public static string ToJson(this Temperatures self)
+    public static string ToJson(this OpenWeatherForecast self)
     {
         return JsonConvert.SerializeObject(self, Converter.Settings);
     }
@@ -105,7 +124,64 @@ internal static class Converter
         DateParseHandling = DateParseHandling.None,
         Converters =
         {
+            MainConverter.Singleton,
             new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
         }
     };
+}
+
+internal class MainConverter : JsonConverter
+{
+    public static readonly MainConverter Singleton = new();
+
+    public override bool CanConvert(Type t)
+    {
+        return t == typeof(Main) || t == typeof(Main?);
+    }
+
+    public override object? ReadJson(JsonReader reader, Type t, object? existingValue, JsonSerializer serializer)
+    {
+        if (reader.TokenType == JsonToken.Null)
+        {
+            return null;
+        }
+
+        var value = serializer.Deserialize<string>(reader);
+        return value switch
+        {
+            "Clear" => Main.Clear,
+            "Clouds" => Main.Clouds,
+            "Rain" => Main.Rain,
+            "Snow" => Main.Snow,
+            _ => throw new Exception("Cannot unmarshal type Main")
+        };
+    }
+
+    public override void WriteJson(JsonWriter writer, object? untypedValue, JsonSerializer serializer)
+    {
+        if (untypedValue == null)
+        {
+            serializer.Serialize(writer, null);
+            return;
+        }
+
+        var value = (Main)untypedValue;
+        switch (value)
+        {
+            case Main.Clear:
+                serializer.Serialize(writer, "Clear");
+                return;
+            case Main.Clouds:
+                serializer.Serialize(writer, "Clouds");
+                return;
+            case Main.Rain:
+                serializer.Serialize(writer, "Rain");
+                return;
+            case Main.Snow:
+                serializer.Serialize(writer, "Snow");
+                return;
+            default:
+                throw new Exception("Cannot marshal type Main");
+        }
+    }
 }

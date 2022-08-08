@@ -18,7 +18,6 @@ global using Newtonsoft.Json.Converters;
 global using Polly;
 global using SkiaSharp;
 global using Uroskur.Models;
-global using Uroskur.Models.OpenWeather.TemperaturesHourly;
 global using Uroskur.Pages;
 global using Uroskur.Services;
 global using Uroskur.Utils;

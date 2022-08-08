@@ -1,4 +1,6 @@
-﻿namespace Uroskur.Models;
+﻿using Uroskur.Models.OpenWeather;
+
+namespace Uroskur.Models;
 
 public class LocationForecast
 {

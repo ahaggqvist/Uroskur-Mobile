@@ -1,7 +1,9 @@
-﻿namespace Uroskur.Utils;
+﻿using Uroskur.Models.OpenWeather;
+
+namespace Uroskur.Utils;
 
 public interface IOpenWeatherClient
 {
-    Task<List<Temperatures>> GetForecastAsync(IEnumerable<Location>? locations, string? appId);
-    Task<Temperatures?> GetForecastAsync(Location location, string? appId);
+    Task<IEnumerable<OpenWeatherForecast>> GetForecastAsync(IEnumerable<Location>? locations, string? appId);
+    Task<OpenWeatherForecast?> GetForecastAsync(Location location, string? appId);
 }

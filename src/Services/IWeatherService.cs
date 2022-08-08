@@ -1,6 +1,8 @@
-﻿namespace Uroskur.Services;
+﻿using Uroskur.Models.OpenWeather;
+
+namespace Uroskur.Services;
 
 public interface IWeatherService
 {
-    Task<IEnumerable<Temperatures>> FindForecastAsync(string? routeId, string? athleteId);
+    Task<IEnumerable<OpenWeatherForecast>> FindForecastAsync(string? routeId, string? athleteId);
 }

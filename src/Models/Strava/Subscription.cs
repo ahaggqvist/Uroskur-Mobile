@@ -1,4 +1,6 @@
-﻿namespace Uroskur.Models.Strava;
+﻿using Uroskur.Models.OpenWeather;
+
+namespace Uroskur.Models.Strava;
 
 public partial class Subscription
 {

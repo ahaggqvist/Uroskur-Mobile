@@ -1,4 +1,6 @@
-﻿namespace Uroskur.Services;
+﻿using Uroskur.Models.OpenWeather;
+
+namespace Uroskur.Services;
 
 public class WeatherService : IWeatherService
 {
@@ -14,7 +16,7 @@ public class WeatherService : IWeatherService
         _preferencesService = preferencesService;
     }
 
-    public async Task<IEnumerable<Temperatures>> FindForecastAsync(string? routeId, string? athleteId)
+    public async Task<IEnumerable<OpenWeatherForecast>> FindForecastAsync(string? routeId, string? athleteId)
     {
         Barrel.Current.EmptyExpired();
 
@@ -25,21 +27,21 @@ public class WeatherService : IWeatherService
         {
             Debug.WriteLine($"Route ID: {routeId} is invalid.");
 
-            return Array.Empty<Temperatures>();
+            return Array.Empty<OpenWeatherForecast>();
         }
 
         if (string.IsNullOrEmpty(athleteId))
         {
             Debug.WriteLine($"AthleteId ID: {athleteId} is invalid.");
 
-            return Array.Empty<Temperatures>();
+            return Array.Empty<OpenWeatherForecast>();
         }
 
-        var temperatures = new List<Temperatures>();
+        var temperatures = new List<OpenWeatherForecast>();
 
         try
         {
-            var locations = (await _stravaService.FindLocationsByAthleteIdRouteIdAsync(athleteId, routeId)).ToList();
+            var locations = (await _stravaService.FindLocationsByAthleteIdRouteIdAsync(athleteId, routeId)).ToImmutableArray();
             foreach (var location in locations)
             {
                 var key =
@@ -64,7 +66,7 @@ public class WeatherService : IWeatherService
                 else
                 {
                     var json = Barrel.Current.Get<string>(key);
-                    var temperature = Temperatures.FromJson(json);
+                    var temperature = OpenWeatherForecast.FromJson(json);
                     if (temperature == null)
                     {
                         continue;

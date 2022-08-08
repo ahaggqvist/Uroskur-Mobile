@@ -1,4 +1,6 @@
-﻿namespace Uroskur.Utils;
+﻿using Uroskur.Models.OpenWeather;
+
+namespace Uroskur.Utils;
 
 public class OpenWeatherClient : IOpenWeatherClient
 {
@@ -14,7 +16,7 @@ public class OpenWeatherClient : IOpenWeatherClient
         _httpClient = httpClient;
     }
 
-    public async Task<List<Temperatures>> GetForecastAsync(IEnumerable<Location>? locations, string? appId)
+    public async Task<IEnumerable<OpenWeatherForecast>> GetForecastAsync(IEnumerable<Location>? locations, string? appId)
     {
         if (locations == null)
         {
@@ -50,9 +52,9 @@ public class OpenWeatherClient : IOpenWeatherClient
                 .Replace("@Exclude", "current,minutely,daily,alerts")
                 .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
                 .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)))
-            .ToList();
+            .ToImmutableArray();
 
-        var temperatures = new List<Temperatures>();
+        var temperatures = new List<OpenWeatherForecast>();
         await retryPolicy.ExecuteAsync(async () =>
         {
             var responses = urls.Select(GetResponseAsync).ToArray();
@@ -60,7 +62,7 @@ public class OpenWeatherClient : IOpenWeatherClient
 
             foreach (var response in responses)
             {
-                if (Temperatures.FromJson(await response) is { } t)
+                if (OpenWeatherForecast.FromJson(await response) is { } t)
                 {
                     temperatures.Add(t);
                 }
@@ -70,7 +72,7 @@ public class OpenWeatherClient : IOpenWeatherClient
         return temperatures;
     }
 
-    public async Task<Temperatures?> GetForecastAsync(Location location, string? appId)
+    public async Task<OpenWeatherForecast?> GetForecastAsync(Location location, string? appId)
     {
         if (location == null)
         {
@@ -101,10 +103,10 @@ public class OpenWeatherClient : IOpenWeatherClient
             .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
             .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture));
 
-        Temperatures? temperatures = null;
+        OpenWeatherForecast? temperatures = null;
         await retryPolicy.ExecuteAsync(async () =>
         {
-            temperatures = Temperatures.FromJson(await GetResponseAsync(url));
+            temperatures = OpenWeatherForecast.FromJson(await GetResponseAsync(url));
         });
 
 

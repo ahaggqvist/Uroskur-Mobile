@@ -1,4 +1,5 @@
-﻿using Uroskur.Models.Strava;
+﻿using Uroskur.Models.OpenWeather;
+using Uroskur.Models.Strava;
 
 namespace Uroskur.Models;
 

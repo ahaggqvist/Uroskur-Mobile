@@ -49,13 +49,13 @@ public partial class ForecastViewModel : BaseViewModel
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
-            var temperatures = await _weatherService.FindForecastAsync(routeId, athleteId);
+            var openWeatherForecasts = await _weatherService.FindForecastAsync(routeId, athleteId);
 
-            var temperaturesArray = temperatures.ToImmutableArray();
-            if (temperaturesArray.Length > 0)
+            var openWeatherForecastsArray = openWeatherForecasts.ToImmutableArray();
+            if (openWeatherForecastsArray.Length > 0)
             {
-                var temperature = temperaturesArray.ElementAt(0);
-                var dt = temperature.Hourly![0].Dt;
+                var openWeatherForecast = openWeatherForecastsArray.ElementAt(0);
+                var dt = openWeatherForecast.Hourly![0].Dt;
                 if (dt != null)
                 {
                     var issuedAt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds((double)dt);
@@ -67,13 +67,13 @@ public partial class ForecastViewModel : BaseViewModel
                 OnPropertyChanged(nameof(ForecastIssuedFor));
             }
 
-            foreach (var (temperature, index) in temperaturesArray.WithIndex())
+            foreach (var (openWeatherForecast, index) in openWeatherForecastsArray.WithIndex())
             {
                 var km = index * 10 + 10;
                 var speed = _forecastQuery!.Speed!.Value;
                 var time = km / speed;
                 var seconds = 3600 * time + unixTime;
-                var hourly = temperature.Hourly?.Find(h => h.Dt!.Value == seconds);
+                var hourly = openWeatherForecast.Hourly?.Find(h => h.Dt!.Value == seconds);
 
                 if (hourly == null)
                 {
