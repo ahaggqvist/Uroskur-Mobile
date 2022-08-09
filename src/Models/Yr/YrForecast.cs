@@ -126,7 +126,7 @@ public partial class Units
 public partial class Timesery
 {
     [JsonProperty("time", NullValueHandling = NullValueHandling.Ignore)]
-    public DateTimeOffset? Time { get; set; }
+    public DateTimeOffset Time { get; set; }
 
     [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
     public Data Data { get; set; }
@@ -189,19 +189,19 @@ public partial class Next1_Hours
 public partial class Next1_HoursDetails
 {
     [JsonProperty("precipitation_amount", NullValueHandling = NullValueHandling.Ignore)]
-    public long? PrecipitationAmount { get; set; }
+    public double PrecipitationAmount { get; set; }
 
     [JsonProperty("precipitation_amount_max", NullValueHandling = NullValueHandling.Ignore)]
-    public long? PrecipitationAmountMax { get; set; }
+    public double PrecipitationAmountMax { get; set; }
 
     [JsonProperty("precipitation_amount_min", NullValueHandling = NullValueHandling.Ignore)]
-    public long? PrecipitationAmountMin { get; set; }
+    public double PrecipitationAmountMin { get; set; }
 
     [JsonProperty("probability_of_precipitation", NullValueHandling = NullValueHandling.Ignore)]
-    public long? ProbabilityOfPrecipitation { get; set; }
+    public double ProbabilityOfPrecipitation { get; set; }
 
     [JsonProperty("probability_of_thunder", NullValueHandling = NullValueHandling.Ignore)]
-    public double? ProbabilityOfThunder { get; set; }
+    public double ProbabilityOfThunder { get; set; }
 }
 
 public partial class Next1_HoursSummary
@@ -222,22 +222,22 @@ public partial class Next6_Hours
 public partial class Next6_HoursDetails
 {
     [JsonProperty("air_temperature_max", NullValueHandling = NullValueHandling.Ignore)]
-    public double? AirTemperatureMax { get; set; }
+    public double AirTemperatureMax { get; set; }
 
     [JsonProperty("air_temperature_min", NullValueHandling = NullValueHandling.Ignore)]
-    public double? AirTemperatureMin { get; set; }
+    public double AirTemperatureMin { get; set; }
 
     [JsonProperty("precipitation_amount", NullValueHandling = NullValueHandling.Ignore)]
-    public long? PrecipitationAmount { get; set; }
+    public double PrecipitationAmount { get; set; }
 
     [JsonProperty("precipitation_amount_max", NullValueHandling = NullValueHandling.Ignore)]
-    public long? PrecipitationAmountMax { get; set; }
+    public double PrecipitationAmountMax { get; set; }
 
     [JsonProperty("precipitation_amount_min", NullValueHandling = NullValueHandling.Ignore)]
-    public long? PrecipitationAmountMin { get; set; }
+    public double PrecipitationAmountMin { get; set; }
 
     [JsonProperty("probability_of_precipitation", NullValueHandling = NullValueHandling.Ignore)]
-    public double? ProbabilityOfPrecipitation { get; set; }
+    public double ProbabilityOfPrecipitation { get; set; }
 }
 
 public enum SymbolCode { ClearskyDay, ClearskyNight, Cloudy, FairDay, FairNight, PartlycloudyDay, PartlycloudyNight };

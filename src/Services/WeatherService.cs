@@ -20,8 +20,7 @@ public class WeatherService : IWeatherService
     {
         Barrel.Current.EmptyExpired();
 
-        var preference = _preferencesService.FindPreferences();
-        var appId = preference.OpenWeatherAppId;
+        //Barrel.Current.EmptyAll();
 
         if (string.IsNullOrEmpty(routeId))
         {
@@ -44,53 +43,133 @@ public class WeatherService : IWeatherService
             var locations = (await _stravaService.FindLocationsByAthleteIdRouteIdAsync(athleteId, routeId)).ToImmutableArray();
             foreach (var location in locations)
             {
-                var key =
-                    $"{location.Lat.ToString(CultureInfo.InvariantCulture)}{location.Lon.ToString(CultureInfo.InvariantCulture)}";
-
-                Debug.WriteLine($"Is forecast cache expired: {Barrel.Current.IsExpired(key)}.");
-
-                OpenWeatherForecast? openWeatherForecast;
-
-                if (Barrel.Current.IsExpired(key))
-                {
-                    openWeatherForecast = await _openWeatherClient.GetForecastAsync(location, appId);
-                    if (openWeatherForecast == null)
-                    {
-                        continue;
-                    }
-
-                    Barrel.Current.Add(key, openWeatherForecast.ToJson(), TimeSpan.FromHours(HoursToExpire));
-
-                    Debug.WriteLine($"Cache temperature with key: {key}.");
-                }
-                else
-                {
-                    var json = Barrel.Current.Get<string>(key);
-                    openWeatherForecast = OpenWeatherForecast.FromJson(json);
-                    if (openWeatherForecast == null)
-                    {
-                        continue;
-                    }
-
-                    Debug.WriteLine($"Fetch cached temperature with key: {key}.");
-                }
-
                 var hourlyForecasts = new List<HourlyForecast>();
 
-                hourlyForecasts.AddRange(openWeatherForecast.Hourly.Select(hourly => new HourlyForecast
+                switch (forecastProvider)
                 {
-                    Dt = DateTimeHelper.UnixTimestampToDateTime(hourly.Dt),
-                    UnixTimestamp = hourly.Dt,
-                    Temp = hourly.Temp,
-                    FeelsLike = hourly.FeelsLike,
-                    Uvi = hourly.Uvi,
-                    Cloudiness = hourly.Clouds,
-                    WindSpeed = hourly.WindSpeed,
-                    WindGust = hourly.WindGust,
-                    WindDeg = hourly.WindDeg,
-                    Pop = hourly.Pop,
-                    IconId = hourly.Weather[0].Id
-                }));
+                    case ForecastProvider.OpenWeather:
+                    {
+                        var key =
+                            $"OpenWeather{location.Lat.ToString(CultureInfo.InvariantCulture)}{location.Lon.ToString(CultureInfo.InvariantCulture)}";
+
+                        Debug.WriteLine($"Is OpenWeather forecast cache expired: {Barrel.Current.IsExpired(key)}.");
+
+                        OpenWeatherForecast? openWeatherForecast;
+
+                        if (Barrel.Current.IsExpired(key))
+                        {
+                            var preference = _preferencesService.FindPreferences();
+                            var appId = preference.OpenWeatherAppId;
+                            openWeatherForecast = await _openWeatherClient.FetchForecastAsync(location, appId);
+                            if (openWeatherForecast == null)
+                            {
+                                continue;
+                            }
+
+                            Barrel.Current.Add(key, openWeatherForecast.ToJson(), TimeSpan.FromHours(HoursToExpire));
+
+                            Debug.WriteLine($"Cache forecast with key: {key}.");
+                        }
+                        else
+                        {
+                            var json = Barrel.Current.Get<string>(key);
+                            openWeatherForecast = OpenWeatherForecast.FromJson(json);
+                            if (openWeatherForecast == null)
+                            {
+                                continue;
+                            }
+
+                            Debug.WriteLine($"Fetch cached forecast with key: {key}.");
+                        }
+
+                        hourlyForecasts.AddRange(openWeatherForecast.Hourly.Select(hourly => new HourlyForecast
+                        {
+                            Dt = DateTimeHelper.UnixTimestampToDateTime(hourly.Dt),
+                            UnixTimestamp = hourly.Dt,
+                            Temp = hourly.Temp,
+                            FeelsLike = hourly.FeelsLike,
+                            Uvi = hourly.Uvi,
+                            Cloudiness = hourly.Clouds,
+                            WindSpeed = hourly.WindSpeed,
+                            WindGust = hourly.WindGust,
+                            WindDeg = hourly.WindDeg,
+                            Pop = hourly.Pop,
+                            IconId = hourly.Weather[0].Id
+                        }));
+                        break;
+                    }
+                    case ForecastProvider.Yr:
+                    {
+                        var key =
+                            $"Yr{location.Lat.ToString(CultureInfo.InvariantCulture)}{location.Lon.ToString(CultureInfo.InvariantCulture)}";
+
+                        Debug.WriteLine($"Is Yr forecast cache expired: {Barrel.Current.IsExpired(key)}.");
+
+                        YrForecast? yrForecast;
+
+                        if (Barrel.Current.IsExpired(key))
+                        {
+                            yrForecast = await _yrClient.FetchForecastAsync(location);
+                            if (yrForecast == null)
+                            {
+                                continue;
+                            }
+
+                            Barrel.Current.Add(key, yrForecast.ToJson(), TimeSpan.FromHours(HoursToExpire));
+
+                            Debug.WriteLine($"Cache forecast with key: {key}.");
+                        }
+                        else
+                        {
+                            var json = Barrel.Current.Get<string>(key);
+                            yrForecast = YrForecast.FromJson(json);
+                            if (yrForecast == null)
+                            {
+                                continue;
+                            }
+
+                            Debug.WriteLine($"Fetch cached forecast with key: {key}.");
+                        }
+
+                        foreach (var timesery in yrForecast.Properties.Timeseries)
+                        {
+                            if (timesery == null)
+                            {
+                                continue;
+                            }
+
+                            var pop = 0D;
+                            if (timesery.Data.Next1_Hours != null && timesery.Data.Next6_Hours != null)
+                            {
+                                pop = timesery.Data.Next1_Hours != null
+                                    ? timesery.Data.Next1_Hours.Details.ProbabilityOfPrecipitation
+                                    : timesery.Data.Next6_Hours.Details.ProbabilityOfPrecipitation;
+                            }
+
+                            var hourlyForecast = new HourlyForecast
+                            {
+                                Dt = timesery.Time.LocalDateTime,
+                                UnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(timesery.Time.LocalDateTime),
+                                Temp = timesery.Data.Instant.Details.ContainsKey("air_temperature") ? timesery.Data.Instant.Details["air_temperature"] : 0D,
+                                FeelsLike = timesery.Data.Instant.Details.ContainsKey("air_temperature") ? timesery.Data.Instant.Details["air_temperature"] : 0D,
+                                Uvi = timesery.Data.Instant.Details.ContainsKey("ultraviolet_index_clear_sky") ? timesery.Data.Instant.Details["ultraviolet_index_clear_sky"] : 0D,
+                                Cloudiness = timesery.Data.Instant.Details.ContainsKey("cloud_area_fraction") ? timesery.Data.Instant.Details["cloud_area_fraction"] : 0D,
+                                WindSpeed = timesery.Data.Instant.Details.ContainsKey("wind_speed") ? timesery.Data.Instant.Details["wind_speed"] : 0D,
+                                WindGust = timesery.Data.Instant.Details.ContainsKey("wind_speed_of_gust") ? timesery.Data.Instant.Details["wind_speed_of_gust"] : 0D,
+                                WindDeg = timesery.Data.Instant.Details.ContainsKey("wind_from_direction") ? timesery.Data.Instant.Details["wind_from_direction"] : 0D,
+                                Pop = pop,
+                                IconId = 800
+                            };
+
+                            Debug.WriteLine(hourlyForecast.ToString());
+
+                            hourlyForecasts.Add(hourlyForecast);
+                        }
+                    }
+                        break;
+                    default:
+                        return Array.Empty<Forecast>();
+                }
 
                 forecasts.Add(new Forecast
                 {

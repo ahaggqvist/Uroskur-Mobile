@@ -14,7 +14,7 @@ public class OpenWeatherClient : IOpenWeatherClient
         _httpClient = httpClient;
     }
 
-    public async Task<IEnumerable<OpenWeatherForecast>> GetForecastAsync(IEnumerable<Location>? locations, string? appId)
+    public async Task<IEnumerable<OpenWeatherForecast>> FetchForecastsAsync(IEnumerable<Location>? locations, string? appId)
     {
         if (locations == null)
         {
@@ -32,8 +32,8 @@ public class OpenWeatherClient : IOpenWeatherClient
             throw new ArgumentException("App ID is invalid.");
         }
 
-        var forecastUrl = _appSettings?.ForecastUrl;
-        if (string.IsNullOrEmpty(forecastUrl))
+        var apiUrl = _appSettings?.OpenWeatherApiUrl;
+        if (string.IsNullOrEmpty(apiUrl))
         {
             throw new ArgumentException("Forecast url is invalid.");
         }
@@ -43,7 +43,7 @@ public class OpenWeatherClient : IOpenWeatherClient
             .Handle<HttpRequestException>()
             .WaitAndRetryAsync(MaxRetryAttempts, _ => pauseBetweenFailures);
 
-        var urls = locations.Select(location => forecastUrl
+        var urls = locations.Select(location => apiUrl
                 .Replace("@AppId", appId)
                 .Replace("@Exclude", "current,minutely,daily,alerts")
                 .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
@@ -68,7 +68,7 @@ public class OpenWeatherClient : IOpenWeatherClient
         return openWeatherForecasts;
     }
 
-    public async Task<OpenWeatherForecast?> GetForecastAsync(Location location, string? appId)
+    public async Task<OpenWeatherForecast?> FetchForecastAsync(Location location, string? appId)
     {
         if (location == null)
         {
@@ -80,10 +80,10 @@ public class OpenWeatherClient : IOpenWeatherClient
             throw new ArgumentException("App ID is invalid.");
         }
 
-        var forecastUrl = _appSettings?.ForecastUrl;
-        if (string.IsNullOrEmpty(forecastUrl))
+        var apiUrl = _appSettings?.OpenWeatherApiUrl;
+        if (string.IsNullOrEmpty(apiUrl))
         {
-            throw new ArgumentException("Forecast url is invalid.");
+            throw new ArgumentException("OpenWeather API url is invalid.");
         }
 
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
@@ -91,11 +91,13 @@ public class OpenWeatherClient : IOpenWeatherClient
             .Handle<HttpRequestException>()
             .WaitAndRetryAsync(MaxRetryAttempts, _ => pauseBetweenFailures);
 
-        var url = forecastUrl
+        var url = apiUrl
             .Replace("@AppId", appId)
             .Replace("@Exclude", "current,minutely,daily,alerts")
             .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
             .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture));
+
+        Debug.WriteLine($"API Url {url}");
 
         OpenWeatherForecast? openWeatherForecast = null;
         await retryPolicy.ExecuteAsync(async () =>

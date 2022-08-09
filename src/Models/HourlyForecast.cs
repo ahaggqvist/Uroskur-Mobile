@@ -10,7 +10,13 @@ public class HourlyForecast
     public double Cloudiness { get; set; }
     public double WindSpeed { get; set; }
     public double WindGust { get; set; }
-    public long WindDeg { get; set; }
+    public double WindDeg { get; set; }
     public double Pop { get; set; }
     public long IconId { get; set; }
+
+    public override string ToString()
+    {
+        return
+            $"{nameof(Dt)}: {Dt}, {nameof(UnixTimestamp)}: {UnixTimestamp}, {nameof(Temp)}: {Temp}, {nameof(FeelsLike)}: {FeelsLike}, {nameof(Uvi)}: {Uvi}, {nameof(Cloudiness)}: {Cloudiness}, {nameof(WindSpeed)}: {WindSpeed}, {nameof(WindGust)}: {WindGust}, {nameof(WindDeg)}: {WindDeg}, {nameof(Pop)}: {Pop}, {nameof(IconId)}: {IconId}";
+    }
 }

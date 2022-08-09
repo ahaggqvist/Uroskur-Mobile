@@ -49,7 +49,7 @@ public partial class ForecastViewModel : BaseViewModel
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
-            var forecasts = await _weatherService.FindForecastsAsync(ForecastProvider.OpenWeather, routeId, athleteId);
+            var forecasts = await _weatherService.FindForecastsAsync(ForecastProvider.Yr, routeId, athleteId);
 
             var forecastsArray = forecasts.ToImmutableArray();
             if (forecastsArray.Length > 0)

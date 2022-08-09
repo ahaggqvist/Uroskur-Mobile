@@ -37,8 +37,8 @@ public class StravaClient : IStravaClient
             throw new ArgumentException("Authorization redirect url is invalid.");
         }
 
-        var _stravaAuthorizationTokenUrl = _appSettings?.StravaAuthorizationTokenUrl;
-        if (string.IsNullOrEmpty(_stravaAuthorizationTokenUrl))
+        var stravaAuthorizationTokenUrl = _appSettings?.StravaAuthorizationTokenUrl;
+        if (string.IsNullOrEmpty(stravaAuthorizationTokenUrl))
         {
             throw new ArgumentException("Strava authorization token url is invalid.");
         }
@@ -71,7 +71,7 @@ public class StravaClient : IStravaClient
                 { "grant_type", GrantTypeAuthorizationCode }
             });
 
-            var response = await _httpClient?.PostAsync(_stravaAuthorizationTokenUrl, formUrlEncodedContent)!;
+            var response = await _httpClient?.PostAsync(stravaAuthorizationTokenUrl, formUrlEncodedContent)!;
             response.EnsureSuccessStatusCode();
             var responseBody = await response.Content.ReadAsStringAsync();
 

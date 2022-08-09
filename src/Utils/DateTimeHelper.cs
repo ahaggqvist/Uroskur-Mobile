@@ -9,10 +9,10 @@ internal static class DateTimeHelper
         return new DateTime(unixStart.Ticks + unixTimeStampInTicks, DateTimeKind.Local);
     }
 
-    public static double DateTimeToUnixTimestamp(DateTime dateTime)
+    public static long DateTimeToUnixTimestamp(DateTime dateTime)
     {
         var unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local);
         var unixTimeStampInTicks = (dateTime.ToUniversalTime() - unixStart).Ticks;
-        return (double)unixTimeStampInTicks / TimeSpan.TicksPerSecond;
+        return unixTimeStampInTicks / TimeSpan.TicksPerSecond;
     }
 }
