@@ -1,7 +1,13 @@
 ﻿namespace Uroskur.Utils;
 
-internal static class Constants
+public static class Constants
 {
+    public enum ForecastProvider
+    {
+        OpenWeather,
+        Yr
+    }
+
     internal static readonly Dictionary<long, string> WeatherIconsDictionary = new()
     {
         { 200, "\uf01e" },

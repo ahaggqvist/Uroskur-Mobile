@@ -2,5 +2,5 @@
 
 public interface IWeatherService
 {
-    Task<IEnumerable<Forecast>> FindForecastsAsync(string? routeId, string? athleteId);
+    Task<IEnumerable<Forecast>> FindForecastsAsync(ForecastProvider forecastProvider, string? routeId, string? athleteId);
 }

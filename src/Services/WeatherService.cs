@@ -16,7 +16,7 @@ public class WeatherService : IWeatherService
         _preferencesService = preferencesService;
     }
 
-    public async Task<IEnumerable<Forecast>> FindForecastsAsync(string? routeId, string? athleteId)
+    public async Task<IEnumerable<Forecast>> FindForecastsAsync(ForecastProvider forecastProvider, string? routeId, string? athleteId)
     {
         Barrel.Current.EmptyExpired();
 

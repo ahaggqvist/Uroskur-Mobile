@@ -49,7 +49,7 @@ public partial class ForecastViewModel : BaseViewModel
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
-            var forecasts = await _weatherService.FindForecastsAsync(routeId, athleteId);
+            var forecasts = await _weatherService.FindForecastsAsync(ForecastProvider.OpenWeather, routeId, athleteId);
 
             var forecastsArray = forecasts.ToImmutableArray();
             if (forecastsArray.Length > 0)
@@ -100,9 +100,9 @@ public partial class ForecastViewModel : BaseViewModel
 
             if (LocationForecasts.Count != 0)
             {
-                GetTempChart();
+                CreateTempChart();
 
-                GetChanceOfRainChart();
+                CreateChanceOfRainChart();
             }
         }
         catch (Exception ex)
@@ -116,7 +116,7 @@ public partial class ForecastViewModel : BaseViewModel
         }
     }
 
-    public void GetTempChart()
+    public void CreateTempChart()
     {
         TempLineChart = new LineChart
         {
@@ -152,7 +152,7 @@ public partial class ForecastViewModel : BaseViewModel
         };
     }
 
-    public void GetChanceOfRainChart()
+    public void CreateChanceOfRainChart()
     {
         ChanceOfRainLineChart = new LineChart
         {
@@ -192,14 +192,13 @@ public partial class ForecastViewModel : BaseViewModel
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var locationForecast in LocationForecasts)
+        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
         {
-            var hourly = locationForecast.HourlyForecast;
-            var temp = Math.Round(hourly.Temp, 1);
+            var temp = Math.Round(hourlyForecast.Temp, 1);
             var chartEntry = new ChartEntry((float?)temp)
             {
                 ValueLabel = temp.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? locationForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -212,14 +211,13 @@ public partial class ForecastViewModel : BaseViewModel
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var locationForecast in LocationForecasts)
+        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
         {
-            var hourly = locationForecast.HourlyForecast;
-            var feelsLike = Math.Round(hourly.FeelsLike, 1);
+            var feelsLike = Math.Round(hourlyForecast.FeelsLike, 1);
             var chartEntry = new ChartEntry((float?)feelsLike)
             {
                 ValueLabel = feelsLike.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? locationForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -232,9 +230,8 @@ public partial class ForecastViewModel : BaseViewModel
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var locationForecast in LocationForecasts)
+        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
         {
-            var hourlyForecast = locationForecast.HourlyForecast;
             var chanceOfRain = Math.Round(hourlyForecast.Pop * 100);
             var chartEntry = new ChartEntry((float?)chanceOfRain)
             {
@@ -252,9 +249,8 @@ public partial class ForecastViewModel : BaseViewModel
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var locationForecast in LocationForecasts)
+        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
         {
-            var hourlyForecast = locationForecast.HourlyForecast;
             var cloudiness = hourlyForecast.Cloudiness;
             var chartEntry = new ChartEntry((float?)cloudiness)
             {
