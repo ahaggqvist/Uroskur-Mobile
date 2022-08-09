@@ -9,7 +9,8 @@ public static class UtilsExtensions
             provider.GetService<HttpClient>()));
         builder.Services.AddScoped<IOpenWeatherClient>(provider => new OpenWeatherClient(provider.GetService<AppSettings>(),
             provider.GetService<HttpClient>()));
-
+        builder.Services.AddScoped<IYrClient>(provider => new YrClient(provider.GetService<AppSettings>(),
+            provider.GetService<HttpClient>()));
         return builder;
     }
 }

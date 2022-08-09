@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.Utils;
 
-public class OpenWeatherClient : IOpenWeatherClient
+public class YrClient : IYrClient
 {
     private const int MaxLocations = 100;
     private const int MaxRetryAttempts = 3;
@@ -8,13 +8,13 @@ public class OpenWeatherClient : IOpenWeatherClient
     private readonly AppSettings? _appSettings;
     private readonly HttpClient? _httpClient;
 
-    public OpenWeatherClient(AppSettings? appSettings, HttpClient? httpClient)
+    public YrClient(AppSettings? appSettings, HttpClient? httpClient)
     {
         _appSettings = appSettings;
         _httpClient = httpClient;
     }
 
-    public async Task<IEnumerable<OpenWeatherForecast>> GetForecastAsync(IEnumerable<Location>? locations, string? appId)
+    public async Task<IEnumerable<YrForecast>> GetForecastAsync(IEnumerable<Location>? locations, string? appId)
     {
         if (locations == null)
         {
@@ -50,7 +50,7 @@ public class OpenWeatherClient : IOpenWeatherClient
                 .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)))
             .ToImmutableArray();
 
-        var openWeatherForecasts = new List<OpenWeatherForecast>();
+        var yrForecasts = new List<YrForecast>();
         await retryPolicy.ExecuteAsync(async () =>
         {
             var responses = urls.Select(GetResponseAsync).ToArray();
@@ -58,17 +58,17 @@ public class OpenWeatherClient : IOpenWeatherClient
 
             foreach (var response in responses)
             {
-                if (OpenWeatherForecast.FromJson(await response) is { } t)
+                if (YrForecast.FromJson(await response) is { } t)
                 {
-                    openWeatherForecasts.Add(t);
+                    yrForecasts.Add(t);
                 }
             }
         });
 
-        return openWeatherForecasts;
+        return yrForecasts;
     }
 
-    public async Task<OpenWeatherForecast?> GetForecastAsync(Location location, string? appId)
+    public async Task<YrForecast?> GetForecastAsync(Location location, string? appId)
     {
         if (location == null)
         {
@@ -97,14 +97,14 @@ public class OpenWeatherClient : IOpenWeatherClient
             .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
             .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture));
 
-        OpenWeatherForecast? openWeatherForecast = null;
+        YrForecast? yrForecast = null;
         await retryPolicy.ExecuteAsync(async () =>
         {
-            openWeatherForecast = OpenWeatherForecast.FromJson(await GetResponseAsync(url));
+            yrForecast = YrForecast.FromJson(await GetResponseAsync(url));
         });
 
 
-        return openWeatherForecast;
+        return yrForecast;
     }
 
     private Task<string> GetResponseAsync(string? url)

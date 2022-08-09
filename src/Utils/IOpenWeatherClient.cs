@@ -1,6 +1,4 @@
-﻿using Uroskur.Models.OpenWeather;
-
-namespace Uroskur.Utils;
+﻿namespace Uroskur.Utils;
 
 public interface IOpenWeatherClient
 {

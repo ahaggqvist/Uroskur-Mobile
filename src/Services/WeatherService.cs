@@ -1,6 +1,4 @@
-﻿using Uroskur.Models.OpenWeather;
-
-namespace Uroskur.Services;
+﻿namespace Uroskur.Services;
 
 public class WeatherService : IWeatherService
 {
@@ -8,15 +6,17 @@ public class WeatherService : IWeatherService
     private readonly IOpenWeatherClient _openWeatherClient;
     private readonly IPreferencesService _preferencesService;
     private readonly IStravaService _stravaService;
+    private readonly IYrClient _yrClient;
 
-    public WeatherService(IOpenWeatherClient openWeatherClient, IStravaService stravaService, IPreferencesService preferencesService)
+    public WeatherService(IOpenWeatherClient openWeatherClient, IYrClient yrclient, IStravaService stravaService, IPreferencesService preferencesService)
     {
         _openWeatherClient = openWeatherClient;
+        _yrClient = yrclient;
         _stravaService = stravaService;
         _preferencesService = preferencesService;
     }
 
-    public async Task<IEnumerable<OpenWeatherForecast>> FindForecastAsync(string? routeId, string? athleteId)
+    public async Task<IEnumerable<Forecast>> FindForecastsAsync(string? routeId, string? athleteId)
     {
         Barrel.Current.EmptyExpired();
 
@@ -27,17 +27,17 @@ public class WeatherService : IWeatherService
         {
             Debug.WriteLine($"Route ID: {routeId} is invalid.");
 
-            return Array.Empty<OpenWeatherForecast>();
+            return Array.Empty<Forecast>();
         }
 
         if (string.IsNullOrEmpty(athleteId))
         {
             Debug.WriteLine($"AthleteId ID: {athleteId} is invalid.");
 
-            return Array.Empty<OpenWeatherForecast>();
+            return Array.Empty<Forecast>();
         }
 
-        var temperatures = new List<OpenWeatherForecast>();
+        var forecasts = new List<Forecast>();
 
         try
         {
@@ -49,33 +49,53 @@ public class WeatherService : IWeatherService
 
                 Debug.WriteLine($"Is forecast cache expired: {Barrel.Current.IsExpired(key)}.");
 
+                OpenWeatherForecast? openWeatherForecast;
+
                 if (Barrel.Current.IsExpired(key))
                 {
-                    var temperature = await _openWeatherClient.GetForecastAsync(location, appId);
-                    if (temperature == null)
+                    openWeatherForecast = await _openWeatherClient.GetForecastAsync(location, appId);
+                    if (openWeatherForecast == null)
                     {
                         continue;
                     }
 
-                    Barrel.Current.Add(key, temperature.ToJson(), TimeSpan.FromHours(HoursToExpire));
+                    Barrel.Current.Add(key, openWeatherForecast.ToJson(), TimeSpan.FromHours(HoursToExpire));
 
                     Debug.WriteLine($"Cache temperature with key: {key}.");
-
-                    temperatures.Add(temperature);
                 }
                 else
                 {
                     var json = Barrel.Current.Get<string>(key);
-                    var temperature = OpenWeatherForecast.FromJson(json);
-                    if (temperature == null)
+                    openWeatherForecast = OpenWeatherForecast.FromJson(json);
+                    if (openWeatherForecast == null)
                     {
                         continue;
                     }
 
                     Debug.WriteLine($"Fetch cached temperature with key: {key}.");
-
-                    temperatures.Add(temperature);
                 }
+
+                var hourlyForecasts = new List<HourlyForecast>();
+
+                hourlyForecasts.AddRange(openWeatherForecast.Hourly.Select(hourly => new HourlyForecast
+                {
+                    Dt = DateTimeHelper.UnixTimestampToDateTime(hourly.Dt),
+                    UnixTimestamp = hourly.Dt,
+                    Temp = hourly.Temp,
+                    FeelsLike = hourly.FeelsLike,
+                    Uvi = hourly.Uvi,
+                    Cloudiness = hourly.Clouds,
+                    WindSpeed = hourly.WindSpeed,
+                    WindGust = hourly.WindGust,
+                    WindDeg = hourly.WindDeg,
+                    Pop = hourly.Pop,
+                    IconId = hourly.Weather[0].Id
+                }));
+
+                forecasts.Add(new Forecast
+                {
+                    HourlyForecasts = hourlyForecasts
+                });
             }
         }
         catch (Exception ex)
@@ -83,6 +103,6 @@ public class WeatherService : IWeatherService
             Debug.WriteLine("FindForecastAsync {0} {1}", ex.Message, ex.StackTrace);
         }
 
-        return temperatures;
+        return forecasts;
     }
 }

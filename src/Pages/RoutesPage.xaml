@@ -5,6 +5,7 @@
              xmlns:model="clr-namespace:Uroskur.Models"
              xmlns:viewmodel="clr-namespace:Uroskur.ViewModels"
              xmlns:converter="clr-namespace:Uroskur.Converters"
+             xmlns:strava="clr-namespace:Uroskur.Models.Strava"
              x:Class="Uroskur.Pages.RoutesPage"
              x:DataType="viewmodel:RoutesViewModel"
              BackgroundColor="White">
@@ -32,7 +33,7 @@
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Routes">
+                    <DataTemplate x:DataType="strava:Routes">
                         <StackLayout>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />

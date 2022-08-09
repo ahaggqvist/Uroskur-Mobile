@@ -1,20 +1,18 @@
-﻿using Uroskur.Models.OpenWeather;
-
-namespace Uroskur.Models;
+﻿namespace Uroskur.Models;
 
 public class LocationForecast
 {
     public int Km { get; set; }
 
-    public DateTime UnixDateTime { get; set; }
+    public DateTime Dt { get; set; }
 
-    public Hourly? Hourly { get; set; }
+    public HourlyForecast HourlyForecast { get; set; } = new();
 
-    public string? WeatherIcon { get; set; }
+    public string WeatherIcon { get; set; } = string.Empty;
 
-    public string? WindIcon { get; set; }
+    public string WindIcon { get; set; } = string.Empty;
 
-    public string? WindIconId { get; set; }
+    public string WindIconId { get; set; } = string.Empty;
 
-    public string TimeKmFormatted => $"{UnixDateTime:HH:mm}";
+    public string TimeKmFormatted => $"{Dt:HH:mm}";
 }

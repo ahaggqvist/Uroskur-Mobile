@@ -12,15 +12,13 @@
     <Color x:Key="Black">Black</Color>
 
 
-
-
     <Color x:Key="LightGray">#f5f5f6</Color>
     <Color x:Key="MidGray">#e1e2e1</Color>
     <Color x:Key="DarkGray">#b9bbb9</Color>
     <Color x:Key="LightBlue">#8bf6ff</Color>
     <Color x:Key="MidBlue">#4fc3f7</Color>
     <Color x:Key="DarkBlue">#0093c4</Color>
-    
+
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}" />
     <SolidColorBrush x:Key="LightBrush" Color="{StaticResource Light}" />

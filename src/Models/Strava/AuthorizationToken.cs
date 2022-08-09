@@ -1,6 +1,4 @@
-﻿using Uroskur.Models.OpenWeather;
-
-namespace Uroskur.Models.Strava;
+﻿namespace Uroskur.Models.Strava;
 
 public partial class AuthorizationToken
 {
@@ -92,4 +90,18 @@ public partial class AuthorizationToken
     {
         return JsonConvert.DeserializeObject<AuthorizationToken>(json, Converter.Settings);
     }
+}
+
+internal static class Converter
+{
+    public static readonly JsonSerializerSettings Settings = new()
+    {
+        MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
+        DateParseHandling = DateParseHandling.None,
+        Converters =
+        {
+            MainConverter.Singleton,
+            new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+        }
+    };
 }

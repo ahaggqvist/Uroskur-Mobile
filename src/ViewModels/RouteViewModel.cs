@@ -1,4 +1,6 @@
-﻿namespace Uroskur.ViewModels;
+﻿using Uroskur.Models.Strava;
+
+namespace Uroskur.ViewModels;
 
 [QueryProperty(nameof(Routes), nameof(Routes))]
 public partial class RouteViewModel : BaseViewModel

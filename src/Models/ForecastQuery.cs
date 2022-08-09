@@ -1,4 +1,6 @@
-﻿namespace Uroskur.Models;
+﻿using Uroskur.Models.Strava;
+
+namespace Uroskur.Models;
 
 public class ForecastQuery
 {

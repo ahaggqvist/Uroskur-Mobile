@@ -97,24 +97,25 @@
                                 <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
                                              Grid.Column="1">
                                     <Label
-                                        Text="{Binding Hourly.Temp, StringFormat='{0:N1}'}" />
+                                        Text="{Binding HourlyForecast.Temp, StringFormat='{0:N1}'}" />
                                 </StackLayout>
                                 <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
                                              Grid.Column="2">
                                     <Label
-                                        Text="{Binding Hourly.FeelsLike, StringFormat='{0:N1}'}" />
+                                        Text="{Binding HourlyForecast.FeelsLike, StringFormat='{0:N1}'}" />
                                 </StackLayout>
 
                                 <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
                                              Grid.Column="3">
                                     <Label
-                                        Text="{Binding Hourly.Pop, StringFormat='{0:P0}'}" />
+                                        Text="{Binding HourlyForecast.Pop, StringFormat='{0:P0}'}" />
                                 </StackLayout>
 
                                 <HorizontalStackLayout Padding="0,0,0,5" VerticalOptions="Center"
                                                        HorizontalOptions="Center"
                                                        Grid.Column="4">
-                                    <Label Text="{Binding Hourly.WindSpeed, StringFormat='{0:N1}'}" Margin="0,3,5,0" />
+                                    <Label Text="{Binding HourlyForecast.WindSpeed, StringFormat='{0:N1}'}"
+                                           Margin="0,3,5,0" />
                                     <Label Text="{Binding WindIcon}" FontFamily="Weathericons" FontSize="14" />
                                 </HorizontalStackLayout>
 

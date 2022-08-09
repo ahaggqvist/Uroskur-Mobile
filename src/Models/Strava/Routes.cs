@@ -1,7 +1,4 @@
-﻿using Uroskur.Models.OpenWeather;
-using Uroskur.Models.Strava;
-
-namespace Uroskur.Models;
+﻿namespace Uroskur.Models.Strava;
 
 public partial class Routes
 {

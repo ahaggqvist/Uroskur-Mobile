@@ -4,9 +4,13 @@ namespace Uroskur;
 
 public static class MauiProgram
 {
+#if DEBUG
     private const bool IsDevelopment = true;
-    private const string AppSettingsProduction = "appsettings.json";
-    private const string AppSettingsDevelopment = "appsettings.Development.json";
+    private const string ManifestFileName = "appsettings.Development.json";
+#else
+    private const bool IsDevelopment = false;
+    private const string ManifestFileName = "appsettings.json";
+#endif
 
     public static MauiApp CreateMauiApp()
     {
@@ -23,9 +27,8 @@ public static class MauiProgram
                 fonts.AddFont("weathericons-regular-webfont.ttf", "Weathericons");
             });
 
-        const string manifestFileName = IsDevelopment ? AppSettingsDevelopment : AppSettingsProduction;
         var assembly = Assembly.GetExecutingAssembly();
-        using var stream = assembly.GetManifestResourceStream($"Uroskur.{manifestFileName}");
+        using var stream = assembly.GetManifestResourceStream($"Uroskur.{ManifestFileName}");
         if (stream != null)
         {
             var serializer = new JsonSerializer();

@@ -1,4 +1,6 @@
-﻿namespace Uroskur.ViewModels;
+﻿using Uroskur.Models.Strava;
+
+namespace Uroskur.ViewModels;
 
 public class RoutesViewModel : BaseViewModel
 {
