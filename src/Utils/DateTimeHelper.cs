@@ -12,7 +12,7 @@ internal static class DateTimeHelper
     public static long DateTimeToUnixTimestamp(DateTime dateTime)
     {
         var unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local);
-        var unixTimeStampInTicks = (dateTime.ToUniversalTime() - unixStart).Ticks;
+        var unixTimeStampInTicks = (dateTime.ToLocalTime() - unixStart).Ticks;
         return unixTimeStampInTicks / TimeSpan.TicksPerSecond;
     }
 }
