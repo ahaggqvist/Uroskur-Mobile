@@ -1,8 +1,7 @@
-﻿namespace Uroskur.Utils;
+﻿namespace Uroskur.Utils.Clients;
 
 public class OpenWeatherClient : IOpenWeatherClient
 {
-    private const int MaxLocations = 100;
     private const int MaxRetryAttempts = 3;
     private const int PauseBetweenFailures = 2;
     private readonly AppSettings? _appSettings;
@@ -16,34 +15,13 @@ public class OpenWeatherClient : IOpenWeatherClient
 
     public async Task<IEnumerable<OpenWeatherForecast>> FetchForecastsAsync(IEnumerable<Location>? locations, string? appId)
     {
-        if (locations == null)
-        {
-            throw new ArgumentException("Locations are null.");
-        }
-
-        locations = locations.ToImmutableArray();
-        if (locations.Count() > MaxLocations)
-        {
-            throw new ArgumentException("Locations exceed maximum.");
-        }
-
-        if (string.IsNullOrEmpty(appId))
-        {
-            throw new ArgumentException("App ID is invalid.");
-        }
-
-        var apiUrl = _appSettings?.OpenWeatherApiUrl;
-        if (string.IsNullOrEmpty(apiUrl))
-        {
-            throw new ArgumentException("Forecast url is invalid.");
-        }
-
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
         var retryPolicy = Policy
             .Handle<HttpRequestException>()
             .WaitAndRetryAsync(MaxRetryAttempts, _ => pauseBetweenFailures);
 
-        var urls = locations.Select(location => apiUrl
+        var openWeatherApiUrl = _appSettings?.OpenWeatherApiUrl!;
+        var urls = locations!.Select(location => openWeatherApiUrl
                 .Replace("@AppId", appId)
                 .Replace("@Exclude", "current,minutely,daily,alerts")
                 .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
@@ -58,9 +36,9 @@ public class OpenWeatherClient : IOpenWeatherClient
 
             foreach (var response in responses)
             {
-                if (OpenWeatherForecast.FromJson(await response) is { } t)
+                if (OpenWeatherForecast.FromJson(await response) is { } openWeatherForecast)
                 {
-                    openWeatherForecasts.Add(t);
+                    openWeatherForecasts.Add(openWeatherForecast);
                 }
             }
         });
@@ -70,41 +48,25 @@ public class OpenWeatherClient : IOpenWeatherClient
 
     public async Task<OpenWeatherForecast?> FetchForecastAsync(Location location, string? appId)
     {
-        if (location == null)
-        {
-            throw new ArgumentException("Location is null.");
-        }
-
-        if (string.IsNullOrEmpty(appId))
-        {
-            throw new ArgumentException("App ID is invalid.");
-        }
-
-        var apiUrl = _appSettings?.OpenWeatherApiUrl;
-        if (string.IsNullOrEmpty(apiUrl))
-        {
-            throw new ArgumentException("OpenWeather API url is invalid.");
-        }
-
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
         var retryPolicy = Policy
             .Handle<HttpRequestException>()
             .WaitAndRetryAsync(MaxRetryAttempts, _ => pauseBetweenFailures);
 
-        var url = apiUrl
+        var openWeatherApiUrl = _appSettings?.OpenWeatherApiUrl!;
+        var url = openWeatherApiUrl
             .Replace("@AppId", appId)
             .Replace("@Exclude", "current,minutely,daily,alerts")
             .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
             .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture));
 
-        Debug.WriteLine($"API Url {url}");
+        Debug.WriteLine($"OpenWeather API Url {url}");
 
         OpenWeatherForecast? openWeatherForecast = null;
         await retryPolicy.ExecuteAsync(async () =>
         {
             openWeatherForecast = OpenWeatherForecast.FromJson(await GetResponseAsync(url));
         });
-
 
         return openWeatherForecast;
     }

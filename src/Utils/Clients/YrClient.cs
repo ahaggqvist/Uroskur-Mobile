@@ -1,9 +1,9 @@
-﻿namespace Uroskur.Utils;
+﻿namespace Uroskur.Utils.Clients;
 
 public class YrClient : IYrClient
 {
     private const string UserAgent = "Uroskur/1.0.0-alpha github.com/ahaggqvist/uroskur-maui";
-    private const int MaxLocations = 100;
+
     private const int MaxRetryAttempts = 3;
     private const int PauseBetweenFailures = 2;
     private readonly AppSettings? _appSettings;
@@ -13,35 +13,18 @@ public class YrClient : IYrClient
     {
         _appSettings = appSettings;
         _httpClient = httpClient;
+        _httpClient?.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", UserAgent);
     }
 
     public async Task<IEnumerable<YrForecast>> FetchForecastsAsync(IEnumerable<Location>? locations)
     {
-        if (locations == null)
-        {
-            throw new ArgumentException("Locations are null.");
-        }
-
-        locations = locations.ToImmutableArray();
-        if (locations.Count() > MaxLocations)
-        {
-            throw new ArgumentException("Locations exceed maximum.");
-        }
-
-        var apiUrl = _appSettings?.YrApiUrl;
-        if (string.IsNullOrEmpty(apiUrl))
-        {
-            throw new ArgumentException("Yr API url is invalid.");
-        }
-
-        _httpClient?.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", UserAgent);
-
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
         var retryPolicy = Policy
             .Handle<HttpRequestException>()
             .WaitAndRetryAsync(MaxRetryAttempts, _ => pauseBetweenFailures);
 
-        var urls = locations.Select(location => apiUrl
+        var yrApiUrl = _appSettings?.YrApiUrl!;
+        var urls = locations!.Select(location => yrApiUrl
                 .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
                 .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)))
             .ToImmutableArray();
@@ -54,9 +37,9 @@ public class YrClient : IYrClient
 
             foreach (var response in responses)
             {
-                if (YrForecast.FromJson(await response) is { } t)
+                if (YrForecast.FromJson(await response) is { } yrForecast)
                 {
-                    yrForecasts.Add(t);
+                    yrForecasts.Add(yrForecast);
                 }
             }
         });
@@ -66,29 +49,17 @@ public class YrClient : IYrClient
 
     public async Task<YrForecast?> FetchForecastAsync(Location location)
     {
-        if (location == null)
-        {
-            throw new ArgumentException("Location is null.");
-        }
-
-        var apiUrl = _appSettings?.YrApiUrl;
-        if (string.IsNullOrEmpty(apiUrl))
-        {
-            throw new ArgumentException("Forecast url is invalid.");
-        }
-
-        _httpClient?.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", UserAgent);
-
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
         var retryPolicy = Policy
             .Handle<HttpRequestException>()
             .WaitAndRetryAsync(MaxRetryAttempts, _ => pauseBetweenFailures);
 
-        var url = apiUrl
+        var yrApiUrl = _appSettings?.YrApiUrl!;
+        var url = yrApiUrl
             .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
             .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture));
 
-        Debug.WriteLine($"API Url {url}");
+        Debug.WriteLine($"Yr API Url {url}.");
 
         YrForecast? yrForecast = null;
         await retryPolicy.ExecuteAsync(async () =>

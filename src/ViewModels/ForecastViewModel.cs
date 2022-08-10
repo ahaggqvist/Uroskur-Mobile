@@ -4,7 +4,7 @@
 public partial class ForecastViewModel : BaseViewModel
 {
     private readonly AppSettings _appSettings;
-    private readonly IWeatherService _weatherService;
+    private readonly IForecastService _forecastService;
     [ObservableProperty] private LineChart? _chanceOfRainLineChart;
     [ObservableProperty] private string? _emptyViewMessage;
     [ObservableProperty] private string? _forecastIssuedAt;
@@ -13,9 +13,9 @@ public partial class ForecastViewModel : BaseViewModel
     [ObservableProperty] private LineChart? _tempLineChart;
 
 
-    public ForecastViewModel(IWeatherService weatherService, AppSettings appSettings)
+    public ForecastViewModel(IForecastService forecastService, AppSettings appSettings)
     {
-        _weatherService = weatherService;
+        _forecastService = forecastService;
         _appSettings = appSettings;
     }
 
@@ -49,7 +49,7 @@ public partial class ForecastViewModel : BaseViewModel
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
-            var forecasts = await _weatherService.FindForecastsAsync(ForecastProvider.Yr, routeId, athleteId);
+            var forecasts = await _forecastService.FindYrForecastsAsync(routeId, athleteId);
 
             var forecastsArray = forecasts.ToImmutableArray();
             if (forecastsArray.Length > 0)
@@ -79,7 +79,6 @@ public partial class ForecastViewModel : BaseViewModel
                     continue;
                 }
 
-                var weatherIconId = hourlyForecast.IconId;
                 var windDeg = hourlyForecast?.WindDeg ?? 0L;
                 var windIconId = WindDirection[(int)Math.Round(windDeg / 22.5, 0)];
                 var locationDt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local)
@@ -90,7 +89,7 @@ public partial class ForecastViewModel : BaseViewModel
                     Km = km,
                     HourlyForecast = hourlyForecast!,
                     Dt = locationDt,
-                    WeatherIcon = WeatherIconsDictionary[weatherIconId],
+                    WeatherIcon = hourlyForecast!.Icon,
                     WindIcon = WindIconsDictionary[windIconId],
                     WindIconId = windIconId
                 };

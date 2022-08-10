@@ -23,6 +23,7 @@ global using Uroskur.Models.Yr;
 global using Uroskur.Pages;
 global using Uroskur.Services;
 global using Uroskur.Utils;
+global using Uroskur.Utils.Clients;
 global using Uroskur.ViewModels;
 global using static Uroskur.Utils.Constants;
 global using Location = Uroskur.Models.Location;

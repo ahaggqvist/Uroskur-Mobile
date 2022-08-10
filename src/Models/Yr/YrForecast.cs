@@ -171,10 +171,10 @@ public partial class Next12_HoursDetails
 public partial class Next12_HoursSummary
 {
     [JsonProperty("symbol_code", NullValueHandling = NullValueHandling.Ignore)]
-    public SymbolCode? SymbolCode { get; set; }
+    public string SymbolCode { get; set; }
 
     [JsonProperty("symbol_confidence", NullValueHandling = NullValueHandling.Ignore)]
-    public SymbolConfidence? SymbolConfidence { get; set; }
+    public string SymbolConfidence { get; set; }
 }
 
 public partial class Next1_Hours
@@ -207,7 +207,7 @@ public partial class Next1_HoursDetails
 public partial class Next1_HoursSummary
 {
     [JsonProperty("symbol_code", NullValueHandling = NullValueHandling.Ignore)]
-    public SymbolCode? SymbolCode { get; set; }
+    public string SymbolCode { get; set; }
 }
 
 public partial class Next6_Hours
@@ -240,10 +240,6 @@ public partial class Next6_HoursDetails
     public double ProbabilityOfPrecipitation { get; set; }
 }
 
-public enum SymbolCode { ClearskyDay, ClearskyNight, Cloudy, FairDay, FairNight, PartlycloudyDay, PartlycloudyNight };
-
-public enum SymbolConfidence { Certain, SomewhatCertain, Uncertain };
-
 public partial class YrForecast
 {
     public static YrForecast FromJson(string json) => JsonConvert.DeserializeObject<YrForecast>(json, Converter.Settings);
@@ -262,8 +258,6 @@ internal static class Converter
         DateParseHandling = DateParseHandling.None,
         Converters =
             {
-                SymbolCodeConverter.Singleton,
-                SymbolConfidenceConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
     };
@@ -298,116 +292,4 @@ internal class ParseStringConverter : JsonConverter
     }
 
     public static readonly ParseStringConverter Singleton = new ParseStringConverter();
-}
-
-internal class SymbolCodeConverter : JsonConverter
-{
-    public override bool CanConvert(Type t) => t == typeof(SymbolCode) || t == typeof(SymbolCode?);
-
-    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-    {
-        if (reader.TokenType == JsonToken.Null) return null;
-        var value = serializer.Deserialize<string>(reader);
-        switch (value)
-        {
-            case "clearsky_day":
-                return SymbolCode.ClearskyDay;
-            case "clearsky_night":
-                return SymbolCode.ClearskyNight;
-            case "cloudy":
-                return SymbolCode.Cloudy;
-            case "fair_day":
-                return SymbolCode.FairDay;
-            case "fair_night":
-                return SymbolCode.FairNight;
-            case "partlycloudy_day":
-                return SymbolCode.PartlycloudyDay;
-            case "partlycloudy_night":
-                return SymbolCode.PartlycloudyNight;
-        }
-        throw new Exception("Cannot unmarshal type SymbolCode");
-    }
-
-    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-    {
-        if (untypedValue == null)
-        {
-            serializer.Serialize(writer, null);
-            return;
-        }
-        var value = (SymbolCode)untypedValue;
-        switch (value)
-        {
-            case SymbolCode.ClearskyDay:
-                serializer.Serialize(writer, "clearsky_day");
-                return;
-            case SymbolCode.ClearskyNight:
-                serializer.Serialize(writer, "clearsky_night");
-                return;
-            case SymbolCode.Cloudy:
-                serializer.Serialize(writer, "cloudy");
-                return;
-            case SymbolCode.FairDay:
-                serializer.Serialize(writer, "fair_day");
-                return;
-            case SymbolCode.FairNight:
-                serializer.Serialize(writer, "fair_night");
-                return;
-            case SymbolCode.PartlycloudyDay:
-                serializer.Serialize(writer, "partlycloudy_day");
-                return;
-            case SymbolCode.PartlycloudyNight:
-                serializer.Serialize(writer, "partlycloudy_night");
-                return;
-        }
-        throw new Exception("Cannot marshal type SymbolCode");
-    }
-
-    public static readonly SymbolCodeConverter Singleton = new SymbolCodeConverter();
-}
-
-internal class SymbolConfidenceConverter : JsonConverter
-{
-    public override bool CanConvert(Type t) => t == typeof(SymbolConfidence) || t == typeof(SymbolConfidence?);
-
-    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-    {
-        if (reader.TokenType == JsonToken.Null) return null;
-        var value = serializer.Deserialize<string>(reader);
-        switch (value)
-        {
-            case "certain":
-                return SymbolConfidence.Certain;
-            case "somewhat certain":
-                return SymbolConfidence.SomewhatCertain;
-            case "uncertain":
-                return SymbolConfidence.Uncertain;
-        }
-        throw new Exception("Cannot unmarshal type SymbolConfidence");
-    }
-
-    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-    {
-        if (untypedValue == null)
-        {
-            serializer.Serialize(writer, null);
-            return;
-        }
-        var value = (SymbolConfidence)untypedValue;
-        switch (value)
-        {
-            case SymbolConfidence.Certain:
-                serializer.Serialize(writer, "certain");
-                return;
-            case SymbolConfidence.SomewhatCertain:
-                serializer.Serialize(writer, "somewhat certain");
-                return;
-            case SymbolConfidence.Uncertain:
-                serializer.Serialize(writer, "uncertain");
-                return;
-        }
-        throw new Exception("Cannot marshal type SymbolConfidence");
-    }
-
-    public static readonly SymbolConfidenceConverter Singleton = new SymbolConfidenceConverter();
 }

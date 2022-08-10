@@ -1,4 +1,4 @@
-﻿namespace Uroskur.Utils;
+﻿namespace Uroskur.Utils.Clients;
 
 public interface IYrClient
 {

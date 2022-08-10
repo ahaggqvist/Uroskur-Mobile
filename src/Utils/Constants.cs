@@ -2,13 +2,7 @@
 
 public static class Constants
 {
-    public enum ForecastProvider
-    {
-        OpenWeather,
-        Yr
-    }
-
-    internal static readonly Dictionary<long, string> WeatherIconsDictionary = new()
+    internal static readonly Dictionary<long, string> OpenWeatherIconsDictionary = new()
     {
         { 200, "\uf01e" },
         { 201, "\uf01e" },
@@ -70,6 +64,93 @@ public static class Constants
         { 905, "\uf021" },
         { 906, "\uf015" },
         { 957, "\uf050" }
+    };
+
+    internal static readonly Dictionary<string, string> YrIconsDictionary = new()
+    {
+        { "clearsky", "\uf00d" },
+        { "clearsky_day", "\uf00d" },
+        { "clearsky_night", "\uf02e" },
+        { "fair", "\uf002" },
+        { "fair_day", "\uf002" },
+        { "fair_night", "\uf086" },
+        { "partlycloudy", "\uf041" },
+        { "partlycloudy_day", "\uf002" },
+        { "partlycloudy_night", "\uf083" },
+        { "cloudy", "\uf013" },
+        { "rainshowers", "\uf01a" },
+        { "rainshowers_day", "\uf009" },
+        { "rainshowers_night", "\uf029" },
+        { "rainandthunder", "\uf01d" },
+        { "rainshowersandthunder", "\uf01d" },
+        { "rainshowersandthunder_day", "\uf00e" },
+        { "rainshowersandthunder_night", "\uf03a" },
+        { "sleetshowers_day", "\uf0b2" },
+        { "sleetshowers_night", "\uf0b3" },
+        { "snowshowers_day", "\uf00a" },
+        { "snowshowers_night", "\uf02a" },
+        { "sleetshowersandthunder_day", "\uf068" },
+        { "sleetshowersandthunder_night", "\uf069" },
+        { "snowshowersandthunder_day", "\uf06b" },
+        { "snowshowersandthunder_night", "\uf06c" },
+        { "lightrainshowersandthunder_day", "\uf00e" },
+        { "lightrainshowersandthunder_night", "\uf03a" },
+        { "heavyrainshowersandthunder_day", "\uf010" },
+        { "heavyrainshowersandthunder_night", "\uf03b" },
+        { "lightssleetshowersandthunder_day", "\uf068" },
+        { "lightssleetshowersandthunder_night", "\uf069" },
+        { "heavysleetshowersandthunder_day", "\uf068" },
+        { "heavysleetshowersandthunder_night", "\uf069" },
+        { "lightssnowshowersandthunder_day", "\uf06b" },
+        { "lightssnowshowersandthunder_night", "\uf06c" },
+        { "heavysnowshowersandthunder_day", "\uf06b" },
+        { "heavysnowshowersandthunder_night", "\uf06c" },
+        { "lightrainshowers_day", "\uf009" },
+        { "lightrainshowers_night", "\uf037" },
+        { "heavyrainshowers_day", "\uf008" },
+        { "heavyrainshowers_night", "\uf036" },
+        { "lightsleetshowers_day", "\uf0b2" },
+        { "lightsleetshowers_night", "\uf0b3" },
+        { "heavysleetshowers_day", "\uf0b2" },
+        { "heavysleetshowers_night", "\uf0b3" },
+        { "lightsnowshowers_day", "\uf00a" },
+        { "lightsnowshowers_night", "\uf038" },
+        { "heavysnowshowers_day", "\uf00a" },
+        { "heavysnowshowers_night", "\uf038" },
+        { "fog", "\uf014" },
+        { "heavyrain", "\uf019" },
+        { "heavyrainandthunder", "\uf01d" },
+        { "heavyrainshowers", "\uf019" },
+        { "heavyrainshowersandthunder", "\uf01d" },
+        { "heavysleet", "\uf0b5" },
+        { "heavysleetandthunder", "\uf068" },
+        { "heavysleetshowers", "\uf0b2" },
+        { "heavysleetshowersandthunder", "\uf068" },
+        { "heavysnow", "\uf01b" },
+        { "heavysnowandthunder", "\uf06b" },
+        { "heavysnowshowers", "\uf00a" },
+        { "heavysnowshowersandthunder", "\uf06b" },
+        { "lightrain", "\uf01a" },
+        { "lightrainandthunder", "\uf01d" },
+        { "lightrainshowers", "\uf009" },
+        { "lightrainshowersandthunder", "\uf00e" },
+        { "lightsleet", "\uf0b5" },
+        { "lightsleetandthunder", "\uf068" },
+        { "lightsleetshowers", "\uf0b2" },
+        { "lightsnow", "\uf01b" },
+        { "lightsnowandthunder", "\uf06b" },
+        { "lightsnowshowers", "\uf00a" },
+        { "lightssleetshowersandthunder", "\uf068" },
+        { "lightssnowshowersandthunder", "\uf06b" },
+        { "rain", "\uf019" },
+        { "sleet", "\uf0b5" },
+        { "sleetandthunder", "\uf068" },
+        { "sleetshowers", "\uf0b2" },
+        { "sleetshowersandthunder", "\uf068" },
+        { "snow", "\uf01b" },
+        { "snowandthunder", "\uf06b" },
+        { "snowshowers", "\uf00a" },
+        { "snowshowersandthunder", "\uf06b" }
     };
 
     internal static readonly Dictionary<string, string> WindIconsDictionary = new()

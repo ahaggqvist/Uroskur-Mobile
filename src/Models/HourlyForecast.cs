@@ -12,11 +12,11 @@ public class HourlyForecast
     public double WindGust { get; set; }
     public double WindDeg { get; set; }
     public double Pop { get; set; }
-    public long IconId { get; set; }
+    public string Icon { get; set; } = string.Empty;
 
     public override string ToString()
     {
         return
-            $"{nameof(Dt)}: {Dt}, {nameof(UnixTimestamp)}: {UnixTimestamp}, {nameof(Temp)}: {Temp}, {nameof(FeelsLike)}: {FeelsLike}, {nameof(Uvi)}: {Uvi}, {nameof(Cloudiness)}: {Cloudiness}, {nameof(WindSpeed)}: {WindSpeed}, {nameof(WindGust)}: {WindGust}, {nameof(WindDeg)}: {WindDeg}, {nameof(Pop)}: {Pop}, {nameof(IconId)}: {IconId}";
+            $"{nameof(Dt)}: {Dt}, {nameof(UnixTimestamp)}: {UnixTimestamp}, {nameof(Temp)}: {Temp}, {nameof(FeelsLike)}: {FeelsLike}, {nameof(Uvi)}: {Uvi}, {nameof(Cloudiness)}: {Cloudiness}, {nameof(WindSpeed)}: {WindSpeed}, {nameof(WindGust)}: {WindGust}, {nameof(WindDeg)}: {WindDeg}, {nameof(Pop)}: {Pop}, {nameof(Icon)}: {Icon}";
     }
 }
