@@ -4,8 +4,8 @@ namespace Uroskur.Services;
 
 public class StravaService : IStravaService
 {
-    private const int HoursToExpire = 1;
     private const int MaxDistances = 100;
+    private const int ExpireInHours = 1;
     private readonly IPreferencesService _preferencesService;
     private readonly IStravaClient _stravaClient;
 
@@ -96,7 +96,7 @@ public class StravaService : IStravaService
             {
                 gpx = await _stravaClient.GetGxpAsync(routeId, authorizationToken);
 
-                Barrel.Current.Add(routeId, gpx, TimeSpan.FromHours(HoursToExpire));
+                Barrel.Current.Add(routeId, gpx, TimeSpan.FromHours(ExpireInHours));
 
                 Debug.WriteLine($"Cache gxp route with route ID: {routeId}.");
             }

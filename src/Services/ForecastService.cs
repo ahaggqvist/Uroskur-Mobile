@@ -3,7 +3,7 @@
 public class ForecastService : IForecastService
 {
     private const int MaxLocations = 100;
-    private const int HoursToExpire = 24;
+    private const int ExpireInHours = 1;
     private readonly IOpenWeatherClient _openWeatherClient;
     private readonly IPreferencesService _preferencesService;
     private readonly IStravaService _stravaService;
@@ -30,7 +30,6 @@ public class ForecastService : IForecastService
     private async Task<IEnumerable<Forecast>> FindForecastsAsync(ForecastProvider forecastProvider, string? routeId, string? athleteId)
     {
         Barrel.Current.EmptyExpired();
-        //Barrel.Current.EmptyAll();
 
         if (string.IsNullOrEmpty(routeId))
         {
@@ -168,7 +167,7 @@ public class ForecastService : IForecastService
     private static void CacheForecast(string key, string json)
     {
         Debug.WriteLine($"Cache forecast with key: {key}.");
-        Barrel.Current.Add(key, json, TimeSpan.FromHours(HoursToExpire));
+        Barrel.Current.Add(key, json, TimeSpan.FromHours(ExpireInHours));
     }
 
     private static string FetchCachedForecast(string key)
