@@ -26,21 +26,21 @@ public partial class ForecastPage
 
         await _forecastViewModel.GetForecastAsync();
 
-        chartViewTemperatureLabel.Text = "Temperatures";
-        chartViewChanceOfRainLabel.Text = "Chance of Rain and Cloudiness";
+        ChartViewTemperatureLabel.Text = "Temperatures";
+        ChartViewChanceOfRainLabel.Text = "Chance of Rain and Cloudiness";
 
-        tableTempLabel.Text = "Temp °C";
-        tableTimeLabel.Text = "Time";
-        tableFeelsLikeLabel.Text = "Feels Like °C";
-        tableChanceOfRainLabel.Text = "Chance of Rain";
-        tableWindLabel.Text = "Wind m/s";
+        TableTempLabel.Text = "Temp °C";
+        TableTimeLabel.Text = "Time";
+        TableFeelsLikeLabel.Text = "Feels Like °C";
+        TableChanceOfRainLabel.Text = "Chance of Rain";
+        TableWindLabel.Text = "Wind m/s";
 
         ActivityIndicator(false, false);
     }
 
     private void ActivityIndicator(bool isRunning, bool isVisible)
     {
-        activityIndicator.IsRunning = isRunning;
-        activityIndicator.IsVisible = isVisible;
+        ActivityIndicatorStatus.IsRunning = isRunning;
+        ActivityIndicatorStatus.IsVisible = isVisible;
     }
 }

@@ -6,14 +6,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Uroskur.Pages">
 
-    <TabBar>
+    <!--<TabBar>
         <ShellContent Route="LoadingPage" Shell.FlyoutBehavior="Disabled"
                       Shell.TabBarIsVisible="False"
                       Shell.NavBarIsVisible="False"
                       Shell.ForegroundColor="White"
                       Shell.BackgroundColor="#FC4C02"
                       ContentTemplate="{DataTemplate local:LoadingPage}" />
-
         <ShellContent Route="RoutePage"
                       Shell.ForegroundColor="White"
                       Shell.BackgroundColor="#FC4C02"
@@ -21,7 +20,6 @@
                       Shell.TabBarIsVisible="False"
                       Shell.NavBarIsVisible="True"
                       ContentTemplate="{DataTemplate local:RoutePage}" />
-
         <ShellContent Route="ForecastPage"
                       Shell.ForegroundColor="White"
                       Shell.BackgroundColor="#FC4C02"
@@ -29,24 +27,32 @@
                       Shell.TabBarIsVisible="False"
                       Shell.NavBarIsVisible="True"
                       ContentTemplate="{DataTemplate local:ForecastPage}" />
-    </TabBar>
+    </TabBar>-->
 
     <FlyoutItem Title="Routes">
-        <ShellContent
-            Shell.ForegroundColor="White"
-            Shell.BackgroundColor="#FC4C02"
-            Shell.NavBarIsVisible="True" Route="RoutesPage" ContentTemplate="{DataTemplate local:RoutesPage}" />
+        <Tab Route="RoutesPage">
+            <ShellContent Shell.ForegroundColor="White"
+                          Shell.BackgroundColor="#FC4C02"
+                          Shell.NavBarIsVisible="True"
+                          ContentTemplate="{DataTemplate local:RoutesPage}" />
+        </Tab>
     </FlyoutItem>
+
     <FlyoutItem Title="Settings">
-        <ShellContent Shell.NavBarIsVisible="True" Route="SettingsPage"
-                      Shell.ForegroundColor="White"
-                      Shell.BackgroundColor="#FC4C02"
-                      ContentTemplate="{DataTemplate local:PreferencesPage}" />
+        <Tab Route="SettingsPage">
+            <ShellContent Shell.ForegroundColor="White"
+                          Shell.BackgroundColor="#FC4C02"
+                          Shell.NavBarIsVisible="True"
+                          ContentTemplate="{DataTemplate local:PreferencesPage}" />
+        </Tab>
     </FlyoutItem>
+
     <FlyoutItem Title="About">
-        <ShellContent Shell.NavBarIsVisible="True" Route="AboutPage"
-                      Shell.ForegroundColor="White"
-                      Shell.BackgroundColor="#FC4C02"
-                      ContentTemplate="{DataTemplate local:AboutPage}" />
+        <Tab Route="AboutPage">
+            <ShellContent Shell.ForegroundColor="White"
+                          Shell.BackgroundColor="#FC4C02"
+                          Shell.NavBarIsVisible="True"
+                          ContentTemplate="{DataTemplate local:AboutPage}" />
+        </Tab>
     </FlyoutItem>
 </Shell>

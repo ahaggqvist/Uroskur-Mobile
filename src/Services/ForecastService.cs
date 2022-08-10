@@ -3,7 +3,7 @@
 public class ForecastService : IForecastService
 {
     private const int MaxLocations = 100;
-    private const int HoursToExpire = 1;
+    private const int HoursToExpire = 24;
     private readonly IOpenWeatherClient _openWeatherClient;
     private readonly IPreferencesService _preferencesService;
     private readonly IStravaService _stravaService;
