@@ -103,7 +103,7 @@
 
                 <Label Grid.Row="6" Grid.Column="2" Text="Weather Forecast Provider" FontFamily="RobotoLight"
                        Margin="0,10,0,-5" />
-                <Image Grid.Row="7" Source="gauge.png" WidthRequest="13"
+                <Image Grid.Row="7" Source="sun.png" WidthRequest="13"
                        HeightRequest="13" />
 
                 <Picker Grid.Row="7" Grid.Column="1" x:Name="ForecastProviderPicker"
