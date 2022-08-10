@@ -16,7 +16,7 @@ public class RoutesViewModel : BaseViewModel
         _routingService = routingService;
         _preferencesService = preferencesService;
 
-        GetRoutesCommand = new Command(async () => await GetRoutesAsync().ConfigureAwait(false));
+        GetRoutesCommand = new Command(async () => await GetRoutesAsync());
     }
 
     public ObservableCollection<Routes> Routes { get; set; } = new();
@@ -63,16 +63,9 @@ public class RoutesViewModel : BaseViewModel
 
     public async void NavigateTo(Routes routes)
     {
-        if (routes == null)
-        {
-            throw new ArgumentNullException(nameof(routes));
-        }
-
-        var dictionary = new Dictionary<string, object>
+        await _routingService.NavigateToAsync(nameof(RoutePage), new Dictionary<string, object>
         {
             { nameof(Routes), routes }
-        };
-
-        await _routingService.NavigateToAsync(nameof(RoutePage), dictionary).ConfigureAwait(false);
+        });
     }
 }

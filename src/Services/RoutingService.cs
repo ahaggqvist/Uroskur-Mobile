@@ -4,6 +4,8 @@ public class RoutingService : IRoutingService
 {
     public Task NavigateToAsync(string route)
     {
+        Debug.WriteLine($"The URI of the current page: {Shell.Current.CurrentState.Location}.");
+
         return Shell.Current.GoToAsync(route);
     }
 
@@ -13,6 +15,8 @@ public class RoutingService : IRoutingService
         {
             parameters = new Dictionary<string, object>();
         }
+
+        Debug.WriteLine($"The URI of the current page: {Shell.Current.CurrentState.Location}.");
 
         return Shell.Current.GoToAsync(route, animate, parameters);
     }

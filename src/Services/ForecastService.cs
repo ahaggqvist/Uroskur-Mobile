@@ -206,10 +206,4 @@ public class ForecastService : IForecastService
 
         return string.Empty;
     }
-
-    private enum ForecastProvider
-    {
-        OpenWeather,
-        Yr
-    }
 }

@@ -5,9 +5,8 @@ namespace Uroskur;
 public static class MauiProgram
 {
 #if DEBUG
-    private const bool IsDevelopment = true;
+    private const bool IsDevelopment = false;
     private const string ManifestFileName = "appsettings.Development.json";
-    //private const string ManifestFileName = "appsettings.json";
 #else
     private const bool IsDevelopment = false;
     private const string ManifestFileName = "appsettings.json";
@@ -41,7 +40,8 @@ public static class MauiProgram
         }
 
         Routing.RegisterRoute(nameof(RoutePage), typeof(RoutePage));
-        Routing.RegisterRoute(nameof(ForecastPage), typeof(ForecastPage));
+        Routing.RegisterRoute(nameof(OpenWeatherForecastPage), typeof(OpenWeatherForecastPage));
+        Routing.RegisterRoute(nameof(YrForecastPage), typeof(YrForecastPage));
 
         Barrel.ApplicationId = "uroskur.pii.at";
 

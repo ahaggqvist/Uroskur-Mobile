@@ -1,9 +1,8 @@
 ﻿namespace Uroskur.ViewModels;
 
 [QueryProperty(nameof(ForecastQuery), nameof(ForecastQuery))]
-public partial class ForecastViewModel : BaseViewModel
+public partial class YrForecastViewModel : BaseViewModel
 {
-    private readonly AppSettings _appSettings;
     private readonly IForecastService _forecastService;
     [ObservableProperty] private LineChart? _chanceOfRainLineChart;
     [ObservableProperty] private string? _emptyViewMessage;
@@ -11,23 +10,20 @@ public partial class ForecastViewModel : BaseViewModel
     [ObservableProperty] private string? _forecastIssuedFor;
     [ObservableProperty] private ForecastQuery? _forecastQuery;
     [ObservableProperty] private LineChart? _tempLineChart;
+    [ObservableProperty] private LineChart? _uvLineChart;
+    [ObservableProperty] private LineChart? _windLineChart;
 
-
-    public ForecastViewModel(IForecastService forecastService, AppSettings appSettings)
+    public YrForecastViewModel(IForecastService forecastService)
     {
         _forecastService = forecastService;
-        _appSettings = appSettings;
     }
 
     public ObservableCollection<LocationForecast> LocationForecasts { get; } = new();
 
-    partial void OnForecastQueryChanged(ForecastQuery? value)
-    {
-        Title = value?.Routes?.Name;
-    }
-
     public async Task GetForecastAsync()
     {
+        Title = _forecastQuery?.Routes?.Name;
+
         try
         {
             var today = DateTime.Today;
@@ -39,17 +35,12 @@ public partial class ForecastViewModel : BaseViewModel
             var timeSpan = _forecastQuery!.Time;
             var hour = timeSpan!.Value.Hours;
             var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
-            if (_appSettings.IsDevelopment)
-            {
-                issuedFor = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
-            }
-
             var issuedForUnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(issuedFor);
             var route = _forecastQuery?.Routes;
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
-            var forecasts = await _forecastService.FindOpenWeatherForecastsAsync(routeId, athleteId);
+            var forecasts = await _forecastService.FindYrForecastsAsync(routeId, athleteId);
 
             var forecastsArray = forecasts.ToImmutableArray();
             if (forecastsArray.Length > 0)
@@ -57,7 +48,7 @@ public partial class ForecastViewModel : BaseViewModel
                 var hourlyForecast = forecastsArray[0].HourlyForecasts.ElementAt(0);
                 var issuedAt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
 
-                _forecastIssuedAt = $"OpenWeather Forecast Issued at {issuedAt:ddd, d MMM H:mm}";
+                _forecastIssuedAt = $"Yr Forecast Issued at {issuedAt:ddd, d MMM H:mm}";
                 OnPropertyChanged(nameof(ForecastIssuedAt));
 
 
@@ -100,8 +91,9 @@ public partial class ForecastViewModel : BaseViewModel
             if (LocationForecasts.Count != 0)
             {
                 CreateTempChart();
-
                 CreateChanceOfRainChart();
+                CreateUvChart();
+                CreateWindChart();
             }
         }
         catch (Exception ex)
@@ -140,12 +132,6 @@ public partial class ForecastViewModel : BaseViewModel
                     Name = "Temp °C",
                     Color = SKColor.Parse("#FC4C02"),
                     Entries = TempEntries()
-                },
-                new()
-                {
-                    Name = "Feels Like °C",
-                    Color = SKColor.Parse("#4dc9fe"),
-                    Entries = FeelsLikeEntries(false)
                 }
             }
         };
@@ -176,12 +162,78 @@ public partial class ForecastViewModel : BaseViewModel
                     Name = "Chance of Rain %",
                     Color = SKColor.Parse("#FC4C02"),
                     Entries = ChanceOfRainEntries()
+                }
+            }
+        };
+    }
+
+    private void CreateUvChart()
+    {
+        UvLineChart = new LineChart
+        {
+            LineMode = LineMode.Spline,
+            LineAreaAlpha = 32,
+            LabelOrientation = Orientation.Horizontal,
+            ValueLabelOrientation = Orientation.Horizontal,
+            IsAnimated = true,
+            BackgroundColor = SKColor.Parse("#fff"),
+            LabelColor = SKColor.Parse("#000"),
+            LabelTextSize = 25,
+            ValueLabelTextSize = 25,
+            SerieLabelTextSize = 25,
+            LegendOption = SeriesLegendOption.Top,
+            ShowYAxisLines = false,
+            ShowYAxisText = false,
+            EnableYFadeOutGradient = false,
+            Series = new List<ChartSerie>
+            {
+                new()
+                {
+                    Name = "UVI 0 (low) to 11+ (extreme)",
+                    Color = SKColor.Parse("#FC4C02"),
+                    Entries = UvEntries()
                 },
                 new()
                 {
                     Name = "Cloudiness %",
                     Color = SKColor.Parse("#4dc9fe"),
                     Entries = CloudinessEntries(false)
+                }
+            }
+        };
+    }
+
+    private void CreateWindChart()
+    {
+        WindLineChart = new LineChart
+        {
+            LineMode = LineMode.Spline,
+            LineAreaAlpha = 32,
+            LabelOrientation = Orientation.Horizontal,
+            ValueLabelOrientation = Orientation.Horizontal,
+            IsAnimated = true,
+            BackgroundColor = SKColor.Parse("#fff"),
+            LabelColor = SKColor.Parse("#000"),
+            LabelTextSize = 25,
+            ValueLabelTextSize = 25,
+            SerieLabelTextSize = 25,
+            LegendOption = SeriesLegendOption.Top,
+            ShowYAxisLines = false,
+            ShowYAxisText = false,
+            EnableYFadeOutGradient = false,
+            Series = new List<ChartSerie>
+            {
+                new()
+                {
+                    Name = "Wind Speed m/s",
+                    Color = SKColor.Parse("#FC4C02"),
+                    Entries = WindSpeedEntries()
+                },
+                new()
+                {
+                    Name = "Wind Gust m/s",
+                    Color = SKColor.Parse("#4dc9fe"),
+                    Entries = WindGustEntries(false)
                 }
             }
         };
@@ -197,25 +249,6 @@ public partial class ForecastViewModel : BaseViewModel
             var chartEntry = new ChartEntry((float?)temp)
             {
                 ValueLabel = temp.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
-            };
-
-            chartEntries.Add(chartEntry);
-        }
-
-        return chartEntries;
-    }
-
-    private IEnumerable<ChartEntry> FeelsLikeEntries(bool withLabel = true)
-    {
-        var chartEntries = new List<ChartEntry>();
-
-        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
-        {
-            var feelsLike = Math.Round(hourlyForecast.FeelsLike, 1);
-            var chartEntry = new ChartEntry((float?)feelsLike)
-            {
-                ValueLabel = feelsLike.ToString(CultureInfo.InvariantCulture),
                 Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
             };
 
@@ -254,6 +287,63 @@ public partial class ForecastViewModel : BaseViewModel
             var chartEntry = new ChartEntry((float?)cloudiness)
             {
                 ValueLabel = cloudiness.ToString(CultureInfo.InvariantCulture),
+                Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
+            };
+
+            chartEntries.Add(chartEntry);
+        }
+
+        return chartEntries;
+    }
+
+    private IEnumerable<ChartEntry> UvEntries(bool withLabel = true)
+    {
+        var chartEntries = new List<ChartEntry>();
+
+        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
+        {
+            var uvi = hourlyForecast.Uvi;
+            var chartEntry = new ChartEntry((float?)uvi)
+            {
+                ValueLabel = uvi.ToString(CultureInfo.InvariantCulture),
+                Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
+            };
+
+            chartEntries.Add(chartEntry);
+        }
+
+        return chartEntries;
+    }
+
+    private IEnumerable<ChartEntry> WindSpeedEntries(bool withLabel = true)
+    {
+        var chartEntries = new List<ChartEntry>();
+
+        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
+        {
+            var windSpeed = hourlyForecast.WindSpeed;
+            var chartEntry = new ChartEntry((float?)windSpeed)
+            {
+                ValueLabel = windSpeed.ToString(CultureInfo.InvariantCulture),
+                Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
+            };
+
+            chartEntries.Add(chartEntry);
+        }
+
+        return chartEntries;
+    }
+
+    private IEnumerable<ChartEntry> WindGustEntries(bool withLabel = true)
+    {
+        var chartEntries = new List<ChartEntry>();
+
+        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
+        {
+            var windGust = hourlyForecast.WindGust;
+            var chartEntry = new ChartEntry((float?)windGust)
+            {
+                ValueLabel = windGust.ToString(CultureInfo.InvariantCulture),
                 Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
             };
 

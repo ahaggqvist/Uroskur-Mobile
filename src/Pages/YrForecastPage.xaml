@@ -5,8 +5,8 @@
              xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              xmlns:model="clr-namespace:Uroskur.Models"
              xmlns:viewmodel="clr-namespace:Uroskur.ViewModels"
-             x:Class="Uroskur.Pages.ForecastPage"
-             x:DataType="viewmodel:ForecastViewModel">
+             x:Class="Uroskur.Pages.YrForecastPage"
+             x:DataType="viewmodel:YrForecastViewModel">
 
     <Shell.TitleView>
         <StackLayout VerticalOptions="Center">
@@ -37,12 +37,11 @@
 
                 <Grid Grid.Row="2" RowSpacing="0" ColumnSpacing="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70" />
-                        <ColumnDefinition Width="70" />
-                        <ColumnDefinition Width="70" />
                         <ColumnDefinition Width="80" />
-                        <ColumnDefinition Width="50" />
-                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="90" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="70" />
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0"
@@ -55,15 +54,12 @@
                            x:Name="TableTempLabel"
                            VerticalTextAlignment="Center" FontSize="10" FontFamily="RobotoLight" />
                     <Label Grid.Column="2"
-                           HorizontalTextAlignment="Center" x:Name="TableFeelsLikeLabel"
-                           VerticalTextAlignment="Center" FontSize="10" FontFamily="RobotoLight" />
-                    <Label Grid.Column="3"
                            HorizontalTextAlignment="Center" x:Name="TableChanceOfRainLabel"
                            VerticalTextAlignment="Center" FontSize="10" FontFamily="RobotoLight" />
-                    <Label Grid.Column="4"
+                    <Label Grid.Column="3"
                            HorizontalTextAlignment="Center" x:Name="TableWindLabel"
                            VerticalTextAlignment="Center" FontSize="10" FontFamily="RobotoLight" />
-                    <Label Grid.Column="5"
+                    <Label Grid.Column="4"
                            HorizontalTextAlignment="Center"
                            Text="" />
                 </Grid>
@@ -82,12 +78,11 @@
                                 ColumnSpacing="0"
                                 RowSpacing="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="70" />
-                                    <ColumnDefinition Width="70" />
-                                    <ColumnDefinition Width="70" />
                                     <ColumnDefinition Width="80" />
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="90" />
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="70" />
                                 </Grid.ColumnDefinitions>
                                 <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
                                              Grid.Column="0">
@@ -99,28 +94,23 @@
                                     <Label
                                         Text="{Binding HourlyForecast.Temp, StringFormat='{0:N1}'}" />
                                 </StackLayout>
-                                <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
-                                             Grid.Column="2">
-                                    <Label
-                                        Text="{Binding HourlyForecast.FeelsLike, StringFormat='{0:N1}'}" />
-                                </StackLayout>
 
                                 <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
-                                             Grid.Column="3">
+                                             Grid.Column="2">
                                     <Label
                                         Text="{Binding HourlyForecast.Pop, StringFormat='{0:P0}'}" />
                                 </StackLayout>
 
                                 <HorizontalStackLayout Padding="0,0,0,5" VerticalOptions="Center"
                                                        HorizontalOptions="Center"
-                                                       Grid.Column="4">
+                                                       Grid.Column="3">
                                     <Label Text="{Binding HourlyForecast.WindSpeed, StringFormat='{0:N1}'}"
                                            Margin="0,3,5,0" />
                                     <Label Text="{Binding WindIcon}" FontFamily="Weathericons" FontSize="14" />
                                 </HorizontalStackLayout>
 
                                 <StackLayout Padding="0,0,0,5" VerticalOptions="Center" HorizontalOptions="Center"
-                                             Grid.Column="5">
+                                             Grid.Column="4">
                                     <Label Text="{Binding WeatherIcon}" FontFamily="Weathericons" FontSize="14" />
                                 </StackLayout>
                             </Grid>
@@ -136,6 +126,14 @@
                            FontFamily="RobotoMedium"
                            FontSize="13" />
                     <microcharts:ChartView Chart="{Binding ChanceOfRainLineChart}" HeightRequest="210" />
+                    <Label x:Name="ChartViewWindLabel" Margin="0,5,0,0"
+                           FontFamily="RobotoMedium"
+                           FontSize="13" />
+                    <microcharts:ChartView Chart="{Binding WindLineChart}" HeightRequest="210" />
+                    <Label x:Name="ChartViewUvLabel" Margin="0,5,0,0"
+                           FontFamily="RobotoMedium"
+                           FontSize="13" />
+                    <microcharts:ChartView Chart="{Binding UvLineChart}" HeightRequest="210" />
                 </StackLayout>
             </Grid>
             <ActivityIndicator x:Name="ActivityIndicatorStatus" />

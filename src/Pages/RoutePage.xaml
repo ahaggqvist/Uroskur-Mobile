@@ -58,7 +58,7 @@
                     </Image.Source>
                 </Image>
             </StackLayout>
-            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*"
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*"
                   ColumnSpacing="5" RowSpacing="0" Margin="0,0,0,10">
                 <Label Grid.Row="0" Grid.Column="2" Text="Day" FontFamily="RobotoLight"
                        Margin="0,5,0,-5" />
@@ -97,6 +97,21 @@
                             <x:String>30</x:String>
                             <x:String>40</x:String>
                             <x:String>50</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+
+                <Label Grid.Row="6" Grid.Column="2" Text="Weather Forecast Provider" FontFamily="RobotoLight"
+                       Margin="0,10,0,-5" />
+                <Image Grid.Row="7" Source="gauge.png" WidthRequest="13"
+                       HeightRequest="13" />
+
+                <Picker Grid.Row="7" Grid.Column="1" x:Name="ForecastProviderPicker"
+                        SelectedItem="{Binding ForecastProvider}" FontSize="13">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Yr</x:String>
+                            <x:String>OpenWeather</x:String>
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>

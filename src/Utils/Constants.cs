@@ -2,6 +2,12 @@
 
 public static class Constants
 {
+    public enum ForecastProvider
+    {
+        OpenWeather,
+        Yr
+    }
+
     internal static readonly Dictionary<long, string> OpenWeatherIconsDictionary = new()
     {
         { 200, "\uf01e" },

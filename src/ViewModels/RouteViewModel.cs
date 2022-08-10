@@ -5,10 +5,9 @@ namespace Uroskur.ViewModels;
 [QueryProperty(nameof(Routes), nameof(Routes))]
 public partial class RouteViewModel : BaseViewModel
 {
-    private const string DefaultDay = "Today";
-    private const string DefaultSpeed = "30";
     private readonly IRoutingService _routingService;
     [ObservableProperty] private string _day;
+    [ObservableProperty] private string _forecastProvider;
     [ObservableProperty] private Routes? _routes;
     [ObservableProperty] private string _speed;
     [ObservableProperty] private TimeSpan _time;
@@ -18,14 +17,15 @@ public partial class RouteViewModel : BaseViewModel
         _routingService = routingService;
 
         _time = DateTime.Now.TimeOfDay;
-        _day = DefaultDay;
-        _speed = DefaultSpeed;
+        _day = "Today";
+        _speed = "30";
+        _forecastProvider = Constants.ForecastProvider.Yr.ToString();
     }
 
     [RelayCommand]
     private async void NavigateTo()
     {
-        var parameters = new Dictionary<string, object>
+        await _routingService.NavigateToAsync($"{_forecastProvider}ForecastPage", new Dictionary<string, object>
         {
             {
                 nameof(ForecastQuery), new ForecastQuery
@@ -36,8 +36,6 @@ public partial class RouteViewModel : BaseViewModel
                     Routes = Routes
                 }
             }
-        };
-
-        await _routingService.NavigateToAsync(nameof(ForecastPage), parameters);
+        });
     }
 }

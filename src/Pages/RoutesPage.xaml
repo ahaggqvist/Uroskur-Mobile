@@ -2,7 +2,6 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:model="clr-namespace:Uroskur.Models"
              xmlns:viewmodel="clr-namespace:Uroskur.ViewModels"
              xmlns:converter="clr-namespace:Uroskur.Converters"
              xmlns:strava="clr-namespace:Uroskur.Models.Strava"
