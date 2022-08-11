@@ -1,6 +1,4 @@
-﻿using Uroskur.Models.Strava;
-
-namespace Uroskur.Utils.Clients;
+﻿namespace Uroskur.Utils.Clients;
 
 public class StravaClient : IStravaClient
 {

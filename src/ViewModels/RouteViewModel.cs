@@ -1,6 +1,4 @@
-﻿using Uroskur.Models.Strava;
-
-namespace Uroskur.ViewModels;
+﻿namespace Uroskur.ViewModels;
 
 [QueryProperty(nameof(Routes), nameof(Routes))]
 public partial class RouteViewModel : BaseViewModel
@@ -19,11 +17,11 @@ public partial class RouteViewModel : BaseViewModel
         _time = DateTime.Now.TimeOfDay;
         _day = "Today";
         _speed = "30";
-        _forecastProvider = Constants.ForecastProvider.Yr.ToString();
+        _forecastProvider = WeatherForecastProvider.Yr.ToString();
     }
 
     [RelayCommand]
-    private async void NavigateTo()
+    private async void OnNavigateTo()
     {
         await _routingService.NavigateToAsync($"{_forecastProvider}ForecastPage", new Dictionary<string, object>
         {

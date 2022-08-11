@@ -2,7 +2,7 @@
 
 public static class Constants
 {
-    public enum ForecastProvider
+    public enum WeatherForecastProvider
     {
         OpenWeather,
         Yr

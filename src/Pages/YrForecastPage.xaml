@@ -153,6 +153,6 @@
                 </Grid>
             </Grid>
         </ScrollView>
-        <ActivityIndicator x:Name="ActivityIndicatorStatus" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
     </Grid>
 </ContentPage>

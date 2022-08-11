@@ -22,8 +22,6 @@ public partial class PreferencesViewModel : BaseViewModel
 
         _preferencesService = preferencesService;
         _stravaService = stravaService;
-
-        LoadPreferences();
     }
 
     [RelayCommand]

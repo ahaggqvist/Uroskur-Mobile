@@ -19,15 +19,15 @@ public class ForecastService : IForecastService
 
     public async Task<IEnumerable<Forecast>> FindOpenWeatherForecastsAsync(string? routeId, string? athleteId)
     {
-        return await FindForecastsAsync(ForecastProvider.OpenWeather, routeId, athleteId);
+        return await FindForecastsAsync(WeatherForecastProvider.OpenWeather, routeId, athleteId);
     }
 
     public async Task<IEnumerable<Forecast>> FindYrForecastsAsync(string? routeId, string? athleteId)
     {
-        return await FindForecastsAsync(ForecastProvider.Yr, routeId, athleteId);
+        return await FindForecastsAsync(WeatherForecastProvider.Yr, routeId, athleteId);
     }
 
-    private async Task<IEnumerable<Forecast>> FindForecastsAsync(ForecastProvider forecastProvider, string? routeId, string? athleteId)
+    private async Task<IEnumerable<Forecast>> FindForecastsAsync(WeatherForecastProvider weatherForecastProvider, string? routeId, string? athleteId)
     {
         Barrel.Current.EmptyExpired();
 
@@ -69,9 +69,9 @@ public class ForecastService : IForecastService
             {
                 var hourlyForecasts = new List<HourlyForecast>();
 
-                if (forecastProvider == ForecastProvider.OpenWeather)
+                if (weatherForecastProvider == WeatherForecastProvider.OpenWeather)
                 {
-                    var key = CacheKey(ForecastProvider.OpenWeather, location);
+                    var key = CacheKey(WeatherForecastProvider.OpenWeather, location);
                     OpenWeatherForecast? openWeatherForecast;
 
                     if (Barrel.Current.IsExpired(key))
@@ -107,9 +107,9 @@ public class ForecastService : IForecastService
                         });
                     }
                 }
-                else if (forecastProvider == ForecastProvider.Yr)
+                else if (weatherForecastProvider == WeatherForecastProvider.Yr)
                 {
-                    var key = CacheKey(ForecastProvider.Yr, location);
+                    var key = CacheKey(WeatherForecastProvider.Yr, location);
                     YrForecast? yrForecast;
 
                     if (Barrel.Current.IsExpired(key))
@@ -176,7 +176,7 @@ public class ForecastService : IForecastService
         return Barrel.Current.Get<string>(key);
     }
 
-    private static string CacheKey(ForecastProvider provider, Location location)
+    private static string CacheKey(WeatherForecastProvider provider, Location location)
     {
         var key = $"{provider}{location.Lat.ToString(CultureInfo.InvariantCulture)}{location.Lon.ToString(CultureInfo.InvariantCulture)}";
         Debug.WriteLine($"Cache key: {key}.");

@@ -9,25 +9,13 @@ public partial class YrForecastPage
         InitializeComponent();
 
         BindingContext = _yrForecastViewModel = yrForecastViewModel;
-
-        Debug.WriteLine($"The URI of the current page: {Shell.Current.CurrentState.Location}.");
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        ActivityIndicator(true, true);
-
-        await Task.Delay(500);
-
-        if (_yrForecastViewModel.LocationForecasts.Count != 0)
-        {
-            ActivityIndicator(false, false);
-            return;
-        }
-
-        await _yrForecastViewModel.GetForecastAsync();
+        await Task.Run(async () => await _yrForecastViewModel.WeatherForecastAsync());
 
         ChartTemperatureHeader.Text = "Temperatures";
         ChartChanceOfRainHeader.Text = "Chance of Rain";
@@ -38,13 +26,5 @@ public partial class YrForecastPage
         WaeatheTableTimeHeader.Text = "Time";
         WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
         WeatherTableWindHeader.Text = "Wind m/s";
-
-        ActivityIndicator(false, false);
-    }
-
-    private void ActivityIndicator(bool isRunning, bool isVisible)
-    {
-        ActivityIndicatorStatus.IsRunning = isRunning;
-        ActivityIndicatorStatus.IsVisible = isVisible;
     }
 }

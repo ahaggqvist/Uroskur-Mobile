@@ -1,12 +1,11 @@
-﻿using Uroskur.Models.Strava;
+﻿namespace Uroskur.ViewModels;
 
-namespace Uroskur.ViewModels;
-
-public class RoutesViewModel : BaseViewModel
+public partial class RoutesViewModel : BaseViewModel
 {
     private readonly IPreferencesService _preferencesService;
     private readonly IRoutingService _routingService;
     private readonly IStravaService _stravaService;
+
 
     public RoutesViewModel(IStravaService stravaService, IRoutingService routingService, IPreferencesService preferencesService)
     {
@@ -15,15 +14,12 @@ public class RoutesViewModel : BaseViewModel
         _stravaService = stravaService;
         _routingService = routingService;
         _preferencesService = preferencesService;
-
-        GetRoutesCommand = new Command(async () => await GetRoutesAsync());
     }
 
     public ObservableCollection<Routes> Routes { get; set; } = new();
 
-    public ICommand GetRoutesCommand { get; }
-
-    public async Task GetRoutesAsync()
+    [RelayCommand]
+    public async Task RoutesAsync()
     {
         if (IsBusy)
         {
@@ -61,7 +57,8 @@ public class RoutesViewModel : BaseViewModel
         }
     }
 
-    public async void NavigateTo(Routes routes)
+    [RelayCommand]
+    private async void OnNavigateTo(Routes routes)
     {
         await _routingService.NavigateToAsync(nameof(RoutePage), new Dictionary<string, object>
         {

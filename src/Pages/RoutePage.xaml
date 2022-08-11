@@ -121,5 +121,6 @@
                     HeightRequest="38" Command="{Binding NavigateToCommand}" CornerRadius="2" BackgroundColor="#FC4C02"
                     Margin="0,0,0,10" />
         </StackLayout>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
     </Grid>
 </ContentPage>

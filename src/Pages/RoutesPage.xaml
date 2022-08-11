@@ -23,19 +23,21 @@
 
     <Grid Margin="5,0,5,0">
         <RefreshView
-            Command="{Binding GetRoutesCommand}"
+            Command="{Binding RoutesCommand}"
             IsRefreshing="{Binding IsRefreshing}" HorizontalOptions="Center">
             <CollectionView ItemsSource="{Binding Routes}" SelectionMode="None">
                 <CollectionView.EmptyView>
                     <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                        <Label x:Name="emptyRoutesLabel" />
+                        <Label x:Name="EmptyRoutesMessage" />
                     </StackLayout>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="strava:Routes">
                         <StackLayout>
                             <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                      Command="{Binding 
+                           Source={RelativeSource AncestorType={x:Type viewmodel:RoutesViewModel}}, Path=NavigateToCommand}" />
                             </StackLayout.GestureRecognizers>
                             <StackLayout VerticalOptions="Start"
                                          Padding="0,5,0,0">

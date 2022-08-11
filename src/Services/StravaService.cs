@@ -1,6 +1,4 @@
-﻿using Uroskur.Models.Strava;
-
-namespace Uroskur.Services;
+﻿namespace Uroskur.Services;
 
 public class StravaService : IStravaService
 {

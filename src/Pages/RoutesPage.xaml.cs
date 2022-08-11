@@ -1,5 +1,3 @@
-using Uroskur.Models.Strava;
-
 namespace Uroskur.Pages;
 
 public partial class RoutesPage
@@ -17,25 +15,8 @@ public partial class RoutesPage
     {
         base.OnAppearing();
 
-        await Task.Delay(500);
+        await Task.Run(async () => await _routesViewModel.RoutesAsync());
 
-        if (_routesViewModel.Routes.Count != 0)
-        {
-            return;
-        }
-
-        await _routesViewModel.GetRoutesAsync();
-
-        emptyRoutesLabel.Text = "Sorry, We Couldn't Find any Routes";
-    }
-
-    private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-    {
-        if (((VisualElement)sender).BindingContext is not Routes routes)
-        {
-            return;
-        }
-
-        _routesViewModel.NavigateTo(routes);
+        EmptyRoutesMessage.Text = "Sorry, We Couldn't Find any Routes";
     }
 }

@@ -10,4 +10,11 @@ public partial class PreferencesPage
 
         BindingContext = _preferencesViewModel = preferencesViewModel;
     }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        _preferencesViewModel.LoadPreferences();
+    }
 }

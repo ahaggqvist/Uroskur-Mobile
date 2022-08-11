@@ -19,6 +19,7 @@ global using Polly;
 global using SkiaSharp;
 global using Uroskur.Models;
 global using Uroskur.Models.OpenWeather;
+global using Uroskur.Models.Strava;
 global using Uroskur.Models.Yr;
 global using Uroskur.Pages;
 global using Uroskur.Services;

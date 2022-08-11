@@ -20,12 +20,19 @@ public partial class YrForecastViewModel : BaseViewModel
 
     public ObservableCollection<LocationForecast> LocationForecasts { get; } = new();
 
-    public async Task GetForecastAsync()
+    public async Task WeatherForecastAsync()
     {
         Title = _forecastQuery?.Routes?.Name;
 
+        if (IsBusy)
+        {
+            return;
+        }
+
         try
         {
+            IsBusy = true;
+
             var today = DateTime.Today;
             if (_forecastQuery is { Day: "Tomorrow" })
             {
@@ -90,10 +97,10 @@ public partial class YrForecastViewModel : BaseViewModel
 
             if (LocationForecasts.Count != 0)
             {
-                CreateTempChart();
-                CreateChanceOfRainChart();
-                CreateUvChart();
-                CreateWindChart();
+                TempLineChart = ChartHelper.CreateTempChart(LocationForecasts);
+                ChanceOfRainLineChart = ChartHelper.CreateChanceOfRainChart(LocationForecasts);
+                UvLineChart = ChartHelper.CreateUvChart(LocationForecasts);
+                WindLineChart = ChartHelper.CreateWindChart(LocationForecasts);
             }
         }
         catch (Exception ex)
@@ -105,251 +112,5 @@ public partial class YrForecastViewModel : BaseViewModel
             IsBusy = false;
             IsRefreshing = false;
         }
-    }
-
-    public void CreateTempChart()
-    {
-        TempLineChart = new LineChart
-        {
-            LineMode = LineMode.Spline,
-            LineAreaAlpha = 32,
-            LabelOrientation = Orientation.Horizontal,
-            ValueLabelOrientation = Orientation.Horizontal,
-            IsAnimated = true,
-            BackgroundColor = SKColor.Parse("#fff"),
-            LabelColor = SKColor.Parse("#000"),
-            LabelTextSize = 25,
-            ValueLabelTextSize = 25,
-            SerieLabelTextSize = 25,
-            LegendOption = SeriesLegendOption.Top,
-            ShowYAxisLines = false,
-            ShowYAxisText = false,
-            EnableYFadeOutGradient = false,
-            Series = new List<ChartSerie>
-            {
-                new()
-                {
-                    Name = "Temp °C",
-                    Color = SKColor.Parse("#FC4C02"),
-                    Entries = TempEntries()
-                }
-            }
-        };
-    }
-
-    public void CreateChanceOfRainChart()
-    {
-        ChanceOfRainLineChart = new LineChart
-        {
-            LineMode = LineMode.Spline,
-            LineAreaAlpha = 32,
-            LabelOrientation = Orientation.Horizontal,
-            ValueLabelOrientation = Orientation.Horizontal,
-            IsAnimated = true,
-            BackgroundColor = SKColor.Parse("#fff"),
-            LabelColor = SKColor.Parse("#000"),
-            LabelTextSize = 25,
-            ValueLabelTextSize = 25,
-            SerieLabelTextSize = 25,
-            LegendOption = SeriesLegendOption.Top,
-            ShowYAxisLines = false,
-            ShowYAxisText = false,
-            EnableYFadeOutGradient = false,
-            Series = new List<ChartSerie>
-            {
-                new()
-                {
-                    Name = "Chance of Rain %",
-                    Color = SKColor.Parse("#FC4C02"),
-                    Entries = ChanceOfRainEntries()
-                }
-            }
-        };
-    }
-
-    private void CreateUvChart()
-    {
-        UvLineChart = new LineChart
-        {
-            LineMode = LineMode.Spline,
-            LineAreaAlpha = 32,
-            LabelOrientation = Orientation.Horizontal,
-            ValueLabelOrientation = Orientation.Horizontal,
-            IsAnimated = true,
-            BackgroundColor = SKColor.Parse("#fff"),
-            LabelColor = SKColor.Parse("#000"),
-            LabelTextSize = 25,
-            ValueLabelTextSize = 25,
-            SerieLabelTextSize = 25,
-            LegendOption = SeriesLegendOption.Top,
-            ShowYAxisLines = false,
-            ShowYAxisText = false,
-            EnableYFadeOutGradient = false,
-            Series = new List<ChartSerie>
-            {
-                new()
-                {
-                    Name = "UVI 0 (low) to 11+ (extreme)",
-                    Color = SKColor.Parse("#FC4C02"),
-                    Entries = UvEntries()
-                },
-                new()
-                {
-                    Name = "Cloudiness %",
-                    Color = SKColor.Parse("#4dc9fe"),
-                    Entries = CloudinessEntries(false)
-                }
-            }
-        };
-    }
-
-    private void CreateWindChart()
-    {
-        WindLineChart = new LineChart
-        {
-            LineMode = LineMode.Spline,
-            LineAreaAlpha = 32,
-            LabelOrientation = Orientation.Horizontal,
-            ValueLabelOrientation = Orientation.Horizontal,
-            IsAnimated = true,
-            BackgroundColor = SKColor.Parse("#fff"),
-            LabelColor = SKColor.Parse("#000"),
-            LabelTextSize = 25,
-            ValueLabelTextSize = 25,
-            SerieLabelTextSize = 25,
-            LegendOption = SeriesLegendOption.Top,
-            ShowYAxisLines = false,
-            ShowYAxisText = false,
-            EnableYFadeOutGradient = false,
-            Series = new List<ChartSerie>
-            {
-                new()
-                {
-                    Name = "Wind Speed m/s",
-                    Color = SKColor.Parse("#FC4C02"),
-                    Entries = WindSpeedEntries()
-                },
-                new()
-                {
-                    Name = "Wind Gust m/s",
-                    Color = SKColor.Parse("#4dc9fe"),
-                    Entries = WindGustEntries(false)
-                }
-            }
-        };
-    }
-
-    private IEnumerable<ChartEntry> TempEntries(bool withLabel = true)
-    {
-        var chartEntries = new List<ChartEntry>();
-
-        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
-        {
-            var temp = Math.Round(hourlyForecast.Temp, 1);
-            var chartEntry = new ChartEntry((float?)temp)
-            {
-                ValueLabel = temp.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
-            };
-
-            chartEntries.Add(chartEntry);
-        }
-
-        return chartEntries;
-    }
-
-    private IEnumerable<ChartEntry> ChanceOfRainEntries(bool withLabel = true)
-    {
-        var chartEntries = new List<ChartEntry>();
-
-        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
-        {
-            var chanceOfRain = Math.Round(hourlyForecast.Pop * 100);
-            var chartEntry = new ChartEntry((float?)chanceOfRain)
-            {
-                ValueLabel = chanceOfRain.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
-            };
-
-            chartEntries.Add(chartEntry);
-        }
-
-        return chartEntries;
-    }
-
-    private IEnumerable<ChartEntry> CloudinessEntries(bool withLabel = true)
-    {
-        var chartEntries = new List<ChartEntry>();
-
-        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
-        {
-            var cloudiness = hourlyForecast.Cloudiness;
-            var chartEntry = new ChartEntry((float?)cloudiness)
-            {
-                ValueLabel = cloudiness.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
-            };
-
-            chartEntries.Add(chartEntry);
-        }
-
-        return chartEntries;
-    }
-
-    private IEnumerable<ChartEntry> UvEntries(bool withLabel = true)
-    {
-        var chartEntries = new List<ChartEntry>();
-
-        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
-        {
-            var uvi = hourlyForecast.Uvi;
-            var chartEntry = new ChartEntry((float?)uvi)
-            {
-                ValueLabel = uvi.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
-            };
-
-            chartEntries.Add(chartEntry);
-        }
-
-        return chartEntries;
-    }
-
-    private IEnumerable<ChartEntry> WindSpeedEntries(bool withLabel = true)
-    {
-        var chartEntries = new List<ChartEntry>();
-
-        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
-        {
-            var windSpeed = hourlyForecast.WindSpeed;
-            var chartEntry = new ChartEntry((float?)windSpeed)
-            {
-                ValueLabel = windSpeed.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
-            };
-
-            chartEntries.Add(chartEntry);
-        }
-
-        return chartEntries;
-    }
-
-    private IEnumerable<ChartEntry> WindGustEntries(bool withLabel = true)
-    {
-        var chartEntries = new List<ChartEntry>();
-
-        foreach (var hourlyForecast in LocationForecasts.Select(l => l.HourlyForecast))
-        {
-            var windGust = hourlyForecast.WindGust;
-            var chartEntry = new ChartEntry((float?)windGust)
-            {
-                ValueLabel = windGust.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyForecast.Dt.ToString("HH:mm") : null
-            };
-
-            chartEntries.Add(chartEntry);
-        }
-
-        return chartEntries;
     }
 }
