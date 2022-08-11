@@ -29,16 +29,16 @@ public partial class OpenWeatherForecastPage
 
         await _openWeatherForecastViewModel.GetForecastAsync();
 
-        ChartViewTemperatureLabel.Text = "Temperatures";
-        ChartViewChanceOfRainLabel.Text = "Chance of Rain";
-        ChartViewUvLabel.Text = "UV index and Cloudiness";
-        ChartViewWindLabel.Text = "Wind Speed and Wind Gust";
+        ChartTemperatureHeader.Text = "Temperatures";
+        ChartChanceOfRainHeader.Text = "Chance of Rain";
+        ChartUvHeader.Text = "UV index and Cloudiness";
+        ChartWindHeader.Text = "Wind Speed and Wind Gust";
 
-        TableTempLabel.Text = "Temp °C";
-        TableTimeLabel.Text = "Time";
-        TableFeelsLikeLabel.Text = "Feels Like °C";
-        TableChanceOfRainLabel.Text = "Chance of Rain";
-        TableWindLabel.Text = "Wind m/s";
+        WeatherTableTempHeader.Text = "Temp °C";
+        WaeatheTableTimeHeader.Text = "Time";
+        WeathTableFeelsLikeHeader.Text = "Feels Like °C";
+        WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
+        WeatherTableWindHeader.Text = "Wind m/s";
 
         ActivityIndicator(false, false);
     }

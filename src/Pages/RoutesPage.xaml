@@ -22,9 +22,9 @@
     </ContentPage.Resources>
 
     <Grid Margin="5,0,5,0">
-        <RefreshView Grid.Column="0"
-                     Command="{Binding GetRoutesCommand}"
-                     IsRefreshing="{Binding IsRefreshing}" HorizontalOptions="Center">
+        <RefreshView
+            Command="{Binding GetRoutesCommand}"
+            IsRefreshing="{Binding IsRefreshing}" HorizontalOptions="Center">
             <CollectionView ItemsSource="{Binding Routes}" SelectionMode="None">
                 <CollectionView.EmptyView>
                     <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
@@ -86,6 +86,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
-        <ActivityIndicator Grid.Column="0" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
     </Grid>
 </ContentPage>

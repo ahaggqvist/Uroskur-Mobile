@@ -8,6 +8,18 @@ public static class Constants
         Yr
     }
 
+    public const double ChartHeadingFontSize = 13;
+    public const double WeatherIconFontSize = 14;
+    public const double WeatherTableHeadingFontSize = 10;
+    public const double ShellTitleViewHeadingFontSize = 20;
+    public const double ForecastIssuedAtFontSize = 10;
+    public const double ForecastIssuedForFontSize = 16;
+    public const string ChartHeadingFontFamily = "RobotoMedium";
+    public const string ShellTitleViewHeadingFontFamily = "RobotoMedium";
+    public const string WeatherTableHeadingFontFamily = "RobotoLight";
+    public const string ForecastIssuedAtFontFamily = "RobotoLight";
+    public const string ForecastIssuedForFontFamily = "RobotoBold";
+
     internal static readonly Dictionary<long, string> OpenWeatherIconsDictionary = new()
     {
         { 200, "\uf01e" },
