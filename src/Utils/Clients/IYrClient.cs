@@ -2,6 +2,6 @@
 
 public interface IYrClient
 {
-    Task<IEnumerable<YrForecast>> FetchForecastsAsync(IEnumerable<Location>? locations);
-    Task<YrForecast?> FetchForecastAsync(Location location);
+    Task<IEnumerable<YrForecast>> FetchWeatherForecastsAsync(IEnumerable<Location>? locations);
+    Task<YrForecast?> FetchWeatherForecastAsync(Location location);
 }

@@ -2,6 +2,6 @@
 
 public interface IOpenWeatherClient
 {
-    Task<IEnumerable<OpenWeatherForecast>> FetchForecastsAsync(IEnumerable<Location>? locations, string? appId);
-    Task<OpenWeatherForecast?> FetchForecastAsync(Location location, string? appId);
+    Task<IEnumerable<OpenWeatherForecast>> FetchWeatherForecastsAsync(IEnumerable<Location>? locations, string? appId);
+    Task<OpenWeatherForecast?> FetchWeatherForecastAsync(Location location, string? appId);
 }

@@ -2,7 +2,7 @@
 
 public interface IStravaClient
 {
-    Task<AuthorizationToken?> GetAuthorizationTokenAsync(string? clientId, string? clientSecret);
+    Task<AuthorizationToken?> FetchAuthorizationTokenAsync(string? clientId, string? clientSecret);
 
     Task<string?> CreateSubscriptionAsync(string? clientId, string? clientSecret);
 
@@ -10,10 +10,10 @@ public interface IStravaClient
 
     Task<Subscription?> ViewSubscriptionAsync(string? clientId, string? clientSecret);
 
-    Task<AuthorizationToken?> GetRefreshTokenAsync(string? refreshToken, string? clientId,
+    Task<AuthorizationToken?> FetchRefreshTokenAsync(string? refreshToken, string? clientId,
         string? clientSecret);
 
-    Task<IEnumerable<Routes>> GetRoutesAsync(string? athleteId, string? authorizationToken);
+    Task<IEnumerable<Routes>> FetchRoutesAsync(string? athleteId, string? authorizationToken);
 
-    Task<string> GetGxpAsync(string? routeId, string? authorizationToken);
+    Task<string> FetchGxpAsync(string? routeId, string? authorizationToken);
 }

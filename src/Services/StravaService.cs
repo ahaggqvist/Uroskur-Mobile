@@ -19,7 +19,7 @@ public class StravaService : IStravaService
         var clientId = preferences.StravaClientId;
         var clientSecret = preferences.StravaClientSecret;
 
-        var token = await _stravaClient.GetAuthorizationTokenAsync(clientId, clientSecret);
+        var token = await _stravaClient.FetchAuthorizationTokenAsync(clientId, clientSecret);
         if (token?.Athlete == null)
         {
             Debug.WriteLine("Athlete is null.");
@@ -66,7 +66,7 @@ public class StravaService : IStravaService
         }
 
         var authorizationToken = await AuthorizationTokenByAthleteIdAsync(athleteId);
-        return await _stravaClient.GetRoutesAsync(athleteId, authorizationToken).ConfigureAwait(false);
+        return await _stravaClient.FetchRoutesAsync(athleteId, authorizationToken).ConfigureAwait(false);
     }
 
     public async Task<IEnumerable<Location>> FindLocationsByAthleteIdRouteIdAsync(string? athleteId, string? routeId)
@@ -92,7 +92,7 @@ public class StravaService : IStravaService
         {
             if (string.IsNullOrEmpty(gpx) || Barrel.Current.IsExpired(routeId))
             {
-                gpx = await _stravaClient.GetGxpAsync(routeId, authorizationToken);
+                gpx = await _stravaClient.FetchGxpAsync(routeId, authorizationToken);
 
                 Barrel.Current.Add(routeId, gpx, TimeSpan.FromHours(ExpireInHours));
 
@@ -155,7 +155,7 @@ public class StravaService : IStravaService
         var clientId = preferences.StravaClientId;
         var clientSecret = preferences.StravaClientSecret;
 
-        return await _stravaClient.GetRefreshTokenAsync(refreshToken, clientId, clientSecret).ConfigureAwait(false);
+        return await _stravaClient.FetchRefreshTokenAsync(refreshToken, clientId, clientSecret).ConfigureAwait(false);
     }
 
     private static bool IsTokenRefresh(long expiresAt)

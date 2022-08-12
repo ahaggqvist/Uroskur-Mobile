@@ -16,7 +16,7 @@ public class YrClient : IYrClient
         _httpClient?.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", UserAgent);
     }
 
-    public async Task<IEnumerable<YrForecast>> FetchForecastsAsync(IEnumerable<Location>? locations)
+    public async Task<IEnumerable<YrForecast>> FetchWeatherForecastsAsync(IEnumerable<Location>? locations)
     {
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
         var retryPolicy = Policy
@@ -47,7 +47,7 @@ public class YrClient : IYrClient
         return yrForecasts;
     }
 
-    public async Task<YrForecast?> FetchForecastAsync(Location location)
+    public async Task<YrForecast?> FetchWeatherForecastAsync(Location location)
     {
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
         var retryPolicy = Policy

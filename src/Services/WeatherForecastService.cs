@@ -76,7 +76,7 @@ public class WeatherForecastService : IWeatherForecastService
 
                     if (Barrel.Current.IsExpired(key))
                     {
-                        openWeatherWeatherForecast = await _openWeatherClient.FetchForecastAsync(location, appId);
+                        openWeatherWeatherForecast = await _openWeatherClient.FetchWeatherForecastAsync(location, appId);
                         if (openWeatherWeatherForecast == null)
                         {
                             continue;
@@ -114,7 +114,7 @@ public class WeatherForecastService : IWeatherForecastService
 
                     if (Barrel.Current.IsExpired(key))
                     {
-                        yrWeatherForecast = await _yrClient.FetchForecastAsync(location);
+                        yrWeatherForecast = await _yrClient.FetchWeatherForecastAsync(location);
                         if (yrWeatherForecast == null)
                         {
                             continue;

@@ -15,7 +15,7 @@ public class StravaClient : IStravaClient
         _httpClient = httpClient;
     }
 
-    public async Task<AuthorizationToken?> GetAuthorizationTokenAsync(string? clientId,
+    public async Task<AuthorizationToken?> FetchAuthorizationTokenAsync(string? clientId,
         string? clientSecret)
     {
         if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
@@ -185,7 +185,7 @@ public class StravaClient : IStravaClient
         return subscriptions.FirstOrDefault();
     }
 
-    public async Task<AuthorizationToken?> GetRefreshTokenAsync(string? refreshToken, string? clientId,
+    public async Task<AuthorizationToken?> FetchRefreshTokenAsync(string? refreshToken, string? clientId,
         string? clientSecret)
     {
         if (string.IsNullOrEmpty(refreshToken) || string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
@@ -214,7 +214,7 @@ public class StravaClient : IStravaClient
         return !string.IsNullOrEmpty(responseBody) ? AuthorizationToken.FromJson(responseBody) : null;
     }
 
-    public async Task<IEnumerable<Routes>> GetRoutesAsync(string? athleteId, string? authorizationToken)
+    public async Task<IEnumerable<Routes>> FetchRoutesAsync(string? athleteId, string? authorizationToken)
     {
         if (string.IsNullOrEmpty(authorizationToken))
         {
@@ -253,7 +253,7 @@ public class StravaClient : IStravaClient
         return routes;
     }
 
-    public async Task<string> GetGxpAsync(string? routeId, string? authorizationToken)
+    public async Task<string> FetchGxpAsync(string? routeId, string? authorizationToken)
     {
         if (string.IsNullOrEmpty(authorizationToken))
         {
