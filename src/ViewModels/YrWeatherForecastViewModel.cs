@@ -54,7 +54,7 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
             var forecastsArray = forecasts.ToImmutableArray();
             if (forecastsArray.Length > 0)
             {
-                var hourlyForecast = forecastsArray[0].HourlyForecasts.ElementAt(0);
+                var hourlyForecast = forecastsArray[0].HourlyWeatherForecasts.ElementAt(0);
                 var issuedAt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
 
                 _forecastIssuedAt = $"Yr Weather Forecast Issued at {issuedAt:ddd, d MMM H:mm}";
@@ -71,7 +71,7 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
                 var speed = _weatherForecastQuery!.Speed!.Value;
                 var time = km / speed;
                 var seconds = 3600 * time + issuedForUnixTimestamp;
-                var hourlyForecast = forecast.HourlyForecasts.ToImmutableList().Find(h => Math.Abs(h.UnixTimestamp - seconds) < 0.000000001);
+                var hourlyForecast = forecast.HourlyWeatherForecasts.ToImmutableList().Find(h => Math.Abs(h.UnixTimestamp - seconds) < 0.000000001);
 
                 if (hourlyForecast == null)
                 {

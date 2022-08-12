@@ -19,15 +19,15 @@ public class WeatherForecastService : IWeatherForecastService
 
     public async Task<IEnumerable<WeatherForecast>> FindOpenWeatherWeatherForecastsAsync(string? routeId, string? athleteId)
     {
-        return await FindForecastsAsync(WeatherForecastProvider.OpenWeather, routeId, athleteId);
+        return await FindWeatherForecastsAsync(WeatherForecastProvider.OpenWeather, routeId, athleteId);
     }
 
     public async Task<IEnumerable<WeatherForecast>> FindYrWeatherForecastsAsync(string? routeId, string? athleteId)
     {
-        return await FindForecastsAsync(WeatherForecastProvider.Yr, routeId, athleteId);
+        return await FindWeatherForecastsAsync(WeatherForecastProvider.Yr, routeId, athleteId);
     }
 
-    private async Task<IEnumerable<WeatherForecast>> FindForecastsAsync(WeatherForecastProvider weatherForecastProvider, string? routeId, string? athleteId)
+    private async Task<IEnumerable<WeatherForecast>> FindWeatherForecastsAsync(WeatherForecastProvider weatherForecastProvider, string? routeId, string? athleteId)
     {
         Barrel.Current.EmptyExpired();
 
@@ -43,7 +43,7 @@ public class WeatherForecastService : IWeatherForecastService
             return Array.Empty<WeatherForecast>();
         }
 
-        var forecasts = new List<WeatherForecast>();
+        var weatherForecasts = new List<WeatherForecast>();
 
         try
         {
@@ -55,7 +55,7 @@ public class WeatherForecastService : IWeatherForecastService
 
             if (locations.Length > MaxLocations)
             {
-                throw new ArgumentException("Number of locations exceed maximum.");
+                throw new ArgumentException("Number of locations exceed maximum allowed.");
             }
 
             var preference = _preferencesService.FindPreferences();
@@ -67,31 +67,31 @@ public class WeatherForecastService : IWeatherForecastService
 
             foreach (var location in locations)
             {
-                var hourlyForecasts = new List<HourlyWeatherForecast>();
+                var hourlyWeatherForecasts = new List<HourlyWeatherForecast>();
 
                 if (weatherForecastProvider == WeatherForecastProvider.OpenWeather)
                 {
                     var key = CacheKey(WeatherForecastProvider.OpenWeather, location);
-                    OpenWeatherForecast? openWeatherForecast;
+                    OpenWeatherForecast? openWeatherWeatherForecast;
 
                     if (Barrel.Current.IsExpired(key))
                     {
-                        openWeatherForecast = await _openWeatherClient.FetchForecastAsync(location, appId);
-                        if (openWeatherForecast == null)
+                        openWeatherWeatherForecast = await _openWeatherClient.FetchForecastAsync(location, appId);
+                        if (openWeatherWeatherForecast == null)
                         {
                             continue;
                         }
 
-                        CacheForecast(key, openWeatherForecast.ToJson());
+                        CacheWeatherForecast(key, openWeatherWeatherForecast.ToJson());
                     }
                     else
                     {
-                        openWeatherForecast = OpenWeatherForecast.FromJson(FetchCachedForecast(key));
+                        openWeatherWeatherForecast = OpenWeatherForecast.FromJson(FetchCachedWeatherForecast(key));
                     }
 
-                    foreach (var hourly in openWeatherForecast.Hourly)
+                    foreach (var hourly in openWeatherWeatherForecast.Hourly)
                     {
-                        hourlyForecasts.Add(new HourlyWeatherForecast
+                        hourlyWeatherForecasts.Add(new HourlyWeatherForecast
                         {
                             Dt = DateTimeHelper.UnixTimestampToDateTime(hourly.Dt),
                             UnixTimestamp = hourly.Dt,
@@ -110,26 +110,26 @@ public class WeatherForecastService : IWeatherForecastService
                 else if (weatherForecastProvider == WeatherForecastProvider.Yr)
                 {
                     var key = CacheKey(WeatherForecastProvider.Yr, location);
-                    YrForecast? yrForecast;
+                    YrForecast? yrWeatherForecast;
 
                     if (Barrel.Current.IsExpired(key))
                     {
-                        yrForecast = await _yrClient.FetchForecastAsync(location);
-                        if (yrForecast == null)
+                        yrWeatherForecast = await _yrClient.FetchForecastAsync(location);
+                        if (yrWeatherForecast == null)
                         {
                             continue;
                         }
 
-                        CacheForecast(key, yrForecast.ToJson());
+                        CacheWeatherForecast(key, yrWeatherForecast.ToJson());
                     }
                     else
                     {
-                        yrForecast = YrForecast.FromJson(FetchCachedForecast(key));
+                        yrWeatherForecast = YrForecast.FromJson(FetchCachedWeatherForecast(key));
                     }
 
-                    foreach (var timesery in yrForecast.Properties.Timeseries)
+                    foreach (var timesery in yrWeatherForecast.Properties.Timeseries)
                     {
-                        hourlyForecasts.Add(new HourlyWeatherForecast
+                        hourlyWeatherForecasts.Add(new HourlyWeatherForecast
                         {
                             Dt = timesery.Time.LocalDateTime,
                             UnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(timesery.Time.LocalDateTime),
@@ -150,9 +150,9 @@ public class WeatherForecastService : IWeatherForecastService
                     return Array.Empty<WeatherForecast>();
                 }
 
-                forecasts.Add(new WeatherForecast
+                weatherForecasts.Add(new WeatherForecast
                 {
-                    HourlyForecasts = hourlyForecasts
+                    HourlyWeatherForecasts = hourlyWeatherForecasts
                 });
             }
         }
@@ -161,18 +161,18 @@ public class WeatherForecastService : IWeatherForecastService
             Debug.WriteLine("Find forecasts failed {0} {1}", ex.Message, ex.StackTrace);
         }
 
-        return forecasts;
+        return weatherForecasts;
     }
 
-    private static void CacheForecast(string key, string json)
+    private static void CacheWeatherForecast(string key, string json)
     {
-        Debug.WriteLine($"Cache forecast with key: {key}.");
+        Debug.WriteLine($"Cache weather forecast with key: {key}.");
         Barrel.Current.Add(key, json, TimeSpan.FromHours(ExpireInHours));
     }
 
-    private static string FetchCachedForecast(string key)
+    private static string FetchCachedWeatherForecast(string key)
     {
-        Debug.WriteLine($"Fetch cached forecast with key: {key}.");
+        Debug.WriteLine($"Fetch weather cached forecast with key: {key}.");
         return Barrel.Current.Get<string>(key);
     }
 

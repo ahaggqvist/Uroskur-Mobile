@@ -2,5 +2,5 @@
 
 public class WeatherForecast
 {
-    public IEnumerable<HourlyWeatherForecast> HourlyForecasts { get; set; } = new List<HourlyWeatherForecast>();
+    public IEnumerable<HourlyWeatherForecast> HourlyWeatherForecasts { get; set; } = new List<HourlyWeatherForecast>();
 }

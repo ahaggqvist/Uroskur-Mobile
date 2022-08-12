@@ -41,17 +41,17 @@
                     <Label Grid.Column="3" Padding="10,10,0,0"
                            FontSize="11"
                            Text="Est. Moving Time" FontFamily="RobotoLight" />
-                    <Label Grid.Row="1" Grid.Column="1" Padding="10,0,0,0"
+                    <Label Grid.Row="1" Grid.Column="1" Padding="10,4,0,0"
                            FontSize="13"
                            Text="{Binding Routes.Distance, StringFormat='{0:0.00} km', Converter={StaticResource MeterToKilometer}}" />
-                    <Label Grid.Row="1" Grid.Column="2" Padding="10,0,0,0"
+                    <Label Grid.Row="1" Grid.Column="2" Padding="10,4,0,0"
                            FontSize="13"
                            Text="{Binding Routes.ElevationGain, StringFormat='{0:0} m'}" />
-                    <Label Grid.Row="1" Grid.Column="3" Padding="10,0,0,0"
+                    <Label Grid.Row="1" Grid.Column="3" Padding="10,4,0,0"
                            FontSize="13"
                            Text="{Binding Routes.EstimatedMovingTimeFormatted}" />
                 </Grid>
-                <HorizontalStackLayout>
+                <HorizontalStackLayout Padding="0,8,0,10">
                     <Image Aspect="AspectFill" WidthRequest="385" HeightRequest="148">
                         <Image.Source>
                             <UriImageSource Uri="{Binding Routes.MapUrls.RetinaUrl}"
