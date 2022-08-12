@@ -8,7 +8,7 @@
 
     <Shell.TitleView>
         <StackLayout VerticalOptions="Center">
-            <Label Text="{Binding Title}" TextColor="White"
+            <Label Text="{Binding Title}" TextColor="Black"
                    FontSize="20" FontFamily="RobotoMedium" />
         </StackLayout>
     </Shell.TitleView>

@@ -11,7 +11,7 @@
 
     <Shell.TitleView>
         <StackLayout VerticalOptions="Center">
-            <Label Text="{Binding Title}" TextColor="White"
+            <Label Text="{Binding Title}" TextColor="Black"
                    FontSize="{x:Static utils:Constants.ShellTitleViewHeadingFontSize}"
                    FontFamily="{x:Static utils:Constants.ShellTitleViewHeadingFontFamily}" />
         </StackLayout>
@@ -20,7 +20,7 @@
     <Grid RowDefinitions="*">
         <ScrollView>
             <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
-                <Grid RowSpacing="0" ColumnSpacing="0">
+                <Grid RowSpacing="0" ColumnSpacing="0" WidthRequest="380" HorizontalOptions="Start">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25" />
                         <RowDefinition Height="25" />
@@ -136,19 +136,19 @@
                         <Label x:Name="ChartTemperatureHeader" Margin="0,5,0,0"
                                FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
                                FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
-                        <microcharts:ChartView Chart="{Binding TempLineChart, Mode=OneWay}" HeightRequest="210" />
+                        <microcharts:ChartView Chart="{Binding TempLineChart, Mode=OneWay}" HeightRequest="210" WidthRequest="380" />
                         <Label x:Name="ChartChanceOfRainHeader" Margin="0,5,0,0"
                                FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
                                FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
-                        <microcharts:ChartView Chart="{Binding ChanceOfRainLineChart, Mode=OneWay}" HeightRequest="210" />
+                        <microcharts:ChartView Chart="{Binding ChanceOfRainLineChart, Mode=OneWay}" HeightRequest="210" WidthRequest="380" />
                         <Label x:Name="ChartWindHeader" Margin="0,5,0,0"
                                FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
                                FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
-                        <microcharts:ChartView Chart="{Binding WindLineChart, Mode=OneWay}" HeightRequest="210" />
+                        <microcharts:ChartView Chart="{Binding WindLineChart, Mode=OneWay}" HeightRequest="210" WidthRequest="380" />
                         <Label x:Name="ChartUvHeader" Margin="0,5,0,0"
                                FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
                                FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
-                        <microcharts:ChartView Chart="{Binding UvLineChart, Mode=OneWay}" HeightRequest="210" />
+                        <microcharts:ChartView Chart="{Binding UvLineChart, Mode=OneWay}" HeightRequest="210" WidthRequest="380" />
                     </StackLayout>
                 </Grid>
             </Grid>

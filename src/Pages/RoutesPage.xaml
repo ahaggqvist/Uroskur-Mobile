@@ -6,12 +6,11 @@
              xmlns:converter="clr-namespace:Uroskur.Converters"
              xmlns:strava="clr-namespace:Uroskur.Models.Strava"
              x:Class="Uroskur.Pages.RoutesPage"
-             x:DataType="viewmodel:RoutesViewModel"
-             BackgroundColor="White">
+             x:DataType="viewmodel:RoutesViewModel">
 
     <Shell.TitleView>
         <StackLayout VerticalOptions="Center">
-            <Label Text="{Binding Title}" TextColor="White"
+            <Label Text="{Binding Title}" TextColor="Black"
                    FontSize="20" FontFamily="RobotoMedium" />
         </StackLayout>
     </Shell.TitleView>

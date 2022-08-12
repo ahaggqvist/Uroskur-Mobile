@@ -7,27 +7,24 @@
     xmlns:local="clr-namespace:Uroskur.Pages">
 
     <FlyoutItem Title="Routes">
-        <ShellContent Shell.ForegroundColor="White"
-                      Shell.BackgroundColor="#FC4C02"
-                      Shell.NavBarIsVisible="True"
-                      Shell.TabBarIsVisible="False"
-                      Route="RoutesPage"
-                      ContentTemplate="{DataTemplate local:RoutesPage}" />
+        <ShellContent
+            Shell.NavBarIsVisible="True"
+            Shell.TabBarIsVisible="False"
+            Route="RoutesPage"
+            ContentTemplate="{DataTemplate local:RoutesPage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Settings">
-        <ShellContent Shell.ForegroundColor="White"
-                      Shell.BackgroundColor="#FC4C02"
-                      Shell.NavBarIsVisible="True"
-                      Route="SettingsPage"
-                      ContentTemplate="{DataTemplate local:PreferencesPage}" />
+        <ShellContent
+            Shell.NavBarIsVisible="True"
+            Route="SettingsPage"
+            ContentTemplate="{DataTemplate local:PreferencesPage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="About">
-        <ShellContent Shell.ForegroundColor="White"
-                      Shell.BackgroundColor="#FC4C02"
-                      Shell.NavBarIsVisible="True"
-                      Route="AboutPage"
-                      ContentTemplate="{DataTemplate local:AboutPage}" />
+        <ShellContent
+            Shell.NavBarIsVisible="True"
+            Route="AboutPage"
+            ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
 </Shell>

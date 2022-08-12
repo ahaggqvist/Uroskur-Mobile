@@ -2,6 +2,16 @@
 
 public static class ChartHelper
 {
+#if WINDOWS
+    private const int LabelTextSize = 15;
+    private const int ValueLabelTextSize = 15;
+    private const int SerieLabelTextSize = 15;
+#else
+    private const int LabelTextSize = 25;
+    private const int ValueLabelTextSize = 25;
+    private const int SerieLabelTextSize = 25;
+#endif
+
     public static LineChart CreateTempChart(IEnumerable<LocationWeatherForecast> locationWeatherForecasts)
     {
         return new LineChart
@@ -13,9 +23,9 @@ public static class ChartHelper
             IsAnimated = true,
             BackgroundColor = SKColor.Parse("#fff"),
             LabelColor = SKColor.Parse("#000"),
-            LabelTextSize = 25,
-            ValueLabelTextSize = 25,
-            SerieLabelTextSize = 25,
+            LabelTextSize = LabelTextSize,
+            ValueLabelTextSize = ValueLabelTextSize,
+            SerieLabelTextSize = SerieLabelTextSize,
             LegendOption = SeriesLegendOption.Top,
             ShowYAxisLines = false,
             ShowYAxisText = false,
@@ -45,9 +55,9 @@ public static class ChartHelper
             IsAnimated = true,
             BackgroundColor = SKColor.Parse("#fff"),
             LabelColor = SKColor.Parse("#000"),
-            LabelTextSize = 25,
-            ValueLabelTextSize = 25,
-            SerieLabelTextSize = 25,
+            LabelTextSize = LabelTextSize,
+            ValueLabelTextSize = ValueLabelTextSize,
+            SerieLabelTextSize = SerieLabelTextSize,
             LegendOption = SeriesLegendOption.Top,
             ShowYAxisLines = false,
             ShowYAxisText = false,
@@ -77,9 +87,9 @@ public static class ChartHelper
             IsAnimated = true,
             BackgroundColor = SKColor.Parse("#fff"),
             LabelColor = SKColor.Parse("#000"),
-            LabelTextSize = 25,
-            ValueLabelTextSize = 25,
-            SerieLabelTextSize = 25,
+            LabelTextSize = LabelTextSize,
+            ValueLabelTextSize = ValueLabelTextSize,
+            SerieLabelTextSize = SerieLabelTextSize,
             LegendOption = SeriesLegendOption.Top,
             ShowYAxisLines = false,
             ShowYAxisText = false,
@@ -115,9 +125,9 @@ public static class ChartHelper
             IsAnimated = true,
             BackgroundColor = SKColor.Parse("#fff"),
             LabelColor = SKColor.Parse("#000"),
-            LabelTextSize = 25,
-            ValueLabelTextSize = 25,
-            SerieLabelTextSize = 25,
+            LabelTextSize = LabelTextSize,
+            ValueLabelTextSize = ValueLabelTextSize,
+            SerieLabelTextSize = SerieLabelTextSize,
             LegendOption = SeriesLegendOption.Top,
             ShowYAxisLines = false,
             ShowYAxisText = false,

@@ -33,7 +33,7 @@
         <Setter Property="TextColor"
                 Value="Black" />
         <Setter Property="BackgroundColor"
-                Value="#4fc3f7" />
+                Value="#92AFD7" />
         <Setter Property="FontFamily" Value="RobotoRegular" />
         <Setter Property="TextTransform" Value="Uppercase" />
         <Setter Property="FontSize" Value="12" />
@@ -46,9 +46,9 @@
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="TextColor"
-                                    Value="White" />
+                                    Value="Black" />
                             <Setter Property="BackgroundColor"
-                                    Value="#FC4C02" />
+                                    Value="#92AFD7" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -394,7 +394,7 @@
 
     <Style x:Key="BaseStyle" TargetType="Element">
         <Setter Property="Shell.BackgroundColor"
-                Value="White" />
+                Value="#92AFD7" />
         <Setter Property="Shell.ForegroundColor"
                 Value="Black" />
         <Setter Property="Shell.TitleColor"
@@ -405,7 +405,7 @@
                 Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
         <Setter Property="Shell.NavBarHasShadow" Value="False" />
         <Setter Property="Shell.TabBarBackgroundColor"
-                Value="White" />
+                Value="Black" />
         <Setter Property="Shell.TabBarForegroundColor"
                 Value="Black" />
         <Setter Property="Shell.TabBarTitleColor"
@@ -418,7 +418,7 @@
 
     <Style TargetType="NavigationPage">
         <Setter Property="BarBackgroundColor"
-                Value="White" />
+                Value="Black" />
         <Setter Property="BarTextColor"
                 Value="Black" />
         <Setter Property="IconColor"

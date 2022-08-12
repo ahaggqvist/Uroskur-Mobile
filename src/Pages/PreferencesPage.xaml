@@ -8,7 +8,7 @@
 
     <Shell.TitleView>
         <StackLayout VerticalOptions="Center">
-            <Label Text="{Binding Title}" TextColor="White"
+            <Label Text="{Binding Title}" TextColor="Black"
                    FontSize="20" FontFamily="RobotoMedium" />
         </StackLayout>
     </Shell.TitleView>
@@ -36,10 +36,9 @@
                        Margin="0,5,0,0" />
                 <Label Text="{Binding StravaExpiresAtFormatted}" FontSize="13" />
 
-                <Button Text="Connect with Strava" TextColor="White" FontSize="13" FontFamily="RobotoMedium"
+                <Button Text="Connect with Strava" FontSize="13" FontFamily="RobotoMedium"
                         TextTransform="Default" VerticalOptions="Center"
                         HeightRequest="38" Command="{Binding TokenExchangeCommand}" CornerRadius="2"
-                        BackgroundColor="#FC4C02"
                         Margin="0,10,0,10" />
 
 
@@ -53,10 +52,9 @@
                        Margin="0,5,0,0" />
                 <Entry Text="{Binding OpenWeatherAppId}" TextColor="Black" FontSize="13" />
 
-                <Button Text="Save Settings" TextColor="White" FontSize="13" FontFamily="RobotoMedium"
+                <Button Text="Save Settings" FontSize="13" FontFamily="RobotoMedium"
                         TextTransform="Default" VerticalOptions="Center"
                         HeightRequest="38" Command="{Binding SavePreferencesCommand}" CornerRadius="2"
-                        BackgroundColor="#FC4C02"
                         Margin="0,10,0,0" />
             </StackLayout>
         </Grid>

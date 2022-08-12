@@ -9,7 +9,7 @@
 
     <Shell.TitleView>
         <StackLayout VerticalOptions="Center">
-            <Label Text="{Binding Routes.Name}" TextColor="White"
+            <Label Text="{Binding Routes.Name}" TextColor="Black"
                    FontSize="20" FontFamily="RobotoMedium" />
         </StackLayout>
     </Shell.TitleView>
@@ -20,7 +20,7 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <Grid Margin="5,0,5,0">
+        <Grid Margin="5,0,5,0" HorizontalOptions="Start" WidthRequest="380" >
             <StackLayout>
                 <Label Text="{Binding Routes.Name}" FontSize="16"
                        FontFamily="RobotoBold" Margin="0,5,0,0" />
@@ -62,7 +62,7 @@
                 <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*"
                       ColumnSpacing="5" RowSpacing="0" Margin="0,0,0,10">
                     <Label Grid.Row="0" Grid.Column="2" Text="Day" FontFamily="RobotoLight"
-                           Margin="0,5,0,-5" />
+                           Margin="0,5,0,5" />
 
                     <Image Grid.Row="1" Source="calendar.png" WidthRequest="13"
                            HeightRequest="13" />
@@ -77,7 +77,7 @@
                     </Picker>
 
                     <Label Grid.Row="2" Grid.Column="2" Text="Time" FontFamily="RobotoLight"
-                           Margin="0,10,0,-5" />
+                           Margin="0,10,0,5" />
 
                     <Image Grid.Row="3" Source="clock.png" WidthRequest="13"
                            HeightRequest="13" />
@@ -85,7 +85,7 @@
                                 Time="{Binding Time}" FontSize="13" />
 
                     <Label Grid.Row="4" Grid.Column="2" Text="Speed" FontFamily="RobotoLight"
-                           Margin="0,10,0,-5" />
+                           Margin="0,10,0,5" />
 
                     <Image Grid.Row="5" Source="gauge.png" WidthRequest="13"
                            HeightRequest="13" />
@@ -103,7 +103,7 @@
                     </Picker>
 
                     <Label Grid.Row="6" Grid.Column="2" Text="Weather Forecast Provider" FontFamily="RobotoLight"
-                           Margin="0,10,0,-5" />
+                           Margin="0,10,0,5" />
                     <Image Grid.Row="7" Source="sun.png" WidthRequest="13"
                            HeightRequest="13" />
 
@@ -117,10 +117,9 @@
                         </Picker.ItemsSource>
                     </Picker>
                 </Grid>
-                <Button Text="Forecast Route" TextColor="White" FontSize="13" FontFamily="RobotoMedium"
+                <Button Text="Forecast Route" FontSize="13" FontFamily="RobotoMedium"
                         TextTransform="Default" VerticalOptions="Center"
                         HeightRequest="38" Command="{Binding NavigateToCommand}" CornerRadius="2"
-                        BackgroundColor="#FC4C02"
                         Margin="0,0,0,10" />
             </StackLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
