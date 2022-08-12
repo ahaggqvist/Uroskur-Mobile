@@ -20,7 +20,7 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <Grid Margin="5,0,5,0" HorizontalOptions="Start" WidthRequest="380" >
+        <Grid Margin="5,0,5,0" HorizontalOptions="Start">
             <StackLayout>
                 <Label Text="{Binding Routes.Name}" FontSize="16"
                        FontFamily="RobotoBold" Margin="0,5,0,0" />
