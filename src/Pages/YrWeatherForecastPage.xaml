@@ -77,7 +77,7 @@
                                Text="" />
                     </Grid>
 
-                    <CollectionView Grid.Row="3" ItemsSource="{Binding LocationForecasts}" SelectionMode="None"
+                    <CollectionView Grid.Row="3" ItemsSource="{Binding LocationWeatherForecasts}" SelectionMode="None"
                                     ItemSizingStrategy="MeasureFirstItem"
                                     VerticalOptions="FillAndExpand">
                         <CollectionView.EmptyView>

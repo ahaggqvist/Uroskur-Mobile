@@ -18,7 +18,7 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
         _weatherForecastService = weatherForecastService;
     }
 
-    public ObservableCollection<LocationWeatherForecast> LocationForecasts { get; } = new();
+    public ObservableCollection<LocationWeatherForecast> LocationWeatherForecasts { get; } = new();
 
     public async Task WeatherForecastAsync()
     {
@@ -29,6 +29,11 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
         if (IsBusy)
         {
             return;
+        }
+
+        if (LocationWeatherForecasts.Count != 0)
+        {
+            LocationWeatherForecasts.Clear();
         }
 
         try
@@ -49,9 +54,9 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
-            var forecasts = await _weatherForecastService.FindYrWeatherForecastsAsync(routeId, athleteId);
+            var weatherForecasts = await _weatherForecastService.FindYrWeatherForecastsAsync(routeId, athleteId);
 
-            var forecastsArray = forecasts.ToImmutableArray();
+            var forecastsArray = weatherForecasts.ToImmutableArray();
             if (forecastsArray.Length > 0)
             {
                 var hourlyForecast = forecastsArray[0].HourlyWeatherForecasts.ElementAt(0);
@@ -94,15 +99,15 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
                     WindIconId = windIconId
                 };
 
-                LocationForecasts.Add(locationForecast);
+                LocationWeatherForecasts.Add(locationForecast);
             }
 
-            if (LocationForecasts.Count != 0)
+            if (LocationWeatherForecasts.Count != 0)
             {
-                TempLineChart = ChartHelper.CreateTempChart(LocationForecasts);
-                ChanceOfRainLineChart = ChartHelper.CreateChanceOfRainChart(LocationForecasts);
-                UvLineChart = ChartHelper.CreateUvChart(LocationForecasts);
-                WindLineChart = ChartHelper.CreateWindChart(LocationForecasts);
+                TempLineChart = ChartHelper.CreateTempChart(LocationWeatherForecasts);
+                ChanceOfRainLineChart = ChartHelper.CreateChanceOfRainChart(LocationWeatherForecasts);
+                UvLineChart = ChartHelper.CreateUvChart(LocationWeatherForecasts);
+                WindLineChart = ChartHelper.CreateWindChart(LocationWeatherForecasts);
             }
         }
         catch (Exception ex)
