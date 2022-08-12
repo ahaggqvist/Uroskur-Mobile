@@ -6,5 +6,5 @@ A .NET MAUI app that fetches a weather forecast for the next 48 hours from eithe
 <img src="https://i.ibb.co/tPvL2Rb/Route.jpg" width="200" height="400" />
 <img src="https://i.ibb.co/WWgRDqP/Forecast1.jpg" width="200" height="400" />
 <img src="https://i.ibb.co/ZKr5Wqr/Forecast2.jpg" width="200" height="400" />
-<img src="https://i.ibb.co/K0Hs0nh/Settings.jpg" width="200" height="400" />
+<img src="https://i.ibb.co/VBKgW0Q/Settings.jpg" width="200" height="400" />
 <img src="https://i.ibb.co/30qSdS4/About.jpg" width="200" height="400" />
