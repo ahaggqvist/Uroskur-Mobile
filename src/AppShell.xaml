@@ -6,7 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Uroskur.Pages">
 
-    <FlyoutItem Route="RoutesPage" Title="Routes">
+    <FlyoutItem Route="RoutesPage">
         <ShellContent Shell.ForegroundColor="White"
                       Shell.BackgroundColor="#FC4C02"
                       Shell.NavBarIsVisible="True"
