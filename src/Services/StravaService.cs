@@ -96,7 +96,7 @@ public class StravaService : IStravaService
 
                 Barrel.Current.Add(routeId, gpx, TimeSpan.FromHours(ExpireInHours));
 
-                Debug.WriteLine($"Cache gxp route with route ID: {routeId}.");
+                Debug.WriteLine($"Cache gxp route with Route ID: {routeId}.");
             }
 
             if (string.IsNullOrEmpty(gpx))
@@ -113,11 +113,11 @@ public class StravaService : IStravaService
                 return locations;
             }
 
-            Debug.WriteLine($"Even distances: {locations.Length} exceed maximum: {MaxDistances}.");
+            Debug.WriteLine($"Number of even distances: {locations.Length} exceed maximum allowed: {MaxDistances}.");
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Find locations by athleteId routeId async failed: {ex.Message} {ex.StackTrace}");
+            Debug.WriteLine($"Finding locations by Athlete ID and Route ID failed: {ex.Message} {ex.StackTrace}");
         }
 
         return Array.Empty<Location>();

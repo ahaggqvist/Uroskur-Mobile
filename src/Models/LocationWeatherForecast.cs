@@ -1,12 +1,12 @@
 ﻿namespace Uroskur.Models;
 
-public class LocationForecast
+public class LocationWeatherForecast
 {
     public int Km { get; set; }
 
     public DateTime Dt { get; set; }
 
-    public HourlyForecast HourlyForecast { get; set; } = new();
+    public HourlyWeatherForecast HourlyWeatherForecast { get; set; } = new();
 
     public string WeatherIcon { get; set; } = string.Empty;
 

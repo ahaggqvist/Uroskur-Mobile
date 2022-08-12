@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.Services;
 
-public class ForecastService : IForecastService
+public class WeatherForecastService : IWeatherForecastService
 {
     private const int MaxLocations = 100;
     private const int ExpireInHours = 1;
@@ -9,7 +9,7 @@ public class ForecastService : IForecastService
     private readonly IStravaService _stravaService;
     private readonly IYrClient _yrClient;
 
-    public ForecastService(IOpenWeatherClient openWeatherClient, IYrClient yrclient, IStravaService stravaService, IPreferencesService preferencesService)
+    public WeatherForecastService(IOpenWeatherClient openWeatherClient, IYrClient yrclient, IStravaService stravaService, IPreferencesService preferencesService)
     {
         _openWeatherClient = openWeatherClient;
         _yrClient = yrclient;
@@ -17,33 +17,33 @@ public class ForecastService : IForecastService
         _preferencesService = preferencesService;
     }
 
-    public async Task<IEnumerable<Forecast>> FindOpenWeatherForecastsAsync(string? routeId, string? athleteId)
+    public async Task<IEnumerable<WeatherForecast>> FindOpenWeatherWeatherForecastsAsync(string? routeId, string? athleteId)
     {
         return await FindForecastsAsync(WeatherForecastProvider.OpenWeather, routeId, athleteId);
     }
 
-    public async Task<IEnumerable<Forecast>> FindYrForecastsAsync(string? routeId, string? athleteId)
+    public async Task<IEnumerable<WeatherForecast>> FindYrWeatherForecastsAsync(string? routeId, string? athleteId)
     {
         return await FindForecastsAsync(WeatherForecastProvider.Yr, routeId, athleteId);
     }
 
-    private async Task<IEnumerable<Forecast>> FindForecastsAsync(WeatherForecastProvider weatherForecastProvider, string? routeId, string? athleteId)
+    private async Task<IEnumerable<WeatherForecast>> FindForecastsAsync(WeatherForecastProvider weatherForecastProvider, string? routeId, string? athleteId)
     {
         Barrel.Current.EmptyExpired();
 
         if (string.IsNullOrEmpty(routeId))
         {
             Debug.WriteLine($"Route ID: {routeId} is invalid.");
-            return Array.Empty<Forecast>();
+            return Array.Empty<WeatherForecast>();
         }
 
         if (string.IsNullOrEmpty(athleteId))
         {
             Debug.WriteLine($"AthleteId ID: {athleteId} is invalid.");
-            return Array.Empty<Forecast>();
+            return Array.Empty<WeatherForecast>();
         }
 
-        var forecasts = new List<Forecast>();
+        var forecasts = new List<WeatherForecast>();
 
         try
         {
@@ -67,7 +67,7 @@ public class ForecastService : IForecastService
 
             foreach (var location in locations)
             {
-                var hourlyForecasts = new List<HourlyForecast>();
+                var hourlyForecasts = new List<HourlyWeatherForecast>();
 
                 if (weatherForecastProvider == WeatherForecastProvider.OpenWeather)
                 {
@@ -91,7 +91,7 @@ public class ForecastService : IForecastService
 
                     foreach (var hourly in openWeatherForecast.Hourly)
                     {
-                        hourlyForecasts.Add(new HourlyForecast
+                        hourlyForecasts.Add(new HourlyWeatherForecast
                         {
                             Dt = DateTimeHelper.UnixTimestampToDateTime(hourly.Dt),
                             UnixTimestamp = hourly.Dt,
@@ -129,7 +129,7 @@ public class ForecastService : IForecastService
 
                     foreach (var timesery in yrForecast.Properties.Timeseries)
                     {
-                        hourlyForecasts.Add(new HourlyForecast
+                        hourlyForecasts.Add(new HourlyWeatherForecast
                         {
                             Dt = timesery.Time.LocalDateTime,
                             UnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(timesery.Time.LocalDateTime),
@@ -147,10 +147,10 @@ public class ForecastService : IForecastService
                 }
                 else
                 {
-                    return Array.Empty<Forecast>();
+                    return Array.Empty<WeatherForecast>();
                 }
 
-                forecasts.Add(new Forecast
+                forecasts.Add(new WeatherForecast
                 {
                     HourlyForecasts = hourlyForecasts
                 });

@@ -106,8 +106,6 @@ public partial class Routes
 {
     public static List<Routes> FromJson(string json)
     {
-        Debug.WriteLine($"Routes JSON: {json}");
-
         return JsonConvert.DeserializeObject<List<Routes>>(json, Converter.Settings);
     }
 }

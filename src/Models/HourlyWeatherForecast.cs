@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.Models;
 
-public class HourlyForecast
+public class HourlyWeatherForecast
 {
     public DateTime Dt { get; set; }
     public long UnixTimestamp { get; set; }

@@ -7,8 +7,8 @@ public static class PagesExtensions
         builder.Services.AddTransient<RoutePage>();
         builder.Services.AddTransient<RoutesPage>();
         builder.Services.AddTransient<PreferencesPage>();
-        builder.Services.AddTransient<OpenWeatherForecastPage>();
-        builder.Services.AddTransient<YrForecastPage>();
+        builder.Services.AddTransient<OpenWeatherWeatherForecastPage>();
+        builder.Services.AddTransient<YrWeatherForecastPage>();
         builder.Services.AddTransient<AboutPage>();
         return builder;
     }

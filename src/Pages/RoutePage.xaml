@@ -106,8 +106,8 @@
                 <Image Grid.Row="7" Source="sun.png" WidthRequest="13"
                        HeightRequest="13" />
 
-                <Picker Grid.Row="7" Grid.Column="1" x:Name="ForecastProviderPicker"
-                        SelectedItem="{Binding ForecastProvider}" FontSize="13">
+                <Picker Grid.Row="7" Grid.Column="1" x:Name="ProviderPicker"
+                        SelectedItem="{Binding Provider}" FontSize="13">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>Yr</x:String>

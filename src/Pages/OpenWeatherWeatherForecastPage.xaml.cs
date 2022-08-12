@@ -1,10 +1,10 @@
 namespace Uroskur.Pages;
 
-public partial class OpenWeatherForecastPage
+public partial class OpenWeatherWeatherForecastPage
 {
     private readonly OpenWeatherForecastViewModel _openWeatherForecastViewModel;
 
-    public OpenWeatherForecastPage(OpenWeatherForecastViewModel openWeatherForecastViewModel)
+    public OpenWeatherWeatherForecastPage(OpenWeatherForecastViewModel openWeatherForecastViewModel)
     {
         InitializeComponent();
 
@@ -15,7 +15,14 @@ public partial class OpenWeatherForecastPage
     {
         base.OnAppearing();
 
-        await Task.Run(async () => await _openWeatherForecastViewModel.WeatherForecastAsync());
+        await LoadWeatherForecast();
+    }
+
+    private async Task LoadWeatherForecast()
+    {
+        ShowIndicator();
+
+        await _openWeatherForecastViewModel.WeatherForecastAsync();
 
         ChartTemperatureHeader.Text = "Temperatures";
         ChartChanceOfRainHeader.Text = "Chance of Rain";
@@ -24,8 +31,21 @@ public partial class OpenWeatherForecastPage
 
         WeatherTableTempHeader.Text = "Temp °C";
         WaeatheTableTimeHeader.Text = "Time";
-        WeathTableFeelsLikeHeader.Text = "Feels Like °C";
         WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
         WeatherTableWindHeader.Text = "Wind m/s";
+
+        HideIndicator();
+    }
+
+    private void ShowIndicator()
+    {
+        Indicator.IsRunning = true;
+        Indicator.IsVisible = true;
+    }
+
+    private void HideIndicator()
+    {
+        Indicator.IsRunning = false;
+        Indicator.IsVisible = false;
     }
 }

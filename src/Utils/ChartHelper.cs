@@ -2,7 +2,7 @@
 
 public static class ChartHelper
 {
-    public static LineChart CreateTempChart(IEnumerable<LocationForecast> locationForecasts)
+    public static LineChart CreateTempChart(IEnumerable<LocationWeatherForecast> locationForecasts)
     {
         return new LineChart
         {
@@ -32,7 +32,7 @@ public static class ChartHelper
         };
     }
 
-    public static LineChart CreateChanceOfRainChart(IEnumerable<LocationForecast> locationForecasts)
+    public static LineChart CreateChanceOfRainChart(IEnumerable<LocationWeatherForecast> locationForecasts)
     {
         var forecasts = locationForecasts.ToImmutableArray();
 
@@ -64,7 +64,7 @@ public static class ChartHelper
         };
     }
 
-    public static LineChart CreateUvChart(IEnumerable<LocationForecast> locationForecasts)
+    public static LineChart CreateUvChart(IEnumerable<LocationWeatherForecast> locationForecasts)
     {
         var forecasts = locationForecasts.ToImmutableArray();
 
@@ -88,7 +88,7 @@ public static class ChartHelper
             {
                 new()
                 {
-                    Name = "UVI 0 (low) to 11+ (extreme)",
+                    Name = "UV index",
                     Color = SKColor.Parse("#FC4C02"),
                     Entries = UvEntries(forecasts)
                 },
@@ -102,7 +102,7 @@ public static class ChartHelper
         };
     }
 
-    public static LineChart CreateWindChart(IEnumerable<LocationForecast> locationForecasts)
+    public static LineChart CreateWindChart(IEnumerable<LocationWeatherForecast> locationForecasts)
     {
         var forecasts = locationForecasts.ToImmutableArray();
 
@@ -140,11 +140,11 @@ public static class ChartHelper
         };
     }
 
-    private static IEnumerable<ChartEntry> TempEntries(IEnumerable<LocationForecast> locationForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> TempEntries(IEnumerable<LocationWeatherForecast> locationForecasts, bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyForecast in locationForecasts.Select(l => l.HourlyForecast))
+        foreach (var hourlyForecast in locationForecasts.Select(l => l.HourlyWeatherForecast))
         {
             var temp = Math.Round(hourlyForecast.Temp, 1);
             var chartEntry = new ChartEntry((float?)temp)
@@ -159,11 +159,11 @@ public static class ChartHelper
         return chartEntries;
     }
 
-    private static IEnumerable<ChartEntry> ChanceOfRainEntries(IEnumerable<LocationForecast> locationForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> ChanceOfRainEntries(IEnumerable<LocationWeatherForecast> locationForecasts, bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyForecast in locationForecasts.Select(l => l.HourlyForecast))
+        foreach (var hourlyForecast in locationForecasts.Select(l => l.HourlyWeatherForecast))
         {
             var chanceOfRain = Math.Round(hourlyForecast.Pop * 100);
             var chartEntry = new ChartEntry((float?)chanceOfRain)
@@ -178,11 +178,11 @@ public static class ChartHelper
         return chartEntries;
     }
 
-    private static IEnumerable<ChartEntry> CloudinessEntries(IEnumerable<LocationForecast> locationForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> CloudinessEntries(IEnumerable<LocationWeatherForecast> locationForecasts, bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyForecast in locationForecasts.Select(l => l.HourlyForecast))
+        foreach (var hourlyForecast in locationForecasts.Select(l => l.HourlyWeatherForecast))
         {
             var cloudiness = hourlyForecast.Cloudiness;
             var chartEntry = new ChartEntry((float?)cloudiness)
@@ -197,11 +197,11 @@ public static class ChartHelper
         return chartEntries;
     }
 
-    private static IEnumerable<ChartEntry> UvEntries(IEnumerable<LocationForecast> locationForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> UvEntries(IEnumerable<LocationWeatherForecast> locationForecasts, bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyForecast in locationForecasts.Select(l => l.HourlyForecast))
+        foreach (var hourlyForecast in locationForecasts.Select(l => l.HourlyWeatherForecast))
         {
             var uvi = hourlyForecast.Uvi;
             var chartEntry = new ChartEntry((float?)uvi)
@@ -216,11 +216,11 @@ public static class ChartHelper
         return chartEntries;
     }
 
-    private static IEnumerable<ChartEntry> WindSpeedEntries(IEnumerable<LocationForecast> locationForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> WindSpeedEntries(IEnumerable<LocationWeatherForecast> locationForecasts, bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyForecast in locationForecasts.Select(l => l.HourlyForecast))
+        foreach (var hourlyForecast in locationForecasts.Select(l => l.HourlyWeatherForecast))
         {
             var windSpeed = hourlyForecast.WindSpeed;
             var chartEntry = new ChartEntry((float?)windSpeed)
@@ -235,11 +235,11 @@ public static class ChartHelper
         return chartEntries;
     }
 
-    private static IEnumerable<ChartEntry> WindGustEntries(IEnumerable<LocationForecast> locationForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> WindGustEntries(IEnumerable<LocationWeatherForecast> locationForecasts, bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyForecast in locationForecasts.Select(l => l.HourlyForecast))
+        foreach (var hourlyForecast in locationForecasts.Select(l => l.HourlyWeatherForecast))
         {
             var windGust = hourlyForecast.WindGust;
             var chartEntry = new ChartEntry((float?)windGust)

@@ -15,8 +15,29 @@ public partial class RoutesPage
     {
         base.OnAppearing();
 
-        await Task.Run(async () => await _routesViewModel.RoutesAsync());
+        await LoadRoutes();
+    }
+
+    private async Task LoadRoutes()
+    {
+        ShowIndicator();
+
+        await _routesViewModel.RoutesAsync();
 
         EmptyRoutesMessage.Text = "Sorry, We Couldn't Find any Routes";
+
+        HideIndicator();
+    }
+
+    private void ShowIndicator()
+    {
+        Indicator.IsRunning = true;
+        Indicator.IsVisible = true;
+    }
+
+    private void HideIndicator()
+    {
+        Indicator.IsRunning = false;
+        Indicator.IsVisible = false;
     }
 }

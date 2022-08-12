@@ -12,13 +12,13 @@ public static class Constants
     public const double WeatherIconFontSize = 14;
     public const double WeatherTableHeadingFontSize = 10;
     public const double ShellTitleViewHeadingFontSize = 20;
-    public const double ForecastIssuedAtFontSize = 10;
-    public const double ForecastIssuedForFontSize = 16;
+    public const double WeatherForecastIssuedAtFontSize = 10;
+    public const double WeatherForecastIssuedForFontSize = 16;
     public const string ChartHeadingFontFamily = "RobotoMedium";
     public const string ShellTitleViewHeadingFontFamily = "RobotoMedium";
-    public const string WeatherTableHeadingFontFamily = "RobotoLight";
-    public const string ForecastIssuedAtFontFamily = "RobotoLight";
-    public const string ForecastIssuedForFontFamily = "RobotoBold";
+    public const string WeatherForecastTableHeadingFontFamily = "RobotoLight";
+    public const string WeatherForecastIssuedAtFontFamily = "RobotoLight";
+    public const string WeatherForecastIssuedForFontFamily = "RobotoBold";
 
     internal static readonly Dictionary<long, string> OpenWeatherIconsDictionary = new()
     {

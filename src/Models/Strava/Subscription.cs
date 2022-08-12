@@ -25,8 +25,6 @@ public partial class Subscription
 {
     public static List<Subscription>? FromJson(string json)
     {
-        Debug.WriteLine($"Subscriptions JSON: {json}");
-
         return JsonConvert.DeserializeObject<List<Subscription>>(json, Converter.Settings);
     }
 }

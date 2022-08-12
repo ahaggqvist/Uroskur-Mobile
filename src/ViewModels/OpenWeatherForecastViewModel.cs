@@ -1,30 +1,32 @@
 ﻿namespace Uroskur.ViewModels;
 
-[QueryProperty(nameof(ForecastQuery), nameof(ForecastQuery))]
+[QueryProperty(nameof(WeatherForecastQuery), nameof(WeatherForecastQuery))]
 public partial class OpenWeatherForecastViewModel : BaseViewModel
 {
     private readonly AppSettings _appSettings;
-    private readonly IForecastService _forecastService;
+    private readonly IWeatherForecastService _weatherForecastService;
     [ObservableProperty] private LineChart? _chanceOfRainLineChart;
     [ObservableProperty] private string? _emptyViewMessage;
     [ObservableProperty] private string? _forecastIssuedAt;
     [ObservableProperty] private string? _forecastIssuedFor;
-    [ObservableProperty] private ForecastQuery? _forecastQuery;
     [ObservableProperty] private LineChart? _tempLineChart;
     [ObservableProperty] private LineChart? _uvLineChart;
+    [ObservableProperty] private WeatherForecastQuery? _weatherForecastQuery;
     [ObservableProperty] private LineChart? _windLineChart;
 
-    public OpenWeatherForecastViewModel(IForecastService forecastService, AppSettings appSettings)
+    public OpenWeatherForecastViewModel(IWeatherForecastService weatherForecastService, AppSettings appSettings)
     {
-        _forecastService = forecastService;
+        _weatherForecastService = weatherForecastService;
         _appSettings = appSettings;
     }
 
-    public ObservableCollection<LocationForecast> LocationForecasts { get; } = new();
+    public ObservableCollection<LocationWeatherForecast> LocationForecasts { get; } = new();
 
     public async Task WeatherForecastAsync()
     {
-        Title = _forecastQuery?.Routes?.Name;
+        Title = _weatherForecastQuery?.Routes?.Name;
+
+        await Task.Delay(500);
 
         if (IsBusy)
         {
@@ -33,15 +35,13 @@ public partial class OpenWeatherForecastViewModel : BaseViewModel
 
         try
         {
-            IsBusy = true;
-
             var today = DateTime.Today;
-            if (_forecastQuery is { Day: "Tomorrow" })
+            if (_weatherForecastQuery is { Day: "Tomorrow" })
             {
                 today = today.AddDays(1);
             }
 
-            var timeSpan = _forecastQuery!.Time;
+            var timeSpan = _weatherForecastQuery!.Time;
             var hour = timeSpan!.Value.Hours;
             var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
             if (_appSettings.IsDevelopment)
@@ -50,11 +50,11 @@ public partial class OpenWeatherForecastViewModel : BaseViewModel
             }
 
             var issuedForUnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(issuedFor);
-            var route = _forecastQuery?.Routes;
+            var route = _weatherForecastQuery?.Routes;
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
-            var forecasts = await _forecastService.FindOpenWeatherForecastsAsync(routeId, athleteId);
+            var forecasts = await _weatherForecastService.FindOpenWeatherWeatherForecastsAsync(routeId, athleteId);
 
             var forecastsArray = forecasts.ToImmutableArray();
             if (forecastsArray.Length > 0)
@@ -62,7 +62,7 @@ public partial class OpenWeatherForecastViewModel : BaseViewModel
                 var hourlyForecast = forecastsArray[0].HourlyForecasts.ElementAt(0);
                 var issuedAt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
 
-                _forecastIssuedAt = $"OpenWeather Forecast Issued at {issuedAt:ddd, d MMM H:mm}";
+                _forecastIssuedAt = $"OpenWeather Weather Forecast Issued at {issuedAt:ddd, d MMM H:mm}";
                 OnPropertyChanged(nameof(ForecastIssuedAt));
 
 
@@ -73,7 +73,7 @@ public partial class OpenWeatherForecastViewModel : BaseViewModel
             foreach (var (forecast, index) in forecastsArray.WithIndex())
             {
                 var km = index * 10 + 10;
-                var speed = _forecastQuery!.Speed!.Value;
+                var speed = _weatherForecastQuery!.Speed!.Value;
                 var time = km / speed;
                 var seconds = 3600 * time + issuedForUnixTimestamp;
                 var hourlyForecast = forecast.HourlyForecasts.ToImmutableList().Find(h => Math.Abs(h.UnixTimestamp - seconds) < 0.000000001);
@@ -89,10 +89,10 @@ public partial class OpenWeatherForecastViewModel : BaseViewModel
                 var locationDt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local)
                     .AddSeconds(3600 * ((double)km / speed) + issuedForUnixTimestamp).ToLocalTime();
 
-                var locationForecast = new LocationForecast
+                var locationForecast = new LocationWeatherForecast
                 {
                     Km = km,
-                    HourlyForecast = hourlyForecast!,
+                    HourlyWeatherForecast = hourlyForecast!,
                     Dt = locationDt,
                     WeatherIcon = hourlyForecast!.Icon,
                     WindIcon = WindIconsDictionary[windIconId],
