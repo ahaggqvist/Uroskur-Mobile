@@ -24,6 +24,8 @@ public partial class YrWeatherForecastPage
 
         await _yrWeatherForecastViewModel.WeatherForecastAsync();
 
+        EmptyWeatherForecastMessage.Text = "Sorry, We Couldn't Generate a Forecast";
+
         ChartTemperatureHeader.Text = "Temperatures";
         ChartChanceOfRainHeader.Text = "Chance of Rain";
         ChartUvHeader.Text = "UV index and Cloudiness";

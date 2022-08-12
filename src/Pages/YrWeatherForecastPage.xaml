@@ -82,7 +82,7 @@
                                     VerticalOptions="FillAndExpand">
                         <CollectionView.EmptyView>
                             <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                                <Label Text="Sorry, We Couldn't Generate a Forecast" />
+                                <Label x:Name="EmptyWeatherForecastMessage" />
                             </StackLayout>
                         </CollectionView.EmptyView>
                         <CollectionView.ItemTemplate>
