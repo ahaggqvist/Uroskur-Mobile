@@ -16,7 +16,7 @@
 		<ApplicationTitle>Uroskur</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>se.700c.uroskur</ApplicationId>
+		<ApplicationId>at.pii.uroskur</ApplicationId>
 		<ApplicationIdGuid>29C841C4-456E-46D5-837D-68348D9826A4</ApplicationIdGuid>
 
 		<!-- Versions -->
