@@ -13,27 +13,29 @@
         </StackLayout>
     </Shell.TitleView>
 
-    <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
-        <StackLayout Grid.Column="0">
-            <Label Text="Monkey Cache" FontFamily="RobotoLight"
-                   Margin="0,5,0,0" />
-            <Label Text="https://github.com/jamesmontemagno/monkey-cache" />
-            <Label Text="Polly" FontFamily="RobotoLight"
-                   Margin="0,5,0,0" />
-            <Label Text="https://github.com/App-vNext/Polly" />
-            <Label Text="Newtonsoft.Json" FontFamily="RobotoLight"
-                   Margin="0,5,0,0" />
-            <Label Text="https://www.newtonsoft.com/json" />
-            <Label Text="Microsoft.Toolkit.Mvvm" FontFamily="RobotoLight"
-                   Margin="0,5,0,0" />
-            <Label Text="https://github.com/CommunityToolkit/WindowsCommunityToolkit" />
-            <Label Text="Tabler icons" FontFamily="RobotoLight"
-                   Margin="0,5,0,0" />
-            <Label Text="https://github.com/tabler/tabler-icons" />
-            <Label Text="Microcharts" FontFamily="RobotoLight"
-                   Margin="0,5,0,0" />
-            <Label Text="https://github.com/microcharts-dotnet/Microcharts" />
-            <Image Source="cptblwith_strava.png" WidthRequest="150" HorizontalOptions="Start" />
-        </StackLayout>
-    </Grid>
+    <ScrollView>
+        <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
+            <StackLayout Grid.Column="0">
+                <Label Text="Monkey Cache" FontFamily="RobotoLight"
+                       Margin="0,5,0,0" />
+                <Label Text="https://github.com/jamesmontemagno/monkey-cache" />
+                <Label Text="Polly" FontFamily="RobotoLight"
+                       Margin="0,5,0,0" />
+                <Label Text="https://github.com/App-vNext/Polly" />
+                <Label Text="Newtonsoft.Json" FontFamily="RobotoLight"
+                       Margin="0,5,0,0" />
+                <Label Text="https://www.newtonsoft.com/json" />
+                <Label Text="Microsoft.Toolkit.Mvvm" FontFamily="RobotoLight"
+                       Margin="0,5,0,0" />
+                <Label Text="https://github.com/CommunityToolkit/WindowsCommunityToolkit" />
+                <Label Text="Tabler icons" FontFamily="RobotoLight"
+                       Margin="0,5,0,0" />
+                <Label Text="https://github.com/tabler/tabler-icons" />
+                <Label Text="Microcharts" FontFamily="RobotoLight"
+                       Margin="0,5,0,0" />
+                <Label Text="https://github.com/microcharts-dotnet/Microcharts" />
+                <Image Source="cptblwith_strava.png" WidthRequest="150" HorizontalOptions="Start" />
+            </StackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

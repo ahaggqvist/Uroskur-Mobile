@@ -1,6 +1,6 @@
 ﻿namespace Uroskur;
 
-public partial class App : Application
+public partial class App
 {
     public App()
     {

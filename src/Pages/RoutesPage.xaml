@@ -48,10 +48,10 @@
                                     FontFamily="RobotoLight" FontSize="11"
                                     Text="{Binding CreatedAt, StringFormat='Created on {0:ddd, d MMM yyyy}', Converter={StaticResource StringToDateTime}}" />
                                 <Grid RowDefinitions="25,25" ColumnDefinitions="Auto,Auto,Auto,*">
-                                    <StackLayout Grid.RowSpan="2" VerticalOptions="Center">
-                                        <Image Source="{Binding RouteTypeImage}" WidthRequest="20"
-                                               HeightRequest="20" />
-                                    </StackLayout>
+                                    <HorizontalStackLayout Grid.RowSpan="2" VerticalOptions="Center">
+                                        <Image Source="{Binding RouteTypeImage}" WidthRequest="16"
+                                               HeightRequest="16" />
+                                    </HorizontalStackLayout>
                                     <Label Grid.Column="1" Padding="10,10,0,0"
                                            FontSize="11"
                                            Text="Distance" FontFamily="RobotoLight" />
@@ -72,14 +72,14 @@
                                            Text="{Binding EstimatedMovingTimeFormatted}" />
                                 </Grid>
                             </StackLayout>
-                            <StackLayout VerticalOptions="StartAndExpand" Padding="0,0,0,8">
+                            <HorizontalStackLayout VerticalOptions="StartAndExpand" Padding="0,0,0,8">
                                 <Image Aspect="AspectFill" WidthRequest="385" HeightRequest="148">
                                     <Image.Source>
                                         <UriImageSource Uri="{Binding MapUrls.RetinaUrl}"
                                                         CacheValidity="10:00:00.0" />
                                     </Image.Source>
                                 </Image>
-                            </StackLayout>
+                            </HorizontalStackLayout>
                             <BoxView Color="{StaticResource LightGray}"
                                      HeightRequest="0.5"
                                      HorizontalOptions="Fill" />
