@@ -6,7 +6,6 @@ global using System.Net;
 global using System.Net.Http.Headers;
 global using System.Reflection;
 global using System.Text;
-global using System.Windows.Input;
 global using System.Xml;
 global using System.Xml.Serialization;
 global using CommunityToolkit.Mvvm.ComponentModel;

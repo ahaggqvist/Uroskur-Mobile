@@ -1,4 +1,8 @@
-﻿namespace Uroskur.Utils.Clients;
+﻿#if WINDOWS
+using WinUIEx;
+#endif
+
+namespace Uroskur.Utils.Clients;
 
 public class StravaClient : IStravaClient
 {
@@ -46,9 +50,15 @@ public class StravaClient : IStravaClient
 
         try
         {
+#if WINDOWS
+            var authenticatorResult = await WinUIEx.WebAuthenticator.AuthenticateAsync(
+                new Uri(authorizationTokenMobileUrl),
+                new Uri(authorizationRedirectUrl));
+#else
             var authenticatorResult = await WebAuthenticator.AuthenticateAsync(
                 new Uri(authorizationTokenMobileUrl),
                 new Uri(authorizationRedirectUrl));
+#endif
 
             if (authenticatorResult == null)
             {
