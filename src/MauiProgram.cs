@@ -1,6 +1,4 @@
-﻿using SkiaSharp.Views.Maui.Controls.Hosting;
-
-namespace Uroskur;
+﻿namespace Uroskur;
 
 public static class MauiProgram
 {

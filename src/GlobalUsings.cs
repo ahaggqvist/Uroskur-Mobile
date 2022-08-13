@@ -16,6 +16,7 @@ global using Newtonsoft.Json;
 global using Newtonsoft.Json.Converters;
 global using Polly;
 global using SkiaSharp;
+global using SkiaSharp.Views.Maui.Controls.Hosting;
 global using Uroskur.Models;
 global using Uroskur.Models.OpenWeather;
 global using Uroskur.Models.Strava;
