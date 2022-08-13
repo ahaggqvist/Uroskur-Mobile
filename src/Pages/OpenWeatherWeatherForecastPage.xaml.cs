@@ -33,7 +33,7 @@ public partial class OpenWeatherWeatherForecastPage
 
         WeatherTableTempHeader.Text = "Temp °C";
         WeathTableFeelsLikeHeader.Text = "Feels Like °C";
-        WaeatheTableTimeHeader.Text = "Time";
+        WeatherTableTimeHeader.Text = "Time";
         WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
         WeatherTableWindHeader.Text = "Wind m/s";
 

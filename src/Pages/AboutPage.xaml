@@ -7,15 +7,13 @@
              x:DataType="viewmodel:AboutViewModel">
 
     <Shell.TitleView>
-        <StackLayout VerticalOptions="Center">
-            <Label Text="{Binding Title}" TextColor="Black"
-                   FontSize="20" FontFamily="RobotoMedium" />
-        </StackLayout>
+        <Label Margin="5,12,5,12" Text="{Binding Title}" TextColor="Black"
+               FontSize="20" FontFamily="RobotoMedium" />
     </Shell.TitleView>
 
-    <ScrollView>
-        <Grid ColumnDefinitions="*,Auto" Margin="5,0,5,0">
-            <StackLayout Grid.Column="0">
+    <Grid Margin="5,0,5,0" RowDefinitions="*">
+        <ScrollView VerticalOptions="Start">
+            <VerticalStackLayout>
                 <Label Text="Monkey Cache" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Label Text="https://github.com/jamesmontemagno/monkey-cache" />
@@ -35,7 +33,7 @@
                        Margin="0,5,0,0" />
                 <Label Text="https://github.com/microcharts-dotnet/Microcharts" />
                 <Image Source="cptblwith_strava.png" WidthRequest="150" HorizontalOptions="Start" />
-            </StackLayout>
-        </Grid>
-    </ScrollView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

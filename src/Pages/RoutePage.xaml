@@ -8,10 +8,8 @@
              x:DataType="viewmodel:RouteViewModel">
 
     <Shell.TitleView>
-        <StackLayout VerticalOptions="Center">
-            <Label Text="{Binding Routes.Name}" TextColor="Black"
-                   FontSize="20" FontFamily="RobotoMedium" />
-        </StackLayout>
+        <Label Margin="5,12,5,12" Text="{Binding Routes.Name}" TextColor="Black"
+               FontSize="20" FontFamily="RobotoMedium" />
     </Shell.TitleView>
 
     <ContentPage.Resources>
@@ -19,9 +17,9 @@
         <converter:MeterToKilometerConverter x:Key="MeterToKilometer" />
     </ContentPage.Resources>
 
-    <ScrollView>
-        <Grid Margin="5,0,5,0" HorizontalOptions="Start">
-            <StackLayout>
+    <Grid Margin="5,0,5,0" RowDefinitions="*">
+        <ScrollView VerticalOptions="Start">
+            <VerticalStackLayout>
                 <Label Text="{Binding Routes.Name}" FontSize="16"
                        FontFamily="RobotoBold" Margin="0,5,0,0" />
                 <Label
@@ -121,8 +119,8 @@
                         TextTransform="Default" VerticalOptions="Center"
                         HeightRequest="38" Command="{Binding NavigateToCommand}" CornerRadius="2"
                         Margin="0,0,0,10" />
-            </StackLayout>
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-        </Grid>
-    </ScrollView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+    </Grid>
 </ContentPage>
