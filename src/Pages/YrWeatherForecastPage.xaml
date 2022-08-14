@@ -117,7 +117,7 @@
                                                        VerticalOptions="Center"
                                                        Grid.Column="3">
                                     <Label
-                                        Text="{Binding HourlyWeatherForecast.Pop, StringFormat='{0:N0}%'}" />
+                                        Text="{Binding HourlyWeatherForecast.Pop, StringFormat='{0:N0} %'}" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Padding="0,0,0,5"
                                                        HorizontalOptions="Center" VerticalOptions="Center"
