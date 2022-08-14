@@ -130,7 +130,7 @@ public partial class PreferencesViewModel : BaseViewModel
         }
     }
 
-    private static async Task ShowToast(string text, ToastDuration duration = ToastDuration.Short, double fontSize = 14)
+    private static async Task ShowToast(string text, ToastDuration duration = ToastDuration.Short, double fontSize = 13)
     {
         var cancellationTokenSource = new CancellationTokenSource();
         var toast = Toast.Make(text, duration, fontSize);

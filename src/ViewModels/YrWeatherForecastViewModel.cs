@@ -62,12 +62,8 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
                 var hourlyForecast = weatherForecastsArray[0].HourlyWeatherForecasts.ElementAt(0);
                 var issuedAt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
 
-                _forecastIssuedAt = $"Yr Weather Forecast Issued at {issuedAt:ddd, d MMM H:mm}";
-                OnPropertyChanged(nameof(ForecastIssuedAt));
-
-
-                _forecastIssuedFor = $"{issuedFor:dddd, d MMM}";
-                OnPropertyChanged(nameof(ForecastIssuedFor));
+                ForecastIssuedAt = $"Yr Weather Forecast issued at {issuedAt:ddd, d MMM H:mm}";
+                ForecastIssuedFor = $"{issuedFor:dddd, d MMM}";
             }
 
             foreach (var (weatherForecast, index) in weatherForecastsArray.WithIndex())
@@ -80,7 +76,7 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
 
                 if (hourlyWeatherForecast == null)
                 {
-                    Debug.WriteLine("Hourly forecast is null");
+                    Debug.WriteLine("Hourly weather forecast is null");
                     continue;
                 }
 
