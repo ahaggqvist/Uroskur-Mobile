@@ -32,7 +32,8 @@ public partial class OpenWeatherWeatherForecastPage
         ChartWindHeader.Text = "Wind Speed and Wind Gust";
 
         WeatherTableTempHeader.Text = "Temp °C";
-        WeathTableFeelsLikeHeader.Text = "Feels Like °C";
+        //WeatherTableFeelsLikeHeader.Text = "Feels Like °C";
+        WeatherTablePrecipitationAmountHeader.Text = "Rain mm";
         WeatherTableTimeHeader.Text = "Time";
         WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
         WeatherTableWindHeader.Text = "Wind m/s";

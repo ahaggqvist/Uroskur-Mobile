@@ -12,6 +12,8 @@ public class HourlyWeatherForecast
     public double WindGust { get; set; }
     public double WindDeg { get; set; }
     public double Pop { get; set; }
+
+    public double PrecipitationAmount { get; set; }
     public string Icon { get; set; } = string.Empty;
 
     public override string ToString()

@@ -33,11 +33,12 @@
 
                 <Grid RowSpacing="0" ColumnSpacing="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="80" />
-                        <ColumnDefinition Width="80" />
-                        <ColumnDefinition Width="90" />
-                        <ColumnDefinition Width="60" />
                         <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="50" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20" />
@@ -54,14 +55,19 @@
                            FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
                     <Label Grid.Column="2"
                            HorizontalTextAlignment="Center" VerticalOptions="Center"
-                           x:Name="WeatherTableChanceOfRainHeader"
+                           x:Name="WeatherTablePrecipitationAmountHeader"
                            FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
                            FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
                     <Label Grid.Column="3"
+                           HorizontalTextAlignment="Center" VerticalOptions="Center"
+                           x:Name="WeatherTableChanceOfRainHeader"
+                           FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
+                           FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
+                    <Label Grid.Column="4"
                            x:Name="WeatherTableWindHeader" VerticalOptions="Center"
                            FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
                            FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
-                    <Label Grid.Column="4" Text="" />
+                    <Label Grid.Column="5" Text="" />
                 </Grid>
 
                 <CollectionView ItemsSource="{Binding LocationWeatherForecasts}" SelectionMode="None"
@@ -80,18 +86,18 @@
                                 ColumnSpacing="0"
                                 RowSpacing="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80" />
-                                    <ColumnDefinition Width="80" />
-                                    <ColumnDefinition Width="90" />
-                                    <ColumnDefinition Width="60" />
                                     <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="50" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30" />
                                 </Grid.RowDefinitions>
                                 <HorizontalStackLayout Padding="0,0,0,5" HorizontalOptions="Center"
-                                                       VerticalOptions="Center"
-                                                       Grid.Column="0">
+                                                       VerticalOptions="Center">
                                     <Label
                                         Text="{Binding TimeKmFormatted}" />
                                 </HorizontalStackLayout>
@@ -105,11 +111,17 @@
                                                        VerticalOptions="Center"
                                                        Grid.Column="2">
                                     <Label
+                                        Text="{Binding HourlyWeatherForecast.PrecipitationAmount, StringFormat='{0:N1}'}" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Padding="0,0,0,5" HorizontalOptions="Center"
+                                                       VerticalOptions="Center"
+                                                       Grid.Column="3">
+                                    <Label
                                         Text="{Binding HourlyWeatherForecast.Pop, StringFormat='{0:P0}'}" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Padding="0,0,0,5"
                                                        HorizontalOptions="Center" VerticalOptions="Center"
-                                                       Grid.Column="3">
+                                                       Grid.Column="4">
                                     <Label Text="{Binding HourlyWeatherForecast.WindSpeed, StringFormat='{0:N1}'}"
                                            Margin="0,3,5,0" />
                                     <Label Text="{Binding WindIcon}" FontFamily="Weathericons"
@@ -117,7 +129,7 @@
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Padding="0,0,0,5" HorizontalOptions="Center"
                                                        VerticalOptions="Center"
-                                                       Grid.Column="4">
+                                                       Grid.Column="5">
                                     <Label Text="{Binding WeatherIcon}" FontFamily="Weathericons"
                                            FontSize="{x:Static utils:Constants.WeatherIconFontSize}" />
                                 </HorizontalStackLayout>

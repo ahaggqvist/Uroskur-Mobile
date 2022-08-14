@@ -103,6 +103,7 @@ public class WeatherForecastService : IWeatherForecastService
                             WindGust = hourly.WindGust,
                             WindDeg = hourly.WindDeg,
                             Pop = hourly.Pop,
+                            PrecipitationAmount = hourly.Rain?.The1H ?? 0D,
                             Icon = OpenWeatherIconsDictionary[hourly.Weather[0].Id]
                         });
                     }
@@ -140,6 +141,7 @@ public class WeatherForecastService : IWeatherForecastService
                             WindSpeed = timesery.Data.Instant.Details.ContainsKey("wind_speed") ? timesery.Data.Instant.Details["wind_speed"] : 0D,
                             WindGust = timesery.Data.Instant.Details.ContainsKey("wind_speed_of_gust") ? timesery.Data.Instant.Details["wind_speed_of_gust"] : 0D,
                             WindDeg = timesery.Data.Instant.Details.ContainsKey("wind_from_direction") ? timesery.Data.Instant.Details["wind_from_direction"] : 0D,
+                            PrecipitationAmount = PrecipitationAmount(timesery),
                             Pop = Pop(timesery),
                             Icon = Icon(timesery)
                         });
@@ -188,8 +190,8 @@ public class WeatherForecastService : IWeatherForecastService
         if (timesery.Data.Next1_Hours != null && timesery.Data.Next6_Hours != null)
         {
             return timesery.Data.Next1_Hours != null
-                ? timesery.Data.Next1_Hours.Details.ProbabilityOfPrecipitation
-                : timesery.Data.Next6_Hours.Details.ProbabilityOfPrecipitation;
+                ? timesery.Data.Next1_Hours.Details.ProbabilityOfPrecipitation / 100
+                : timesery.Data.Next6_Hours.Details.ProbabilityOfPrecipitation / 100;
         }
 
         return 0D;
@@ -204,5 +206,17 @@ public class WeatherForecastService : IWeatherForecastService
         }
 
         return string.Empty;
+    }
+
+    private static double PrecipitationAmount(Timesery timesery)
+    {
+        if (timesery.Data.Next1_Hours != null && timesery.Data.Next6_Hours != null)
+        {
+            return timesery.Data.Next1_Hours != null
+                ? timesery.Data.Next1_Hours.Details.PrecipitationAmount
+                : timesery.Data.Next6_Hours.Details.PrecipitationAmount;
+        }
+
+        return 0D;
     }
 }

@@ -88,7 +88,6 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
                 var windIconId = WindDirection[(int)Math.Round(windDeg / 22.5, 0)];
                 var locationDt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local)
                     .AddSeconds(3600 * ((double)km / speed) + issuedForUnixTimestamp).ToLocalTime();
-                hourlyWeatherForecast!.Pop /= 100;
 
                 var locationWeatherForecast = new LocationWeatherForecast
                 {

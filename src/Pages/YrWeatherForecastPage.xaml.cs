@@ -33,6 +33,7 @@ public partial class YrWeatherForecastPage
 
         WeatherTableTempHeader.Text = "Temp °C";
         WeatherTableTimeHeader.Text = "Time";
+        WeatherTablePrecipitationAmountHeader.Text = "Rain mm";
         WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
         WeatherTableWindHeader.Text = "Wind m/s";
 

@@ -69,6 +69,12 @@ public static class ChartHelper
                     Name = "Chance of Rain %",
                     Color = SKColor.Parse("#FC4C02"),
                     Entries = ChanceOfRainEntries(weatherForecasts)
+                },
+                new()
+                {
+                    Name = "Rain mm",
+                    Color = SKColor.Parse("#4dc9fe"),
+                    Entries = PrecipitationAmountEntries(weatherForecasts)
                 }
             }
         };
@@ -255,6 +261,25 @@ public static class ChartHelper
             var chartEntry = new ChartEntry((float?)windGust)
             {
                 ValueLabel = windGust.ToString(CultureInfo.InvariantCulture),
+                Label = withLabel ? hourlyWeatherForecast.Dt.ToString("HH:mm") : null
+            };
+
+            chartEntries.Add(chartEntry);
+        }
+
+        return chartEntries;
+    }
+
+    private static IEnumerable<ChartEntry> PrecipitationAmountEntries(IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
+    {
+        var chartEntries = new List<ChartEntry>();
+
+        foreach (var hourlyWeatherForecast in locationWeatherForecasts.Select(l => l.HourlyWeatherForecast))
+        {
+            var precipitationAmount = hourlyWeatherForecast.PrecipitationAmount;
+            var chartEntry = new ChartEntry((float?)precipitationAmount)
+            {
+                ValueLabel = precipitationAmount.ToString(CultureInfo.InvariantCulture),
                 Label = withLabel ? hourlyWeatherForecast.Dt.ToString("HH:mm") : null
             };
 

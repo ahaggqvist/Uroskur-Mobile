@@ -54,7 +54,7 @@
                            FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
                            FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
                     <Label Grid.Column="2"
-                           HorizontalTextAlignment="Center" x:Name="WeathTableFeelsLikeHeader"
+                           HorizontalTextAlignment="Center" x:Name="WeatherTablePrecipitationAmountHeader"
                            VerticalTextAlignment="Center"
                            FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
                            FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
@@ -112,7 +112,7 @@
                                                        HorizontalOptions="Center"
                                                        Grid.Column="2">
                                     <Label
-                                        Text="{Binding HourlyWeatherForecast.FeelsLike, StringFormat='{0:N1}'}" />
+                                        Text="{Binding HourlyWeatherForecast.PrecipitationAmount, StringFormat='{0:N1}'}" />
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Padding="0,0,0,5" HorizontalOptions="Center"
                                                        VerticalOptions="Center"
