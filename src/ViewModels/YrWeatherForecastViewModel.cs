@@ -56,10 +56,10 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
             var routeId = route?.Id.ToString();
             var weatherForecasts = await _weatherForecastService.FindYrWeatherForecastsAsync(routeId, athleteId);
 
-            var forecastsArray = weatherForecasts.ToImmutableArray();
-            if (forecastsArray.Length > 0)
+            var weatherForecastsArray = weatherForecasts.ToImmutableArray();
+            if (weatherForecastsArray.Length > 0)
             {
-                var hourlyForecast = forecastsArray[0].HourlyWeatherForecasts.ElementAt(0);
+                var hourlyForecast = weatherForecastsArray[0].HourlyWeatherForecasts.ElementAt(0);
                 var issuedAt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
 
                 _forecastIssuedAt = $"Yr Weather Forecast Issued at {issuedAt:ddd, d MMM H:mm}";
@@ -70,36 +70,37 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
                 OnPropertyChanged(nameof(ForecastIssuedFor));
             }
 
-            foreach (var (forecast, index) in forecastsArray.WithIndex())
+            foreach (var (weatherForecast, index) in weatherForecastsArray.WithIndex())
             {
                 var km = index * 10 + 10;
                 var speed = _weatherForecastQuery!.Speed!.Value;
                 var time = km / speed;
                 var seconds = 3600 * time + issuedForUnixTimestamp;
-                var hourlyForecast = forecast.HourlyWeatherForecasts.ToImmutableList().Find(h => Math.Abs(h.UnixTimestamp - seconds) < 0.000000001);
+                var hourlyWeatherForecast = weatherForecast.HourlyWeatherForecasts.ToImmutableList().Find(h => Math.Abs(h.UnixTimestamp - seconds) < 0.000000001);
 
-                if (hourlyForecast == null)
+                if (hourlyWeatherForecast == null)
                 {
                     Debug.WriteLine("Hourly forecast is null");
                     continue;
                 }
 
-                var windDeg = hourlyForecast?.WindDeg ?? 0L;
+                var windDeg = hourlyWeatherForecast?.WindDeg ?? 0L;
                 var windIconId = WindDirection[(int)Math.Round(windDeg / 22.5, 0)];
                 var locationDt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local)
                     .AddSeconds(3600 * ((double)km / speed) + issuedForUnixTimestamp).ToLocalTime();
+                hourlyWeatherForecast!.Pop /= 100;
 
-                var locationForecast = new LocationWeatherForecast
+                var locationWeatherForecast = new LocationWeatherForecast
                 {
                     Km = km,
-                    HourlyWeatherForecast = hourlyForecast!,
+                    HourlyWeatherForecast = hourlyWeatherForecast!,
                     Dt = locationDt,
-                    WeatherIcon = hourlyForecast!.Icon,
+                    WeatherIcon = hourlyWeatherForecast!.Icon,
                     WindIcon = WindIconsDictionary[windIconId],
                     WindIconId = windIconId
                 };
 
-                LocationWeatherForecasts.Add(locationForecast);
+                LocationWeatherForecasts.Add(locationWeatherForecast);
             }
 
             if (LocationWeatherForecasts.Count != 0)

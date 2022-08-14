@@ -1,8 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-
-namespace Uroskur.ViewModels;
+﻿namespace Uroskur.ViewModels;
 
 public partial class PreferencesViewModel : BaseViewModel
 {
