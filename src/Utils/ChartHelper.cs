@@ -35,7 +35,7 @@ public static class ChartHelper
                 new()
                 {
                     Name = "Temp °C",
-                    Color = SKColor.Parse("#FC4C02"),
+                    Color = SKColor.Parse("#fc4c02"),
                     Entries = TempEntries(locationWeatherForecasts)
                 }
             }
@@ -67,14 +67,14 @@ public static class ChartHelper
                 new()
                 {
                     Name = "Chance of Rain %",
-                    Color = SKColor.Parse("#FC4C02"),
+                    Color = SKColor.Parse("#fc4c02"),
                     Entries = ChanceOfRainEntries(weatherForecasts)
                 },
                 new()
                 {
                     Name = "Rain mm",
                     Color = SKColor.Parse("#4dc9fe"),
-                    Entries = PrecipitationAmountEntries(weatherForecasts)
+                    Entries = PrecipitationAmountEntries(weatherForecasts, false)
                 }
             }
         };
@@ -105,7 +105,7 @@ public static class ChartHelper
                 new()
                 {
                     Name = "UV index",
-                    Color = SKColor.Parse("#FC4C02"),
+                    Color = SKColor.Parse("#fc4c02"),
                     Entries = UvEntries(weatherForecasts)
                 },
                 new()
@@ -143,7 +143,7 @@ public static class ChartHelper
                 new()
                 {
                     Name = "Wind Speed m/s",
-                    Color = SKColor.Parse("#FC4C02"),
+                    Color = SKColor.Parse("#fc4c02"),
                     Entries = WindSpeedEntries(weatherForecasts)
                 },
                 new()
@@ -160,13 +160,13 @@ public static class ChartHelper
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyWeatherForecast in locationWeatherForecasts.Select(l => l.HourlyWeatherForecast))
+        foreach (var locationWeatherForecast in locationWeatherForecasts)
         {
-            var temp = Math.Round(hourlyWeatherForecast.Temp, 1);
+            var temp = Math.Round(locationWeatherForecast.HourlyWeatherForecast.Temp, 1);
             var chartEntry = new ChartEntry((float?)temp)
             {
                 ValueLabel = temp.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -179,13 +179,13 @@ public static class ChartHelper
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyWeatherForecast in locationWeatherForecasts.Select(l => l.HourlyWeatherForecast))
+        foreach (var locationWeatherForecast in locationWeatherForecasts)
         {
-            var chanceOfRain = Math.Round(hourlyWeatherForecast.Pop * 100);
+            var chanceOfRain = locationWeatherForecast.HourlyWeatherForecast.Pop;
             var chartEntry = new ChartEntry((float?)chanceOfRain)
             {
                 ValueLabel = chanceOfRain.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -198,13 +198,13 @@ public static class ChartHelper
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyWeatherForecast in locationWeatherForecasts.Select(l => l.HourlyWeatherForecast))
+        foreach (var locationWeatherForecast in locationWeatherForecasts)
         {
-            var cloudiness = hourlyWeatherForecast.Cloudiness;
+            var cloudiness = locationWeatherForecast.HourlyWeatherForecast.Cloudiness;
             var chartEntry = new ChartEntry((float?)cloudiness)
             {
                 ValueLabel = cloudiness.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -217,13 +217,13 @@ public static class ChartHelper
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyWeatherForecast in locationWeatherForecasts.Select(l => l.HourlyWeatherForecast))
+        foreach (var locationWeatherForecast in locationWeatherForecasts)
         {
-            var uvi = hourlyWeatherForecast.Uvi;
+            var uvi = locationWeatherForecast.HourlyWeatherForecast.Uvi;
             var chartEntry = new ChartEntry((float?)uvi)
             {
                 ValueLabel = uvi.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -236,13 +236,13 @@ public static class ChartHelper
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyWeatherForecast in locationWeatherForecasts.Select(l => l.HourlyWeatherForecast))
+        foreach (var locationWeatherForecast in locationWeatherForecasts)
         {
-            var windSpeed = hourlyWeatherForecast.WindSpeed;
+            var windSpeed = locationWeatherForecast.HourlyWeatherForecast.WindSpeed;
             var chartEntry = new ChartEntry((float?)windSpeed)
             {
                 ValueLabel = windSpeed.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -255,13 +255,13 @@ public static class ChartHelper
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyWeatherForecast in locationWeatherForecasts.Select(l => l.HourlyWeatherForecast))
+        foreach (var locationWeatherForecast in locationWeatherForecasts)
         {
-            var windGust = hourlyWeatherForecast.WindGust;
+            var windGust = locationWeatherForecast.HourlyWeatherForecast.WindGust;
             var chartEntry = new ChartEntry((float?)windGust)
             {
                 ValueLabel = windGust.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -274,13 +274,13 @@ public static class ChartHelper
     {
         var chartEntries = new List<ChartEntry>();
 
-        foreach (var hourlyWeatherForecast in locationWeatherForecasts.Select(l => l.HourlyWeatherForecast))
+        foreach (var locationWeatherForecast in locationWeatherForecasts)
         {
-            var precipitationAmount = hourlyWeatherForecast.PrecipitationAmount;
+            var precipitationAmount = locationWeatherForecast.HourlyWeatherForecast.PrecipitationAmount;
             var chartEntry = new ChartEntry((float?)precipitationAmount)
             {
                 ValueLabel = precipitationAmount.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? hourlyWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);

@@ -27,7 +27,7 @@ public partial class YrWeatherForecastPage
         EmptyWeatherForecastMessage.Text = "Sorry, We Couldn't Generate a Forecast";
 
         ChartTemperatureHeader.Text = "Temperatures";
-        ChartChanceOfRainHeader.Text = "Chance of Rain";
+        ChartChanceOfRainHeader.Text = "Chance of Rain and amount of Rain";
         ChartUvHeader.Text = "UV index and Cloudiness";
         ChartWindHeader.Text = "Wind Speed and Wind Gust";
 

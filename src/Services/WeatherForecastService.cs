@@ -102,7 +102,7 @@ public class WeatherForecastService : IWeatherForecastService
                             WindSpeed = hourly.WindSpeed,
                             WindGust = hourly.WindGust,
                             WindDeg = hourly.WindDeg,
-                            Pop = hourly.Pop,
+                            Pop = Math.Round(hourly.Pop * 100),
                             PrecipitationAmount = hourly.Rain?.The1H ?? 0D,
                             Icon = OpenWeatherIconsDictionary[hourly.Weather[0].Id]
                         });
@@ -190,8 +190,8 @@ public class WeatherForecastService : IWeatherForecastService
         if (timesery.Data.Next1_Hours != null && timesery.Data.Next6_Hours != null)
         {
             return timesery.Data.Next1_Hours != null
-                ? timesery.Data.Next1_Hours.Details.ProbabilityOfPrecipitation / 100
-                : timesery.Data.Next6_Hours.Details.ProbabilityOfPrecipitation / 100;
+                ? Math.Round(timesery.Data.Next1_Hours.Details.ProbabilityOfPrecipitation)
+                : Math.Round(timesery.Data.Next6_Hours.Details.ProbabilityOfPrecipitation);
         }
 
         return 0D;
