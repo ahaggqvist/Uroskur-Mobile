@@ -1,5 +1,6 @@
 ﻿global using System.Collections.Immutable;
 global using System.Collections.ObjectModel;
+global using System.ComponentModel.DataAnnotations;
 global using System.Diagnostics;
 global using System.Globalization;
 global using System.Net;
@@ -8,6 +9,7 @@ global using System.Reflection;
 global using System.Text;
 global using System.Xml;
 global using System.Xml.Serialization;
+global using CommunityToolkit.Maui;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using Microcharts;

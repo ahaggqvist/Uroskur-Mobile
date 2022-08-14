@@ -129,20 +129,20 @@
                             <Label x:Name="ChartTemperatureHeader" Margin="0,5,0,0"
                                    FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
                                    FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
-                            <microcharts:ChartView Chart="{Binding TempLineChart, Mode=OneWay}" HeightRequest="210" />
+                            <microcharts:ChartView Chart="{Binding TempLineChart, Mode=OneTime}" HeightRequest="210" />
                             <Label x:Name="ChartChanceOfRainHeader" Margin="0,5,0,0"
                                    FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
                                    FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
-                            <microcharts:ChartView Chart="{Binding ChanceOfRainLineChart, Mode=OneWay}"
+                            <microcharts:ChartView Chart="{Binding ChanceOfRainLineChart, Mode=OneTime}"
                                                    HeightRequest="210" />
                             <Label x:Name="ChartWindHeader" Margin="0,5,0,0"
                                    FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
                                    FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
-                            <microcharts:ChartView Chart="{Binding WindLineChart, Mode=OneWay}" HeightRequest="210" />
+                            <microcharts:ChartView Chart="{Binding WindLineChart, Mode=OneTime}" HeightRequest="210" />
                             <Label x:Name="ChartUvHeader" Margin="0,5,0,0"
                                    FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
                                    FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
-                            <microcharts:ChartView Chart="{Binding UvLineChart, Mode=OneWay}" HeightRequest="210" />
+                            <microcharts:ChartView Chart="{Binding UvLineChart, Mode=OneTime}" HeightRequest="210" />
                         </VerticalStackLayout>
                     </CollectionView.Footer>
                 </CollectionView>

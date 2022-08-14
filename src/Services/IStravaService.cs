@@ -2,7 +2,7 @@
 
 public interface IStravaService
 {
-    Task<bool?> TokenExchangeAsync();
+    Task<bool> TokenExchangeAsync();
 
     Task<string?> CreateSubscriptionAsync();
 

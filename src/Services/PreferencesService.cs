@@ -11,35 +11,40 @@ public class PreferencesService : IPreferencesService
     {
         return new Preferences
         {
-            OpenWeatherAppId = FindPreference("openweatherAppId"),
-            StravaAccessToken = FindPreference("stravaAccessToken"),
-            StravaAthleteId = FindPreference("stravaAthleteId"),
-            StravaClientId = FindPreference("stravaClientId"),
-            StravaClientSecret = FindPreference("stravaClientSecret"),
-            StravaExpiresAt = FindPreference("stravaExpiresAt"),
-            StravaFirstname = FindPreference("stravaFirstname"),
-            StravaLastname = FindPreference("stravaLastname"),
-            StravaRefreshToken = FindPreference("stravaRefreshToken"),
-            StravaUsername = FindPreference("stravaUsername")
+            OpenWeatherAppId = FindPreference(OpenWeatherAppIdKey),
+            StravaAccessToken = FindPreference(StravaAccessTokenKey),
+            StravaAthleteId = FindPreference(StravaAthleteIdKey),
+            StravaClientId = FindPreference(StravaClientIdKey),
+            StravaClientSecret = FindPreference(StravaClientSecretKey),
+            StravaExpiresAt = FindPreference(StravaExpiresAtKey),
+            StravaFirstname = FindPreference(StravFirstNameKey),
+            StravaLastname = FindPreference(StravaLastNameKey),
+            StravaRefreshToken = FindPreference(StravaRefreshTokenKey),
+            StravaUsername = FindPreference(StravaUsernameKey)
         };
     }
 
     public void SavePreference(string key, string value)
     {
-        Microsoft.Maui.Storage.Preferences.Set(key, value);
+        if (string.IsNullOrEmpty(value))
+        {
+            return;
+        }
+
+        Microsoft.Maui.Storage.Preferences.Set(key, value.Trim());
     }
 
     public void SavePreferences(Preferences preferences)
     {
-        SavePreference("openweatherAppId", preferences.OpenWeatherAppId!);
-        SavePreference("stravaAccessToken", preferences.StravaAccessToken!);
-        SavePreference("stravaAthleteId", preferences.StravaAthleteId!);
-        SavePreference("stravaClientId", preferences.StravaClientId!);
-        SavePreference("stravaClientSecret", preferences.StravaClientSecret!);
-        SavePreference("stravaExpiresAt", preferences.StravaExpiresAt!);
-        SavePreference("stravaFirstname", preferences.StravaFirstname!);
-        SavePreference("stravaLastname", preferences.StravaLastname!);
-        SavePreference("stravaRefreshToken", preferences.StravaRefreshToken!);
-        SavePreference("stravaUsername", preferences.StravaUsername!);
+        SavePreference(OpenWeatherAppIdKey, preferences.OpenWeatherAppId!);
+        SavePreference(StravaAccessTokenKey, preferences.StravaAccessToken!);
+        SavePreference(StravaAthleteIdKey, preferences.StravaAthleteId!);
+        SavePreference(StravaClientIdKey, preferences.StravaClientId!);
+        SavePreference(StravaClientSecretKey, preferences.StravaClientSecret!);
+        SavePreference(StravaExpiresAtKey, preferences.StravaExpiresAt!);
+        SavePreference(StravFirstNameKey, preferences.StravaFirstname!);
+        SavePreference(StravaLastNameKey, preferences.StravaLastname!);
+        SavePreference(StravaRefreshTokenKey, preferences.StravaRefreshToken!);
+        SavePreference(StravaUsernameKey, preferences.StravaUsername!);
     }
 }

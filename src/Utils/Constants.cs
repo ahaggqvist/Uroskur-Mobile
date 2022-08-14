@@ -20,6 +20,17 @@ public static class Constants
     public const string WeatherForecastIssuedAtFontFamily = "RobotoLight";
     public const string WeatherForecastIssuedForFontFamily = "RobotoBold";
 
+    public const string OpenWeatherAppIdKey = "openweatherAppId";
+    public const string StravaAccessTokenKey = "stravaAccessToken";
+    public const string StravaAthleteIdKey = "stravaAthleteId";
+    public const string StravaClientIdKey = "stravaClientId";
+    public const string StravaClientSecretKey = "stravaClientSecret";
+    public const string StravaExpiresAtKey = "stravaExpiresAt";
+    public const string StravFirstNameKey = "stravaFirstname";
+    public const string StravaLastNameKey = "stravaLastname";
+    public const string StravaRefreshTokenKey = "stravaRefreshToken";
+    public const string StravaUsernameKey = "stravaUsername";
+
     internal static readonly Dictionary<long, string> OpenWeatherIconsDictionary = new()
     {
         { 200, "\uf01e" },

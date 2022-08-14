@@ -58,7 +58,7 @@ public partial class RoutesViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    private async void OnNavigateTo(Routes routes)
+    private async void NavigateTo(Routes routes)
     {
         await _routingService.NavigateToAsync(nameof(RoutePage), new Dictionary<string, object>
         {

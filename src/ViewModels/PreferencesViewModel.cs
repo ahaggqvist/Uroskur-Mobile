@@ -1,9 +1,16 @@
-﻿namespace Uroskur.ViewModels;
+﻿using System.Text.RegularExpressions;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+
+namespace Uroskur.ViewModels;
 
 public partial class PreferencesViewModel : BaseViewModel
 {
+    private const string PatternClientId = @"^(\d{4,})$";
+    private const string PatternKey = @"^([\w\d]{15,})$";
     private readonly IPreferencesService _preferencesService;
     private readonly IStravaService _stravaService;
+    [ObservableProperty] private string _errorMessage = string.Empty;
     [ObservableProperty] private string? _openWeatherAppId;
     [ObservableProperty] private string? _stravaAccessToken;
     [ObservableProperty] private string? _stravaAthleteId;
@@ -25,23 +32,64 @@ public partial class PreferencesViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    private void SavePreferences()
+    private async void SavePreferences()
     {
+        if (!Regex.IsMatch(StravaClientId ?? string.Empty, PatternClientId))
+        {
+            await ShowToast("Strava client ID is invalid");
+            return;
+        }
+
+        if (!Regex.IsMatch(StravaClientSecret ?? string.Empty, PatternKey))
+        {
+            await ShowToast("Strava client secret is invalid");
+            return;
+        }
+
+        if (!Regex.IsMatch(OpenWeatherAppId ?? string.Empty, PatternKey))
+        {
+            await ShowToast("OpenWeather app ID is invalid");
+            return;
+        }
+
         _preferencesService.SavePreferences(new Preferences
         {
-            OpenWeatherAppId = _openWeatherAppId!,
-            StravaClientId = _stravaClientId!,
-            StravaClientSecret = _stravaClientSecret!
+            OpenWeatherAppId = OpenWeatherAppId!,
+            StravaClientId = StravaClientId!,
+            StravaClientSecret = StravaClientSecret!
         });
+
+        await ShowToast("Saved settings");
     }
 
     [RelayCommand]
-    private async void TokenExchange()
+    private async void ConnectWithStrava()
     {
-        ResetStravaPreferences();
+        if (!Regex.IsMatch(_preferencesService.FindPreference(StravaClientIdKey), PatternClientId))
+        {
+            await ShowToast("Strava client ID is invalid");
+            return;
+        }
 
-        var isSuccessfulExchange = await _stravaService.TokenExchangeAsync();
-        Debug.WriteLine($"Token exchange {isSuccessfulExchange}");
+        if (!Regex.IsMatch(_preferencesService.FindPreference(StravaClientSecretKey), PatternKey))
+        {
+            await ShowToast("Strava client secret is invalid");
+            return;
+        }
+
+        if (!Regex.IsMatch(_preferencesService.FindPreference(OpenWeatherAppIdKey), PatternKey))
+        {
+            await ShowToast("OpenWeather app ID is invalid");
+            return;
+        }
+
+        if (!await _stravaService.TokenExchangeAsync())
+        {
+            await ShowToast("Strava authorization failed");
+            return;
+        }
+
+        await ShowToast("Strava authorization was successful");
 
         LoadPreferences();
     }
@@ -49,50 +97,47 @@ public partial class PreferencesViewModel : BaseViewModel
     public void LoadPreferences()
     {
         var preferences = _preferencesService.FindPreferences();
-        _openWeatherAppId = preferences.OpenWeatherAppId;
-        _stravaClientId = preferences.StravaClientId;
-        _stravaAthleteId = preferences.StravaAthleteId;
-        _stravaClientSecret = preferences.StravaClientSecret;
-        _stravaUsername = preferences.StravaUsername;
-        _stravaFirstname = preferences.StravaFirstname;
-        _stravaLastname = preferences.StravaLastname;
-        _stravaRefreshToken = preferences.StravaRefreshToken;
-        _stravaAccessToken = preferences.StravaAccessToken;
-        _stravaExpiresAt = preferences.StravaExpiresAt;
-        _stravaExpiresAtFormatted = preferences.StravaExpiresAtFormatted();
-
-        OnPropertyChanged(nameof(OpenWeatherAppId));
-        OnPropertyChanged(nameof(StravaClientId));
-        OnPropertyChanged(nameof(StravaAthleteId));
-        OnPropertyChanged(nameof(StravaClientSecret));
-        OnPropertyChanged(nameof(StravaUsername));
-        OnPropertyChanged(nameof(StravaFirstname));
-        OnPropertyChanged(nameof(StravaLastname));
-        OnPropertyChanged(nameof(StravaRefreshToken));
-        OnPropertyChanged(nameof(StravaAccessToken));
-        OnPropertyChanged(nameof(StravaExpiresAt));
-        OnPropertyChanged(nameof(StravaExpiresAtFormatted));
+        OpenWeatherAppId = preferences.OpenWeatherAppId;
+        StravaClientId = preferences.StravaClientId;
+        StravaAthleteId = preferences.StravaAthleteId;
+        StravaClientSecret = preferences.StravaClientSecret;
+        StravaUsername = preferences.StravaUsername;
+        StravaFirstname = preferences.StravaFirstname;
+        StravaLastname = preferences.StravaLastname;
+        StravaRefreshToken = preferences.StravaRefreshToken;
+        StravaAccessToken = preferences.StravaAccessToken;
+        StravaExpiresAt = preferences.StravaExpiresAt;
+        StravaExpiresAtFormatted = preferences.StravaExpiresAtFormatted();
     }
 
-    private void ResetStravaPreferences()
+    partial void OnStravaClientIdChanged(string? value)
     {
-        var preferences = _preferencesService.FindPreferences();
-        StravaAthleteId = string.Empty;
-        StravaUsername = string.Empty;
-        StravaFirstname = string.Empty;
-        StravaLastname = string.Empty;
-        StravaRefreshToken = string.Empty;
-        StravaAccessToken = string.Empty;
-        StravaExpiresAt = string.Empty;
-        _preferencesService.SavePreferences(preferences);
+        if (Regex.IsMatch(value ?? string.Empty, PatternClientId))
+        {
+            _preferencesService.SavePreference(StravaClientIdKey, value!);
+        }
+    }
 
-        OnPropertyChanged(nameof(StravaAthleteId));
-        OnPropertyChanged(nameof(StravaUsername));
-        OnPropertyChanged(nameof(StravaFirstname));
-        OnPropertyChanged(nameof(StravaLastname));
-        OnPropertyChanged(nameof(StravaRefreshToken));
-        OnPropertyChanged(nameof(StravaAccessToken));
-        OnPropertyChanged(nameof(StravaExpiresAt));
-        OnPropertyChanged(nameof(StravaExpiresAtFormatted));
+    partial void OnStravaClientSecretChanged(string? value)
+    {
+        if (Regex.IsMatch(value ?? string.Empty, PatternKey))
+        {
+            _preferencesService.SavePreference(StravaClientSecretKey, value!);
+        }
+    }
+
+    partial void OnOpenWeatherAppIdChanged(string? value)
+    {
+        if (Regex.IsMatch(value ?? string.Empty, PatternKey))
+        {
+            _preferencesService.SavePreference(OpenWeatherAppIdKey, value!);
+        }
+    }
+
+    private static async Task ShowToast(string text, ToastDuration duration = ToastDuration.Short, double fontSize = 14)
+    {
+        var cancellationTokenSource = new CancellationTokenSource();
+        var toast = Toast.Make(text, duration, fontSize);
+        await toast.Show(cancellationTokenSource.Token);
     }
 }

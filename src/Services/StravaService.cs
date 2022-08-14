@@ -13,7 +13,7 @@ public class StravaService : IStravaService
         _preferencesService = preferencesService;
     }
 
-    public async Task<bool?> TokenExchangeAsync()
+    public async Task<bool> TokenExchangeAsync()
     {
         var preferences = _preferencesService.FindPreferences();
         var clientId = preferences.StravaClientId;
