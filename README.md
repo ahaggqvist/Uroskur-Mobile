@@ -8,28 +8,27 @@ A .NET MAUI app that fetches a weather forecast for the next 48 hours from eithe
 | Android | X  |
 | iOS | X  |
 | macOS |   |
-| Windows | X  |
+| Windows 10 | X  |
 
 ## Screenshots Android
 <p float="left">
-<img src="https://i.ibb.co/NYLc9fN/Routes.jpg" width="200" height="400" />
-<img src="https://i.ibb.co/NFc8C6G/Route.jpg" width="200" height="400" />
-<img src="https://i.ibb.co/SJMTmWg/Forecast1.jpg" width="200" height="400" />
-<img src="https://i.ibb.co/1zqzPt7/Forecast2.jpg" width="200" height="400" />
-<img src="https://i.ibb.co/Kzqt8gx/Settings.jpg" width="200" height="400" />
-<img src="https://i.ibb.co/zRPHSh0/About.jpg" width="200" height="400" />
+<img src="https://i.ibb.co/wrxsb1j/Routes-Android.png" width="200" height="400" />
+<img src="https://i.ibb.co/Nsc1Bhf/Route-Android.png" width="200" height="400" />
+<img src="https://i.ibb.co/VMqHLQS/Forecast-Android.png" width="200" height="400" />
+<img src="https://i.ibb.co/X2tmLZx/Settings-Android.png" width="200" height="400" />
+<img src="https://i.ibb.co/1Z4LcwM/About-Android.png" width="200" height="400" />
 </p>
 
 ## Screenshots iOS
 <p float="left">
-<img src="https://i.ibb.co/QYRyqj8/Routes-ios.png" width="200" height="400" />
-<img src="https://i.ibb.co/wgqdbQL/Route-ios.png" width="200" height="400" />
-<img src="https://i.ibb.co/sqf9dvk/Forecast-ios.png" width="200" height="400" />
+<img src="https://i.ibb.co/mCRd6XG/Routes-i-OS.png" width="200" height="400" />
+<img src="https://i.ibb.co/3R7rJtS/Route-i-OS.png" width="200" height="400" />
+<img src="https://i.ibb.co/Jc8D466/Forecast-i-OS.png" width="200" height="400" />
 </p>
 
 ## Screenshots Windows
 <p float="left">
-<img src="https://i.ibb.co/hdCjXdC/Routes-windows.png" width="200" height="400" />
-<img src="https://i.ibb.co/yhhxbnS/Route-windows.png" width="200" height="400" />
-<img src="https://i.ibb.co/jvZysb7/Forecast-windows.png" width="200" height="400" />
+<img src="https://i.ibb.co/prdJJNV/Routes-Win-UI.png" width="200" height="400" />
+<img src="https://i.ibb.co/MS9vNkq/Route-Win-UI.png" width="200" height="400" />
+<img src="https://i.ibb.co/c6KQDRR/Forecast-Win-UI.png" width="200" height="400" />
 </p>
