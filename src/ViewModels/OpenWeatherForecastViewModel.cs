@@ -59,13 +59,15 @@ public partial class OpenWeatherForecastViewModel : BaseViewModel
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
-            var weatherForecasts = await _weatherForecastService.FindOpenWeatherWeatherForecastsAsync(routeId, athleteId);
+            var weatherForecasts =
+                await _weatherForecastService.FindOpenWeatherWeatherForecastsAsync(routeId, athleteId);
 
             var weatherForecastsArray = weatherForecasts.ToImmutableArray();
             if (weatherForecastsArray.Length > 0)
             {
                 var hourlyForecast = weatherForecastsArray[0].HourlyWeatherForecasts.ElementAt(0);
-                var issuedAt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
+                var issuedAt =
+                    new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
 
                 ForecastIssuedAt = $"OpenWeather weather forecast issued at {issuedAt:ddd, d MMM H:mm}";
                 ForecastIssuedFor = $"{issuedFor:dddd, d MMM}";
@@ -77,7 +79,8 @@ public partial class OpenWeatherForecastViewModel : BaseViewModel
                 var speed = _weatherForecastQuery!.Speed!.Value;
                 var time = km / speed;
                 var seconds = 3600 * time + issuedForUnixTimestamp;
-                var hourlyWeatherForecast = weatherForecast.HourlyWeatherForecasts.ToImmutableList().Find(h => Math.Abs(h.UnixTimestamp - seconds) < 0.000000001);
+                var hourlyWeatherForecast = weatherForecast.HourlyWeatherForecasts.ToImmutableList()
+                    .Find(h => Math.Abs(h.UnixTimestamp - seconds) < 0.000000001);
 
                 if (hourlyWeatherForecast == null)
                 {

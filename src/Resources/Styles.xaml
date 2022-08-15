@@ -397,7 +397,7 @@
     <Style x:Key="BaseStyle" TargetType="Element">
         <Setter Property="Shell.BackgroundColor"
                 Value="#3F729B" />
-        <Setter Property="Shell.ForegroundColor" Value="{OnPlatform iOS='White', Android='White', WinUI='Black'}" />
+        <Setter Property="Shell.ForegroundColor" Value="{OnPlatform Default=White, WinUI=Black}" />
             <Setter Property="Shell.TitleColor"
                     Value="White" />
         <Setter Property="Shell.DisabledColor"

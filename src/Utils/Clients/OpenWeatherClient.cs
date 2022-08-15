@@ -13,7 +13,8 @@ public class OpenWeatherClient : IOpenWeatherClient
         _httpClient = httpClient;
     }
 
-    public async Task<IEnumerable<OpenWeatherForecast>> FetchWeatherForecastsAsync(IEnumerable<Location>? locations, string? appId)
+    public async Task<IEnumerable<OpenWeatherForecast>> FetchWeatherForecastsAsync(IEnumerable<Location>? locations,
+        string? appId)
     {
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
         var retryPolicy = Policy

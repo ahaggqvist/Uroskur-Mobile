@@ -17,7 +17,7 @@ public partial class RouteViewModel : BaseViewModel
         _time = DateTime.Now.TimeOfDay;
         _day = "Today";
         _speed = "30";
-        _provider = WeatherForecastProvider.Yr.ToString();
+        _provider = Yr.ToString();
     }
 
     [RelayCommand]

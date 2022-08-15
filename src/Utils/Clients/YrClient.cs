@@ -3,7 +3,6 @@
 public class YrClient : IYrClient
 {
     private const string UserAgent = "Uroskur/1.0.0-alpha github.com/ahaggqvist/uroskur-maui";
-
     private const int MaxRetryAttempts = 3;
     private const int PauseBetweenFailures = 2;
     private readonly AppSettings? _appSettings;
@@ -62,10 +61,7 @@ public class YrClient : IYrClient
         Debug.WriteLine($"Yr API Url {url}.");
 
         YrForecast? yrForecast = null;
-        await retryPolicy.ExecuteAsync(async () =>
-        {
-            yrForecast = YrForecast.FromJson(await GetResponseAsync(url));
-        });
+        await retryPolicy.ExecuteAsync(async () => { yrForecast = YrForecast.FromJson(await GetResponseAsync(url)); });
 
 
         return yrForecast;

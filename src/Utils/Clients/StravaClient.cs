@@ -45,7 +45,8 @@ public class StravaClient : IStravaClient
             throw new ArgumentException("Strava authorization token url is invalid.");
         }
 
-        authorizationTokenMobileUrl = authorizationTokenMobileUrl.Replace("@ClientId", clientId).Replace("@RedirectUri", authorizationRedirectUrl)
+        authorizationTokenMobileUrl = authorizationTokenMobileUrl.Replace("@ClientId", clientId)
+            .Replace("@RedirectUri", authorizationRedirectUrl)
             .Replace("@RequestScope", "read_all");
 
         try

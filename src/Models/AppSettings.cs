@@ -22,6 +22,8 @@ public class AppSettings
 
     public string YrApiUrl { get; set; } = string.Empty;
 
+    public string SmhiApiUrl { get; set; } = string.Empty;
+
     public override string ToString()
     {
         return

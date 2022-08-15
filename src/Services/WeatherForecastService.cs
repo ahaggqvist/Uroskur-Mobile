@@ -12,12 +12,14 @@ public class WeatherForecastService : IWeatherForecastService
     private readonly IPreferencesService _preferencesService;
     private readonly IStravaService _stravaService;
     private readonly IYrClient _yrClient;
+    private readonly ISmhiClient _smhiClient;
 
-    public WeatherForecastService(IOpenWeatherClient openWeatherClient, IYrClient yrclient,
+    public WeatherForecastService(IOpenWeatherClient openWeatherClient, IYrClient yrclient, ISmhiClient smhiClient,
         IStravaService stravaService, IPreferencesService preferencesService)
     {
         _openWeatherClient = openWeatherClient;
         _yrClient = yrclient;
+        _smhiClient = smhiClient;
         _stravaService = stravaService;
         _preferencesService = preferencesService;
     }
@@ -25,12 +27,12 @@ public class WeatherForecastService : IWeatherForecastService
     public async Task<IEnumerable<WeatherForecast>> FindOpenWeatherWeatherForecastsAsync(string? routeId,
         string? athleteId)
     {
-        return await FindWeatherForecastsAsync(WeatherForecastProvider.OpenWeather, routeId, athleteId);
+        return await FindWeatherForecastsAsync(OpenWeather, routeId, athleteId);
     }
 
     public async Task<IEnumerable<WeatherForecast>> FindYrWeatherForecastsAsync(string? routeId, string? athleteId)
     {
-        return await FindWeatherForecastsAsync(WeatherForecastProvider.Yr, routeId, athleteId);
+        return await FindWeatherForecastsAsync(Yr, routeId, athleteId);
     }
 
     private async Task<IEnumerable<WeatherForecast>> FindWeatherForecastsAsync(
@@ -77,9 +79,9 @@ public class WeatherForecastService : IWeatherForecastService
             {
                 var hourlyWeatherForecasts = new List<HourlyWeatherForecast>();
 
-                if (weatherForecastProvider == WeatherForecastProvider.OpenWeather)
+                if (weatherForecastProvider == OpenWeather)
                 {
-                    var key = CacheKey(WeatherForecastProvider.OpenWeather, location);
+                    var key = CacheKey(OpenWeather, location);
                     OpenWeatherForecast? openWeatherWeatherForecast;
 
                     if (Barrel.Current.IsExpired(key))
@@ -117,9 +119,9 @@ public class WeatherForecastService : IWeatherForecastService
                         });
                     }
                 }
-                else if (weatherForecastProvider == WeatherForecastProvider.Yr)
+                else if (weatherForecastProvider == Yr)
                 {
-                    var key = CacheKey(WeatherForecastProvider.Yr, location);
+                    var key = CacheKey(Yr, location);
                     YrForecast? yrWeatherForecast;
 
                     if (Barrel.Current.IsExpired(key))
@@ -168,6 +170,86 @@ public class WeatherForecastService : IWeatherForecastService
                             Pop = Pop(timesery),
                             Icon = Icon(timesery)
                         });
+                    }
+                }
+                else if (weatherForecastProvider == Smhi)
+                {
+                    var key = CacheKey(Smhi, location);
+                    SmhiForecast? smhiWeatherForecast;
+
+                    if (Barrel.Current.IsExpired(key))
+                    {
+                        smhiWeatherForecast = await _smhiClient.FetchWeatherForecastAsync(location);
+                        if (smhiWeatherForecast == null)
+                        {
+                            continue;
+                        }
+
+                        CacheWeatherForecast(key, smhiWeatherForecast.ToJson());
+                    }
+                    else
+                    {
+                        smhiWeatherForecast = SmhiForecast.FromJson(FetchCachedWeatherForecast(key));
+                    }
+
+                    foreach (var timesery in smhiWeatherForecast.TimeSeries)
+                    {
+                        var dt = timesery.ValidTime.GetValueOrDefault().LocalDateTime;
+                        var unixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(dt);
+
+                        foreach (var parameter in timesery.Parameters)
+                        {
+                            var temp = 0D;
+                            var windSpeed = 0D;
+                            var windGust = 0D;
+                            var windDeg = 0D;
+                            var precipitationAmount = 0D;
+                            var icon = string.Empty;
+
+                            switch (parameter.Name)
+                            {
+                                // Temp (Air temperature)
+                                case T:
+                                    temp = parameter.Values.FirstOrDefault();
+                                    break;
+                                // WindSpeed (Wind speed)
+                                case Ws:
+                                    windSpeed = parameter.Values.FirstOrDefault();
+                                    break;
+                                // WindGust (Wind gust speed)
+                                case Gust:
+                                    windGust = parameter.Values.FirstOrDefault();
+                                    break;
+                                // WindDeg (Wind direction)
+                                case Wd:
+                                    windDeg = parameter.Values.FirstOrDefault();
+                                    break;
+                                // PrecipitationAmount (Mean precipitation intensity)
+                                case Pmean:
+                                    precipitationAmount = parameter.Values.FirstOrDefault();
+                                    break;
+                                // Icon
+                                case Wsymb2:
+                                    icon = string.Empty;
+                                    break;
+                            }
+
+                            hourlyWeatherForecasts.Add(new HourlyWeatherForecast
+                            {
+                                Dt = dt,
+                                UnixTimestamp = unixTimestamp,
+                                Temp = temp,
+                                FeelsLike = 0D, // Missing
+                                Uvi = 0D, // Missing
+                                Cloudiness = 0D, // Missing
+                                WindSpeed = windSpeed,
+                                WindGust = windGust,
+                                WindDeg = windDeg,
+                                PrecipitationAmount = precipitationAmount,
+                                Pop = 0D, // Missing
+                                Icon = icon
+                            });
+                        }
                     }
                 }
                 else

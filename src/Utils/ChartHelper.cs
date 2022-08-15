@@ -156,7 +156,8 @@ public static class ChartHelper
         };
     }
 
-    private static IEnumerable<ChartEntry> TempEntries(IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> TempEntries(IEnumerable<LocationWeatherForecast> locationWeatherForecasts,
+        bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 
@@ -175,7 +176,8 @@ public static class ChartHelper
         return chartEntries;
     }
 
-    private static IEnumerable<ChartEntry> ChanceOfRainEntries(IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> ChanceOfRainEntries(
+        IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 
@@ -194,7 +196,8 @@ public static class ChartHelper
         return chartEntries;
     }
 
-    private static IEnumerable<ChartEntry> CloudinessEntries(IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> CloudinessEntries(
+        IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 
@@ -213,7 +216,8 @@ public static class ChartHelper
         return chartEntries;
     }
 
-    private static IEnumerable<ChartEntry> UvEntries(IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> UvEntries(IEnumerable<LocationWeatherForecast> locationWeatherForecasts,
+        bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 
@@ -232,7 +236,8 @@ public static class ChartHelper
         return chartEntries;
     }
 
-    private static IEnumerable<ChartEntry> WindSpeedEntries(IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> WindSpeedEntries(
+        IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 
@@ -251,7 +256,8 @@ public static class ChartHelper
         return chartEntries;
     }
 
-    private static IEnumerable<ChartEntry> WindGustEntries(IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> WindGustEntries(
+        IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 
@@ -270,7 +276,8 @@ public static class ChartHelper
         return chartEntries;
     }
 
-    private static IEnumerable<ChartEntry> PrecipitationAmountEntries(IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
+    private static IEnumerable<ChartEntry> PrecipitationAmountEntries(
+        IEnumerable<LocationWeatherForecast> locationWeatherForecasts, bool withLabel = true)
     {
         var chartEntries = new List<ChartEntry>();
 

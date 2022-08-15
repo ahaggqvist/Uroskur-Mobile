@@ -7,7 +7,8 @@ public partial class RoutesViewModel : BaseViewModel
     private readonly IStravaService _stravaService;
 
 
-    public RoutesViewModel(IStravaService stravaService, IRoutingService routingService, IPreferencesService preferencesService)
+    public RoutesViewModel(IStravaService stravaService, IRoutingService routingService,
+        IPreferencesService preferencesService)
     {
         Title = "Routes";
 
