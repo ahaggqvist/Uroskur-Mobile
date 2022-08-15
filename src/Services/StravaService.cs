@@ -3,7 +3,11 @@
 public class StravaService : IStravaService
 {
     private const int MaxDistances = 100;
+#if DEBUG
+    private const int ExpireInHours = 24;
+#else
     private const int ExpireInHours = 1;
+#endif
     private readonly IPreferencesService _preferencesService;
     private readonly IStravaClient _stravaClient;
 

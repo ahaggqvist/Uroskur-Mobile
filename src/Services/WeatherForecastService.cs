@@ -3,13 +3,18 @@
 public class WeatherForecastService : IWeatherForecastService
 {
     private const int MaxLocations = 100;
+#if DEBUG
+    private const int ExpireInHours = 24;
+#else
     private const int ExpireInHours = 1;
+#endif
     private readonly IOpenWeatherClient _openWeatherClient;
     private readonly IPreferencesService _preferencesService;
     private readonly IStravaService _stravaService;
     private readonly IYrClient _yrClient;
 
-    public WeatherForecastService(IOpenWeatherClient openWeatherClient, IYrClient yrclient, IStravaService stravaService, IPreferencesService preferencesService)
+    public WeatherForecastService(IOpenWeatherClient openWeatherClient, IYrClient yrclient,
+        IStravaService stravaService, IPreferencesService preferencesService)
     {
         _openWeatherClient = openWeatherClient;
         _yrClient = yrclient;
@@ -17,7 +22,8 @@ public class WeatherForecastService : IWeatherForecastService
         _preferencesService = preferencesService;
     }
 
-    public async Task<IEnumerable<WeatherForecast>> FindOpenWeatherWeatherForecastsAsync(string? routeId, string? athleteId)
+    public async Task<IEnumerable<WeatherForecast>> FindOpenWeatherWeatherForecastsAsync(string? routeId,
+        string? athleteId)
     {
         return await FindWeatherForecastsAsync(WeatherForecastProvider.OpenWeather, routeId, athleteId);
     }
@@ -27,7 +33,8 @@ public class WeatherForecastService : IWeatherForecastService
         return await FindWeatherForecastsAsync(WeatherForecastProvider.Yr, routeId, athleteId);
     }
 
-    private async Task<IEnumerable<WeatherForecast>> FindWeatherForecastsAsync(WeatherForecastProvider weatherForecastProvider, string? routeId, string? athleteId)
+    private async Task<IEnumerable<WeatherForecast>> FindWeatherForecastsAsync(
+        WeatherForecastProvider weatherForecastProvider, string? routeId, string? athleteId)
     {
         Barrel.Current.EmptyExpired();
 
@@ -47,7 +54,8 @@ public class WeatherForecastService : IWeatherForecastService
 
         try
         {
-            var locations = (await _stravaService.FindLocationsByAthleteIdRouteIdAsync(athleteId, routeId)).ToImmutableArray();
+            var locations = (await _stravaService.FindLocationsByAthleteIdRouteIdAsync(athleteId, routeId))
+                .ToImmutableArray();
             if (locations == null)
             {
                 throw new ArgumentException("Locations are null.");
@@ -76,7 +84,8 @@ public class WeatherForecastService : IWeatherForecastService
 
                     if (Barrel.Current.IsExpired(key))
                     {
-                        openWeatherWeatherForecast = await _openWeatherClient.FetchWeatherForecastAsync(location, appId);
+                        openWeatherWeatherForecast =
+                            await _openWeatherClient.FetchWeatherForecastAsync(location, appId);
                         if (openWeatherWeatherForecast == null)
                         {
                             continue;
@@ -134,13 +143,27 @@ public class WeatherForecastService : IWeatherForecastService
                         {
                             Dt = timesery.Time.LocalDateTime,
                             UnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(timesery.Time.LocalDateTime),
-                            Temp = timesery.Data.Instant.Details.ContainsKey("air_temperature") ? timesery.Data.Instant.Details["air_temperature"] : 0D,
-                            FeelsLike = timesery.Data.Instant.Details.ContainsKey("air_temperature") ? timesery.Data.Instant.Details["air_temperature"] : 0D,
-                            Uvi = timesery.Data.Instant.Details.ContainsKey("ultraviolet_index_clear_sky") ? timesery.Data.Instant.Details["ultraviolet_index_clear_sky"] : 0D,
-                            Cloudiness = timesery.Data.Instant.Details.ContainsKey("cloud_area_fraction") ? timesery.Data.Instant.Details["cloud_area_fraction"] : 0D,
-                            WindSpeed = timesery.Data.Instant.Details.ContainsKey("wind_speed") ? timesery.Data.Instant.Details["wind_speed"] : 0D,
-                            WindGust = timesery.Data.Instant.Details.ContainsKey("wind_speed_of_gust") ? timesery.Data.Instant.Details["wind_speed_of_gust"] : 0D,
-                            WindDeg = timesery.Data.Instant.Details.ContainsKey("wind_from_direction") ? timesery.Data.Instant.Details["wind_from_direction"] : 0D,
+                            Temp = timesery.Data.Instant.Details.ContainsKey("air_temperature")
+                                ? timesery.Data.Instant.Details["air_temperature"]
+                                : 0D,
+                            FeelsLike = timesery.Data.Instant.Details.ContainsKey("air_temperature")
+                                ? timesery.Data.Instant.Details["air_temperature"]
+                                : 0D,
+                            Uvi = timesery.Data.Instant.Details.ContainsKey("ultraviolet_index_clear_sky")
+                                ? timesery.Data.Instant.Details["ultraviolet_index_clear_sky"]
+                                : 0D,
+                            Cloudiness = timesery.Data.Instant.Details.ContainsKey("cloud_area_fraction")
+                                ? timesery.Data.Instant.Details["cloud_area_fraction"]
+                                : 0D,
+                            WindSpeed = timesery.Data.Instant.Details.ContainsKey("wind_speed")
+                                ? timesery.Data.Instant.Details["wind_speed"]
+                                : 0D,
+                            WindGust = timesery.Data.Instant.Details.ContainsKey("wind_speed_of_gust")
+                                ? timesery.Data.Instant.Details["wind_speed_of_gust"]
+                                : 0D,
+                            WindDeg = timesery.Data.Instant.Details.ContainsKey("wind_from_direction")
+                                ? timesery.Data.Instant.Details["wind_from_direction"]
+                                : 0D,
                             PrecipitationAmount = PrecipitationAmount(timesery),
                             Pop = Pop(timesery),
                             Icon = Icon(timesery)
@@ -180,7 +203,8 @@ public class WeatherForecastService : IWeatherForecastService
 
     private static string CacheKey(WeatherForecastProvider provider, Location location)
     {
-        var key = $"{provider}{location.Lat.ToString(CultureInfo.InvariantCulture)}{location.Lon.ToString(CultureInfo.InvariantCulture)}";
+        var key =
+            $"{provider}{location.Lat.ToString(CultureInfo.InvariantCulture)}{location.Lon.ToString(CultureInfo.InvariantCulture)}";
         Debug.WriteLine($"Cache key: {key}.");
         return key;
     }
