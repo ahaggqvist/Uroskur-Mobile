@@ -15,6 +15,7 @@ A .NET MAUI app that fetches a weather forecast for the next 48 hours from eithe
 <img src="https://i.ibb.co/wrxsb1j/Routes-Android.png" width="200" height="400" />
 <img src="https://i.ibb.co/Nsc1Bhf/Route-Android.png" width="200" height="400" />
 <img src="https://i.ibb.co/VMqHLQS/Forecast-Android.png" width="200" height="400" />
+<img src="https://i.ibb.co/WPYwcsj/Forecast2-Android.png" width="200" height="400" />
 <img src="https://i.ibb.co/X2tmLZx/Settings-Android.png" width="200" height="400" />
 <img src="https://i.ibb.co/1Z4LcwM/About-Android.png" width="200" height="400" />
 </p>
