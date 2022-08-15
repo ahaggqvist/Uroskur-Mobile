@@ -3,9 +3,8 @@
 public static class MauiProgram
 {
 #if DEBUG
-    private const bool IsDevelopment = false;
-    //private const string ManifestFileName = "appsettings.Development.json";
-    private const string ManifestFileName = "appsettings.json";
+    private const bool IsDevelopment = true;
+    private const string ManifestFileName = "appsettings.Development.json";
 #else
     private const bool IsDevelopment = false;
     private const string ManifestFileName = "appsettings.json";
