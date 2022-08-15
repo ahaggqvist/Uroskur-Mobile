@@ -10,7 +10,7 @@
              x:DataType="viewmodel:YrWeatherForecastViewModel">
 
     <Shell.TitleView>
-        <Label Margin="5,12,5,12" Text="{Binding Title}" TextColor="Black"
+        <Label Margin="5,12,5,12" Text="{Binding Title}" TextColor="White"
                FontSize="{x:Static utils:Constants.ShellTitleViewHeadingFontSize}"
                FontFamily="{x:Static utils:Constants.ShellTitleViewHeadingFontFamily}" />
     </Shell.TitleView>
@@ -33,38 +33,38 @@
 
                 <Grid RowSpacing="0" ColumnSpacing="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70" />
-                        <ColumnDefinition Width="70" />
-                        <ColumnDefinition Width="70" />
-                        <ColumnDefinition Width="80" />
-                        <ColumnDefinition Width="50" />
-                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="95" />
+                        <ColumnDefinition Width="55" />
+                        <ColumnDefinition Width="55" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20" />
                     </Grid.RowDefinitions>
 
                     <Label HorizontalTextAlignment="Center" VerticalOptions="Center"
-                           x:Name="WeatherTableTimeHeader"
+                           x:Name="WeatherTableTimeHeader" TextTransform="Uppercase"
                            FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
                            FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
                     <Label Grid.Column="1"
                            HorizontalTextAlignment="Center" VerticalOptions="Center"
-                           x:Name="WeatherTableTempHeader"
+                           x:Name="WeatherTableTempHeader" TextTransform="Uppercase"
                            FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
                            FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
                     <Label Grid.Column="2"
                            HorizontalTextAlignment="Center" VerticalOptions="Center"
-                           x:Name="WeatherTablePrecipitationAmountHeader"
+                           x:Name="WeatherTablePrecipitationAmountHeader" TextTransform="Uppercase"
                            FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
                            FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
                     <Label Grid.Column="3"
                            HorizontalTextAlignment="Center" VerticalOptions="Center"
-                           x:Name="WeatherTableChanceOfRainHeader"
+                           x:Name="WeatherTableChanceOfRainHeader" TextTransform="Uppercase"
                            FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
                            FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
                     <Label Grid.Column="4"
-                           x:Name="WeatherTableWindHeader" VerticalOptions="Center"
+                           x:Name="WeatherTableWindHeader" VerticalOptions="Center" TextTransform="Uppercase"
                            FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
                            FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
                     <Label Grid.Column="5" Text="" />
@@ -86,12 +86,12 @@
                                 ColumnSpacing="0"
                                 RowSpacing="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="70" />
-                                    <ColumnDefinition Width="70" />
-                                    <ColumnDefinition Width="70" />
-                                    <ColumnDefinition Width="80" />
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="95" />
+                                    <ColumnDefinition Width="55" />
+                                    <ColumnDefinition Width="55" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30" />

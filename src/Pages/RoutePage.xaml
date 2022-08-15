@@ -8,7 +8,7 @@
              x:DataType="viewmodel:RouteViewModel">
 
     <Shell.TitleView>
-        <Label Margin="5,12,5,12" Text="{Binding Routes.Name}" TextColor="Black"
+        <Label Margin="5,12,5,12" Text="{Binding Routes.Name}" TextColor="White"
                FontSize="20" FontFamily="RobotoMedium" />
     </Shell.TitleView>
 
@@ -32,21 +32,21 @@
                     </HorizontalStackLayout>
                     <Label Grid.Column="1" Padding="10,10,0,0"
                            FontSize="11"
-                           Text="Distance" FontFamily="RobotoLight" />
+                           Text="Distance" FontFamily="RobotoLight" TextTransform="Uppercase" />
                     <Label Grid.Column="2" Padding="10,10,0,0"
                            FontSize="11"
-                           Text="Elev. Gain" FontFamily="RobotoLight" />
+                           Text="Elev. Gain" FontFamily="RobotoLight" TextTransform="Uppercase" />
                     <Label Grid.Column="3" Padding="10,10,0,0"
                            FontSize="11"
-                           Text="Est. Moving Time" FontFamily="RobotoLight" />
+                           Text="Est. Moving Time" FontFamily="RobotoLight" TextTransform="Uppercase" />
                     <Label Grid.Row="1" Grid.Column="1" Padding="10,4,0,0"
-                           FontSize="13"
+                           FontSize="13" FontFamily="RobotoLight"
                            Text="{Binding Routes.Distance, StringFormat='{0:0.00} km', Converter={StaticResource MeterToKilometer}}" />
                     <Label Grid.Row="1" Grid.Column="2" Padding="10,4,0,0"
-                           FontSize="13"
+                           FontSize="13" FontFamily="RobotoLight"
                            Text="{Binding Routes.ElevationGain, StringFormat='{0:0} m'}" />
                     <Label Grid.Row="1" Grid.Column="3" Padding="10,4,0,0"
-                           FontSize="13"
+                           FontSize="13" FontFamily="RobotoLight"
                            Text="{Binding Routes.EstimatedMovingTimeFormatted}" />
                 </Grid>
                 <HorizontalStackLayout Padding="0,8,0,10">
@@ -115,10 +115,7 @@
                         </Picker.ItemsSource>
                     </Picker>
                 </Grid>
-                <Button Text="Forecast Route" FontSize="13" FontFamily="RobotoMedium"
-                        TextTransform="Default" VerticalOptions="Center"
-                        HeightRequest="38" Command="{Binding NavigateToCommand}" CornerRadius="2"
-                        Margin="0,0,0,10" />
+                <Button Text="Forecast Route" Command="{Binding NavigateToCommand}" />
             </VerticalStackLayout>
         </ScrollView>
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />

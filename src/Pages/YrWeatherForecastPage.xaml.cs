@@ -32,7 +32,7 @@ public partial class YrWeatherForecastPage
         ChartWindHeader.Text = "Wind Speed and Wind Gust";
 
         WeatherTableTempHeader.Text = "Temp °C";
-        WeatherTableTimeHeader.Text = "Time";
+        WeatherTableTimeHeader.Text = "";
         WeatherTablePrecipitationAmountHeader.Text = "Rain mm";
         WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
         WeatherTableWindHeader.Text = "Wind m/s";

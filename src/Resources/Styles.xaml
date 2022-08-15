@@ -31,14 +31,16 @@
 
     <Style TargetType="Button">
         <Setter Property="TextColor"
-                Value="Black" />
+                Value="White" />
         <Setter Property="BackgroundColor"
-                Value="#92AFD7" />
-        <Setter Property="FontFamily" Value="RobotoRegular" />
-        <Setter Property="TextTransform" Value="Uppercase" />
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="CornerRadius" Value="0" />
+                Value="#3F729B" />
+        <Setter Property="FontFamily" Value="RobotoMedium" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="CornerRadius" Value="2" />
         <Setter Property="Padding" Value="14,10" />
+        <Setter Property="HeightRequest" Value="38" />
+        <Setter Property="Margin" Value="0,0,0,10" />
+        <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -46,9 +48,9 @@
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
                             <Setter Property="TextColor"
-                                    Value="Black" />
+                                    Value="White" />
                             <Setter Property="BackgroundColor"
-                                    Value="#92AFD7" />
+                                    Value="#3F729B" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -394,22 +396,21 @@
 
     <Style x:Key="BaseStyle" TargetType="Element">
         <Setter Property="Shell.BackgroundColor"
-                Value="#92AFD7" />
-        <Setter Property="Shell.ForegroundColor"
-                Value="Black" />
-        <Setter Property="Shell.TitleColor"
-                Value="Black" />
+                Value="#3F729B" />
+        <Setter Property="Shell.ForegroundColor" Value="{OnPlatform iOS='White', Android='White', WinUI='Black'}" />
+            <Setter Property="Shell.TitleColor"
+                    Value="White" />
         <Setter Property="Shell.DisabledColor"
                 Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
         <Setter Property="Shell.UnselectedColor"
                 Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
         <Setter Property="Shell.NavBarHasShadow" Value="False" />
         <Setter Property="Shell.TabBarBackgroundColor"
-                Value="Black" />
+                Value="#3F729B" />
         <Setter Property="Shell.TabBarForegroundColor"
-                Value="Black" />
+                Value="White" />
         <Setter Property="Shell.TabBarTitleColor"
-                Value="Black" />
+                Value="White" />
         <Setter Property="Shell.TabBarUnselectedColor"
                 Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
     </Style>
@@ -418,11 +419,11 @@
 
     <Style TargetType="NavigationPage">
         <Setter Property="BarBackgroundColor"
-                Value="Black" />
+                Value="#3F729B" />
         <Setter Property="BarTextColor"
-                Value="Black" />
+                Value="White" />
         <Setter Property="IconColor"
-                Value="Black" />
+                Value="White" />
     </Style>
 
     <Style TargetType="TabbedPage">
