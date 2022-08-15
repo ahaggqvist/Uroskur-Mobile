@@ -62,7 +62,7 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
                 var hourlyForecast = weatherForecastsArray[0].HourlyWeatherForecasts.ElementAt(0);
                 var issuedAt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
 
-                ForecastIssuedAt = $"Yr Weather forecast issued at {issuedAt:ddd, d MMM H:mm}";
+                ForecastIssuedAt = $"Yr weather forecast issued at {issuedAt:ddd, d MMM H:mm}";
                 ForecastIssuedFor = $"{issuedFor:dddd, d MMM}";
             }
 
