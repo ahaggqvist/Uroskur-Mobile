@@ -3,7 +3,6 @@
 public static class Extensions
 {
     public static IEnumerable<Tuple<T, T, T>> GetItems<T>(this IEnumerable<T>? source)
-        where T : class
     {
         if (source == null)
         {
