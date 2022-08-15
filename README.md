@@ -8,7 +8,7 @@ A .NET MAUI app that fetches a weather forecast for the next 48 hours from eithe
 | Android | X  |
 | iOS | X  |
 | macOS |   |
-| Windows 10 | X  |
+| Windows 10/11 | X  |
 
 ## Screenshots Android
 <p float="left">
