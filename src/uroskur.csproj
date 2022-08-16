@@ -109,8 +109,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="Pages\YrWeatherForecastPage.xaml.cs">
-		  <DependentUpon>YrWeatherForecastPage.xaml</DependentUpon>
+		<Compile Update="Pages\WeatherForecastPage.xaml.cs">
+		  <DependentUpon>WeatherForecastPage.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Pages\RoutePage.xaml.cs">
 			<DependentUpon>RoutePage.xaml</DependentUpon>
@@ -124,16 +124,10 @@
 		<Compile Update="Pages\PreferencesPage.xaml.cs">
 			<DependentUpon>PreferencesPage.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Pages\OpenWeatherWeatherForecastPage.xaml.cs">
-			<DependentUpon>OpenWeatherWeatherForecastPage.xaml</DependentUpon>
-		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-		<MauiXaml Update="Pages\YrWeatherForecastPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Pages\OpenWeatherWeatherForecastPage.xaml">
+		<MauiXaml Update="Pages\WeatherForecastPage.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Pages\RoutePage.xaml">

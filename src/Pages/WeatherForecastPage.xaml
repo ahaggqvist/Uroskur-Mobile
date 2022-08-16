@@ -6,7 +6,7 @@
              xmlns:model="clr-namespace:Uroskur.Models"
              xmlns:viewmodel="clr-namespace:Uroskur.ViewModels"
              xmlns:utils="clr-namespace:Uroskur.Utils"
-             x:Class="Uroskur.Pages.YrWeatherForecastPage"
+             x:Class="Uroskur.Pages.WeatherForecastPage"
              x:DataType="viewmodel:WeatherForecastViewModel">
 
     <Shell.TitleView>
@@ -54,8 +54,8 @@
                            FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
                            FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
                     <Label Grid.Column="2"
-                           HorizontalTextAlignment="Center" VerticalOptions="Center"
-                           x:Name="WeatherTablePrecipitationAmountHeader" TextTransform="Uppercase"
+                           HorizontalTextAlignment="Center" x:Name="WeatherTablePrecipitationAmountHeader"
+                           VerticalTextAlignment="Center" TextTransform="Uppercase"
                            FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
                            FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}" />
                     <Label Grid.Column="3"
@@ -97,7 +97,8 @@
                                     <RowDefinition Height="30" />
                                 </Grid.RowDefinitions>
                                 <HorizontalStackLayout Padding="0,0,0,5" HorizontalOptions="Center"
-                                                       VerticalOptions="Center">
+                                                       VerticalOptions="Center"
+                                                       Grid.Column="0">
                                     <Label
                                         Text="{Binding TimeKmFormatted}" />
                                 </HorizontalStackLayout>
@@ -107,8 +108,8 @@
                                     <Label
                                         Text="{Binding HourlyWeatherForecast.Temp, StringFormat='{0:N1}'}" />
                                 </HorizontalStackLayout>
-                                <HorizontalStackLayout Padding="0,0,0,5" HorizontalOptions="Center"
-                                                       VerticalOptions="Center"
+                                <HorizontalStackLayout Padding="0,0,0,5" VerticalOptions="Center"
+                                                       HorizontalOptions="Center"
                                                        Grid.Column="2">
                                     <Label
                                         Text="{Binding HourlyWeatherForecast.PrecipitationAmount, StringFormat='{0:N1}'}" />

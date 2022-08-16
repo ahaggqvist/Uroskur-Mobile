@@ -23,7 +23,7 @@ public partial class RouteViewModel : BaseViewModel
     [RelayCommand]
     private async void NavigateTo()
     {
-        await _routingService.NavigateToAsync($"{_provider}WeatherForecastPage", new Dictionary<string, object>
+        await _routingService.NavigateToAsync(nameof(WeatherForecastPage), new Dictionary<string, object>
         {
             {
                 nameof(WeatherForecastQuery), new WeatherForecastQuery

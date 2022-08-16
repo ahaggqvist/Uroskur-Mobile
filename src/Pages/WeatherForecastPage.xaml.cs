@@ -1,10 +1,10 @@
 namespace Uroskur.Pages;
 
-public partial class OpenWeatherWeatherForecastPage
+public partial class WeatherForecastPage
 {
     private readonly WeatherForecastViewModel _weatherForecastViewModel;
 
-    public OpenWeatherWeatherForecastPage(WeatherForecastViewModel weatherForecastViewModel)
+    public WeatherForecastPage(WeatherForecastViewModel weatherForecastViewModel)
     {
         InitializeComponent();
 
@@ -32,7 +32,6 @@ public partial class OpenWeatherWeatherForecastPage
         ChartWindHeader.Text = "Wind Speed and Wind Gust";
 
         WeatherTableTempHeader.Text = "Temp °C";
-        //WeatherTableFeelsLikeHeader.Text = "Feels Like °C";
         WeatherTablePrecipitationAmountHeader.Text = "Rain mm";
         WeatherTableTimeHeader.Text = "";
         WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
