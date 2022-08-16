@@ -17,7 +17,7 @@ public abstract class Enumeration : IEqualityComparer<Enumeration>
 
     public int Id { get; }
 
-    public int GetHashCode([DisallowNull] Enumeration obj)
+    public int GetHashCode(Enumeration obj)
     {
         return HashCode.Combine(Id, Name);
     }
