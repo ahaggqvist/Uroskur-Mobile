@@ -31,7 +31,8 @@ public partial class RouteViewModel : BaseViewModel
                     Day = _day,
                     Time = _time,
                     Speed = int.Parse(_speed),
-                    Routes = Routes
+                    Routes = Routes,
+                    WeatherForecastProvider = _provider
                 }
             }
         });

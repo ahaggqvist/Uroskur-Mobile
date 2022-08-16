@@ -7,7 +7,7 @@
              xmlns:viewmodel="clr-namespace:Uroskur.ViewModels"
              xmlns:utils="clr-namespace:Uroskur.Utils"
              x:Class="Uroskur.Pages.OpenWeatherWeatherForecastPage"
-             x:DataType="viewmodel:OpenWeatherForecastViewModel">
+             x:DataType="viewmodel:WeatherForecastViewModel">
 
     <Shell.TitleView>
         <Label Margin="5,12,5,12" Text="{Binding Title}" TextColor="White"

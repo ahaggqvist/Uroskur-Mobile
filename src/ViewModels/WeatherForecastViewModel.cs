@@ -1,8 +1,9 @@
 ﻿namespace Uroskur.ViewModels;
 
 [QueryProperty(nameof(WeatherForecastQuery), nameof(WeatherForecastQuery))]
-public partial class YrWeatherForecastViewModel : BaseViewModel
+public partial class WeatherForecastViewModel : BaseViewModel
 {
+    private readonly AppSettings _appSettings;
     private readonly IWeatherForecastService _weatherForecastService;
     [ObservableProperty] private LineChart? _chanceOfRainLineChart;
     [ObservableProperty] private string? _emptyViewMessage;
@@ -13,9 +14,10 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
     [ObservableProperty] private WeatherForecastQuery? _weatherForecastQuery;
     [ObservableProperty] private LineChart? _windLineChart;
 
-    public YrWeatherForecastViewModel(IWeatherForecastService weatherForecastService)
+    public WeatherForecastViewModel(IWeatherForecastService weatherForecastService, AppSettings appSettings)
     {
         _weatherForecastService = weatherForecastService;
+        _appSettings = appSettings;
     }
 
     public ObservableCollection<LocationWeatherForecast> LocationWeatherForecasts { get; } = new();
@@ -38,8 +40,7 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
 
         try
         {
-            IsBusy = true;
-
+            var weatherForecastProvider = WeatherForecastQuery?.WeatherForecastProvider ?? string.Empty;
             var today = DateTime.Today;
             if (_weatherForecastQuery is { Day: "Tomorrow" })
             {
@@ -49,12 +50,28 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
             var timeSpan = _weatherForecastQuery!.Time;
             var hour = timeSpan!.Value.Hours;
             var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
+            if (_appSettings.IsDevelopment && weatherForecastProvider == OpenWeather.ToString())
+            {
+                issuedFor = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
+            }
+
             var issuedForUnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(issuedFor);
             var route = _weatherForecastQuery?.Routes;
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
-            var weatherForecasts = await _weatherForecastService.FindYrWeatherForecastsAsync(routeId, athleteId);
+
+            var weatherForecasts = Enumerable.Empty<WeatherForecast>();
+            if (weatherForecastProvider == OpenWeather.ToString())
+            {
+                weatherForecasts =
+                    await _weatherForecastService.FindOpenWeatherWeatherForecastsAsync(routeId, athleteId);
+            }
+            else if (weatherForecastProvider == Yr.ToString())
+            {
+                weatherForecasts =
+                    await _weatherForecastService.FindYrWeatherForecastsAsync(routeId, athleteId);
+            }
 
             var weatherForecastsArray = weatherForecasts.ToImmutableArray();
             if (weatherForecastsArray.Length > 0)
@@ -63,7 +80,7 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
                 var issuedAt =
                     new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
 
-                ForecastIssuedAt = $"Yr weather forecast issued at {issuedAt:ddd, d MMM H:mm}";
+                ForecastIssuedAt = $"{weatherForecastProvider} weather forecast issued at {issuedAt:ddd, d MMM H:mm}";
                 ForecastIssuedFor = $"{issuedFor:dddd, d MMM}";
             }
 
@@ -87,7 +104,7 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
                 var locationDt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local)
                     .AddSeconds(3600 * ((double)km / speed) + issuedForUnixTimestamp).ToLocalTime();
 
-                var locationWeatherForecast = new LocationWeatherForecast
+                var locationForecast = new LocationWeatherForecast
                 {
                     Km = km,
                     HourlyWeatherForecast = hourlyWeatherForecast!,
@@ -97,7 +114,7 @@ public partial class YrWeatherForecastViewModel : BaseViewModel
                     WindIconId = windIconId
                 };
 
-                LocationWeatherForecasts.Add(locationWeatherForecast);
+                LocationWeatherForecasts.Add(locationForecast);
             }
 
             if (LocationWeatherForecasts.Count != 0)

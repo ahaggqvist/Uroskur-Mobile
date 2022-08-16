@@ -6,8 +6,7 @@ public static class ViewModelExtensions
     {
         builder.Services.AddTransient<RoutesViewModel>();
         builder.Services.AddTransient<RouteViewModel>();
-        builder.Services.AddTransient<OpenWeatherForecastViewModel>();
-        builder.Services.AddTransient<YrWeatherForecastViewModel>();
+        builder.Services.AddTransient<WeatherForecastViewModel>();
         builder.Services.AddTransient<PreferencesViewModel>();
         builder.Services.AddTransient<AboutViewModel>();
         return builder;

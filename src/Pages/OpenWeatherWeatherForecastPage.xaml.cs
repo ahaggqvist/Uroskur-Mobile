@@ -2,13 +2,13 @@ namespace Uroskur.Pages;
 
 public partial class OpenWeatherWeatherForecastPage
 {
-    private readonly OpenWeatherForecastViewModel _openWeatherForecastViewModel;
+    private readonly WeatherForecastViewModel _weatherForecastViewModel;
 
-    public OpenWeatherWeatherForecastPage(OpenWeatherForecastViewModel openWeatherForecastViewModel)
+    public OpenWeatherWeatherForecastPage(WeatherForecastViewModel weatherForecastViewModel)
     {
         InitializeComponent();
 
-        BindingContext = _openWeatherForecastViewModel = openWeatherForecastViewModel;
+        BindingContext = _weatherForecastViewModel = weatherForecastViewModel;
     }
 
     protected override async void OnAppearing()
@@ -22,7 +22,7 @@ public partial class OpenWeatherWeatherForecastPage
     {
         ShowIndicator();
 
-        await _openWeatherForecastViewModel.WeatherForecastAsync();
+        await _weatherForecastViewModel.WeatherForecastAsync();
 
         EmptyWeatherForecastMessage.Text = "Sorry, We Couldn't Generate a Forecast";
 

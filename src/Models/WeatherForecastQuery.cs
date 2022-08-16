@@ -10,6 +10,8 @@ public class WeatherForecastQuery
 
     public int? Speed { get; set; }
 
+    public string? WeatherForecastProvider { get; set; }
+
     public override string ToString()
     {
         return $"{nameof(Routes)}: {Routes}, {nameof(Day)}: {Day}, {nameof(Time)}: {Time}, {nameof(Speed)}: {Speed}";
