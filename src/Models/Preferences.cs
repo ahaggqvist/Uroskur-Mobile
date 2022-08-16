@@ -3,21 +3,15 @@
 public class Preferences
 {
     public string OpenWeatherAppId { get; set; } = string.Empty;
-
     public string StravaClientId { get; set; } = string.Empty;
-
     public string StravaClientSecret { get; set; } = string.Empty;
-
     public string StravaAthleteId { get; set; } = string.Empty;
-
     public string StravaAccessToken { get; set; } = string.Empty;
-
     public string StravaExpiresAt { get; set; } = string.Empty;
     public string StravaFirstname { get; set; } = string.Empty;
     public string StravaLastname { get; set; } = string.Empty;
     public string StravaRefreshToken { get; set; } = string.Empty;
     public string StravaUsername { get; set; } = string.Empty;
-
 
     public string StravaExpiresAtFormatted()
     {

@@ -60,18 +60,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
-
-            var weatherForecasts = Enumerable.Empty<WeatherForecast>();
-            if (weatherForecastProvider == OpenWeather)
-            {
-                weatherForecasts =
-                    await _weatherForecastService.FindOpenWeatherWeatherForecastsAsync(routeId, athleteId);
-            }
-            else if (weatherForecastProvider == Yr)
-            {
-                weatherForecasts =
-                    await _weatherForecastService.FindYrWeatherForecastsAsync(routeId, athleteId);
-            }
+            var weatherForecasts = await _weatherForecastService.FindWeatherForecastsAsync(weatherForecastProvider, routeId, athleteId);
 
             var weatherForecastsArray = weatherForecasts.ToImmutableArray();
             if (weatherForecastsArray.Length > 0)

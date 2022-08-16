@@ -19,18 +19,7 @@ public class WeatherForecastService : IWeatherForecastService
         _preferencesService = preferencesService;
     }
 
-    public async Task<IEnumerable<WeatherForecast>> FindOpenWeatherWeatherForecastsAsync(string? routeId,
-        string? athleteId)
-    {
-        return await FindWeatherForecastsAsync(OpenWeather, routeId, athleteId);
-    }
-
-    public async Task<IEnumerable<WeatherForecast>> FindYrWeatherForecastsAsync(string? routeId, string? athleteId)
-    {
-        return await FindWeatherForecastsAsync(Yr, routeId, athleteId);
-    }
-
-    private async Task<IEnumerable<WeatherForecast>> FindWeatherForecastsAsync(
+    public async Task<IEnumerable<WeatherForecast>> FindWeatherForecastsAsync(
         WeatherForecastProvider weatherForecastProvider, string? routeId, string? athleteId)
     {
         Barrel.Current.EmptyExpired();
