@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Uroskur.Utils;
+﻿namespace Uroskur.Utils;
 
 public abstract class Enumeration : IEqualityComparer<Enumeration>
 {

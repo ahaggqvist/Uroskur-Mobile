@@ -8,12 +8,14 @@ public class WeatherForecastService : IWeatherForecastService
 #else
     private const int ExpireInHours = 1;
 #endif
+    private readonly AppSettings? _appSettings;
     private readonly IWeatherForecastClient _weatherForecastClient;
     private readonly IPreferencesService _preferencesService;
     private readonly IStravaService _stravaService;
 
-    public WeatherForecastService(IWeatherForecastClient weatherForecastClient, IStravaService stravaService, IPreferencesService preferencesService)
+    public WeatherForecastService(AppSettings? appSettings, IWeatherForecastClient weatherForecastClient, IStravaService stravaService, IPreferencesService preferencesService)
     {
+        _appSettings = appSettings;
         _weatherForecastClient = weatherForecastClient;
         _stravaService = stravaService;
         _preferencesService = preferencesService;
@@ -59,6 +61,10 @@ public class WeatherForecastService : IWeatherForecastService
                 throw new ArgumentException("App ID is invalid.");
             }
 
+            var openWeatherApiUrl = _appSettings?.OpenWeatherApiUrl!;
+            var yrApiUrl = _appSettings?.YrApiUrl!;
+            var smhiApiUrl = _appSettings?.SmhiApiUrl!;
+
             foreach (var location in locations)
             {
                 var hourlyWeatherForecasts = new List<HourlyWeatherForecast>();
@@ -71,7 +77,10 @@ public class WeatherForecastService : IWeatherForecastService
                     if (Barrel.Current.IsExpired(key))
                     {
                         openWeatherWeatherForecast =
-                            await _weatherForecastClient.FetchOpenWeatherWeatherForecastAsync(location, appId);
+                            await _weatherForecastClient.FetchOpenWeatherWeatherForecastAsync(openWeatherApiUrl.Replace("@AppId", appId)
+                                .Replace("@Exclude", "current,minutely,daily,alerts")
+                                .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
+                                .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)));
                         if (openWeatherWeatherForecast == null)
                         {
                             continue;
@@ -110,7 +119,9 @@ public class WeatherForecastService : IWeatherForecastService
 
                     if (Barrel.Current.IsExpired(key))
                     {
-                        yrWeatherForecast = await _weatherForecastClient.FetchYrWeatherForecastAsync(location);
+                        yrWeatherForecast = await _weatherForecastClient.FetchYrWeatherForecastAsync(yrApiUrl
+                            .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
+                            .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)));
                         if (yrWeatherForecast == null)
                         {
                             continue;
@@ -163,7 +174,11 @@ public class WeatherForecastService : IWeatherForecastService
 
                     if (Barrel.Current.IsExpired(key))
                     {
-                        smhiWeatherForecast = await _weatherForecastClient.FetchSmhiWeatherForecastAsync(location);
+                        smhiWeatherForecast = await _weatherForecastClient.FetchSmhiWeatherForecastAsync(smhiApiUrl
+                            .Replace("@Lat",
+                                Math.Round(location.Lat, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture))
+                            .Replace("@Lon",
+                                Math.Round(location.Lon, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture)));
                         if (smhiWeatherForecast == null)
                         {
                             continue;

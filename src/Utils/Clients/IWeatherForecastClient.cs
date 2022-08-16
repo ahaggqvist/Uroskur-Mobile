@@ -2,7 +2,7 @@
 
 public interface IWeatherForecastClient
 {
-    Task<OpenWeatherForecast?> FetchOpenWeatherWeatherForecastAsync(Location location, string? appId);
-    Task<SmhiForecast?> FetchSmhiWeatherForecastAsync(Location location);
-    Task<YrForecast?> FetchYrWeatherForecastAsync(Location location);
+    Task<OpenWeatherForecast?> FetchOpenWeatherWeatherForecastAsync(string url);
+    Task<SmhiForecast?> FetchSmhiWeatherForecastAsync(string url);
+    Task<YrForecast?> FetchYrWeatherForecastAsync(string url);
 }
