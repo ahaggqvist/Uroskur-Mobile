@@ -176,35 +176,35 @@ public static class Constants
         { "snowshowersandthunder", "\uf06b" }
     };
 
-    internal static readonly Dictionary<string, string> SmhiIconsDictionary = new()
+    internal static readonly Dictionary<double, string> SmhiIconsDictionary = new()
     {
-        { "1", "" }, // Clear sky
-        { "2", "" }, // Nearly clear sky
-        { "3", "" }, // Variable cloudiness
-        { "4", "" }, // Halfclear sky
-        { "5", "" }, // Cloudy sky
-        { "6", "" }, // Overcast
-        { "7", "" }, // Fog
-        { "8", "" }, // Light rain showers
-        { "9", "" }, // Moderate rain showers
-        { "10", "" }, // Heavy rain showers
-        { "11", "" }, // Thunderstorm
-        { "12", "" }, // Light sleet showers
-        { "13", "" }, // Moderate sleet showers
-        { "14", "" }, // Heavy sleet showers
-        { "15", "" }, // Light snow showers
-        { "16", "" }, // Moderate snow showers
-        { "17", "" }, // Heavy snow showers
-        { "18", "" }, // Light rain
-        { "19", "" }, // Moderate rain
-        { "20", "" }, // Heavy rain
-        { "21", "" }, // Thunder
-        { "22", "" }, // Light sleet
-        { "23", "" }, // Moderate sleet
-        { "24", "" }, // Heavy sleet
-        { "25", "" }, // Light snowfall
-        { "26", "" }, // Moderate snowfall
-        { "27", "" } // Heavy snowfall
+        { 1, "\uf00d" }, // Clear sky
+        { 2, "\uf002" }, // Nearly clear sky
+        { 3, "\uf002" }, // Variable cloudiness
+        { 4, "\uf002" }, // Halfclear sky
+        { 5, "\uf002" }, // Cloudy sky
+        { 6, "\uf002" }, // Overcast
+        { 7, "\uf003" }, // Fog
+        { 8, "\uf009" }, // Light rain showers
+        { 9, "\uf009" }, // Moderate rain showers
+        { 10, "\uf008" }, // Heavy rain showers
+        { 11, "\uf010" }, // Thunderstorm
+        { 12, "\uf0b2" }, // Light sleet showers
+        { 13, "\uf0b2" }, // Moderate sleet showers
+        { 14, "\uf0b2" }, // Heavy sleet showers
+        { 15, "\uf00a" }, // Light snow showers
+        { 16, "\uf00a" }, // Moderate snow showers
+        { 17, "\uf00a" }, // Heavy snow showers
+        { 18, "\uf008" }, // Light rain
+        { 19, "\uf008" }, // Moderate rain
+        { 20, "\uf008" }, // Heavy rain
+        { 21, "\uf010" }, // Thunder
+        { 22, "\uf0b2" }, // Light sleet
+        { 23, "\uf0b2" }, // Moderate sleet
+        { 24, "\uf0b2" }, // Heavy sleet
+        { 25, "\uf00a" }, // Light snowfall
+        { 26, "\uf00a" }, // Moderate snowfall
+        { 27, "\uf00a" } // Heavy snowfall
     };
 
     internal static readonly Dictionary<string, string> WindIconsDictionary = new()

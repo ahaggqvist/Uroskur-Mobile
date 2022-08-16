@@ -23,7 +23,13 @@ public partial class RouteViewModel : BaseViewModel
     [RelayCommand]
     private async void NavigateTo()
     {
-        await _routingService.NavigateToAsync(nameof(WeatherForecastPage), new Dictionary<string, object>
+        var route = nameof(WeatherForecastPage);
+        if (Enumeration.FromName<WeatherForecastProvider>(_weatherForecastProviderName) == Combined)
+        {
+            route = nameof(CombinedWeatherForecastPage);
+        }
+
+        await _routingService.NavigateToAsync(route, new Dictionary<string, object>
         {
             {
                 nameof(WeatherForecastParameters), new WeatherForecastParameters

@@ -71,184 +71,26 @@ public class WeatherForecastService : IWeatherForecastService
 
                 if (weatherForecastProvider == OpenWeather)
                 {
-                    var key = CacheKey(OpenWeather, location);
-                    OpenWeatherForecast? openWeatherWeatherForecast;
-
-                    if (Barrel.Current.IsExpired(key))
+                    var openWeatherForecast = await GetOpenWeatherForecast(location, openWeatherApiUrl, appId);
+                    if (openWeatherForecast != null)
                     {
-                        openWeatherWeatherForecast =
-                            await _weatherForecastClient.FetchOpenWeatherWeatherForecastAsync(openWeatherApiUrl.Replace("@AppId", appId)
-                                .Replace("@Exclude", "current,minutely,daily,alerts")
-                                .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
-                                .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)));
-                        if (openWeatherWeatherForecast == null)
-                        {
-                            continue;
-                        }
-
-                        CacheWeatherForecast(key, openWeatherWeatherForecast.ToJson());
-                    }
-                    else
-                    {
-                        openWeatherWeatherForecast = OpenWeatherForecast.FromJson(FetchCachedWeatherForecast(key));
-                    }
-
-                    foreach (var hourly in openWeatherWeatherForecast.Hourly)
-                    {
-                        hourlyWeatherForecasts.Add(new HourlyWeatherForecast
-                        {
-                            Dt = DateTimeHelper.UnixTimestampToDateTime(hourly.Dt),
-                            UnixTimestamp = hourly.Dt,
-                            Temp = hourly.Temp,
-                            FeelsLike = hourly.FeelsLike,
-                            Uvi = hourly.Uvi,
-                            Cloudiness = hourly.Clouds,
-                            WindSpeed = hourly.WindSpeed,
-                            WindGust = hourly.WindGust,
-                            WindDeg = hourly.WindDeg,
-                            Pop = Math.Round(hourly.Pop * 100),
-                            PrecipitationAmount = hourly.Rain?.The1H ?? 0D,
-                            Icon = OpenWeatherIconsDictionary[hourly.Weather[0].Id]
-                        });
+                        GetOpenWeatherHourlyWeatherForecasts(openWeatherForecast, hourlyWeatherForecasts);
                     }
                 }
                 else if (weatherForecastProvider == Yr)
                 {
-                    var key = CacheKey(Yr, location);
-                    YrForecast? yrWeatherForecast;
-
-                    if (Barrel.Current.IsExpired(key))
+                    var yrForecast = await GetYrForecast(location, yrApiUrl);
+                    if (yrForecast != null)
                     {
-                        yrWeatherForecast = await _weatherForecastClient.FetchYrWeatherForecastAsync(yrApiUrl
-                            .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
-                            .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)));
-                        if (yrWeatherForecast == null)
-                        {
-                            continue;
-                        }
-
-                        CacheWeatherForecast(key, yrWeatherForecast.ToJson());
-                    }
-                    else
-                    {
-                        yrWeatherForecast = YrForecast.FromJson(FetchCachedWeatherForecast(key));
-                    }
-
-                    foreach (var timesery in yrWeatherForecast.Properties.Timeseries)
-                    {
-                        hourlyWeatherForecasts.Add(new HourlyWeatherForecast
-                        {
-                            Dt = timesery.Time.LocalDateTime,
-                            UnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(timesery.Time.LocalDateTime),
-                            Temp = timesery.Data.Instant.Details.ContainsKey("air_temperature")
-                                ? timesery.Data.Instant.Details["air_temperature"]
-                                : 0D,
-                            FeelsLike = timesery.Data.Instant.Details.ContainsKey("air_temperature")
-                                ? timesery.Data.Instant.Details["air_temperature"]
-                                : 0D,
-                            Uvi = timesery.Data.Instant.Details.ContainsKey("ultraviolet_index_clear_sky")
-                                ? timesery.Data.Instant.Details["ultraviolet_index_clear_sky"]
-                                : 0D,
-                            Cloudiness = timesery.Data.Instant.Details.ContainsKey("cloud_area_fraction")
-                                ? timesery.Data.Instant.Details["cloud_area_fraction"]
-                                : 0D,
-                            WindSpeed = timesery.Data.Instant.Details.ContainsKey("wind_speed")
-                                ? timesery.Data.Instant.Details["wind_speed"]
-                                : 0D,
-                            WindGust = timesery.Data.Instant.Details.ContainsKey("wind_speed_of_gust")
-                                ? timesery.Data.Instant.Details["wind_speed_of_gust"]
-                                : 0D,
-                            WindDeg = timesery.Data.Instant.Details.ContainsKey("wind_from_direction")
-                                ? timesery.Data.Instant.Details["wind_from_direction"]
-                                : 0D,
-                            PrecipitationAmount = PrecipitationAmount(timesery),
-                            Pop = Pop(timesery),
-                            Icon = Icon(timesery)
-                        });
+                        GetYrHourlyWeatherForecasts(yrForecast, hourlyWeatherForecasts);
                     }
                 }
                 else if (weatherForecastProvider == Smhi)
                 {
-                    var key = CacheKey(Smhi, location);
-                    SmhiForecast? smhiWeatherForecast;
-
-                    if (Barrel.Current.IsExpired(key))
+                    var smhiForecast = await GetSmhiForecast(location, smhiApiUrl);
+                    if (smhiForecast?.TimeSeries != null)
                     {
-                        smhiWeatherForecast = await _weatherForecastClient.FetchSmhiWeatherForecastAsync(smhiApiUrl
-                            .Replace("@Lat",
-                                Math.Round(location.Lat, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture))
-                            .Replace("@Lon",
-                                Math.Round(location.Lon, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture)));
-                        if (smhiWeatherForecast == null)
-                        {
-                            continue;
-                        }
-
-                        CacheWeatherForecast(key, smhiWeatherForecast.ToJson());
-                    }
-                    else
-                    {
-                        smhiWeatherForecast = SmhiForecast.FromJson(FetchCachedWeatherForecast(key));
-                    }
-
-                    foreach (var timesery in smhiWeatherForecast.TimeSeries)
-                    {
-                        var dt = timesery.ValidTime.GetValueOrDefault().LocalDateTime;
-                        var unixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(dt);
-
-                        foreach (var parameter in timesery.Parameters)
-                        {
-                            var temp = 0D;
-                            var windSpeed = 0D;
-                            var windGust = 0D;
-                            var windDeg = 0D;
-                            var precipitationAmount = 0D;
-                            var icon = string.Empty;
-
-                            switch (parameter.Name)
-                            {
-                                // Temp (Air temperature)
-                                case T:
-                                    temp = parameter.Values.FirstOrDefault();
-                                    break;
-                                // WindSpeed (Wind speed)
-                                case Ws:
-                                    windSpeed = parameter.Values.FirstOrDefault();
-                                    break;
-                                // WindGust (Wind gust speed)
-                                case Gust:
-                                    windGust = parameter.Values.FirstOrDefault();
-                                    break;
-                                // WindDeg (Wind direction)
-                                case Wd:
-                                    windDeg = parameter.Values.FirstOrDefault();
-                                    break;
-                                // PrecipitationAmount (Mean precipitation intensity)
-                                case Pmean:
-                                    precipitationAmount = parameter.Values.FirstOrDefault();
-                                    break;
-                                // Icon
-                                case Wsymb2:
-                                    icon = string.Empty;
-                                    break;
-                            }
-
-                            hourlyWeatherForecasts.Add(new HourlyWeatherForecast
-                            {
-                                Dt = dt,
-                                UnixTimestamp = unixTimestamp,
-                                Temp = temp,
-                                FeelsLike = 0D, // Missing
-                                Uvi = 0D, // Missing
-                                Cloudiness = 0D, // Missing
-                                WindSpeed = windSpeed,
-                                WindGust = windGust,
-                                WindDeg = windDeg,
-                                PrecipitationAmount = precipitationAmount,
-                                Pop = 0D, // Missing
-                                Icon = icon
-                            });
-                        }
+                        GetSmhiHourlyForecasts(smhiForecast, hourlyWeatherForecasts);
                     }
                 }
                 else
@@ -323,5 +165,189 @@ public class WeatherForecastService : IWeatherForecastService
         }
 
         return 0D;
+    }
+
+    private async Task<OpenWeatherForecast?> GetOpenWeatherForecast(Location location, string openWeatherApiUrl, string appId)
+    {
+        var key = CacheKey(OpenWeather, location);
+        OpenWeatherForecast? openWeatherForecast;
+
+        if (Barrel.Current.IsExpired(key))
+        {
+            openWeatherForecast =
+                await _weatherForecastClient.FetchOpenWeatherWeatherForecastAsync(openWeatherApiUrl.Replace("@AppId", appId)
+                    .Replace("@Exclude", "current,minutely,daily,alerts")
+                    .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
+                    .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)));
+            CacheWeatherForecast(key, openWeatherForecast.ToJson());
+        }
+        else
+        {
+            openWeatherForecast = OpenWeatherForecast.FromJson(FetchCachedWeatherForecast(key));
+        }
+
+        return openWeatherForecast;
+    }
+
+    private async Task<YrForecast?> GetYrForecast(Location location, string yrApiUrl)
+    {
+        var key = CacheKey(Yr, location);
+        YrForecast? yrForecast;
+
+        if (Barrel.Current.IsExpired(key))
+        {
+            yrForecast = await _weatherForecastClient.FetchYrWeatherForecastAsync(yrApiUrl
+                .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
+                .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)));
+            CacheWeatherForecast(key, yrForecast.ToJson());
+        }
+        else
+        {
+            yrForecast = YrForecast.FromJson(FetchCachedWeatherForecast(key));
+        }
+
+        return yrForecast;
+    }
+
+    private async Task<SmhiForecast?> GetSmhiForecast(Location location, string smhiApiUrl)
+    {
+        var key = CacheKey(Smhi, location);
+        SmhiForecast? smhiForecast;
+
+        if (Barrel.Current.IsExpired(key))
+        {
+            smhiForecast = await _weatherForecastClient.FetchSmhiWeatherForecastAsync(smhiApiUrl
+                .Replace("@Lat",
+                    Math.Round(location.Lat, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture))
+                .Replace("@Lon",
+                    Math.Round(location.Lon, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture)));
+            CacheWeatherForecast(key, smhiForecast.ToJson());
+        }
+        else
+        {
+            smhiForecast = SmhiForecast.FromJson(FetchCachedWeatherForecast(key));
+        }
+
+        return smhiForecast;
+    }
+
+    private static void GetOpenWeatherHourlyWeatherForecasts(OpenWeatherForecast openWeatherForecast, ICollection<HourlyWeatherForecast> hourlyWeatherForecasts)
+    {
+        foreach (var hourly in openWeatherForecast.Hourly)
+        {
+            hourlyWeatherForecasts.Add(new HourlyWeatherForecast
+            {
+                Dt = DateTimeHelper.UnixTimestampToDateTime(hourly.Dt),
+                UnixTimestamp = hourly.Dt,
+                Temp = hourly.Temp,
+                FeelsLike = hourly.FeelsLike,
+                Uvi = hourly.Uvi,
+                Cloudiness = hourly.Clouds,
+                WindSpeed = hourly.WindSpeed,
+                WindGust = hourly.WindGust,
+                WindDeg = hourly.WindDeg,
+                Pop = Math.Round(hourly.Pop * 100),
+                PrecipitationAmount = hourly.Rain?.The1H ?? 0D,
+                Icon = OpenWeatherIconsDictionary[hourly.Weather[0].Id]
+            });
+        }
+    }
+
+    private static void GetYrHourlyWeatherForecasts(YrForecast yrForecast, ICollection<HourlyWeatherForecast> hourlyWeatherForecasts)
+    {
+        foreach (var timesery in yrForecast.Properties.Timeseries)
+        {
+            hourlyWeatherForecasts.Add(new HourlyWeatherForecast
+            {
+                Dt = timesery.Time.LocalDateTime,
+                UnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(timesery.Time.LocalDateTime),
+                Temp = timesery.Data.Instant.Details.ContainsKey("air_temperature")
+                    ? timesery.Data.Instant.Details["air_temperature"]
+                    : 0D,
+                FeelsLike = timesery.Data.Instant.Details.ContainsKey("air_temperature")
+                    ? timesery.Data.Instant.Details["air_temperature"]
+                    : 0D,
+                Uvi = timesery.Data.Instant.Details.ContainsKey("ultraviolet_index_clear_sky")
+                    ? timesery.Data.Instant.Details["ultraviolet_index_clear_sky"]
+                    : 0D,
+                Cloudiness = timesery.Data.Instant.Details.ContainsKey("cloud_area_fraction")
+                    ? timesery.Data.Instant.Details["cloud_area_fraction"]
+                    : 0D,
+                WindSpeed = timesery.Data.Instant.Details.ContainsKey("wind_speed")
+                    ? timesery.Data.Instant.Details["wind_speed"]
+                    : 0D,
+                WindGust = timesery.Data.Instant.Details.ContainsKey("wind_speed_of_gust")
+                    ? timesery.Data.Instant.Details["wind_speed_of_gust"]
+                    : 0D,
+                WindDeg = timesery.Data.Instant.Details.ContainsKey("wind_from_direction")
+                    ? timesery.Data.Instant.Details["wind_from_direction"]
+                    : 0D,
+                PrecipitationAmount = PrecipitationAmount(timesery),
+                Pop = Pop(timesery),
+                Icon = Icon(timesery)
+            });
+        }
+    }
+
+    private static void GetSmhiHourlyForecasts(SmhiForecast smhiForecast, ICollection<HourlyWeatherForecast> hourlyWeatherForecasts)
+    {
+        foreach (var timesery in smhiForecast.TimeSeries)
+        {
+            var dt = timesery.ValidTime.GetValueOrDefault().LocalDateTime;
+            var unixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(dt);
+            var temp = 0D;
+            var windSpeed = 0D;
+            var windGust = 0D;
+            var windDeg = 0D;
+            var precipitationAmount = 0D;
+            var icon = string.Empty;
+
+            foreach (var parameter in timesery.Parameters)
+            {
+                switch (parameter.Name)
+                {
+                    // Temp (Air temperature)
+                    case T:
+                        temp = parameter.Values.FirstOrDefault();
+                        break;
+                    // WindSpeed (Wind speed)
+                    case Ws:
+                        windSpeed = parameter.Values.FirstOrDefault();
+                        break;
+                    // WindGust (Wind gust speed)
+                    case Gust:
+                        windGust = parameter.Values.FirstOrDefault();
+                        break;
+                    // WindDeg (Wind direction)
+                    case Wd:
+                        windDeg = parameter.Values.FirstOrDefault();
+                        break;
+                    // PrecipitationAmount (Mean precipitation intensity)
+                    case Pmean:
+                        precipitationAmount = parameter.Values.FirstOrDefault();
+                        break;
+                    // Icon
+                    case Wsymb2:
+                        icon = SmhiIconsDictionary[parameter.Values.FirstOrDefault()];
+                        break;
+                }
+            }
+
+            hourlyWeatherForecasts.Add(new HourlyWeatherForecast
+            {
+                Dt = dt,
+                UnixTimestamp = unixTimestamp,
+                Temp = temp,
+                FeelsLike = 0D, // Missing
+                Uvi = 0D, // Missing
+                Cloudiness = 0D, // Missing
+                WindSpeed = windSpeed,
+                WindGust = windGust,
+                WindDeg = windDeg,
+                PrecipitationAmount = precipitationAmount,
+                Pop = 0D, // Missing
+                Icon = icon
+            });
+        }
     }
 }

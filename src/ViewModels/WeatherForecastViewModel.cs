@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.ViewModels;
 
-[QueryProperty(nameof(Models.WeatherForecastParameters), nameof(WeatherForecastParameters))]
+[QueryProperty(nameof(WeatherForecastParameters), nameof(WeatherForecastParameters))]
 public partial class WeatherForecastViewModel : BaseViewModel
 {
     private readonly AppSettings _appSettings;

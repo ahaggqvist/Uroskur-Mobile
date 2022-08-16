@@ -39,6 +39,7 @@ public static class MauiProgram
 
         Routing.RegisterRoute(nameof(RoutePage), typeof(RoutePage));
         Routing.RegisterRoute(nameof(WeatherForecastPage), typeof(WeatherForecastPage));
+        Routing.RegisterRoute(nameof(CombinedWeatherForecastPage), typeof(CombinedWeatherForecastPage));
 
         Barrel.ApplicationId = "uroskur.pii.at";
 

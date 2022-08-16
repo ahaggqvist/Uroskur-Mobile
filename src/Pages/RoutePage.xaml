@@ -111,6 +111,8 @@
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Yr</x:String>
                                 <x:String>OpenWeather</x:String>
+                                <x:String>SMHI</x:String>
+                                <x:String>Combine forecasts</x:String>
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
