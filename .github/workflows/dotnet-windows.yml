@@ -42,4 +42,5 @@ jobs:
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3.1.0
       with:
+        name: uroskur-windows-build
         path: .\**\AppPackages\**\*.*
