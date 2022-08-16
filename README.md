@@ -16,13 +16,7 @@ Sign up for an account on [OpenWeather](https://openweathermap.org). To configur
 Select "Settings" in the Uroskur app menu. Fill in your Strava Client ID, Strava Client Secret and OpenWeather API key and press "Save Settings". Then press "Connect with Strava". If you aren’t already signed into Strava, you will be prompted for your Strava credentials. Click the Authorize button so that your Strava API Application has permission to read your Strava routes.
 
 ## Platforms
-
-|  Platform | Tested  |
-| ------------ | ------------ |
-| Android | X  |
-| iOS | X  |
-| macOS |   |
-| Windows 10/11 | X  |
+The app is tested on the following platforms: Android, iOS and Windows 10/11.
 
 ## Screenshots Android
 <p float="left">
