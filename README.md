@@ -21,13 +21,13 @@ The app is tested on the following platforms: Android, iOS and Windows 10/11.
 ## Screenshots Android
 <p float="left">
 <img src="https://i.ibb.co/wrxsb1j/Routes-Android.png" width="200" height="400" />
-<img src="https://i.ibb.co/Nsc1Bhf/Route-Android.png" width="200" height="400" />
+<img src="https://i.ibb.co/H4QP4wF/Route-Android.jpg" width="200" height="400" />
 <img src="https://i.ibb.co/Z10gXS6/Options-Android.jpg" width="200" height="400" />
 <img src="https://i.ibb.co/VMqHLQS/Forecast-Android.png" width="200" height="400" />
 <img src="https://i.ibb.co/WPYwcsj/Forecast2-Android.png" width="200" height="400" />
 <img src="https://i.ibb.co/hYWr68V/Combined-Android.jpg" width="200" height="400" />
-<img src="https://i.ibb.co/X2tmLZx/Settings-Android.png" width="200" height="400" />
-<img src="https://i.ibb.co/1Z4LcwM/About-Android.png" width="200" height="400" />
+<img src="https://i.ibb.co/CmZHQGt/Settings-Android.jpg" width="200" height="400" />
+<img src="https://i.ibb.co/VCkMtrv/About-Android.jpg" width="200" height="400" />
 </p>
 
 ## Screenshots iOS
