@@ -1,7 +1,7 @@
 # Uroskur
 A .NET MAUI app that fetches a weather forecast from OpenWeather, Yr or SMHI and routes from Strava to display the weather conditions along your routes based upon your pace, time of day and start date.
 
-There is support for showing a combined page with forecasts from all providers.
+There is support for showing a page with forecasts from all providers.
 
 SMHI are missing the following parameters: feels like temperature, uv index and cloudiness.
 
