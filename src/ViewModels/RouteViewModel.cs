@@ -5,10 +5,10 @@ public partial class RouteViewModel : BaseViewModel
 {
     private readonly IRoutingService _routingService;
     [ObservableProperty] private string _day;
-    [ObservableProperty] private string _provider;
     [ObservableProperty] private Routes? _routes;
     [ObservableProperty] private string _speed;
     [ObservableProperty] private TimeSpan _time;
+    [ObservableProperty] private string _weatherForecastProviderName;
 
     public RouteViewModel(IRoutingService routingService)
     {
@@ -17,7 +17,7 @@ public partial class RouteViewModel : BaseViewModel
         _time = DateTime.Now.TimeOfDay;
         _day = "Today";
         _speed = "30";
-        _provider = Yr.Name;
+        _weatherForecastProviderName = Yr.Name;
     }
 
     [RelayCommand]
@@ -26,13 +26,13 @@ public partial class RouteViewModel : BaseViewModel
         await _routingService.NavigateToAsync(nameof(WeatherForecastPage), new Dictionary<string, object>
         {
             {
-                nameof(WeatherForecastQuery), new WeatherForecastQuery
+                nameof(WeatherForecastParameters), new WeatherForecastParameters
                 {
                     Day = _day,
                     Time = _time,
                     Speed = int.Parse(_speed),
                     Routes = Routes,
-                    Provider = Enumeration.FromName<WeatherForecastProvider>(_provider).Id
+                    WeatherForecastProviderId = Enumeration.FromName<WeatherForecastProvider>(_weatherForecastProviderName).Id
                 }
             }
         });

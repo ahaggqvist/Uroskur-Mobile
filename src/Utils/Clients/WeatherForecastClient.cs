@@ -50,7 +50,7 @@ public class WeatherForecastClient : IWeatherForecastClient
     }
 
     private async Task<(OpenWeatherForecast? openWeatherForecast, YrForecast? yrForecast, SmhiForecast? smhiForecast)> FetchForecastAsync(
-        Enumeration provider, string? url)
+        WeatherForecastProvider weatherForecastProvider, string? url)
     {
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
         var retryPolicy = Policy
@@ -64,15 +64,15 @@ public class WeatherForecastClient : IWeatherForecastClient
         SmhiForecast? smhiForecast = null;
         await retryPolicy.ExecuteAsync(async () =>
         {
-            if (provider == OpenWeather)
+            if (weatherForecastProvider == OpenWeather)
             {
                 openWeatherForecast = OpenWeatherForecast.FromJson(await GetResponseAsync(url));
             }
-            else if (provider == Yr)
+            else if (weatherForecastProvider == Yr)
             {
                 yrForecast = YrForecast.FromJson(await GetResponseAsync(url));
             }
-            else if (provider == Smhi)
+            else if (weatherForecastProvider == Smhi)
             {
                 smhiForecast = SmhiForecast.FromJson(await GetResponseAsync(url));
             }

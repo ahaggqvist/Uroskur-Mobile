@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.Models;
 
-public class WeatherForecastQuery
+public class WeatherForecastParameters
 {
     public Routes? Routes { get; set; }
 
@@ -10,7 +10,7 @@ public class WeatherForecastQuery
 
     public int? Speed { get; set; }
 
-    public int? Provider { get; set; }
+    public int? WeatherForecastProviderId { get; set; }
 
     public override string ToString()
     {

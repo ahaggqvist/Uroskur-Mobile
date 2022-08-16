@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.ViewModels;
 
-[QueryProperty(nameof(WeatherForecastQuery), nameof(WeatherForecastQuery))]
+[QueryProperty(nameof(Models.WeatherForecastParameters), nameof(WeatherForecastParameters))]
 public partial class WeatherForecastViewModel : BaseViewModel
 {
     private readonly AppSettings _appSettings;
@@ -11,7 +11,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
     [ObservableProperty] private string? _forecastIssuedFor;
     [ObservableProperty] private LineChart? _tempLineChart;
     [ObservableProperty] private LineChart? _uvLineChart;
-    [ObservableProperty] private WeatherForecastQuery? _weatherForecastQuery;
+    [ObservableProperty] private WeatherForecastParameters? _weatherForecastParameters;
     [ObservableProperty] private LineChart? _windLineChart;
 
     public WeatherForecastViewModel(IWeatherForecastService weatherForecastService, AppSettings appSettings)
@@ -24,7 +24,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
 
     public async Task WeatherForecastAsync()
     {
-        Title = _weatherForecastQuery?.Routes?.Name;
+        Title = _weatherForecastParameters?.Routes?.Name;
 
         await Task.Delay(500);
 
@@ -41,33 +41,33 @@ public partial class WeatherForecastViewModel : BaseViewModel
         try
         {
             var today = DateTime.Today;
-            if (_weatherForecastQuery is { Day: "Tomorrow" })
+            if (_weatherForecastParameters is { Day: "Tomorrow" })
             {
                 today = today.AddDays(1);
             }
 
-            var timeSpan = _weatherForecastQuery!.Time;
+            var timeSpan = _weatherForecastParameters!.Time;
             var hour = timeSpan!.Value.Hours;
             var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
-            var provider = Enumeration.FromId<WeatherForecastProvider>(WeatherForecastQuery?.Provider ?? 0);
-            if (_appSettings.IsDevelopment && provider == OpenWeather)
+            var weatherForecastProvider = Enumeration.FromId<WeatherForecastProvider>(WeatherForecastParameters?.WeatherForecastProviderId ?? 0);
+            if (_appSettings.IsDevelopment && weatherForecastProvider == OpenWeather)
             {
                 issuedFor = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
             }
 
             var issuedForUnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(issuedFor);
-            var route = _weatherForecastQuery?.Routes;
+            var route = _weatherForecastParameters?.Routes;
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
 
             var weatherForecasts = Enumerable.Empty<WeatherForecast>();
-            if (provider == OpenWeather)
+            if (weatherForecastProvider == OpenWeather)
             {
                 weatherForecasts =
                     await _weatherForecastService.FindOpenWeatherWeatherForecastsAsync(routeId, athleteId);
             }
-            else if (provider == Yr)
+            else if (weatherForecastProvider == Yr)
             {
                 weatherForecasts =
                     await _weatherForecastService.FindYrWeatherForecastsAsync(routeId, athleteId);
@@ -80,14 +80,14 @@ public partial class WeatherForecastViewModel : BaseViewModel
                 var issuedAt =
                     new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
 
-                ForecastIssuedAt = $"{provider} weather forecast issued at {issuedAt:ddd, d MMM H:mm}";
+                ForecastIssuedAt = $"{weatherForecastProvider} weather forecast issued at {issuedAt:ddd, d MMM H:mm}";
                 ForecastIssuedFor = $"{issuedFor:dddd, d MMM}";
             }
 
             foreach (var (weatherForecast, index) in weatherForecastsArray.WithIndex())
             {
                 var km = index * 10 + 10;
-                var speed = _weatherForecastQuery!.Speed!.Value;
+                var speed = _weatherForecastParameters!.Speed!.Value;
                 var time = km / speed;
                 var seconds = 3600 * time + issuedForUnixTimestamp;
                 var hourlyWeatherForecast = weatherForecast.HourlyWeatherForecasts.ToImmutableList()
