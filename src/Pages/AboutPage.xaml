@@ -47,7 +47,7 @@
                 <Label Text="https://openweathermap.org" />
                 <Label Text="Based on data from SMHI" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
-                <Label Text="https://opendata.smhi.se/apidocs/" />
+                <Label Text="https://opendata.smhi.se/apidocs" />
                 <Label Text="Based on data from MET Norway" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Label Text="https://developer.yr.no" />
