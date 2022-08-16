@@ -53,16 +53,14 @@ public abstract class Enumeration : IEqualityComparer<Enumeration>
             .Cast<T>();
     }
 
-    private static T Parse<T, TK>(TK value, string description, Func<T, bool> predicate) where T : Enumeration, new()
+    private static T Parse<T, TK>(TK id, string name, Func<T, bool> predicate) where T : Enumeration, new()
     {
-        var matchingItem = GetAll<T>().FirstOrDefault(predicate);
-
-        if (matchingItem != null)
+        var item = GetAll<T>().FirstOrDefault(predicate);
+        if (item != null)
         {
-            return matchingItem;
+            return item;
         }
 
-        var message = $"'{value}' is not a valid {description} in {typeof(T)}";
-        throw new ArgumentException(message);
+        throw new ArgumentException($"'{id}' is not a valid {name} in {typeof(T)}");
     }
 }
