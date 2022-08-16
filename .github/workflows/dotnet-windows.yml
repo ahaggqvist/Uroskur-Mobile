@@ -20,4 +20,4 @@ jobs:
     - name: Install MAUI Workload
       run: dotnet workload install maui
     - name: Build
-      run: dotnet build Uroskur-Maui/src/Uroskur.csproj -c Release -f net6.0-windows10.0.19041.0
+      run: dotnet build Uroskur-Maui/src/uroskur.csproj -c Release -f net6.0-windows10.0.19041.0
