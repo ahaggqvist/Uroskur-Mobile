@@ -44,7 +44,7 @@
                 <Label Text="Strava Client Secret" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Entry Text="{Binding StravaClientSecret}" FontSize="13" />
-                <Label Text="OpenWeather App ID" FontFamily="RobotoLight"
+                <Label Text="OpenWeather Api key" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Entry Text="{Binding OpenWeatherAppId}" FontSize="13" />
 
