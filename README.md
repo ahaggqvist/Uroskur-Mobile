@@ -1,5 +1,9 @@
 # Uroskur
-A .NET MAUI app that fetches a weather forecast for the next 48 hours from either Yr or OpenWeather and routes from Strava to display the weather conditions along your routes based upon your pace, time of day and start date.
+A .NET MAUI app that fetches a weather forecast from OpenWeather, Yr or SMHI and routes from Strava to display the weather conditions along your routes based upon your pace, time of day and start date.
+
+There is support for showing a combined page with forecasts from all providers.
+
+SMHI are missing the following parameters: feels like temperature, uv index and cloudiness.
 
 ## Platforms
 
@@ -16,6 +20,7 @@ A .NET MAUI app that fetches a weather forecast for the next 48 hours from eithe
 <img src="https://i.ibb.co/Nsc1Bhf/Route-Android.png" width="200" height="400" />
 <img src="https://i.ibb.co/VMqHLQS/Forecast-Android.png" width="200" height="400" />
 <img src="https://i.ibb.co/WPYwcsj/Forecast2-Android.png" width="200" height="400" />
+<img src="https://i.ibb.co/WkjCm9B/Combined-Android.jpg" width="200" height="400" />
 <img src="https://i.ibb.co/X2tmLZx/Settings-Android.png" width="200" height="400" />
 <img src="https://i.ibb.co/1Z4LcwM/About-Android.png" width="200" height="400" />
 </p>
