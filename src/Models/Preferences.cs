@@ -29,4 +29,10 @@ public class Preferences
         var dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(seconds);
         return $"{dt:dddd, dd MMMM yyyy HH:mm} ({StravaExpiresAt})";
     }
+
+    public override string ToString()
+    {
+        return
+            $"{nameof(OpenWeatherAppId)}: {OpenWeatherAppId}, {nameof(StravaClientId)}: {StravaClientId}, {nameof(StravaClientSecret)}: {StravaClientSecret}, {nameof(StravaAthleteId)}: {StravaAthleteId}, {nameof(StravaAccessToken)}: {StravaAccessToken}, {nameof(StravaExpiresAt)}: {StravaExpiresAt}, {nameof(StravaFirstname)}: {StravaFirstname}, {nameof(StravaLastname)}: {StravaLastname}, {nameof(StravaRefreshToken)}: {StravaRefreshToken}, {nameof(StravaUsername)}: {StravaUsername}";
+    }
 }

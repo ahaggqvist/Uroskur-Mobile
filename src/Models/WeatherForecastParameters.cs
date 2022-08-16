@@ -14,6 +14,7 @@ public class WeatherForecastParameters
 
     public override string ToString()
     {
-        return $"{nameof(Routes)}: {Routes}, {nameof(Day)}: {Day}, {nameof(Time)}: {Time}, {nameof(Speed)}: {Speed}";
+        return
+            $"{nameof(Routes)}: {Routes}, {nameof(Day)}: {Day}, {nameof(Time)}: {Time}, {nameof(Speed)}: {Speed}, {nameof(WeatherForecastProviderId)}: {WeatherForecastProviderId}";
     }
 }
