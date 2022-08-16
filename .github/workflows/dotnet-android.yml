@@ -1,0 +1,40 @@
+name: Build .NET MAUI Android
+
+on:
+  push:
+    branches: [ "main" ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: true                     # Disable the .NET logo
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
+  DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Install MAUI Workload
+      run: dotnet workload install maui
+    - name: Build
+      run: dotnet publish src/uroskur.csproj -c Release -f:net6.0-android
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: uroskur-android-build
+        path: .\**\AppPackages\**\*.*
