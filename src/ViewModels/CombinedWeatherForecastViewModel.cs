@@ -124,13 +124,11 @@ public partial class CombinedWeatherForecastViewModel : BaseViewModel
             {
                 OpenWeatherLocationWeatherForecasts.Add(locationForecast);
             }
-
-            if (weatherForecastProvider == Yr)
+            else if (weatherForecastProvider == Yr)
             {
                 YrLocationWeatherForecasts.Add(locationForecast);
             }
-
-            if (weatherForecastProvider == Smhi)
+            else if (weatherForecastProvider == Smhi)
             {
                 SmhiLocationWeatherForecasts.Add(locationForecast);
             }
