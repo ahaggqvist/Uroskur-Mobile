@@ -55,6 +55,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\btn_strava_connectwith_orange.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<EmbeddedResource Include="appsettings.Development.json" />
 		<EmbeddedResource Include="appsettings.json" />
 	</ItemGroup>
