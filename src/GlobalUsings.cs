@@ -1,6 +1,5 @@
 ﻿global using System.Collections.Immutable;
 global using System.Collections.ObjectModel;
-global using System.ComponentModel.DataAnnotations;
 global using System.Diagnostics;
 global using System.Globalization;
 global using System.Net;
@@ -32,8 +31,8 @@ global using Uroskur.Services;
 global using Uroskur.Utils;
 global using Uroskur.Utils.Clients;
 global using Uroskur.ViewModels;
-global using static Uroskur.Models.Smhi.Name;
 global using static Uroskur.Utils.Constants;
-global using static Uroskur.Utils.Constants.WeatherForecastProvider;
+global using static Uroskur.Models.Smhi.Name;
+global using static Uroskur.Utils.WeatherForecastProvider;
 global using Location = Uroskur.Models.Location;
 global using Preferences = Uroskur.Models.Preferences;

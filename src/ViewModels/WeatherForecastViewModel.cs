@@ -40,7 +40,6 @@ public partial class WeatherForecastViewModel : BaseViewModel
 
         try
         {
-            var weatherForecastProvider = WeatherForecastQuery?.WeatherForecastProvider ?? string.Empty;
             var today = DateTime.Today;
             if (_weatherForecastQuery is { Day: "Tomorrow" })
             {
@@ -50,7 +49,8 @@ public partial class WeatherForecastViewModel : BaseViewModel
             var timeSpan = _weatherForecastQuery!.Time;
             var hour = timeSpan!.Value.Hours;
             var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
-            if (_appSettings.IsDevelopment && weatherForecastProvider == OpenWeather.ToString())
+            var provider = Enumeration.FromId<WeatherForecastProvider>(WeatherForecastQuery?.Provider ?? 0);
+            if (_appSettings.IsDevelopment && provider == OpenWeather)
             {
                 issuedFor = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
             }
@@ -62,12 +62,12 @@ public partial class WeatherForecastViewModel : BaseViewModel
             var routeId = route?.Id.ToString();
 
             var weatherForecasts = Enumerable.Empty<WeatherForecast>();
-            if (weatherForecastProvider == OpenWeather.ToString())
+            if (provider == OpenWeather)
             {
                 weatherForecasts =
                     await _weatherForecastService.FindOpenWeatherWeatherForecastsAsync(routeId, athleteId);
             }
-            else if (weatherForecastProvider == Yr.ToString())
+            else if (provider == Yr)
             {
                 weatherForecasts =
                     await _weatherForecastService.FindYrWeatherForecastsAsync(routeId, athleteId);
@@ -80,7 +80,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
                 var issuedAt =
                     new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
 
-                ForecastIssuedAt = $"{weatherForecastProvider} weather forecast issued at {issuedAt:ddd, d MMM H:mm}";
+                ForecastIssuedAt = $"{provider} weather forecast issued at {issuedAt:ddd, d MMM H:mm}";
                 ForecastIssuedFor = $"{issuedFor:dddd, d MMM}";
             }
 

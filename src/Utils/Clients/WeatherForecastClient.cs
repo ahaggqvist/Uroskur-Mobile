@@ -50,33 +50,31 @@ public class WeatherForecastClient : IWeatherForecastClient
     }
 
     private async Task<(OpenWeatherForecast? openWeatherForecast, YrForecast? yrForecast, SmhiForecast? smhiForecast)> FetchForecastAsync(
-        WeatherForecastProvider weatherForecastProvider, string? url)
+        Enumeration provider, string? url)
     {
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
         var retryPolicy = Policy
             .Handle<HttpRequestException>()
             .WaitAndRetryAsync(MaxRetryAttempts, _ => pauseBetweenFailures);
 
-        Debug.WriteLine($"SAPI Url {url}");
+        Debug.WriteLine($"API Url {url}");
 
         OpenWeatherForecast? openWeatherForecast = null;
         YrForecast? yrForecast = null;
         SmhiForecast? smhiForecast = null;
         await retryPolicy.ExecuteAsync(async () =>
         {
-            switch (weatherForecastProvider)
+            if (provider == OpenWeather)
             {
-                case OpenWeather:
-                    openWeatherForecast = OpenWeatherForecast.FromJson(await GetResponseAsync(url));
-                    break;
-                case Yr:
-                    yrForecast = YrForecast.FromJson(await GetResponseAsync(url));
-                    break;
-                case Smhi:
-                    smhiForecast = SmhiForecast.FromJson(await GetResponseAsync(url));
-                    break;
-                default:
-                    return;
+                openWeatherForecast = OpenWeatherForecast.FromJson(await GetResponseAsync(url));
+            }
+            else if (provider == Yr)
+            {
+                yrForecast = YrForecast.FromJson(await GetResponseAsync(url));
+            }
+            else if (provider == Smhi)
+            {
+                smhiForecast = SmhiForecast.FromJson(await GetResponseAsync(url));
             }
         });
 

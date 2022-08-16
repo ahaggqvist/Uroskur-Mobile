@@ -2,13 +2,6 @@
 
 public static class Constants
 {
-    public enum WeatherForecastProvider
-    {
-        OpenWeather,
-        Yr,
-        Smhi
-    }
-
     public const double ChartHeadingFontSize = 13;
     public const double WeatherIconFontSize = 14;
     public const double WeatherTableHeadingFontSize = 10;

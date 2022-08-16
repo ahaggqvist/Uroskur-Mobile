@@ -10,7 +10,7 @@ public class WeatherForecastQuery
 
     public int? Speed { get; set; }
 
-    public string? WeatherForecastProvider { get; set; }
+    public int? Provider { get; set; }
 
     public override string ToString()
     {

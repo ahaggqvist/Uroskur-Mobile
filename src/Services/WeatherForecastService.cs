@@ -31,7 +31,7 @@ public class WeatherForecastService : IWeatherForecastService
     }
 
     private async Task<IEnumerable<WeatherForecast>> FindWeatherForecastsAsync(
-        WeatherForecastProvider weatherForecastProvider, string? routeId, string? athleteId)
+        Enumeration provider, string? routeId, string? athleteId)
     {
         Barrel.Current.EmptyExpired();
 
@@ -74,7 +74,7 @@ public class WeatherForecastService : IWeatherForecastService
             {
                 var hourlyWeatherForecasts = new List<HourlyWeatherForecast>();
 
-                if (weatherForecastProvider == OpenWeather)
+                if (provider == OpenWeather)
                 {
                     var key = CacheKey(OpenWeather, location);
                     OpenWeatherForecast? openWeatherWeatherForecast;
@@ -114,7 +114,7 @@ public class WeatherForecastService : IWeatherForecastService
                         });
                     }
                 }
-                else if (weatherForecastProvider == Yr)
+                else if (provider == Yr)
                 {
                     var key = CacheKey(Yr, location);
                     YrForecast? yrWeatherForecast;
@@ -167,7 +167,7 @@ public class WeatherForecastService : IWeatherForecastService
                         });
                     }
                 }
-                else if (weatherForecastProvider == Smhi)
+                else if (provider == Smhi)
                 {
                     var key = CacheKey(Smhi, location);
                     SmhiForecast? smhiWeatherForecast;
