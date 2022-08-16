@@ -46,7 +46,6 @@ public partial class CombinedWeatherForecastPage
         SmhiWeatherTableHeader.Text = "SMHI";
 
 
-
         HideIndicator();
     }
 
