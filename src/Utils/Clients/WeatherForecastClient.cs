@@ -17,77 +17,70 @@ public class WeatherForecastClient : IWeatherForecastClient
 
     public async Task<OpenWeatherForecast?> FetchOpenWeatherWeatherForecastAsync(Location location, string? appId)
     {
-        var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
-        var retryPolicy = Policy
-            .Handle<HttpRequestException>()
-            .WaitAndRetryAsync(MaxRetryAttempts, _ => pauseBetweenFailures);
-
-        var openWeatherApiUrl = _appSettings?.OpenWeatherApiUrl!;
-        var url = openWeatherApiUrl
+        var url = _appSettings?.OpenWeatherApiUrl!
             .Replace("@AppId", appId)
             .Replace("@Exclude", "current,minutely,daily,alerts")
             .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
             .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture));
 
-        Debug.WriteLine($"OpenWeather API Url {url}");
-
-        OpenWeatherForecast? openWeatherForecast = null;
-        await retryPolicy.ExecuteAsync(async () =>
-        {
-            openWeatherForecast = OpenWeatherForecast.FromJson(await GetResponseAsync(url));
-        });
-
+        var (openWeatherForecast, _, _) = await FetchForecastAsync(OpenWeather, url);
         return openWeatherForecast;
     }
 
     public async Task<SmhiForecast?> FetchSmhiWeatherForecastAsync(Location location)
     {
-        var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
-        var retryPolicy = Policy
-            .Handle<HttpRequestException>()
-            .WaitAndRetryAsync(MaxRetryAttempts, _ => pauseBetweenFailures);
-
-        var smhiApiUrl = _appSettings?.SmhiApiUrl!;
-        var url = smhiApiUrl
+        var url = _appSettings?.SmhiApiUrl!
             .Replace("@Lat",
                 Math.Round(location.Lat, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture))
             .Replace("@Lon",
                 Math.Round(location.Lon, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture));
 
-        Debug.WriteLine($"Smhi API Url {url}.");
-
-        SmhiForecast? smhiForecast = null;
-        await retryPolicy.ExecuteAsync(async () =>
-        {
-            smhiForecast = SmhiForecast.FromJson(await GetResponseAsync(url));
-        });
-
-
+        var (_, _, smhiForecast) = await FetchForecastAsync(Smhi, url);
         return smhiForecast;
     }
 
     public async Task<YrForecast?> FetchYrWeatherForecastAsync(Location location)
+    {
+        var url = _appSettings?.YrApiUrl!
+            .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
+            .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture));
+
+        var (_, yrForecast, _) = await FetchForecastAsync(Yr, url);
+        return yrForecast;
+    }
+
+    private async Task<(OpenWeatherForecast? openWeatherForecast, YrForecast? yrForecast, SmhiForecast? smhiForecast)> FetchForecastAsync(
+        WeatherForecastProvider weatherForecastProvider, string? url)
     {
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
         var retryPolicy = Policy
             .Handle<HttpRequestException>()
             .WaitAndRetryAsync(MaxRetryAttempts, _ => pauseBetweenFailures);
 
-        var yrApiUrl = _appSettings?.YrApiUrl!;
-        var url = yrApiUrl
-            .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
-            .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture));
+        Debug.WriteLine($"SAPI Url {url}");
 
-        Debug.WriteLine($"Yr API Url {url}.");
-
+        OpenWeatherForecast? openWeatherForecast = null;
         YrForecast? yrForecast = null;
+        SmhiForecast? smhiForecast = null;
         await retryPolicy.ExecuteAsync(async () =>
         {
-            yrForecast = YrForecast.FromJson(await GetResponseAsync(url));
+            switch (weatherForecastProvider)
+            {
+                case OpenWeather:
+                    openWeatherForecast = OpenWeatherForecast.FromJson(await GetResponseAsync(url));
+                    break;
+                case Yr:
+                    yrForecast = YrForecast.FromJson(await GetResponseAsync(url));
+                    break;
+                case Smhi:
+                    smhiForecast = SmhiForecast.FromJson(await GetResponseAsync(url));
+                    break;
+                default:
+                    return;
+            }
         });
 
-
-        return yrForecast;
+        return (openWeatherForecast, yrForecast, smhiForecast);
     }
 
     private Task<string> GetResponseAsync(string? url)
