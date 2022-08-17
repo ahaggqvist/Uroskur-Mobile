@@ -7,39 +7,46 @@ SMHI are missing the following parameters: feels like temperature, uv index and 
 You will need a Strava account and a OpenWeather account.
 
 ### Strava
-The process for creating a Strava API application is described on the Strava website. Follow the instructions on [Getting Started]( https://developers.strava.com/docs/getting-started/). To configure Uroskur you need a **Client ID** and **Client Secret**. You will find these on the My API Application page under Settings.
+The process for creating a Strava API application is described on the Strava website. Follow the instructions on [Getting Started]( https://developers.strava.com/docs/getting-started/). To configure Uroskur you need a **Client ID** and **Client Secret**. You will find these on the "My API Application" page under Settings.
 
 ### OpenWeather
 Sign up for an account on [OpenWeather](https://openweathermap.org). To configure Uroskur you need a OpenWeather **API key**. You can generate a OpenWeather API key on the OpenWeather website under the "My API keys" page.
 
-### Configure Uroskur
+### Setup Uroskur
 Select "Settings" in the Uroskur app menu. Fill in your Strava Client ID, Strava Client Secret and OpenWeather API key and press "Save Settings". Then press "Connect with Strava". If you aren’t already signed into Strava, you will be prompted for your Strava credentials. Click the Authorize button so that your Strava API Application has permission to read your Strava routes.
 
 ## Platforms
-The app is tested on the following platforms: Android, iOS and Windows 10/11.
+The app is tested on the following platforms: Android, iOS, Windows 10/11 and macOS.
 
 ## Screenshots Android
 <p float="left">
-<img src="https://i.ibb.co/wrxsb1j/Routes-Android.png" width="200" height="400" />
-<img src="https://i.ibb.co/H4QP4wF/Route-Android.jpg" width="200" height="400" />
-<img src="https://i.ibb.co/Z10gXS6/Options-Android.jpg" width="200" height="400" />
-<img src="https://i.ibb.co/VMqHLQS/Forecast-Android.png" width="200" height="400" />
-<img src="https://i.ibb.co/WPYwcsj/Forecast2-Android.png" width="200" height="400" />
-<img src="https://i.ibb.co/hYWr68V/Combined-Android.jpg" width="200" height="400" />
-<img src="https://i.ibb.co/CmZHQGt/Settings-Android.jpg" width="200" height="400" />
-<img src="https://i.ibb.co/sJjzTBR/About-Android.jpg" width="200" height="400" />
+<img src="https://i.ibb.co/wrxsb1j/Routes-Android.png" width="200" />
+<img src="https://i.ibb.co/H4QP4wF/Route-Android.jpg" width="200" />
+<img src="https://i.ibb.co/Z10gXS6/Options-Android.jpg" width="200" />
+<img src="https://i.ibb.co/VMqHLQS/Forecast-Android.png" width="200" />
+<img src="https://i.ibb.co/WPYwcsj/Forecast2-Android.png" width="200" />
+<img src="https://i.ibb.co/hYWr68V/Combined-Android.jpg" width="200" />
+<img src="https://i.ibb.co/CmZHQGt/Settings-Android.jpg" width="200" />
+<img src="https://i.ibb.co/sJjzTBR/About-Android.jpg" width="200" />
 </p>
 
 ## Screenshots iOS
 <p float="left">
-<img src="https://i.ibb.co/mCRd6XG/Routes-i-OS.png" width="200" height="400" />
-<img src="https://i.ibb.co/3R7rJtS/Route-i-OS.png" width="200" height="400" />
-<img src="https://i.ibb.co/Jc8D466/Forecast-i-OS.png" width="200" height="400" />
+<img src="https://i.ibb.co/mCRd6XG/Routes-i-OS.png" width="200" />
+<img src="https://i.ibb.co/3R7rJtS/Route-i-OS.png" width="200" />
+<img src="https://i.ibb.co/Jc8D466/Forecast-i-OS.png" width="200" />
 </p>
 
 ## Screenshots Windows
 <p float="left">
-<img src="https://i.ibb.co/prdJJNV/Routes-Win-UI.png" width="200" height="400" />
-<img src="https://i.ibb.co/MS9vNkq/Route-Win-UI.png" width="200" height="400" />
-<img src="https://i.ibb.co/c6KQDRR/Forecast-Win-UI.png" width="200" height="400" />
+<img src="https://i.ibb.co/prdJJNV/Routes-Win-UI.png" width="200" />
+<img src="https://i.ibb.co/MS9vNkq/Route-Win-UI.png" width="200" />
+<img src="https://i.ibb.co/c6KQDRR/Forecast-Win-UI.png" width="200" />
+</p>
+
+## Screenshots macOS
+<p float="left">
+<img src="https://i.ibb.co/W0WRVkZ/mac-OS-Routes.png" width="200" />
+<img src="https://i.ibb.co/r6rCp0b/mac-OS-Route.png" width="200" />
+<img src="https://i.ibb.co/rZmg2Fz/mac-OS-Forecast.png" width="200"  />
 </p>
