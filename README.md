@@ -27,7 +27,7 @@ The app is tested on the following platforms: Android, iOS and Windows 10/11.
 <img src="https://i.ibb.co/WPYwcsj/Forecast2-Android.png" width="200" height="400" />
 <img src="https://i.ibb.co/hYWr68V/Combined-Android.jpg" width="200" height="400" />
 <img src="https://i.ibb.co/CmZHQGt/Settings-Android.jpg" width="200" height="400" />
-<img src="https://i.ibb.co/VCkMtrv/About-Android.jpg" width="200" height="400" />
+<img src="https://i.ibb.co/sJjzTBR/About-Android.jpg" width="200" height="400" />
 </p>
 
 ## Screenshots iOS
