@@ -45,14 +45,16 @@
                 <Label Text="Weather data provided by OpenWeather" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Label Text="https://openweathermap.org" />
-                <Image Source="openweather_logo.png" WidthRequest="100" HorizontalOptions="Start" />
+                <Image Source="openweather_logo.png" Aspect="AspectFit" WidthRequest="100" HeightRequest="50"
+                       HorizontalOptions="Start" />
                 <Label Text="Weather data provided by SMHI" FontFamily="RobotoLight"
                        Margin="0,0,0,0" />
                 <Label Text="https://opendata.smhi.se/apidocs" />
                 <Label Text="Weather data provided by MET Norway" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Label Text="https://developer.yr.no" />
-                <Image Source="cptblwith_strava.png" Margin="0,15,0,0" WidthRequest="150" HorizontalOptions="Start" />
+                <Image Source="cptblwith_strava.png" Aspect="AspectFit" WidthRequest="100" HeightRequest="50"
+                       HorizontalOptions="Start" />
             </VerticalStackLayout>
         </ScrollView>
     </Grid>
