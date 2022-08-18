@@ -30,9 +30,9 @@ jobs:
       - name: Install MAUI Workload
         run: dotnet workload install maui
       - name: Build
-        run: dotnet build src/uroskur.csproj -f:net6.0-maccatalyst -c:Release
+        run: dotnet build src/uroskur.csproj -f:net6.0-maccatalyst -c:Release -o ./artifacts
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
           name: uroskur-macos-build
-          path: .\**\maccatalyst-x64\**\*.*
+          path: .\**\artifacts\**\*.*
