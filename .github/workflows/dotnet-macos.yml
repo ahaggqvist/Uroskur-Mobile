@@ -30,7 +30,7 @@ jobs:
       - name: Install MAUI Workload
         run: dotnet workload install maui
       - name: Build
-        run: dotnet publish src/uroskur.csproj -f:net6.0-maccatalyst -c:Release -p:BuildIpa=True /p:EnableWindowsTargeting=false
+        run: dotnet publish src/uroskur.csproj -f:net6.0-maccatalyst -c:Release -p:BuildIpa=True
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
