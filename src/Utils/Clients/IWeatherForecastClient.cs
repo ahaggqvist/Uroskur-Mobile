@@ -2,7 +2,5 @@
 
 public interface IWeatherForecastClient
 {
-    Task<OpenWeatherForecast?> FetchOpenWeatherWeatherForecastAsync(string url);
-    Task<SmhiForecast?> FetchSmhiWeatherForecastAsync(string url);
-    Task<YrForecast?> FetchYrWeatherForecastAsync(string url);
+    Task<WeatherForecastProviderData?> FetchWeatherForecastProviderDataAsync(string url);
 }

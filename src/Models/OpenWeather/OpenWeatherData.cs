@@ -8,7 +8,7 @@
 
 namespace Uroskur.Models.OpenWeather;
 
-public partial class OpenWeatherForecast
+public partial class OpenWeatherData
 {
     [JsonProperty("lat", NullValueHandling = NullValueHandling.Ignore)]
     public double Lat { get; set; }
@@ -106,19 +106,19 @@ public enum Main
     Snow
 }
 
-public partial class OpenWeatherForecast
+public partial class OpenWeatherData
 {
-    public static OpenWeatherForecast FromJson(string json)
+    public static OpenWeatherData FromJson(string json)
     {
         Debug.WriteLine($"Temperatures JSON: {json}");
 
-        return JsonConvert.DeserializeObject<OpenWeatherForecast>(json, Converter.Settings);
+        return JsonConvert.DeserializeObject<OpenWeatherData>(json, Converter.Settings);
     }
 }
 
 public static class Serialize
 {
-    public static string ToJson(this OpenWeatherForecast self)
+    public static string ToJson(this OpenWeatherData self)
     {
         return JsonConvert.SerializeObject(self, Converter.Settings);
     }

@@ -89,7 +89,7 @@ public static class Constants
         { 957, "\uf050" }
     };
 
-    internal static readonly Dictionary<string, string> YrIconsDictionary = new()
+    internal static readonly Dictionary<string, string> YrIconsDictionary = new(StringComparer.InvariantCultureIgnoreCase)
     {
         { "clearsky", "\uf00d" },
         { "clearsky_day", "\uf00d" },
@@ -207,7 +207,7 @@ public static class Constants
         { 27, "\uf00a" } // Heavy snowfall
     };
 
-    internal static readonly Dictionary<string, string> WindIconsDictionary = new()
+    internal static readonly Dictionary<string, string> WindIconsDictionary = new(StringComparer.InvariantCultureIgnoreCase)
     {
         { "N", "\uf058" },
         { "NNE", "\uf057" },

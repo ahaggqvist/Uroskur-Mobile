@@ -21,7 +21,7 @@ public class Preferences
         }
 
         var dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(seconds);
-        return $"{dt:dddd, dd MMMM yyyy HH:mm} ({StravaExpiresAt})";
+        return $"{dt:ddd, d MMM yyyy H:mm} ({StravaExpiresAt})";
     }
 
     public override string ToString()

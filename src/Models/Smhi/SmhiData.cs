@@ -8,7 +8,7 @@
 
 namespace Uroskur.Models.Smhi
 {
-    public partial class SmhiForecast
+    public partial class SmhiData
     {
         [JsonProperty("approvedTime", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? ApprovedTime { get; set; }
@@ -65,14 +65,14 @@ namespace Uroskur.Models.Smhi
 
     public enum Unit { Category, Cel, Degree, HPa, KgM2H, Km, MS, Octas, Percent };
 
-    public partial class SmhiForecast
+    public partial class SmhiData
     {
-        public static SmhiForecast FromJson(string json) => JsonConvert.DeserializeObject<SmhiForecast>(json, Uroskur.Models.Smhi.Converter.Settings);
+        public static SmhiData FromJson(string json) => JsonConvert.DeserializeObject<SmhiData>(json, Uroskur.Models.Smhi.Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this SmhiForecast self) => JsonConvert.SerializeObject(self, Uroskur.Models.Smhi.Converter.Settings);
+        public static string ToJson(this SmhiData self) => JsonConvert.SerializeObject(self, Uroskur.Models.Smhi.Converter.Settings);
     }
 
     internal static class Converter

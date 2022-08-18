@@ -2,9 +2,7 @@
 
 public abstract class Enumeration : IEqualityComparer<Enumeration>
 {
-    protected Enumeration()
-    {
-    }
+    protected Enumeration() { }
 
     protected Enumeration(int id, string name)
     {

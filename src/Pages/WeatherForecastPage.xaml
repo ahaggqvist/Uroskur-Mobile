@@ -138,7 +138,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                     <CollectionView.Footer>
-                        <Grid RowDefinitions="20,Auto,20,Auto,20,Auto,20,Auto">
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
                             <Label x:Name="ChartTemperatureHeader" Margin="0,5,0,0"
                                    FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
                                    FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />

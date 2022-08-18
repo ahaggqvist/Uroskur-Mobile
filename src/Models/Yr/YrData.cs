@@ -8,7 +8,7 @@
 
 namespace Uroskur.Models.Yr;
 
-public partial class YrForecast
+public partial class YrData
 {
     [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
     public string Type { get; set; }
@@ -240,14 +240,14 @@ public partial class Next6_HoursDetails
     public double ProbabilityOfPrecipitation { get; set; }
 }
 
-public partial class YrForecast
+public partial class YrData
 {
-    public static YrForecast FromJson(string json) => JsonConvert.DeserializeObject<YrForecast>(json, Converter.Settings);
+    public static YrData FromJson(string json) => JsonConvert.DeserializeObject<YrData>(json, Converter.Settings);
 }
 
 public static class Serialize
 {
-    public static string ToJson(this YrForecast self) => JsonConvert.SerializeObject(self, Converter.Settings);
+    public static string ToJson(this YrData self) => JsonConvert.SerializeObject(self, Converter.Settings);
 }
 
 internal static class Converter

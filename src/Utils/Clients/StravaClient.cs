@@ -51,15 +51,15 @@ public class StravaClient : IStravaClient
 
         try
         {
-#if WINDOWS
+        #if WINDOWS
             var authenticatorResult = await WinUIEx.WebAuthenticator.AuthenticateAsync(
                 new Uri(authorizationTokenMobileUrl),
                 new Uri(authorizationRedirectUrl));
-#else
+        #else
             var authenticatorResult = await WebAuthenticator.AuthenticateAsync(
                 new Uri(authorizationTokenMobileUrl),
                 new Uri(authorizationRedirectUrl));
-#endif
+        #endif
 
             if (authenticatorResult == null)
             {

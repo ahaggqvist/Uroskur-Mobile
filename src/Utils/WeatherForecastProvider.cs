@@ -7,12 +7,8 @@ public class WeatherForecastProvider : Enumeration
     public static readonly WeatherForecastProvider Smhi = new(3, "SMHI");
     public static readonly WeatherForecastProvider Combined = new(4, "OpenWeather/Yr/SMHI");
 
-    public WeatherForecastProvider()
-    {
-    }
+    public WeatherForecastProvider() { }
 
     public WeatherForecastProvider(int id, string name)
-        : base(id, name)
-    {
-    }
+        : base(id, name) { }
 }

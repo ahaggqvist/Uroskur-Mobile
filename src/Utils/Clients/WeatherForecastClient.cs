@@ -13,25 +13,29 @@ public class WeatherForecastClient : IWeatherForecastClient
         _httpClient?.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", UserAgent);
     }
 
-    public async Task<OpenWeatherForecast?> FetchOpenWeatherWeatherForecastAsync(string url)
+    public async Task<WeatherForecastProviderData?> FetchWeatherForecastProviderDataAsync(string url)
     {
-        var (openWeatherForecast, _, _) = await FetchForecastAsync(OpenWeather, url);
-        return openWeatherForecast;
+        var weatherForecastProvider = WeatherForecastProviderHelper.ResolveWeatherForecastProviderByUrl(url);
+        if (weatherForecastProvider == OpenWeather)
+        {
+            var (openWeatherData, _, _) = await FetchDataAsync(OpenWeather, url);
+            if (openWeatherData != null) return new WeatherForecastProviderData(openWeatherData);
+        }
+        else if (weatherForecastProvider == Yr)
+        {
+            var (_, yrData, _) = await FetchDataAsync(Yr, url);
+            if (yrData != null) return new WeatherForecastProviderData(yrData);
+        }
+        else if (weatherForecastProvider == Smhi)
+        {
+            var (_, _, smhiData) = await FetchDataAsync(Smhi, url);
+            if (smhiData != null) return new WeatherForecastProviderData(smhiData);
+        }
+
+        throw new ArgumentException($"Weather forecast provider is unknown for url: {url}.");
     }
 
-    public async Task<SmhiForecast?> FetchSmhiWeatherForecastAsync(string url)
-    {
-        var (_, _, smhiForecast) = await FetchForecastAsync(Smhi, url);
-        return smhiForecast;
-    }
-
-    public async Task<YrForecast?> FetchYrWeatherForecastAsync(string url)
-    {
-        var (_, yrForecast, _) = await FetchForecastAsync(Yr, url);
-        return yrForecast;
-    }
-
-    private async Task<(OpenWeatherForecast? openWeatherForecast, YrForecast? yrForecast, SmhiForecast? smhiForecast)> FetchForecastAsync(
+    private async Task<(OpenWeatherData? openWeatherData, YrData? yrData, SmhiData? smhiData)> FetchDataAsync(
         WeatherForecastProvider weatherForecastProvider, string? url)
     {
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
@@ -41,22 +45,22 @@ public class WeatherForecastClient : IWeatherForecastClient
 
         Debug.WriteLine($"API Url {url}");
 
-        OpenWeatherForecast? openWeatherForecast = null;
-        YrForecast? yrForecast = null;
-        SmhiForecast? smhiForecast = null;
+        OpenWeatherData? openWeatherForecast = null;
+        YrData? yrForecast = null;
+        SmhiData? smhiForecast = null;
         await retryPolicy.ExecuteAsync(async () =>
         {
             if (weatherForecastProvider == OpenWeather)
             {
-                openWeatherForecast = OpenWeatherForecast.FromJson(await GetResponseAsync(url));
+                openWeatherForecast = OpenWeatherData.FromJson(await GetResponseAsync(url));
             }
             else if (weatherForecastProvider == Yr)
             {
-                yrForecast = YrForecast.FromJson(await GetResponseAsync(url));
+                yrForecast = YrData.FromJson(await GetResponseAsync(url));
             }
             else if (weatherForecastProvider == Smhi)
             {
-                smhiForecast = SmhiForecast.FromJson(await GetResponseAsync(url));
+                smhiForecast = SmhiData.FromJson(await GetResponseAsync(url));
             }
         });
 

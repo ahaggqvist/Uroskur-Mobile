@@ -5,18 +5,24 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Uroskur", "src\Uroskur.csproj", "{A0AADFB5-E349-4FF6-9D17-7F8E41FD34C0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Uroskur.Tests", "tests\Uroskur.Tests.csproj", "{BA5482D5-3CBF-4BE8-A07C-0921E25AA65A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A0AADFB5-E349-4FF6-9D17-7F8E41FD34C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0AADFB5-E349-4FF6-9D17-7F8E41FD34C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0AADFB5-E349-4FF6-9D17-7F8E41FD34C0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A0AADFB5-E349-4FF6-9D17-7F8E41FD34C0}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{A0AADFB5-E349-4FF6-9D17-7F8E41FD34C0}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{A0AADFB5-E349-4FF6-9D17-7F8E41FD34C0}.Debug|Any CPU.Deploy.0 = Release|Any CPU
 		{A0AADFB5-E349-4FF6-9D17-7F8E41FD34C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0AADFB5-E349-4FF6-9D17-7F8E41FD34C0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A0AADFB5-E349-4FF6-9D17-7F8E41FD34C0}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BA5482D5-3CBF-4BE8-A07C-0921E25AA65A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA5482D5-3CBF-4BE8-A07C-0921E25AA65A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA5482D5-3CBF-4BE8-A07C-0921E25AA65A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA5482D5-3CBF-4BE8-A07C-0921E25AA65A}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

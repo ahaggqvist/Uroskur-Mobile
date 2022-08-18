@@ -50,11 +50,6 @@ public partial class WeatherForecastViewModel : BaseViewModel
             var hour = timeSpan!.Value.Hours;
             var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
             var weatherForecastProvider = Enumeration.FromId<WeatherForecastProvider>(WeatherForecastParameters?.WeatherForecastProviderId ?? 0);
-            if (_appSettings.IsDevelopment && weatherForecastProvider == OpenWeather)
-            {
-                issuedFor = new DateTime(2022, 2, 20, 18, 0, 0).ToLocalTime();
-            }
-
             var issuedForUnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(issuedFor);
             var route = _weatherForecastParameters?.Routes;
             var athlete = route?.Athlete;
