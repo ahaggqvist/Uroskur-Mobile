@@ -1,4 +1,4 @@
-name: Build .NET MAUI macOS
+name: Mac Builds
 
 on:
   push:
