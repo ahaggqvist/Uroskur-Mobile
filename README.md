@@ -20,33 +20,11 @@ The app is tested on the following platforms: Android, iOS, Windows 10/11 and ma
 
 ## Screenshots Android
 <p float="left">
-<img src="https://i.ibb.co/wrxsb1j/Routes-Android.png" width="200" />
-<img src="https://i.ibb.co/H4QP4wF/Route-Android.jpg" width="200" />
-<img src="https://i.ibb.co/Z10gXS6/Options-Android.jpg" width="200" />
-<img src="https://i.ibb.co/VMqHLQS/Forecast-Android.png" width="200" />
-<img src="https://i.ibb.co/WPYwcsj/Forecast2-Android.png" width="200" />
-<img src="https://i.ibb.co/hYWr68V/Combined-Android.jpg" width="200" />
-<img src="https://i.ibb.co/CmZHQGt/Settings-Android.jpg" width="200" />
-<img src="https://i.ibb.co/sJjzTBR/About-Android.jpg" width="200" />
-</p>
-
-## Screenshots iOS
-<p float="left">
-<img src="https://i.ibb.co/mCRd6XG/Routes-i-OS.png" width="200" />
-<img src="https://i.ibb.co/3R7rJtS/Route-i-OS.png" width="200" />
-<img src="https://i.ibb.co/Jc8D466/Forecast-i-OS.png" width="200" />
-</p>
-
-## Screenshots Windows
-<p float="left">
-<img src="https://i.ibb.co/prdJJNV/Routes-Win-UI.png" width="200" />
-<img src="https://i.ibb.co/MS9vNkq/Route-Win-UI.png" width="200" />
-<img src="https://i.ibb.co/c6KQDRR/Forecast-Win-UI.png" width="200" />
-</p>
-
-## Screenshots macOS
-<p float="left">
-<img src="https://i.ibb.co/W0WRVkZ/mac-OS-Routes.png" width="200" />
-<img src="https://i.ibb.co/r6rCp0b/mac-OS-Route.png" width="200" />
-<img src="https://i.ibb.co/rZmg2Fz/mac-OS-Forecast.png" width="200"  />
+<img src="https://i.ibb.co/Sr5sKJy/Routes.jpg" width="200" />
+<img src="https://i.ibb.co/P1fN6Tv/Route.jpg" width="200" />
+<img src="https://i.ibb.co/kMS8nd8/Forecast1.jpg" width="200" />
+<img src="https://i.ibb.co/Y2Sr9hs/Forecast2.jpg" width="200" />
+<img src="https://i.ibb.co/MZVFtQT/Forecast-combined.jpg" width="200" />
+<img src="https://i.ibb.co/vJYdnDb/Settings.jpg" width="200" />
+<img src="https://i.ibb.co/Z1hr4kM/About.jpg" width="200" />
 </p>
