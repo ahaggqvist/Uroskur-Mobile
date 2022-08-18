@@ -1,14 +1,6 @@
 name: Build .NET MAUI Windows
 
 on:
-  push:
-    branches: [ "main" ]
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 permissions:
   contents: read
