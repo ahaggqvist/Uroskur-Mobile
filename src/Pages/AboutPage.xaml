@@ -14,8 +14,6 @@
     <Grid Margin="5,0,5,0" RowDefinitions="*">
         <ScrollView VerticalOptions="Start">
             <VerticalStackLayout>
-                <Label Text="Thanks to the creators of the following libraries" FontFamily="RobotoBold"
-                       Margin="0,5,0,0" />
                 <Label Text="Monkey Cache" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Label Text="https://github.com/jamesmontemagno/monkey-cache" />
@@ -40,8 +38,6 @@
                 <Label Text="Microcharts" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Label Text="https://github.com/microcharts-dotnet/Microcharts" />
-                <Label Text="Weather data" FontFamily="RobotoBold"
-                       Margin="0,5,0,0" />
                 <Label Text="Weather data provided by OpenWeather" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Label Text="https://openweathermap.org" />

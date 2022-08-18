@@ -33,7 +33,7 @@
         <Setter Property="TextColor"
                 Value="White" />
         <Setter Property="BackgroundColor"
-                Value="#3F729B" />
+                Value="#512bd4" />
         <Setter Property="FontFamily" Value="RobotoMedium" />
         <Setter Property="FontSize" Value="13" />
         <Setter Property="CornerRadius" Value="2" />
@@ -50,7 +50,7 @@
                             <Setter Property="TextColor"
                                     Value="White" />
                             <Setter Property="BackgroundColor"
-                                    Value="#3F729B" />
+                                    Value="#512bd4" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -396,7 +396,7 @@
 
     <Style x:Key="BaseStyle" TargetType="Element">
         <Setter Property="Shell.BackgroundColor"
-                Value="#3F729B" />
+                Value="#512bd4" />
         <Setter Property="Shell.ForegroundColor" Value="{OnPlatform Default=White, WinUI=Black}" />
             <Setter Property="Shell.TitleColor"
                     Value="White" />
@@ -406,7 +406,7 @@
                 Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
         <Setter Property="Shell.NavBarHasShadow" Value="False" />
         <Setter Property="Shell.TabBarBackgroundColor"
-                Value="#3F729B" />
+                Value="#512bd4" />
         <Setter Property="Shell.TabBarForegroundColor"
                 Value="White" />
         <Setter Property="Shell.TabBarTitleColor"
@@ -419,7 +419,7 @@
 
     <Style TargetType="NavigationPage">
         <Setter Property="BarBackgroundColor"
-                Value="#3F729B" />
+                Value="#512bd4" />
         <Setter Property="BarTextColor"
                 Value="White" />
         <Setter Property="IconColor"
