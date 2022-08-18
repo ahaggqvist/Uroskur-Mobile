@@ -1,14 +1,14 @@
 name: Build .NET MAUI Android
 
 on:
-  push:
-    branches: [ "main" ]
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
-  pull_request:
-    branches: [ "main" ]
+  #push:
+  #  branches: [ "main" ]
+  #  paths-ignore:
+  #    - '**/*.md'
+  #    - '**/*.gitignore'
+  #    - '**/*.gitattributes'
+  #pull_request:
+  #  branches: [ "main" ]
   workflow_dispatch:
 permissions:
   contents: read
