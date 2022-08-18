@@ -167,7 +167,7 @@ public static class ChartHelper
             var chartEntry = new ChartEntry((float?)temp)
             {
                 ValueLabel = temp.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.DateTime.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -187,7 +187,7 @@ public static class ChartHelper
             var chartEntry = new ChartEntry((float?)chanceOfRain)
             {
                 ValueLabel = chanceOfRain.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.DateTime.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -207,7 +207,7 @@ public static class ChartHelper
             var chartEntry = new ChartEntry((float?)cloudiness)
             {
                 ValueLabel = cloudiness.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.DateTime.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -227,7 +227,7 @@ public static class ChartHelper
             var chartEntry = new ChartEntry((float?)uvi)
             {
                 ValueLabel = uvi.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.DateTime.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -247,7 +247,7 @@ public static class ChartHelper
             var chartEntry = new ChartEntry((float?)windSpeed)
             {
                 ValueLabel = windSpeed.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.DateTime.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -267,7 +267,7 @@ public static class ChartHelper
             var chartEntry = new ChartEntry((float?)windGust)
             {
                 ValueLabel = windGust.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.DateTime.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);
@@ -287,7 +287,7 @@ public static class ChartHelper
             var chartEntry = new ChartEntry((float?)precipitationAmount)
             {
                 ValueLabel = precipitationAmount.ToString(CultureInfo.InvariantCulture),
-                Label = withLabel ? locationWeatherForecast.Dt.ToString("HH:mm") : null
+                Label = withLabel ? locationWeatherForecast.DateTime.ToString("HH:mm") : null
             };
 
             chartEntries.Add(chartEntry);

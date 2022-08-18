@@ -92,7 +92,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
                 {
                     Km = km,
                     HourlyWeatherForecast = hourlyWeatherForecast!,
-                    Dt = locationDt,
+                    DateTime = locationDt,
                     WeatherIcon = hourlyWeatherForecast!.Icon,
                     WindIcon = WindIconsDictionary[windIconId],
                     WindIconId = windIconId

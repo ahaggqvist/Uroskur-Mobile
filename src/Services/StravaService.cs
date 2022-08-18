@@ -2,7 +2,7 @@
 
 public class StravaService : IStravaService
 {
-    private const int MaxDistances = 100;
+    private const int MaxLocations = 100;
 #if DEBUG
     private const int ExpireInHours = 24;
 #else
@@ -109,15 +109,15 @@ public class StravaService : IStravaService
                 return Array.Empty<Location>();
             }
 
-            var parsedLocations = GpxParser.GpxToLocations(gpx);
-            var distances = DistanceHelper.GetEvenDistances(parsedLocations);
-            var locations = distances.ToImmutableArray();
-            if (locations.Length <= MaxDistances)
+            var gxpLocations = GpxParser.GpxToLocations(gpx);
+            var locations = LocationHelper.FilterOutLocationsAtEvenDistances(gxpLocations);
+            var locationsArray = locations.ToImmutableArray();
+            if (locationsArray.Length <= MaxLocations)
             {
-                return locations;
+                return locationsArray;
             }
 
-            Debug.WriteLine($"Number of even distances: {locations.Length} exceed maximum allowed: {MaxDistances}.");
+            Debug.WriteLine($"Number of locations: {locationsArray.Length} exceed the maximum allowed number of locations: {MaxLocations}.");
         }
         catch (Exception ex)
         {

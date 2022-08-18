@@ -20,8 +20,8 @@ public class Preferences
             return string.Empty;
         }
 
-        var dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(seconds);
-        return $"{dt:ddd, d MMM yyyy H:mm} ({StravaExpiresAt})";
+        var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(seconds).ToLocalTime();
+        return $"{dateTime:ddd, d MMM yyyy H:mm} ({StravaExpiresAt})";
     }
 
     public override string ToString()
