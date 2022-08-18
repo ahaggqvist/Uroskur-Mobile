@@ -36,9 +36,9 @@ jobs:
       - name: Add Cert to Store
         run: certutil -user -q -p ${{ secrets.PASSWORD_PFX }} -importpfx cert.pfx NoRoot
       - name: Build
-        run: dotnet publish src/uroskur.csproj -c:Release -f:net6.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="${{ secrets.THUMBPRINT_PFX }}"
+        run: dotnet publish src/uroskur.csproj -c:Release -f:net6.0-windows10.0.19041.0 -o ./artifacts /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="${{ secrets.THUMBPRINT_PFX }}"
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
           name: uroskur-windows-build
-          path: ./**/AppPackages/**/*.*
+          path: ./**/artifacts/**/*.*
