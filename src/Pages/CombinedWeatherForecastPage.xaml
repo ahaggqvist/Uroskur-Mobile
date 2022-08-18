@@ -14,7 +14,7 @@
                FontFamily="{x:Static utils:Constants.ShellTitleViewHeadingFontFamily}" />
     </Shell.TitleView>
 
-    <Grid Margin="5,0,5,0" RowDefinitions="*">
+    <Grid Margin="8,0,5,0" RowDefinitions="*">
         <ScrollView>
             <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
                 <VerticalStackLayout Margin="0,5,0,0" HorizontalOptions="Center">
@@ -35,7 +35,7 @@
                     <HorizontalStackLayout Margin="0,5,0,0" HorizontalOptions="Center">
                         <Label x:Name="WeatherTableHeader"
                                FontSize="14"
-                               FontFamily="RobotoBold" />
+                               FontFamily="RobotoMedium" />
                     </HorizontalStackLayout>
 
                     <Grid Grid.Row="1" RowSpacing="0" ColumnSpacing="0">
@@ -153,7 +153,7 @@
                     <HorizontalStackLayout Margin="0,5,0,0" HorizontalOptions="Center">
                         <Label x:Name="YrWeatherTableHeader"
                                FontSize="14"
-                               FontFamily="RobotoBold" />
+                               FontFamily="RobotoMedium" />
                     </HorizontalStackLayout>
                     <Grid Grid.Row="1" RowSpacing="0" ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
@@ -270,7 +270,7 @@
                     <HorizontalStackLayout Margin="0,5,0,0" HorizontalOptions="Center">
                         <Label x:Name="SmhiWeatherTableHeader"
                                FontSize="14"
-                               FontFamily="RobotoBold" />
+                               FontFamily="RobotoMedium" />
                     </HorizontalStackLayout>
 
                     <Grid Grid.Row="1" RowSpacing="0" ColumnSpacing="0">

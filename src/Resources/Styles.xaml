@@ -38,7 +38,7 @@
         <Setter Property="FontSize" Value="13" />
         <Setter Property="CornerRadius" Value="2" />
         <Setter Property="Padding" Value="14,10" />
-        <Setter Property="HeightRequest" Value="38" />
+        <Setter Property="HeightRequest" Value="40" />
         <Setter Property="Margin" Value="0,0,0,10" />
         <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="VisualStateManager.VisualStateGroups">

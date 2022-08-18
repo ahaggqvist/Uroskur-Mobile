@@ -18,7 +18,7 @@
         <converter:MeterToKilometerConverter x:Key="MeterToKilometer" />
     </ContentPage.Resources>
 
-    <Grid Margin="5,0,5,0" RowDefinitions="*">
+    <Grid Margin="8,0,5,0" RowDefinitions="*">
         <!--<RefreshView
                 Command="{Binding RoutesCommand}"
                 IsRefreshing="{Binding IsRefreshing}">-->

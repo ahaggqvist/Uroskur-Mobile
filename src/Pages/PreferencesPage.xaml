@@ -11,16 +11,16 @@
                FontSize="20" FontFamily="RobotoMedium" />
     </Shell.TitleView>
 
-    <Grid Margin="5,0,5,0" RowDefinitions="*">
+    <Grid Margin="8,0,5,0" RowDefinitions="*">
         <ScrollView VerticalOptions="Start">
             <VerticalStackLayout>
-                <Label Text="Strava Athlete ID" FontFamily="RobotoLight"
+                <Label Text="Athlete ID" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Label Text="{Binding StravaAthleteId}" FontSize="13" />
-                <Label Text="Strava Username" FontFamily="RobotoLight"
+                <Label Text="Username" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Label Text="{Binding StravaUsername}" FontSize="13" />
-                <Label Text="Strava Name" FontFamily="RobotoLight"
+                <Label Text="Name" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Label FontSize="13">
                     <Label.Text>
@@ -30,7 +30,7 @@
                         </MultiBinding>
                     </Label.Text>
                 </Label>
-                <Label Text="Token Expires at" FontFamily="RobotoLight"
+                <Label Text="Token expires at" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Label Text="{Binding StravaExpiresAtFormatted}" FontSize="13" />
                 <ImageButton Source="btn_strava_connectwith_orange.png" Command="{Binding ConnectWithStravaCommand}"

@@ -12,7 +12,7 @@ public static class Constants
     public const string ShellTitleViewHeadingFontFamily = "RobotoMedium";
     public const string WeatherForecastTableHeadingFontFamily = "RobotoLight";
     public const string WeatherForecastIssuedAtFontFamily = "RobotoLight";
-    public const string WeatherForecastIssuedForFontFamily = "RobotoBold";
+    public const string WeatherForecastIssuedForFontFamily = "RobotoMedium";
 
     public const string OpenWeatherAppIdKey = "openweatherAppId";
     public const string StravaAccessTokenKey = "stravaAccessToken";

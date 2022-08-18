@@ -15,7 +15,7 @@
                FontFamily="{x:Static utils:Constants.ShellTitleViewHeadingFontFamily}" />
     </Shell.TitleView>
 
-    <Grid Margin="5,0,5,0" RowDefinitions="*">
+    <Grid Margin="8,0,5,0" RowDefinitions="*">
         <ScrollView>
             <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
                 <VerticalStackLayout Margin="0,5,0,0" HorizontalOptions="Center">

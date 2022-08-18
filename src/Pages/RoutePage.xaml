@@ -17,7 +17,7 @@
         <converter:MeterToKilometerConverter x:Key="MeterToKilometer" />
     </ContentPage.Resources>
 
-    <Grid Margin="5,0,5,0" RowDefinitions="*">
+    <Grid Margin="8,0,5,0" RowDefinitions="*">
         <ScrollView VerticalOptions="Start">
             <VerticalStackLayout>
                 <Label Text="{Binding Routes.Name}" FontSize="16"
@@ -102,7 +102,7 @@
 
                     <Label Grid.Row="6" Grid.Column="2" Text="Weather forecast provider" FontFamily="RobotoLight"
                            Margin="0,10,0,5" />
-                    <Image Grid.Row="7" Source="sun.png" WidthRequest="13"
+                    <Image Grid.Row="7" Source="cloud_rain.png" WidthRequest="13"
                            HeightRequest="13" />
 
                     <Picker Grid.Row="7" Grid.Column="1" x:Name="WeatherForecastProviderPicker"
