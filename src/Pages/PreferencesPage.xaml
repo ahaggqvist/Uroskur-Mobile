@@ -11,7 +11,7 @@
                FontSize="20" FontFamily="RobotoMedium" />
     </Shell.TitleView>
 
-    <Grid Margin="8,0,5,0" RowDefinitions="*">
+    <Grid Margin="5,0,5,0" RowDefinitions="*">
         <ScrollView VerticalOptions="Start">
             <VerticalStackLayout>
                 <Label Text="Athlete ID" FontFamily="RobotoLight"
@@ -33,8 +33,15 @@
                 <Label Text="Token expires at" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Label Text="{Binding StravaExpiresAtFormatted}" FontSize="13" />
-                <ImageButton Source="btn_strava_connectwith_orange.png" Command="{Binding ConnectWithStravaCommand}"
-                             Margin="0,10,0,10" WidthRequest="180" />
+                <ImageButton Source="connectwith_cropped.png" Command="{Binding ConnectWithStravaCommand}"
+                             Margin="0,10,0,10" WidthRequest="180">
+                    <ImageButton.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="2,2"
+                                Radius="0"
+                                Opacity="0.1" />
+                    </ImageButton.Shadow>
+                </ImageButton>
                 <Label Text="Strava Client ID" FontFamily="RobotoLight"
                        Margin="0,5,0,0" />
                 <Entry Text="{Binding StravaClientId}" FontSize="13" />
@@ -46,8 +53,15 @@
                 <Entry Text="{Binding OpenWeatherAppId}" FontSize="13" />
 
                 <Button Text="Save Settings"
-                        Command="{Binding SavePreferencesCommand}" CornerRadius="2"
-                        Margin="0,10,0,0" />
+                        Command="{Binding SavePreferencesCommand}"
+                        Margin="0,10,0,0">
+                    <Button.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="2,2"
+                                Radius="0"
+                                Opacity="0.1" />
+                    </Button.Shadow>
+                </Button>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

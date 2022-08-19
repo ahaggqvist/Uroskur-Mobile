@@ -27,15 +27,15 @@ public partial class WeatherForecastPage
         EmptyWeatherForecastMessage.Text = "Sorry, We Couldn't Generate a Forecast";
 
         ChartTemperatureHeader.Text = "Temperature";
-        ChartChanceOfRainHeader.Text = "Chance of Rain and amount of Rain";
+        ChartChanceOfRainHeader.Text = "Chance of Rain and Rain";
         ChartUvHeader.Text = "UV index and Cloudiness";
         ChartWindHeader.Text = "Wind Speed and Wind Gust";
 
-        WeatherTableTempHeader.Text = "Temp °C";
-        WeatherTablePrecipitationAmountHeader.Text = "Rain mm";
+        WeatherTableTempHeader.Text = "Temp (°C)";
+        WeatherTablePrecipitationAmountHeader.Text = "Rain (mm)";
         WeatherTableTimeHeader.Text = "";
         WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
-        WeatherTableWindHeader.Text = "Wind m/s";
+        WeatherTableWindHeader.Text = "Wind (m/s)";
 
         HideIndicator();
     }

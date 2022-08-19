@@ -11,7 +11,7 @@
                FontSize="20" FontFamily="RobotoMedium" />
     </Shell.TitleView>
 
-    <Grid Margin="8,0,5,0" RowDefinitions="*">
+    <Grid Margin="5,0,5,0" RowDefinitions="*">
         <ScrollView VerticalOptions="Start">
             <VerticalStackLayout>
                 <Label Text="Monkey Cache" FontFamily="RobotoLight"

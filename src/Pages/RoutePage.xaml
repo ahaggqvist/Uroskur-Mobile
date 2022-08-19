@@ -17,7 +17,7 @@
         <converter:MeterToKilometerConverter x:Key="MeterToKilometer" />
     </ContentPage.Resources>
 
-    <Grid Margin="8,0,5,0" RowDefinitions="*">
+    <Grid Margin="5,0,5,0" RowDefinitions="*">
         <ScrollView VerticalOptions="Start">
             <VerticalStackLayout>
                 <Label Text="{Binding Routes.Name}" FontSize="16"
@@ -27,7 +27,7 @@
                            HeightRequest="12" />
                     <Label Grid.Column="1" Padding="5,0,0,0"
                            FontFamily="RobotoLight" FontSize="10"
-                           Text="{Binding Routes.CreatedAt, StringFormat='{0:ddd, d MMM yyyy}', Converter={StaticResource StringToDateTime}}" />
+                           Text="{Binding Routes.CreatedAt, StringFormat='{0:ddd, d MMM yyyy H:mm}', Converter={StaticResource StringToDateTime}}" />
                 </Grid>
                 <Grid RowDefinitions="25,25" ColumnDefinitions="Auto,Auto,Auto,Auto,*">
                     <Label Padding="0,10,0,0"
@@ -50,16 +50,25 @@
                            Text="{Binding Routes.EstimatedMovingTimeFormatted}" />
                 </Grid>
                 <HorizontalStackLayout Padding="0,0,0,10">
-                    <Image Aspect="AspectFill" WidthRequest="385" HeightRequest="148">
-                        <Image.Source>
-                            <UriImageSource Uri="{Binding Routes.MapUrls.RetinaUrl}"
-                                            CacheValidity="10:00:00.0" />
-                        </Image.Source>
-                    </Image>
+                    <Frame BorderColor="{StaticResource LightGray}" Padding="0"
+                           CornerRadius="5">
+                        <Image Aspect="AspectFill" WidthRequest="380" HeightRequest="146">
+                            <Image.Source>
+                                <UriImageSource Uri="{Binding Routes.MapUrls.RetinaUrl}"
+                                                CacheValidity="7:00:00.0" />
+                            </Image.Source>
+                            <Image.Shadow>
+                                <Shadow Brush="Black"
+                                        Offset="1,1"
+                                        Radius="0"
+                                        Opacity="0.1" />
+                            </Image.Shadow>
+                        </Image>
+                    </Frame>
                 </HorizontalStackLayout>
                 <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*"
                       ColumnSpacing="5" RowSpacing="0" Margin="0,0,0,10">
-                    <Label Grid.Row="0" Grid.Column="2" Text="Day" FontFamily="RobotoLight"
+                    <Label Grid.Row="0" Grid.Column="2" Text="Start Day" FontFamily="RobotoLight"
                            Margin="0,5,0,5" />
 
                     <Image Grid.Row="1" Source="calendar.png" WidthRequest="13"
@@ -68,7 +77,7 @@
                             SelectedItem="{Binding SelectedDay}"
                             FontSize="13" />
 
-                    <Label Grid.Row="2" Grid.Column="2" Text="Time" FontFamily="RobotoLight"
+                    <Label Grid.Row="2" Grid.Column="2" Text="Start Time" FontFamily="RobotoLight"
                            Margin="0,10,0,5" />
 
                     <Image Grid.Row="3" Source="clock.png" WidthRequest="13"
@@ -76,7 +85,7 @@
                     <TimePicker Grid.Row="3" Grid.Column="3" Format="HH:mm"
                                 Time="{Binding Time}" FontSize="13" />
 
-                    <Label Grid.Row="4" Grid.Column="2" Text="Speed" FontFamily="RobotoLight"
+                    <Label Grid.Row="4" Grid.Column="2" Text="Average Speed" FontFamily="RobotoLight"
                            Margin="0,10,0,5" />
 
                     <Image Grid.Row="5" Source="gauge.png" WidthRequest="13"
@@ -84,7 +93,7 @@
                     <Picker Grid.Row="5" Grid.Column="1"
                             ItemsSource="{Binding Speeds}" SelectedItem="{Binding SelectedSpeed}" FontSize="13" />
 
-                    <Label Grid.Row="6" Grid.Column="2" Text="Weather forecast provider" FontFamily="RobotoLight"
+                    <Label Grid.Row="6" Grid.Column="2" Text="Source for Weather Forecast" FontFamily="RobotoLight"
                            Margin="0,10,0,5" />
                     <Image Grid.Row="7" Source="cloud_rain.png" WidthRequest="13"
                            HeightRequest="13" />
@@ -92,7 +101,15 @@
                     <Picker Grid.Row="7" Grid.Column="1" ItemsSource="{Binding WeatherForecastProviders}"
                             SelectedItem="{Binding WeatherForecastProviderName}" FontSize="13" />
                 </Grid>
-                <Button Text="Forecast Route" Command="{Binding NavigateToCommand}" />
+                <Button Text="Forecast Route" Command="{Binding NavigateToCommand}">
+                    <Button.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="2,2"
+                                Radius="0"
+                                Opacity="0.1" />
+                    </Button.Shadow>
+                </Button>
+
             </VerticalStackLayout>
         </ScrollView>
         <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />

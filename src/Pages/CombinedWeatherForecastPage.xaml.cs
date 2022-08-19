@@ -25,24 +25,24 @@ public partial class CombinedWeatherForecastPage
         await _combinedWeatherForecastViewModel.WeatherForecastAsync();
 
         EmptyWeatherForecastMessage.Text = "Sorry, We Couldn't Generate a Forecast";
-        WeatherTableTempHeader.Text = "Temp °C";
-        WeatherTablePrecipitationAmountHeader.Text = "Rain mm";
+        WeatherTableTempHeader.Text = "Temp (°C)";
+        WeatherTablePrecipitationAmountHeader.Text = "Rain (mm)";
         WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
-        WeatherTableWindHeader.Text = "Wind m/s";
+        WeatherTableWindHeader.Text = "Wind (m/s)";
         WeatherTableHeader.Text = "OpenWeather";
 
         YrEmptyWeatherForecastMessage.Text = "Sorry, We Couldn't Generate a Forecast";
         YrWeatherTableTempHeader.Text = "Temp °C";
-        YrWeatherTablePrecipitationAmountHeader.Text = "Rain mm";
+        YrWeatherTablePrecipitationAmountHeader.Text = "Rain (mm)";
         YrWeatherTableChanceOfRainHeader.Text = "Chance of Rain";
-        YrWeatherTableWindHeader.Text = "Wind m/s";
+        YrWeatherTableWindHeader.Text = "Wind (m/s)";
         YrWeatherTableHeader.Text = "Yr";
 
         SmhiEmptyWeatherForecastMessage.Text = "Sorry, We Couldn't Generate a Forecast";
-        SmhiWeatherTableTempHeader.Text = "Temp °C";
-        SmhiWeatherTablePrecipitationAmountHeader.Text = "Rain mm";
+        SmhiWeatherTableTempHeader.Text = "Temp (°C)";
+        SmhiWeatherTablePrecipitationAmountHeader.Text = "Rain (mm)";
         SmhiWeatherTableChanceOfRainHeader.Text = "Chance of Rain";
-        SmhiWeatherTableWindHeader.Text = "Wind m/s";
+        SmhiWeatherTableWindHeader.Text = "Wind (m/s)";
         SmhiWeatherTableHeader.Text = "SMHI";
 
 

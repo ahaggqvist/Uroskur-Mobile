@@ -36,7 +36,7 @@
                 Value="#512bd4" />
         <Setter Property="FontFamily" Value="RobotoMedium" />
         <Setter Property="FontSize" Value="13" />
-        <Setter Property="CornerRadius" Value="2" />
+        <Setter Property="CornerRadius" Value="5" />
         <Setter Property="Padding" Value="14,10" />
         <Setter Property="HeightRequest" Value="40" />
         <Setter Property="Margin" Value="0,0,0,10" />
