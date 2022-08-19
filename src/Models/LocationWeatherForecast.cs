@@ -14,11 +14,9 @@ public class LocationWeatherForecast
 
     public string WindIconId { get; set; } = string.Empty;
 
-    public string TimeKmFormatted => $"{DateTime:HH:mm}";
-
     public override string ToString()
     {
         return
-            $"{nameof(Km)}: {Km}, {nameof(DateTime)}: {DateTime}, {nameof(HourlyWeatherForecast)}: {HourlyWeatherForecast}, {nameof(WeatherIcon)}: {WeatherIcon}, {nameof(WindIcon)}: {WindIcon}, {nameof(WindIconId)}: {WindIconId}, {nameof(TimeKmFormatted)}: {TimeKmFormatted}";
+            $"{nameof(Km)}: {Km}, {nameof(DateTime)}: {DateTime}, {nameof(HourlyWeatherForecast)}: {HourlyWeatherForecast}, {nameof(WeatherIcon)}: {WeatherIcon}, {nameof(WindIcon)}: {WindIcon}, {nameof(WindIconId)}: {WindIconId}";
     }
 }

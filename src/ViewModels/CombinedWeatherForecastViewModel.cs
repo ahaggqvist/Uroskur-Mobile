@@ -39,7 +39,7 @@ public partial class CombinedWeatherForecastViewModel : BaseViewModel
         try
         {
             var today = DateTime.Today;
-            if (_weatherForecastParameters is { Day: "Tomorrow" })
+            if (_weatherForecastParameters?.DayId == Day.Tomorrow.Id)
             {
                 today = today.AddDays(1);
             }
@@ -93,7 +93,7 @@ public partial class CombinedWeatherForecastViewModel : BaseViewModel
         foreach (var (weatherForecast, index) in weatherForecastsArray.WithIndex())
         {
             var km = index * 10 + 10;
-            var speed = _weatherForecastParameters!.Speed!.Value;
+            var speed = int.Parse(Enumeration.FromId<Speed>(_weatherForecastParameters!.SpeedId).Name);
             var time = km / speed;
             var seconds = 3600 * time + issuedForUnixTimestamp;
             var hourlyWeatherForecast = weatherForecast.HourlyWeatherForecasts.ToImmutableList()

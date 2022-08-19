@@ -24,34 +24,47 @@ public static class LocationHelper
                    Havf(lon2 - lon1)));
     }
 
+    public static double CalculateTotalDistance(IEnumerable<Location> locations)
+    {
+        var total = 0d;
+        foreach (var (_, currentLocation, nextLocation) in locations.GetItems())
+        {
+            total += CalculateDistanceBetweenLocations(currentLocation.Lat, currentLocation.Lon,
+                nextLocation.Lat,
+                nextLocation.Lon);
+        }
+
+        return total;
+    }
+
     public static IEnumerable<Location> FilterOutLocationsAtEvenDistances(IEnumerable<Location> locations)
     {
-        var distances = new List<Location>();
+        var locationsAtEvenDistances = new List<Location>();
         var current = 0;
-        var total = 0D;
+        var total = 0d;
         var locationsArray = locations as Location[] ?? locations.ToArray();
-        foreach (var (_, _, currentLocation, nextLocation) in locationsArray.GetItems())
+
+        foreach (var (_, currentLocation, nextLocation) in locationsArray.GetItems())
         {
             total += CalculateDistanceBetweenLocations(currentLocation.Lat, currentLocation.Lon,
                 nextLocation.Lat,
                 nextLocation.Lon);
 
-            var d = Math.Round(total, 1);
-            if (d % EvenDistance != 0 || Math.Abs(d - current) == 0)
+            var totalRounded = Math.Round(total, 1);
+            if (totalRounded % EvenDistance != 0 || Math.Abs(totalRounded - current) == 0)
             {
                 continue;
             }
 
-            distances.Add(currentLocation);
-            current = (int)d;
+            locationsAtEvenDistances.Add(currentLocation);
+            current = (int)totalRounded;
         }
 
-        // Add one location if route length is less than minimum even distance
-        if (distances.Count == 0 && locationsArray.Any())
+        if (locationsAtEvenDistances.Count == 0 && locationsArray.Any())
         {
-            distances.Add(locationsArray[0]);
+            locationsAtEvenDistances.Add(locationsArray[0]);
         }
 
-        return distances;
+        return locationsAtEvenDistances;
     }
 }

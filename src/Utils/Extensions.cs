@@ -2,7 +2,7 @@
 
 public static class Extensions
 {
-    public static IEnumerable<Tuple<int, T, T, T>> GetItems<T>(this IEnumerable<T>? source)
+    public static IEnumerable<Tuple<T, T, T>> GetItems<T>(this IEnumerable<T>? source)
     {
         if (source == null)
         {
@@ -12,12 +12,12 @@ public static class Extensions
         var skip = true;
         T? previous = default, current = default;
         T? next;
-        foreach (var (item, index) in source.WithIndex())
+        foreach (var item in source)
         {
             next = item;
             if (!skip && previous != null && current != null)
             {
-                yield return new Tuple<int, T, T, T>(index, previous, current, next);
+                yield return new Tuple<T, T, T>(previous, current, next);
             }
 
             if (current != null)
@@ -47,7 +47,7 @@ public static class Extensions
 
         if (next != null)
         {
-            yield return new Tuple<int, T, T, T>(0, previous, current, next);
+            yield return new Tuple<T, T, T>(previous, current, next);
         }
     }
 

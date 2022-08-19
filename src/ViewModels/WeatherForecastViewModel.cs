@@ -3,7 +3,6 @@
 [QueryProperty(nameof(WeatherForecastParameters), nameof(WeatherForecastParameters))]
 public partial class WeatherForecastViewModel : BaseViewModel
 {
-    private readonly AppSettings _appSettings;
     private readonly IWeatherForecastService _weatherForecastService;
     [ObservableProperty] private LineChart? _chanceOfRainLineChart;
     [ObservableProperty] private string? _emptyViewMessage;
@@ -14,10 +13,9 @@ public partial class WeatherForecastViewModel : BaseViewModel
     [ObservableProperty] private WeatherForecastParameters? _weatherForecastParameters;
     [ObservableProperty] private LineChart? _windLineChart;
 
-    public WeatherForecastViewModel(IWeatherForecastService weatherForecastService, AppSettings appSettings)
+    public WeatherForecastViewModel(IWeatherForecastService weatherForecastService)
     {
         _weatherForecastService = weatherForecastService;
-        _appSettings = appSettings;
     }
 
     public ObservableCollection<LocationWeatherForecast> LocationWeatherForecasts { get; } = new();
@@ -41,7 +39,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
         try
         {
             var today = DateTime.Today;
-            if (_weatherForecastParameters is { Day: "Tomorrow" })
+            if (_weatherForecastParameters?.DayId == Day.Tomorrow.Id)
             {
                 today = today.AddDays(1);
             }
@@ -71,7 +69,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
             foreach (var (weatherForecast, index) in weatherForecastsArray.WithIndex())
             {
                 var km = index * 10 + 10;
-                var speed = _weatherForecastParameters!.Speed!.Value;
+                var speed = int.Parse(Enumeration.FromId<Speed>(_weatherForecastParameters!.SpeedId).Name);
                 var time = km / speed;
                 var seconds = 3600 * time + issuedForUnixTimestamp;
                 var hourlyWeatherForecast = weatherForecast.HourlyWeatherForecasts.ToImmutableList()
@@ -79,7 +77,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
 
                 if (hourlyWeatherForecast == null)
                 {
-                    Debug.WriteLine("Hourly weather forecast is null");
+                    Debug.WriteLine("Hourly weather forecast is null.");
                     continue;
                 }
 

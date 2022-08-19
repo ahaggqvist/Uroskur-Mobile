@@ -4,17 +4,17 @@ public class WeatherForecastParameters
 {
     public Routes? Routes { get; set; }
 
-    public string? Day { get; set; }
+    public int DayId { get; set; } = 0;
 
     public TimeSpan? Time { get; set; }
 
-    public int? Speed { get; set; }
+    public int SpeedId { get; set; } = 0;
 
-    public int? WeatherForecastProviderId { get; set; }
+    public int WeatherForecastProviderId { get; set; } = 0;
 
     public override string ToString()
     {
         return
-            $"{nameof(Routes)}: {Routes}, {nameof(Day)}: {Day}, {nameof(Time)}: {Time}, {nameof(Speed)}: {Speed}, {nameof(WeatherForecastProviderId)}: {WeatherForecastProviderId}";
+            $"{nameof(Routes)}: {Routes}, {nameof(DayId)}: {DayId}, {nameof(Time)}: {Time}, {nameof(SpeedId)}: {SpeedId}, {nameof(WeatherForecastProviderId)}: {WeatherForecastProviderId}";
     }
 }

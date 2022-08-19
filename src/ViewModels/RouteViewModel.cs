@@ -4,20 +4,33 @@
 public partial class RouteViewModel : BaseViewModel
 {
     private readonly IRoutingService _routingService;
-    [ObservableProperty] private string _day;
     [ObservableProperty] private Routes? _routes;
-    [ObservableProperty] private string _speed;
+    [ObservableProperty] private string _selectedDay;
+    [ObservableProperty] private string _selectedSpeed;
     [ObservableProperty] private TimeSpan _time;
     [ObservableProperty] private string _weatherForecastProviderName;
 
     public RouteViewModel(IRoutingService routingService)
     {
-        _routingService = routingService;
+        Speeds = Enumeration.GetAll<Speed>().Select(s => s.Name).ToList();
+        Days = Enumeration.GetAll<Day>().Select(s => s.Name).ToList();
+        WeatherForecastProviders = Enumeration.GetAll<WeatherForecastProvider>().Select(s => s.Name).ToList();
 
-        _time = DateTime.Now.TimeOfDay;
-        _day = "Today";
-        _speed = "30";
+        _routingService = routingService;
+        _time = new TimeSpan(DateTime.Now.TimeOfDay.Hours, 0, 0);
+        _selectedDay = Day.Today.Name;
+        _selectedSpeed = Speed.Thirty.Name;
         _weatherForecastProviderName = Yr.Name;
+    }
+
+    public List<string> Speeds { get; }
+    public List<string> Days { get; }
+
+    public List<string> WeatherForecastProviders { get; }
+
+    partial void OnTimeChanged(TimeSpan value)
+    {
+        Debug.WriteLine($"Time: {value}.");
     }
 
     [RelayCommand]
@@ -34,9 +47,9 @@ public partial class RouteViewModel : BaseViewModel
             {
                 nameof(WeatherForecastParameters), new WeatherForecastParameters
                 {
-                    Day = _day,
-                    Time = _time,
-                    Speed = int.Parse(_speed),
+                    DayId = Enumeration.FromName<Day>(SelectedDay).Id,
+                    Time = new TimeSpan(Time.Hours, 0, 0),
+                    SpeedId = Enumeration.FromName<Speed>(SelectedSpeed).Id,
                     Routes = Routes,
                     WeatherForecastProviderId = Enumeration.FromName<WeatherForecastProvider>(_weatherForecastProviderName).Id
                 }

@@ -117,7 +117,7 @@ public class WeatherForecastService : IWeatherForecastService
 
     private static string FetchCachedWeatherForecast(string key)
     {
-        Debug.WriteLine($"Fetch weather cached forecast with key: {key}.");
+        Debug.WriteLine($"Fetch cached weather forecast with key: {key}.");
         return Barrel.Current.Get<string>(key);
     }
 

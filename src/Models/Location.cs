@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.Models;
 
-public readonly struct Location
+public class Location
 {
     public Location(double lat, double lon)
     {

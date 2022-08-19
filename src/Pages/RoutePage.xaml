@@ -64,22 +64,16 @@
 
                     <Image Grid.Row="1" Source="calendar.png" WidthRequest="13"
                            HeightRequest="13" />
-                    <Picker Grid.Row="1" Grid.Column="1" x:Name="StartDatePicker" SelectedItem="{Binding Day}"
-                            FontSize="13">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>Today</x:String>
-                                <x:String>Tomorrow</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                    <Picker Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Days}"
+                            SelectedItem="{Binding SelectedDay}"
+                            FontSize="13" />
 
                     <Label Grid.Row="2" Grid.Column="2" Text="Time" FontFamily="RobotoLight"
                            Margin="0,10,0,5" />
 
                     <Image Grid.Row="3" Source="clock.png" WidthRequest="13"
                            HeightRequest="13" />
-                    <TimePicker Grid.Row="3" Grid.Column="3" x:Name="StartTimePicker" Format="HH:mm"
+                    <TimePicker Grid.Row="3" Grid.Column="3" Format="HH:mm"
                                 Time="{Binding Time}" FontSize="13" />
 
                     <Label Grid.Row="4" Grid.Column="2" Text="Speed" FontFamily="RobotoLight"
@@ -87,35 +81,16 @@
 
                     <Image Grid.Row="5" Source="gauge.png" WidthRequest="13"
                            HeightRequest="13" />
-                    <Picker Grid.Row="5" Grid.Column="1" x:Name="AverageSpeedPicker"
-                            SelectedItem="{Binding Speed}" FontSize="13">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>10</x:String>
-                                <x:String>20</x:String>
-                                <x:String>30</x:String>
-                                <x:String>40</x:String>
-                                <x:String>50</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                    <Picker Grid.Row="5" Grid.Column="1"
+                            ItemsSource="{Binding Speeds}" SelectedItem="{Binding SelectedSpeed}" FontSize="13" />
 
                     <Label Grid.Row="6" Grid.Column="2" Text="Weather forecast provider" FontFamily="RobotoLight"
                            Margin="0,10,0,5" />
                     <Image Grid.Row="7" Source="cloud_rain.png" WidthRequest="13"
                            HeightRequest="13" />
 
-                    <Picker Grid.Row="7" Grid.Column="1" x:Name="WeatherForecastProviderPicker"
-                            SelectedItem="{Binding WeatherForecastProviderName}" FontSize="13">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>Yr</x:String>
-                                <x:String>OpenWeather</x:String>
-                                <x:String>SMHI</x:String>
-                                <x:String>OpenWeather/Yr/SMHI</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                    <Picker Grid.Row="7" Grid.Column="1" ItemsSource="{Binding WeatherForecastProviders}"
+                            SelectedItem="{Binding WeatherForecastProviderName}" FontSize="13" />
                 </Grid>
                 <Button Text="Forecast Route" Command="{Binding NavigateToCommand}" />
             </VerticalStackLayout>

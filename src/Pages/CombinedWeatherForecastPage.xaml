@@ -105,10 +105,9 @@
                                         <RowDefinition Height="30" />
                                     </Grid.RowDefinitions>
                                     <HorizontalStackLayout Padding="0,0,0,5" HorizontalOptions="Center"
-                                                           VerticalOptions="Center"
-                                                           Grid.Column="0">
+                                                           VerticalOptions="Center">
                                         <Label
-                                            Text="{Binding TimeKmFormatted}" />
+                                            Text="{Binding DateTime, StringFormat='{0:HH:mm}'}" />
                                     </HorizontalStackLayout>
                                     <HorizontalStackLayout Padding="0,0,0,5" HorizontalOptions="Center"
                                                            VerticalOptions="Center"
@@ -222,10 +221,9 @@
                                         <RowDefinition Height="30" />
                                     </Grid.RowDefinitions>
                                     <HorizontalStackLayout Padding="0,0,0,5" HorizontalOptions="Center"
-                                                           VerticalOptions="Center"
-                                                           Grid.Column="0">
+                                                           VerticalOptions="Center">
                                         <Label
-                                            Text="{Binding TimeKmFormatted}" />
+                                            Text="{Binding DateTime, StringFormat='{0:HH:mm}'}" />
                                     </HorizontalStackLayout>
                                     <HorizontalStackLayout Padding="0,0,0,5" HorizontalOptions="Center"
                                                            VerticalOptions="Center"
@@ -340,10 +338,9 @@
                                         <RowDefinition Height="30" />
                                     </Grid.RowDefinitions>
                                     <HorizontalStackLayout Padding="0,0,0,5" HorizontalOptions="Center"
-                                                           VerticalOptions="Center"
-                                                           Grid.Column="0">
+                                                           VerticalOptions="Center">
                                         <Label
-                                            Text="{Binding TimeKmFormatted}" />
+                                            Text="{Binding DateTime, StringFormat='{0:HH:mm}'}" />
                                     </HorizontalStackLayout>
                                     <HorizontalStackLayout Padding="0,0,0,5" HorizontalOptions="Center"
                                                            VerticalOptions="Center"
