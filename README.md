@@ -1,7 +1,7 @@
 # Uroskur
 [![Windows Builds](https://github.com/ahaggqvist/Uroskur-Maui/actions/workflows/dotnet-windows.yml/badge.svg?branch=main)](https://github.com/ahaggqvist/Uroskur-Maui/actions/workflows/dotnet-windows.yml) [![Android Builds](https://github.com/ahaggqvist/Uroskur-Maui/actions/workflows/dotnet-android.yml/badge.svg?branch=main)](https://github.com/ahaggqvist/Uroskur-Maui/actions/workflows/dotnet-android.yml) [![Mac Builds](https://github.com/ahaggqvist/Uroskur-Maui/actions/workflows/dotnet-macos.yml/badge.svg?branch=main)](https://github.com/ahaggqvist/Uroskur-Maui/actions/workflows/dotnet-macos.yml)
 
-A .NET MAUI app that fetches a weather forecast from OpenWeather, Yr or SMHI and routes from Strava to display the weather conditions along your routes based upon your pace, time of day and start date. The app supports showing a single forecast or multiple forecasts at once.
+A .NET MAUI app that fetches a weather forecast from OpenWeather, Yr or SMHI and routes from Strava to show weather conditions along your routes based upon your pace, time of day and start date. The app supports showing a single forecast or multiple forecasts at once.
 
 SMHI are missing the following parameters: feels like temperature, uv index and cloudiness.
 
