@@ -35,4 +35,6 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: uroskur-macos-build
-          path: ./**/maccatalyst-x64/**/*.*
+          path: |
+            ./**/maccatalyst-x64/**/*.app
+            ./**/maccatalyst-x64/**/*.pkg
