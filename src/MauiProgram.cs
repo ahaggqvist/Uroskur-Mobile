@@ -3,10 +3,8 @@
 public static class MauiProgram
 {
 #if DEBUG
-    private const bool IsDevelopment = true;
     private const string ManifestFileName = "appsettings.Development.json";
 #else
-    private const bool IsDevelopment = false;
     private const string ManifestFileName = "appsettings.json";
 #endif
 
@@ -33,7 +31,6 @@ public static class MauiProgram
             using var streamReader = new StreamReader(stream);
             using var jsonTextReader = new JsonTextReader(streamReader);
             var appSettings = serializer.Deserialize<AppSettings>(jsonTextReader)!;
-            appSettings.IsDevelopment = IsDevelopment;
             builder.Services.AddSingleton(appSettings);
         }
 

@@ -19,17 +19,35 @@ public class WeatherForecastClient : IWeatherForecastClient
         if (weatherForecastProvider == OpenWeather)
         {
             var (openWeatherData, _, _) = await FetchDataAsync(OpenWeather, url);
-            if (openWeatherData != null) return new WeatherForecastProviderData(openWeatherData);
+            if (openWeatherData != null)
+            {
+                return new WeatherForecastProviderData
+                {
+                    OpenWeatherData = openWeatherData
+                };
+            }
         }
         else if (weatherForecastProvider == Yr)
         {
             var (_, yrData, _) = await FetchDataAsync(Yr, url);
-            if (yrData != null) return new WeatherForecastProviderData(yrData);
+            if (yrData != null)
+            {
+                return new WeatherForecastProviderData
+                {
+                    YrData = yrData
+                };
+            }
         }
         else if (weatherForecastProvider == Smhi)
         {
             var (_, _, smhiData) = await FetchDataAsync(Smhi, url);
-            if (smhiData != null) return new WeatherForecastProviderData(smhiData);
+            if (smhiData != null)
+            {
+                return new WeatherForecastProviderData
+                {
+                    SmhiData = smhiData
+                };
+            }
         }
 
         throw new ArgumentException($"Weather forecast provider is unknown for url: {url}.");

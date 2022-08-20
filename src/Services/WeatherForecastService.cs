@@ -93,10 +93,7 @@ public class WeatherForecastService : IWeatherForecastService
                     return Array.Empty<WeatherForecast>();
                 }
 
-                weatherForecasts.Add(new WeatherForecast
-                {
-                    HourlyWeatherForecasts = hourlyWeatherForecasts
-                });
+                weatherForecasts.Add(new WeatherForecast(hourlyWeatherForecasts));
             }
 
             return weatherForecasts;
@@ -170,7 +167,14 @@ public class WeatherForecastService : IWeatherForecastService
         if (weatherForecastProvider == OpenWeather)
         {
             var key = CacheKey(OpenWeather, location);
-            if (!Barrel.Current.IsExpired(key)) return new WeatherForecastProviderData(OpenWeatherData.FromJson(FetchCachedWeatherForecast(key)));
+            if (!Barrel.Current.IsExpired(key))
+            {
+                return new WeatherForecastProviderData
+                {
+                    OpenWeatherData = OpenWeatherData.FromJson(FetchCachedWeatherForecast(key))
+                };
+            }
+
             var weatherForecastProviderData = await _weatherForecastClient.FetchWeatherForecastProviderDataAsync(url.Replace("@AppId", appId)
                 .Replace("@Exclude", "current,minutely,daily,alerts")
                 .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
@@ -191,7 +195,14 @@ public class WeatherForecastService : IWeatherForecastService
         if (weatherForecastProvider == Yr)
         {
             var key = CacheKey(Yr, location);
-            if (!Barrel.Current.IsExpired(key)) return new WeatherForecastProviderData(YrData.FromJson(FetchCachedWeatherForecast(key)));
+            if (!Barrel.Current.IsExpired(key))
+            {
+                return new WeatherForecastProviderData
+                {
+                    YrData = YrData.FromJson(FetchCachedWeatherForecast(key))
+                };
+            }
+
             var weatherForecastProviderData = await _weatherForecastClient.FetchWeatherForecastProviderDataAsync(url
                 .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
                 .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)));
@@ -211,7 +222,14 @@ public class WeatherForecastService : IWeatherForecastService
         if (weatherForecastProvider == Smhi)
         {
             var key = CacheKey(Smhi, location);
-            if (!Barrel.Current.IsExpired(key)) return new WeatherForecastProviderData(SmhiData.FromJson(FetchCachedWeatherForecast(key)));
+            if (!Barrel.Current.IsExpired(key))
+            {
+                return new WeatherForecastProviderData
+                {
+                    SmhiData = SmhiData.FromJson(FetchCachedWeatherForecast(key))
+                };
+            }
+
             var weatherForecastProviderData = await _weatherForecastClient.FetchWeatherForecastProviderDataAsync(url
                 .Replace("@Lat",
                     Math.Round(location.Lat, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture))

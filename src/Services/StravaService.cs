@@ -45,21 +45,6 @@ public class StravaService : IStravaService
         return true;
     }
 
-    public Task<string?> CreateSubscriptionAsync()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool?> DeleteSubscriptionAsync()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Subscription?> ViewSubscriptionAsync()
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<IEnumerable<Routes>> FindRoutesByAthleteIdAsync(string? athleteId)
     {
         if (string.IsNullOrEmpty(athleteId))

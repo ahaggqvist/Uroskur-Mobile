@@ -2,17 +2,17 @@
 
 public class LocationWeatherForecast
 {
-    public int Km { get; set; }
+    public int Km { get; init; }
 
-    public DateTime DateTime { get; set; }
+    public DateTime DateTime { get; init; }
 
-    public HourlyWeatherForecast HourlyWeatherForecast { get; set; } = new();
+    public HourlyWeatherForecast? HourlyWeatherForecast { get; init; }
 
-    public string WeatherIcon { get; set; } = string.Empty;
+    public string? WeatherIcon { get; init; }
 
-    public string WindIcon { get; set; } = string.Empty;
+    public string? WindIcon { get; init; }
 
-    public string WindIconId { get; set; } = string.Empty;
+    public string? WindIconId { get; init; }
 
     public override string ToString()
     {
