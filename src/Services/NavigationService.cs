@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.Services;
 
-public class RoutingService : IRoutingService
+public class NavigationService : INavigationService
 {
     public Task NavigateToAsync(string route)
     {

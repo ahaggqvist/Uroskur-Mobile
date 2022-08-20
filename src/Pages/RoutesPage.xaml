@@ -102,6 +102,6 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <!--</RefreshView>-->
-        <ActivityIndicator x:Name="Indicator" />
+        <ActivityIndicator x:Name="ActivityIndicator" IsVisible="True" IsRunning="True" />
     </Grid>
 </ContentPage>

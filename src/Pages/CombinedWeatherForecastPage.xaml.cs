@@ -15,14 +15,8 @@ public partial class CombinedWeatherForecastPage
     {
         base.OnAppearing();
 
-        await LoadWeatherForecast();
-    }
-
-    private async Task LoadWeatherForecast()
-    {
-        ShowIndicator();
-
         await _combinedWeatherForecastViewModel.WeatherForecastAsync();
+        ActivityIndicator.IsVisible = _combinedWeatherForecastViewModel.IsBusy;
 
         EmptyWeatherForecastMessage.Text = "Sorry, We Couldn't Generate a Forecast";
         WeatherTableTempHeader.Text = "Temp (°C)";
@@ -44,20 +38,5 @@ public partial class CombinedWeatherForecastPage
         SmhiWeatherTableChanceOfRainHeader.Text = "Chance of Rain";
         SmhiWeatherTableWindHeader.Text = "Wind (m/s)";
         SmhiWeatherTableHeader.Text = "SMHI";
-
-
-        HideIndicator();
-    }
-
-    private void ShowIndicator()
-    {
-        Indicator.IsRunning = true;
-        Indicator.IsVisible = true;
-    }
-
-    private void HideIndicator()
-    {
-        Indicator.IsRunning = false;
-        Indicator.IsVisible = false;
     }
 }

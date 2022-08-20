@@ -21,8 +21,6 @@ public partial class PreferencesViewModel : BaseViewModel
 
     public PreferencesViewModel(IPreferencesService preferencesService, IStravaService stravaService)
     {
-        Title = "Settings";
-
         _preferencesService = preferencesService;
         _stravaService = stravaService;
     }

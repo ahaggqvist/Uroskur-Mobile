@@ -15,14 +15,8 @@ public partial class WeatherForecastPage
     {
         base.OnAppearing();
 
-        await LoadWeatherForecast();
-    }
-
-    private async Task LoadWeatherForecast()
-    {
-        ShowIndicator();
-
         await _weatherForecastViewModel.WeatherForecastAsync();
+        ActivityIndicator.IsVisible = _weatherForecastViewModel.IsBusy;
 
         EmptyWeatherForecastMessage.Text = "Sorry, We Couldn't Generate a Forecast";
 
@@ -36,19 +30,5 @@ public partial class WeatherForecastPage
         WeatherTableTimeHeader.Text = "";
         WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
         WeatherTableWindHeader.Text = "Wind (m/s)";
-
-        HideIndicator();
-    }
-
-    private void ShowIndicator()
-    {
-        Indicator.IsRunning = true;
-        Indicator.IsVisible = true;
-    }
-
-    private void HideIndicator()
-    {
-        Indicator.IsRunning = false;
-        Indicator.IsVisible = false;
     }
 }

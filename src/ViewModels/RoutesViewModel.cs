@@ -2,18 +2,18 @@
 
 public partial class RoutesViewModel : BaseViewModel
 {
+    private readonly INavigationService _navigationService;
     private readonly IPreferencesService _preferencesService;
-    private readonly IRoutingService _routingService;
     private readonly IStravaService _stravaService;
 
 
-    public RoutesViewModel(IStravaService stravaService, IRoutingService routingService,
+    public RoutesViewModel(IStravaService stravaService, INavigationService navigationService,
         IPreferencesService preferencesService)
     {
         Title = "Routes";
 
         _stravaService = stravaService;
-        _routingService = routingService;
+        _navigationService = navigationService;
         _preferencesService = preferencesService;
     }
 
@@ -61,7 +61,7 @@ public partial class RoutesViewModel : BaseViewModel
     [RelayCommand]
     private async void NavigateTo(Routes routes)
     {
-        await _routingService.NavigateToAsync(nameof(RoutePage), new Dictionary<string, object>
+        await _navigationService.NavigateToAsync(nameof(RoutePage), new Dictionary<string, object>
         {
             { nameof(Routes), routes }
         });

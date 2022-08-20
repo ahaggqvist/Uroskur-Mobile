@@ -22,7 +22,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
 
     public async Task WeatherForecastAsync()
     {
-        Title = _weatherForecastParameters?.Routes?.Name;
+        Title = _weatherForecastParameters?.Routes?.Name!;
 
         await Task.Delay(500);
 

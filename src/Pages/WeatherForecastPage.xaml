@@ -164,6 +164,6 @@
                 </CollectionView>
             </Grid>
         </ScrollView>
-        <ActivityIndicator x:Name="Indicator" />
+        <ActivityIndicator x:Name="ActivityIndicator" IsVisible="True" IsRunning="True" />
     </Grid>
 </ContentPage>

@@ -3,20 +3,20 @@
 [QueryProperty(nameof(Routes), nameof(Routes))]
 public partial class RouteViewModel : BaseViewModel
 {
-    private readonly IRoutingService _routingService;
+    private readonly INavigationService _navigationService;
     [ObservableProperty] private Routes? _routes;
     [ObservableProperty] private string _selectedDay;
     [ObservableProperty] private string _selectedSpeed;
     [ObservableProperty] private TimeSpan _time;
     [ObservableProperty] private string _weatherForecastProviderName;
 
-    public RouteViewModel(IRoutingService routingService)
+    public RouteViewModel(INavigationService navigationService)
     {
         Speeds = Enumeration.GetAll<Speed>().Select(s => s.Name).ToList();
         Days = Enumeration.GetAll<Day>().Select(s => s.Name).ToList();
         WeatherForecastProviders = Enumeration.GetAll<WeatherForecastProvider>().Select(s => s.Name).ToList();
 
-        _routingService = routingService;
+        _navigationService = navigationService;
         _time = new TimeSpan(DateTime.Now.TimeOfDay.Hours, 0, 0);
         _selectedDay = Day.Today.Name;
         _selectedSpeed = Speed.Thirty.Name;
@@ -28,11 +28,6 @@ public partial class RouteViewModel : BaseViewModel
 
     public List<string> WeatherForecastProviders { get; }
 
-    partial void OnTimeChanged(TimeSpan value)
-    {
-        Debug.WriteLine($"Time: {value}.");
-    }
-
     [RelayCommand]
     private async void NavigateTo()
     {
@@ -42,7 +37,7 @@ public partial class RouteViewModel : BaseViewModel
             route = nameof(CombinedWeatherForecastPage);
         }
 
-        await _routingService.NavigateToAsync(route, new Dictionary<string, object>
+        await _navigationService.NavigateToAsync(route, new Dictionary<string, object>
         {
             {
                 nameof(WeatherForecastParameters), new WeatherForecastParameters

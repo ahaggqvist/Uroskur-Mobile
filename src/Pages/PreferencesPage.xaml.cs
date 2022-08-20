@@ -9,6 +9,8 @@ public partial class PreferencesPage
         InitializeComponent();
 
         BindingContext = _preferencesViewModel = preferencesViewModel;
+
+        Title = "Settings";
     }
 
     protected override void OnAppearing()

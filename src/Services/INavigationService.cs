@@ -1,6 +1,6 @@
 ﻿namespace Uroskur.Services;
 
-public interface IRoutingService
+public interface INavigationService
 {
     Task GoBackAsync();
     Task GoBackModalAsync();
