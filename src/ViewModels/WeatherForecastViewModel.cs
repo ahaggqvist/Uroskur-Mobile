@@ -36,86 +36,85 @@ public partial class WeatherForecastViewModel : BaseViewModel
             LocationWeatherForecasts.Clear();
         }
 
-        /*try
-        {*/
-        var today = DateTime.Today;
-        if (_weatherForecastParameters?.DayId == Day.Tomorrow.Id)
+        try
         {
-            today = today.AddDays(1);
-        }
-
-        var timeSpan = _weatherForecastParameters!.Time;
-        var hour = timeSpan!.Value.Hours;
-        var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
-        var weatherForecastProvider = Enumeration.FromId<WeatherForecastProvider>(WeatherForecastParameters?.WeatherForecastProviderId ?? 0);
-        var issuedForUnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(issuedFor);
-        var route = _weatherForecastParameters?.Routes;
-        var athlete = route?.Athlete;
-        var athleteId = athlete?.Id.ToString();
-        var routeId = route?.Id.ToString();
-        var weatherForecasts = await _weatherForecastService.FindWeatherForecastsAsync(weatherForecastProvider, routeId, athleteId);
-
-        var weatherForecastsArray = weatherForecasts.ToImmutableArray();
-        if (weatherForecastsArray.Length > 0)
-        {
-            var hourlyForecast = weatherForecastsArray[0].HourlyWeatherForecasts.ElementAt(0);
-            var issuedAt =
-                new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
-
-            ForecastIssuedAt = $"{weatherForecastProvider} Weather Forecast updated at {issuedAt:ddd, d MMM H:mm}";
-            ForecastIssuedFor = $"{issuedFor:dddd, d MMM}";
-        }
-
-        foreach (var (weatherForecast, index) in weatherForecastsArray.WithIndex())
-        {
-            var km = index * 10 + 10;
-            var speed = int.Parse(Enumeration.FromId<Speed>(_weatherForecastParameters!.SpeedId).Name);
-            var time = km / speed;
-            var seconds = 3600 * time + issuedForUnixTimestamp;
-            var hourlyWeatherForecast = weatherForecast.HourlyWeatherForecasts.ToImmutableList()
-                .Find(h => Math.Abs(h.UnixTimestamp - seconds) < 0.000000001);
-
-            if (hourlyWeatherForecast == null)
+            var today = DateTime.Today;
+            if (_weatherForecastParameters?.DayId == Day.Tomorrow.Id)
             {
-                Debug.WriteLine("Hourly weather forecast is null.");
-                continue;
+                today = today.AddDays(1);
             }
 
-            var windDeg = hourlyWeatherForecast?.WindDeg ?? 0L;
-            var windIconId = WindDirection[(int)Math.Round(windDeg / 22.5, 0)];
-            var locationDt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local)
-                .AddSeconds(3600 * ((double)km / speed) + issuedForUnixTimestamp).ToLocalTime();
+            var timeSpan = _weatherForecastParameters!.Time;
+            var hour = timeSpan!.Value.Hours;
+            var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
+            var weatherForecastProvider = Enumeration.FromId<WeatherForecastProvider>(WeatherForecastParameters?.WeatherForecastProviderId ?? 0);
+            var issuedForUnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(issuedFor);
+            var route = _weatherForecastParameters?.Routes;
+            var athlete = route?.Athlete;
+            var athleteId = athlete?.Id.ToString();
+            var routeId = route?.Id.ToString();
+            var weatherForecasts = await _weatherForecastService.FindWeatherForecastsAsync(weatherForecastProvider, routeId, athleteId);
 
-            var locationForecast = new LocationWeatherForecast
+            var weatherForecastsArray = weatherForecasts.ToImmutableArray();
+            if (weatherForecastsArray.Length > 0)
             {
-                Km = km,
-                HourlyWeatherForecast = hourlyWeatherForecast!,
-                DateTime = locationDt,
-                WeatherIcon = hourlyWeatherForecast!.Icon,
-                WindIcon = WindIconsDictionary[windIconId],
-                WindIconId = windIconId
-            };
+                var hourlyForecast = weatherForecastsArray[0].HourlyWeatherForecasts.ElementAt(0);
+                var issuedAt =
+                    new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
 
-            LocationWeatherForecasts.Add(locationForecast);
+                ForecastIssuedAt = $"{weatherForecastProvider} Weather Forecast updated at {issuedAt:ddd, d MMM H:mm}";
+                ForecastIssuedFor = $"{issuedFor:dddd, d MMM}";
+            }
+
+            foreach (var (weatherForecast, index) in weatherForecastsArray.WithIndex())
+            {
+                var km = index * 10 + 10;
+                var speed = int.Parse(Enumeration.FromId<Speed>(_weatherForecastParameters!.SpeedId).Name);
+                var time = km / speed;
+                var seconds = 3600 * time + issuedForUnixTimestamp;
+                var hourlyWeatherForecast = weatherForecast.HourlyWeatherForecasts.ToImmutableList()
+                    .Find(h => Math.Abs(h.UnixTimestamp - seconds) < 0.000000001);
+
+                if (hourlyWeatherForecast == null)
+                {
+                    Debug.WriteLine("Hourly weather forecast is null.");
+                    continue;
+                }
+
+                var windDeg = hourlyWeatherForecast?.WindDeg ?? 0L;
+                var windIconId = WindDirection[(int)Math.Round(windDeg / 22.5, 0)];
+                var locationDt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local)
+                    .AddSeconds(3600 * ((double)km / speed) + issuedForUnixTimestamp).ToLocalTime();
+
+                var locationForecast = new LocationWeatherForecast
+                {
+                    Km = km,
+                    HourlyWeatherForecast = hourlyWeatherForecast!,
+                    DateTime = locationDt,
+                    WeatherIcon = hourlyWeatherForecast!.Icon,
+                    WindIcon = WindIconsDictionary[windIconId],
+                    WindIconId = windIconId
+                };
+
+                LocationWeatherForecasts.Add(locationForecast);
+            }
+
+            if (LocationWeatherForecasts.Count != 0)
+            {
+                TempLineChart = ChartHelper.CreateTempChart(LocationWeatherForecasts);
+                ChanceOfRainLineChart = ChartHelper.CreateChanceOfRainChart(LocationWeatherForecasts);
+                UvLineChart = ChartHelper.CreateUvChart(LocationWeatherForecasts);
+                WindLineChart = ChartHelper.CreateWindChart(LocationWeatherForecasts);
+            }
         }
-
-        if (LocationWeatherForecasts.Count != 0)
-        {
-            TempLineChart = ChartHelper.CreateTempChart(LocationWeatherForecasts);
-            ChanceOfRainLineChart = ChartHelper.CreateChanceOfRainChart(LocationWeatherForecasts);
-            UvLineChart = ChartHelper.CreateUvChart(LocationWeatherForecasts);
-            WindLineChart = ChartHelper.CreateWindChart(LocationWeatherForecasts);
-        }
-
-        /*}
         catch (Exception ex)
         {
             Debug.WriteLine($"Unable to get routes: {ex.Message}");
         }
         finally
-        {*/
-        IsBusy = false;
-        IsRefreshing = false;
-        //}
+        {
+            IsBusy = false;
+            IsRefreshing = false;
+        }
     }
 }
