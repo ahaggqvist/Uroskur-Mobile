@@ -64,4 +64,26 @@ public static class Extensions
             collection.Move(collection.IndexOf(sorted[i]), i);
         }
     }
+
+    public static async Task<(T1, T2)> WhenAll<T1, T2>(Task<T1> task1, Task<T2> task2)
+    {
+        await Task.WhenAll(task1, task2);
+        return (task1.Result, task2.Result);
+    }
+
+    public static async Task<(T1, T2, T3)> WhenAll<T1, T2, T3>(Task<T1> task1, Task<T2> task2, Task<T3> task3)
+    {
+        await Task.WhenAll(task1, task2, task3);
+        return (task1.Result, task2.Result, task3.Result);
+    }
+
+    public static TaskAwaiter<(T1, T2)> GetAwaiter<T1, T2>(this ValueTuple<Task<T1>, Task<T2>> tasks)
+    {
+        return WhenAll(tasks.Item1, tasks.Item2).GetAwaiter();
+    }
+
+    public static TaskAwaiter<(T1, T2, T3)> GetAwaiter<T1, T2, T3>(this ValueTuple<Task<T1>, Task<T2>, Task<T3>> tasks)
+    {
+        return WhenAll(tasks.Item1, tasks.Item2, tasks.Item3).GetAwaiter();
+    }
 }

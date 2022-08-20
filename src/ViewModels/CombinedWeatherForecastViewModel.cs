@@ -1,4 +1,6 @@
-﻿namespace Uroskur.ViewModels;
+﻿using Extensions = Uroskur.Utils.Extensions;
+
+namespace Uroskur.ViewModels;
 
 [QueryProperty(nameof(WeatherForecastParameters), nameof(WeatherForecastParameters))]
 public partial class CombinedWeatherForecastViewModel : BaseViewModel
@@ -53,29 +55,30 @@ public partial class CombinedWeatherForecastViewModel : BaseViewModel
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
 
-            // OpenWeather
-            var weatherForecasts = await _weatherForecastService.FindWeatherForecastsAsync(OpenWeather, routeId, athleteId);
+            // Await all tasks
+            var openWeatherFindTask = _weatherForecastService.FindWeatherForecastsAsync(OpenWeather, routeId, athleteId);
+            var yrFindTask = _weatherForecastService.FindWeatherForecastsAsync(Yr, routeId, athleteId);
+            var smhiFindTask = _weatherForecastService.FindWeatherForecastsAsync(Smhi, routeId, athleteId);
+            var (openWeatherForecasts, yrWeatherForecasts, smhiWeatherForecasts) = await Extensions.WhenAll(openWeatherFindTask, yrFindTask, smhiFindTask);
 
-            var weatherForecastsArray = weatherForecasts.ToImmutableArray();
+            var weatherForecastsArray = openWeatherForecasts.ToImmutableArray();
             if (weatherForecastsArray.Length > 0)
             {
-                var hourlyForecast = weatherForecastsArray[0].HourlyWeatherForecasts.ElementAt(0);
-                var issuedAt =
-                    new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
+                var hourlyWeatherForecasts = weatherForecastsArray.FirstOrDefault();
+                var hourlyForecast = hourlyWeatherForecasts?.HourlyWeatherForecasts.ElementAt(0);
+                if (hourlyForecast != null)
+                {
+                    var issuedAt =
+                        new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
+                    ForecastIssuedAt = $"Weather Forecast updated at {issuedAt:ddd, d MMM H:mm}";
+                }
 
-                ForecastIssuedAt = $"Weather Forecast updated at {issuedAt:ddd, d MMM H:mm}";
                 ForecastIssuedFor = $"{issuedFor:dddd, d MMM}";
             }
 
             AddLocationWeatherForecasts(OpenWeather, weatherForecastsArray, issuedForUnixTimestamp);
-
-            // Yr
-            weatherForecasts = await _weatherForecastService.FindWeatherForecastsAsync(Yr, routeId, athleteId);
-            AddLocationWeatherForecasts(Yr, weatherForecasts, issuedForUnixTimestamp);
-
-            // SMHI
-            weatherForecasts = await _weatherForecastService.FindWeatherForecastsAsync(Smhi, routeId, athleteId);
-            AddLocationWeatherForecasts(Smhi, weatherForecasts, issuedForUnixTimestamp);
+            AddLocationWeatherForecasts(Yr, yrWeatherForecasts, issuedForUnixTimestamp);
+            AddLocationWeatherForecasts(Smhi, smhiWeatherForecasts, issuedForUnixTimestamp);
         }
         catch (Exception ex)
         {

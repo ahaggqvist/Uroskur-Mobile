@@ -32,7 +32,7 @@ public partial class RouteViewModel : BaseViewModel
     private async void NavigateTo()
     {
         var route = nameof(WeatherForecastPage);
-        if (Enumeration.FromName<WeatherForecastProvider>(_weatherForecastProviderName) == Combined)
+        if (Enumeration.FromName<WeatherForecastProvider>(WeatherForecastProviderName) == Combined)
         {
             route = nameof(CombinedWeatherForecastPage);
         }
@@ -46,7 +46,7 @@ public partial class RouteViewModel : BaseViewModel
                     Time = new TimeSpan(Time.Hours, 0, 0),
                     SpeedId = Enumeration.FromName<Speed>(SelectedSpeed).Id,
                     Routes = Routes,
-                    WeatherForecastProviderId = Enumeration.FromName<WeatherForecastProvider>(_weatherForecastProviderName).Id
+                    WeatherForecastProviderId = Enumeration.FromName<WeatherForecastProvider>(WeatherForecastProviderName).Id
                 }
             }
         });
