@@ -21,11 +21,8 @@ public class WeatherForecastService : IWeatherForecastService
         _preferencesService = preferencesService;
     }
 
-    public async Task<IEnumerable<WeatherForecast>> FindWeatherForecastsAsync(
-        WeatherForecastProvider weatherForecastProvider, string? routeId, string? athleteId)
+    public async Task<IEnumerable<WeatherForecast>> FindWeatherForecastsAsync(WeatherForecastProvider weatherForecastProvider, string? routeId, string? athleteId)
     {
-        Barrel.Current.EmptyExpired();
-
         if (string.IsNullOrEmpty(routeId))
         {
             Debug.WriteLine($"Route ID: {routeId} is invalid.");
@@ -38,61 +35,39 @@ public class WeatherForecastService : IWeatherForecastService
             return Array.Empty<WeatherForecast>();
         }
 
+        if (weatherForecastProvider == OpenWeather)
+        {
+            var (url, appId) = GetOpenWeatherApiUrl();
+            return await GetWeatherForecastsAsync(url, routeId, athleteId, GetOpenWeatherForecastProviderData, GetOpenWeatherHourlyWeatherForecasts, appId);
+        }
+
+        if (weatherForecastProvider == Yr)
+        {
+            return await GetWeatherForecastsAsync(_appSettings?.YrApiUrl!, routeId, athleteId, GetYrForecastProviderData, GetYrHourlyWeatherForecasts);
+        }
+
+        if (weatherForecastProvider == Smhi)
+        {
+            return await GetWeatherForecastsAsync(_appSettings?.SmhiApiUrl!, routeId, athleteId, GetSmhiForecastProviderData, GetSmhiHourlyWeatherForecasts);
+        }
+
+        return Array.Empty<WeatherForecast>();
+    }
+
+    private async Task<IEnumerable<WeatherForecast>> GetWeatherForecastsAsync(
+        string url, string routeId, string athleteId, Func<Location, string, string, Task<WeatherForecastProviderData?>> weatherForecastDataProvider,
+        Func<WeatherForecastProviderData?, IEnumerable<HourlyWeatherForecast>> hourlyWeatherForecastProvider, string appId = "")
+    {
+        Barrel.Current.EmptyExpired();
+
         try
         {
-            var locations = (await _stravaService.FindLocationsByAthleteIdRouteIdAsync(athleteId, routeId))
-                .ToImmutableArray();
-            if (locations == null)
-            {
-                throw new ArgumentException("Locations are null.");
-            }
-
-            if (locations.Length > MaxLocations)
-            {
-                throw new ArgumentException("Number of locations exceed maximum allowed.");
-            }
-
             var weatherForecasts = new List<WeatherForecast>();
+            var locations = await GetLocations(athleteId, routeId);
             foreach (var location in locations)
             {
-                var hourlyWeatherForecasts = new List<HourlyWeatherForecast>();
-
-                if (weatherForecastProvider == OpenWeather)
-                {
-                    var preference = _preferencesService.FindPreferences();
-                    var appId = preference.OpenWeatherAppId;
-                    if (string.IsNullOrEmpty(appId))
-                    {
-                        throw new ArgumentException("App ID is invalid.");
-                    }
-
-                    var url = _appSettings?.OpenWeatherApiUrl!;
-                    var weatherForecastProviderData = await GetWeatherForecastProviderData(location, url, appId);
-                    if (weatherForecastProviderData is { OpenWeatherData: { } })
-                    {
-                        GetOpenWeatherHourlyWeatherForecasts(weatherForecastProviderData.OpenWeatherData, hourlyWeatherForecasts);
-                    }
-                }
-                else if (weatherForecastProvider == Yr)
-                {
-                    var url = _appSettings?.YrApiUrl!;
-                    var weatherForecastProviderData = await GetWeatherForecastProviderData(location, url);
-                    if (weatherForecastProviderData is { YrData: { } }) GetYrHourlyWeatherForecasts(weatherForecastProviderData.YrData, hourlyWeatherForecasts);
-                }
-                else if (weatherForecastProvider == Smhi)
-                {
-                    var url = _appSettings?.SmhiApiUrl!;
-                    var weatherForecastProviderData = await GetWeatherForecastProviderData(location, url);
-                    if (weatherForecastProviderData?.SmhiData?.TimeSeries != null)
-                    {
-                        GetSmhiHourlyForecasts(weatherForecastProviderData.SmhiData, hourlyWeatherForecasts);
-                    }
-                }
-                else
-                {
-                    return Array.Empty<WeatherForecast>();
-                }
-
+                var data = await weatherForecastDataProvider(location, url, appId);
+                var hourlyWeatherForecasts = hourlyWeatherForecastProvider(data);
                 weatherForecasts.Add(new WeatherForecast(hourlyWeatherForecasts));
             }
 
@@ -104,6 +79,36 @@ public class WeatherForecastService : IWeatherForecastService
         }
 
         return new List<WeatherForecast>();
+    }
+
+    private async Task<ImmutableArray<Location>> GetLocations(string athleteId, string routeId)
+    {
+        var locations = (await _stravaService.FindLocationsByAthleteIdRouteIdAsync(athleteId, routeId))
+            .ToImmutableArray();
+
+        if (locations == null)
+        {
+            throw new ArgumentException("Locations are null.");
+        }
+
+        if (locations.Length > MaxLocations)
+        {
+            throw new ArgumentException("Number of locations exceed maximum allowed.");
+        }
+
+        return locations;
+    }
+
+    private (string, string) GetOpenWeatherApiUrl()
+    {
+        var preference = _preferencesService.FindPreferences();
+        var appId = preference.OpenWeatherAppId;
+        if (string.IsNullOrEmpty(appId))
+        {
+            throw new ArgumentException("App ID is invalid.");
+        }
+
+        return (_appSettings?.OpenWeatherApiUrl!, appId);
     }
 
     private static void CacheWeatherForecast(string key, string json)
@@ -161,99 +166,35 @@ public class WeatherForecastService : IWeatherForecastService
         return 0D;
     }
 
-    private async Task<WeatherForecastProviderData?> GetWeatherForecastProviderData(Location location, string url, string appId = "")
+    // OpenWeather
+    private async Task<WeatherForecastProviderData?> GetOpenWeatherForecastProviderData(Location location, string url, string appId = "")
     {
-        var weatherForecastProvider = WeatherForecastProviderHelper.ResolveWeatherForecastProviderByUrl(url);
-        if (weatherForecastProvider == OpenWeather)
+        var key = CacheKey(OpenWeather, location);
+        if (!Barrel.Current.IsExpired(key))
         {
-            var key = CacheKey(OpenWeather, location);
-            if (!Barrel.Current.IsExpired(key))
+            return new WeatherForecastProviderData
             {
-                return new WeatherForecastProviderData
-                {
-                    OpenWeatherData = OpenWeatherData.FromJson(FetchCachedWeatherForecast(key))
-                };
-            }
-
-            var weatherForecastProviderData = await _weatherForecastClient.FetchWeatherForecastProviderDataAsync(url.Replace("@AppId", appId)
-                .Replace("@Exclude", "current,minutely,daily,alerts")
-                .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
-                .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)));
-
-            if (weatherForecastProviderData == null)
-            {
-                Debug.WriteLine("OpenWeather data is null.");
-                return null;
-            }
-
-            var weatherData = weatherForecastProviderData.OpenWeatherData;
-            CacheWeatherForecast(key, weatherData.ToJson());
-
-            return weatherForecastProviderData;
+                OpenWeatherData = OpenWeatherData.FromJson(FetchCachedWeatherForecast(key))
+            };
         }
 
-        if (weatherForecastProvider == Yr)
-        {
-            var key = CacheKey(Yr, location);
-            if (!Barrel.Current.IsExpired(key))
-            {
-                return new WeatherForecastProviderData
-                {
-                    YrData = YrData.FromJson(FetchCachedWeatherForecast(key))
-                };
-            }
+        var weatherForecastProviderData = await _weatherForecastClient.FetchWeatherForecastProviderDataAsync(url.Replace("@AppId", appId)
+            .Replace("@Exclude", "current,minutely,daily,alerts")
+            .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
+            .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)));
 
-            var weatherForecastProviderData = await _weatherForecastClient.FetchWeatherForecastProviderDataAsync(url
-                .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
-                .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)));
+        var weatherData = weatherForecastProviderData?.OpenWeatherData;
+        CacheWeatherForecast(key, weatherData.ToJson());
 
-            if (weatherForecastProviderData == null)
-            {
-                Debug.WriteLine("Yr data is null.");
-                return null;
-            }
-
-            var weatherData = weatherForecastProviderData.YrData;
-            CacheWeatherForecast(key, weatherData.ToJson());
-
-            return weatherForecastProviderData;
-        }
-
-        if (weatherForecastProvider == Smhi)
-        {
-            var key = CacheKey(Smhi, location);
-            if (!Barrel.Current.IsExpired(key))
-            {
-                return new WeatherForecastProviderData
-                {
-                    SmhiData = SmhiData.FromJson(FetchCachedWeatherForecast(key))
-                };
-            }
-
-            var weatherForecastProviderData = await _weatherForecastClient.FetchWeatherForecastProviderDataAsync(url
-                .Replace("@Lat",
-                    Math.Round(location.Lat, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture))
-                .Replace("@Lon",
-                    Math.Round(location.Lon, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture)));
-
-            if (weatherForecastProviderData == null)
-            {
-                Debug.WriteLine("Smhi data is null.");
-                return null;
-            }
-
-            var weatherData = weatherForecastProviderData.SmhiData;
-            CacheWeatherForecast(key, weatherData.ToJson());
-
-            return weatherForecastProviderData;
-        }
-
-        return null;
+        return weatherForecastProviderData;
     }
 
-    private static void GetOpenWeatherHourlyWeatherForecasts(OpenWeatherData openWeatherData, ICollection<HourlyWeatherForecast> hourlyWeatherForecasts)
+    private static IEnumerable<HourlyWeatherForecast> GetOpenWeatherHourlyWeatherForecasts(WeatherForecastProviderData? data)
     {
-        foreach (var hourly in openWeatherData.Hourly)
+        var hourlyWeatherForecasts = new List<HourlyWeatherForecast>();
+        if (data?.OpenWeatherData?.Hourly == null) return hourlyWeatherForecasts;
+
+        foreach (var hourly in data.OpenWeatherData.Hourly)
         {
             hourlyWeatherForecasts.Add(new HourlyWeatherForecast
             {
@@ -271,11 +212,38 @@ public class WeatherForecastService : IWeatherForecastService
                 Icon = OpenWeatherIconsDictionary[hourly.Weather[0].Id]
             });
         }
+
+        return hourlyWeatherForecasts;
     }
 
-    private static void GetYrHourlyWeatherForecasts(YrData yrData, ICollection<HourlyWeatherForecast> hourlyWeatherForecasts)
+    // Yr
+    private async Task<WeatherForecastProviderData?> GetYrForecastProviderData(Location location, string url, string appId = "")
     {
-        foreach (var timesery in yrData.Properties.Timeseries)
+        var key = CacheKey(Yr, location);
+        if (!Barrel.Current.IsExpired(key))
+        {
+            return new WeatherForecastProviderData
+            {
+                YrData = YrData.FromJson(FetchCachedWeatherForecast(key))
+            };
+        }
+
+        var weatherForecastProviderData = await _weatherForecastClient.FetchWeatherForecastProviderDataAsync(url
+            .Replace("@Lat", location.Lat.ToString(CultureInfo.InvariantCulture))
+            .Replace("@Lon", location.Lon.ToString(CultureInfo.InvariantCulture)));
+
+        var weatherData = weatherForecastProviderData?.YrData;
+        CacheWeatherForecast(key, weatherData.ToJson());
+
+        return weatherForecastProviderData;
+    }
+
+    private static IEnumerable<HourlyWeatherForecast> GetYrHourlyWeatherForecasts(WeatherForecastProviderData? data)
+    {
+        var hourlyWeatherForecasts = new List<HourlyWeatherForecast>();
+        if (data?.YrData?.Properties.Timeseries == null) return hourlyWeatherForecasts;
+
+        foreach (var timesery in data.YrData.Properties.Timeseries)
         {
             hourlyWeatherForecasts.Add(new HourlyWeatherForecast
             {
@@ -307,11 +275,41 @@ public class WeatherForecastService : IWeatherForecastService
                 Icon = Icon(timesery)
             });
         }
+
+        return hourlyWeatherForecasts;
     }
 
-    private static void GetSmhiHourlyForecasts(SmhiData smhiData, ICollection<HourlyWeatherForecast> hourlyWeatherForecasts)
+    // SMHI
+    private async Task<WeatherForecastProviderData?> GetSmhiForecastProviderData(Location location, string url, string appId = "")
     {
-        foreach (var timesery in smhiData.TimeSeries)
+        var key = CacheKey(Smhi, location);
+        if (!Barrel.Current.IsExpired(key))
+        {
+            return new WeatherForecastProviderData
+            {
+                SmhiData = SmhiData.FromJson(FetchCachedWeatherForecast(key))
+            };
+        }
+
+        var weatherForecastProviderData = await _weatherForecastClient.FetchWeatherForecastProviderDataAsync(url
+            .Replace("@Lat",
+                Math.Round(location.Lat, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture))
+            .Replace("@Lon",
+                Math.Round(location.Lon, 6, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture)));
+
+
+        var weatherData = weatherForecastProviderData?.SmhiData;
+        CacheWeatherForecast(key, weatherData.ToJson());
+
+        return weatherForecastProviderData;
+    }
+
+    private static IEnumerable<HourlyWeatherForecast> GetSmhiHourlyWeatherForecasts(WeatherForecastProviderData? data)
+    {
+        var hourlyWeatherForecasts = new List<HourlyWeatherForecast>();
+        if (data?.SmhiData?.TimeSeries == null) return hourlyWeatherForecasts;
+
+        foreach (var timesery in data.SmhiData.TimeSeries)
         {
             var dt = timesery.ValidTime.GetValueOrDefault().LocalDateTime;
             var unixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(dt);
@@ -372,5 +370,7 @@ public class WeatherForecastService : IWeatherForecastService
                 Icon = icon
             });
         }
+
+        return hourlyWeatherForecasts;
     }
 }

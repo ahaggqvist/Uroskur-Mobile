@@ -20,24 +20,24 @@
     <Grid Margin="5,0,5,0" RowDefinitions="*">
         <ScrollView VerticalOptions="Start">
             <VerticalStackLayout>
-                <Label Text="{Binding Routes.Name}" FontSize="16"
+                <Label Text="{Binding Routes.Name}" FontSize="18"
                        FontFamily="RobotoMedium" Margin="0,5,0,0" />
                 <Grid ColumnDefinitions="12,Auto" Margin="5,5,0,0">
                     <Image Source="{Binding Routes.RouteTypeImage}" WidthRequest="12"
                            HeightRequest="12" />
                     <Label Grid.Column="1" Padding="5,0,0,0"
-                           FontFamily="RobotoLight" FontSize="10"
+                           FontFamily="RobotoLight" FontSize="11"
                            Text="{Binding Routes.CreatedAt, StringFormat='{0:ddd, d MMM yyyy H:mm}', Converter={StaticResource StringToDateTime}}" />
                 </Grid>
                 <Grid RowDefinitions="25,25" ColumnDefinitions="Auto,Auto,Auto,Auto,*">
                     <Label Padding="0,10,0,0"
-                           FontSize="9"
+                           FontSize="11"
                            Text="Distance" FontFamily="RobotoLight" TextTransform="Uppercase" />
                     <Label Grid.Column="1" Padding="10,10,0,0"
-                           FontSize="9"
+                           FontSize="11"
                            Text="Elev. Gain" FontFamily="RobotoLight" TextTransform="Uppercase" />
                     <Label Grid.Column="2" Padding="10,10,0,0"
-                           FontSize="9"
+                           FontSize="11"
                            Text="Est. Moving Time" FontFamily="RobotoLight" TextTransform="Uppercase" />
                     <Label Grid.Row="1" Padding="0,0,0,0"
                            FontSize="13" FontFamily="RobotoRegular"
