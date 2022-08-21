@@ -43,7 +43,7 @@ public class WeatherForecastClient : IWeatherForecastClient
         throw new ArgumentException($"Weather forecast provider is unknown for url: {url}.");
     }
 
-    private async Task<T?> FetchDataAsync<T>(Func<string, T> weatherForecastProvider, string? url) where T : class
+    private async Task<T?> FetchDataAsync<T>(Func<string, T> weatherForecastProvider, string url) where T : class
     {
         var pauseBetweenFailures = TimeSpan.FromSeconds(PauseBetweenFailures);
         var retryPolicy = Policy
@@ -55,14 +55,12 @@ public class WeatherForecastClient : IWeatherForecastClient
         T? data = null;
         await retryPolicy.ExecuteAsync(async () =>
         {
-            data = weatherForecastProvider(await GetResponseAsync(url));
+            if (_httpClient != null)
+            {
+                data = weatherForecastProvider(await _httpClient.GetStringAsync(url));
+            }
         });
 
         return data;
-    }
-
-    private Task<string> GetResponseAsync(string? url)
-    {
-        return _httpClient?.GetStringAsync(url)!;
     }
 }
