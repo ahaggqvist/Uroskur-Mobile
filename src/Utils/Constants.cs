@@ -4,10 +4,10 @@ public static class Constants
 {
     public const double ChartHeadingFontSize = 13;
     public const double WeatherIconFontSize = 14;
-    public const double WeatherTableHeadingFontSize = 10;
-    public const double ShellTitleViewHeadingFontSize = 20;
+    public const double WeatherTableHeadingFontSize = 11;
+    public const double ShellTitleViewHeadingFontSize = 16;
     public const double WeatherForecastIssuedAtFontSize = 10;
-    public const double WeatherForecastIssuedForFontSize = 16;
+    public const double WeatherForecastIssuedForFontSize = 20;
     public const string ChartHeadingFontFamily = "RobotoMedium";
     public const string ShellTitleViewHeadingFontFamily = "RobotoMedium";
     public const string WeatherForecastTableHeadingFontFamily = "RobotoLight";

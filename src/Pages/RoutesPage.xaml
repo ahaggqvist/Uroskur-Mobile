@@ -9,8 +9,8 @@
              x:DataType="viewmodel:RoutesViewModel">
 
     <Shell.TitleView>
-        <Label Margin="5,12,5,12" Text="{Binding Title}" TextColor="White"
-               FontSize="20" FontFamily="RobotoMedium" />
+        <Label Margin="5,15,5,15" Text="{Binding Title}" TextColor="White"
+               FontSize="16" FontFamily="RobotoMedium" />
     </Shell.TitleView>
 
     <ContentPage.Resources>
@@ -34,34 +34,34 @@
             </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="strava:Routes">
-                    <VerticalStackLayout>
+                    <VerticalStackLayout Margin="0,5,0,0">
                         <VerticalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer CommandParameter="{Binding .}"
                                                   Command="{Binding 
                            Source={RelativeSource AncestorType={x:Type viewmodel:RoutesViewModel}}, Path=NavigateToCommand}" />
                         </VerticalStackLayout.GestureRecognizers>
                         <VerticalStackLayout Padding="0,5,0,0">
-                            <Label FontSize="18"
+                            <Label FontSize="20"
                                    FontFamily="RobotoMedium"
                                    Text="{Binding Name}" />
                             <Grid ColumnDefinitions="12,Auto" Margin="5,5,0,0">
                                 <Image Source="{Binding RouteTypeImage}" WidthRequest="12"
                                        HeightRequest="12" />
                                 <Label Grid.Column="1" Padding="5,0,0,0"
-                                       FontFamily="RobotoLight" FontSize="11"
+                                       FontFamily="RobotoLight" FontSize="12"
                                        Text="{Binding CreatedAt, StringFormat='{0:ddd, d MMM yyyy H:mm}', Converter={StaticResource StringToDateTime}}" />
                             </Grid>
                             <Grid RowDefinitions="25,25" ColumnDefinitions="Auto,Auto,Auto,Auto,*">
                                 <Label Padding="0,10,0,0"
                                        FontSize="11"
-                                       Text="Distance" FontFamily="RobotoLight" TextTransform="Uppercase" />
+                                       Text="Distance" FontFamily="RobotoLight" HeightRequest="30" />
                                 <Label Grid.Column="1" Padding="10,10,0,0"
                                        FontSize="11"
-                                       Text="Elev. Gain" FontFamily="RobotoLight" TextTransform="Uppercase" />
+                                       Text="Elev. Gain" FontFamily="RobotoLight" HeightRequest="30" />
                                 <Label Grid.Column="2" Padding="10,10,0,0"
                                        FontSize="11"
-                                       Text="Est. Moving Time" FontFamily="RobotoLight" TextTransform="Uppercase" />
-                                <Label Grid.Row="1" Padding="0,0,0,0"
+                                       Text="Est. Moving Time" FontFamily="RobotoLight" HeightRequest="30" />
+                                <Label Grid.Row="1" Padding="0"
                                        FontSize="13" FontFamily="RobotoRegular"
                                        Text="{Binding Distance, StringFormat='{0:0.00} km', Converter={StaticResource MeterToKilometer}}" />
                                 <Label Grid.Row="1" Grid.Column="1" Padding="10,0,0,0"
@@ -72,7 +72,7 @@
                                        Text="{Binding EstimatedMovingTimeFormatted}" />
                             </Grid>
                         </VerticalStackLayout>
-                        <HorizontalStackLayout Padding="0,0,0,10">
+                        <HorizontalStackLayout Padding="0,5,0,20">
                             <Frame BorderColor="{StaticResource LightGray}" Padding="0"
                                    CornerRadius="5">
                                 <Image Aspect="AspectFill" WidthRequest="380" HeightRequest="146">

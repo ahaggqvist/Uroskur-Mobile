@@ -359,7 +359,7 @@ public class WeatherForecastService : IWeatherForecastService
                 Dt = dt,
                 UnixTimestamp = unixTimestamp,
                 Temp = temp,
-                FeelsLike = 0D, // Missing
+                FeelsLike = temp, // Missing
                 Uvi = 0D, // Missing
                 Cloudiness = 0D, // Missing
                 WindSpeed = windSpeed,

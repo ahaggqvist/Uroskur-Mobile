@@ -9,7 +9,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
     [ObservableProperty] private string? _forecastIssuedAt;
     [ObservableProperty] private string? _forecastIssuedFor;
     [ObservableProperty] private LineChart? _tempLineChart;
-    [ObservableProperty] private LineChart? _uvLineChart;
+    [ObservableProperty] private LineChart? _uviLineChart;
     [ObservableProperty] private WeatherForecastParameters? _weatherForecastParameters;
     [ObservableProperty] private LineChart? _windLineChart;
 
@@ -103,7 +103,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
             {
                 TempLineChart = ChartHelper.CreateTempChart(LocationWeatherForecasts);
                 ChanceOfRainLineChart = ChartHelper.CreateChanceOfRainChart(LocationWeatherForecasts);
-                UvLineChart = ChartHelper.CreateUvChart(LocationWeatherForecasts);
+                UviLineChart = ChartHelper.CreateUviChart(LocationWeatherForecasts);
                 WindLineChart = ChartHelper.CreateWindChart(LocationWeatherForecasts);
             }
         }

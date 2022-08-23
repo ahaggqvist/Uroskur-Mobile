@@ -10,11 +10,11 @@ public partial class RoutesViewModel : BaseViewModel
     public RoutesViewModel(IStravaService stravaService, INavigationService navigationService,
         IPreferencesService preferencesService)
     {
-        Title = "Routes";
-
         _stravaService = stravaService;
         _navigationService = navigationService;
         _preferencesService = preferencesService;
+
+        Title = "Routes";
     }
 
     public ObservableCollection<Routes> Routes { get; set; } = new();

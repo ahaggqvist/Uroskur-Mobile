@@ -21,6 +21,8 @@ public partial class RouteViewModel : BaseViewModel
         _selectedDay = Day.Today.Name;
         _selectedSpeed = Speed.Thirty.Name;
         _weatherForecastProviderName = Yr.Name;
+
+        Title = "Route";
     }
 
     public List<string> Speeds { get; }

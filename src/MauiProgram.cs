@@ -16,11 +16,11 @@ public static class MauiProgram
             .ConfigureUtils()
             .ConfigureFonts(fonts =>
             {
-                fonts.AddFont("OpenSans-Light.ttf", "RobotoLight");
-                fonts.AddFont("OpenSans-Regular.ttf", "RobotoRegular");
-                fonts.AddFont("OpenSans-Medium.ttf", "RobotoMedium");
-                fonts.AddFont("OpenSans-Bold.ttf", "RobotoBold");
-                fonts.AddFont("weathericons-regular-webfont.ttf", "Weathericons");
+                fonts.AddFont("SFPRODISPLAYLIGHT.otf", "RobotoLight");
+                fonts.AddFont("SFPRODISPLAYREGULAR.otf", "RobotoRegular");
+                fonts.AddFont("SFPRODISPLAYMEDIUM.otf", "RobotoMedium");
+                fonts.AddFont("SFPRODISPLAYBOLD.otf", "RobotoBold");
+                fonts.AddFont("weathericonsregular.ttf", "Weathericons");
             });
 
         var assembly = Assembly.GetExecutingAssembly();

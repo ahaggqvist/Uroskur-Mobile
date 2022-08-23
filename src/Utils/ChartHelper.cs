@@ -14,14 +14,13 @@ public static class ChartHelper
 
     public static LineChart CreateTempChart(IEnumerable<LocationWeatherForecast> locationWeatherForecasts)
     {
-        var forecasts = locationWeatherForecasts.ToImmutableArray();
         return CreateLineChart(new List<ChartSerie>
         {
             new()
             {
                 Name = "Temp (°C)",
                 Color = SKColor.Parse("#fc4c02"),
-                Entries = GetChartEntries(forecasts, "Temp")
+                Entries = GetChartEntries(locationWeatherForecasts, "Temp")
             }
         });
     }
@@ -46,7 +45,7 @@ public static class ChartHelper
         });
     }
 
-    public static LineChart CreateUvChart(IEnumerable<LocationWeatherForecast> locationWeatherForecasts)
+    public static LineChart CreateUviChart(IEnumerable<LocationWeatherForecast> locationWeatherForecasts)
     {
         var forecasts = locationWeatherForecasts.ToImmutableArray();
         return CreateLineChart(new List<ChartSerie>
@@ -95,15 +94,15 @@ public static class ChartHelper
             LabelOrientation = Orientation.Horizontal,
             ValueLabelOrientation = Orientation.Horizontal,
             IsAnimated = true,
-            BackgroundColor = SKColor.Parse("#fff"),
-            LabelColor = SKColor.Parse("#000"),
+            BackgroundColor = SKColors.White,
+            LabelColor = SKColors.Black,
             LabelTextSize = LabelTextSize,
             ValueLabelTextSize = ValueLabelTextSize,
             SerieLabelTextSize = SerieLabelTextSize,
             LegendOption = SeriesLegendOption.Top,
             ShowYAxisLines = false,
             ShowYAxisText = false,
-            EnableYFadeOutGradient = true,
+            EnableYFadeOutGradient = false,
             Series = series
         };
     }
@@ -111,11 +110,14 @@ public static class ChartHelper
     private static IEnumerable<ChartEntry> GetChartEntries(
         IEnumerable<LocationWeatherForecast> locationWeatherForecasts, string propertyName, bool withLabel = true)
     {
-        var chartEntries = (from locationWeatherForecast in locationWeatherForecasts
-            where locationWeatherForecast.HourlyWeatherForecast != null
-            let hourlyWeatherForecast = locationWeatherForecast.HourlyWeatherForecast
-            let value = GetValue(hourlyWeatherForecast, propertyName)
-            select CreateChartEntry(value, locationWeatherForecast.DateTime, withLabel)).ToList();
+        var chartEntries = new List<ChartEntry>();
+        foreach (var locationWeatherForecast in locationWeatherForecasts)
+        {
+            if (locationWeatherForecast.HourlyWeatherForecast == null) continue;
+            var hourlyWeatherForecast = locationWeatherForecast.HourlyWeatherForecast;
+            var value = GetValue(hourlyWeatherForecast, propertyName);
+            chartEntries.Add(CreateChartEntry(value, locationWeatherForecast.DateTime, withLabel));
+        }
 
         static float GetValue(HourlyWeatherForecast hourlyWeatherForecast, string propertyName)
         {
@@ -130,7 +132,7 @@ public static class ChartHelper
             return new ChartEntry(value)
             {
                 ValueLabel = value.ToString(CultureInfo.CurrentCulture),
-                Label = withLabel ? dateTime.ToString("H:mm") : null
+                Label = withLabel ? dateTime.ToString("H:mm") : string.Empty
             };
         }
 
