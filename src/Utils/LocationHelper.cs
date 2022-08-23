@@ -26,7 +26,7 @@ public static class LocationHelper
 
     public static double CalculateTotalDistance(IEnumerable<Location> locations)
     {
-        var total = 0d;
+        var total = 0D;
         foreach (var (_, currentLocation, nextLocation) in locations.GetItems())
         {
             total += CalculateDistanceBetweenLocations(currentLocation.Lat, currentLocation.Lon,
@@ -40,8 +40,8 @@ public static class LocationHelper
     public static IEnumerable<Location> FilterOutLocationsAtEvenDistances(IEnumerable<Location> locations)
     {
         var locationsAtEvenDistances = new List<Location>();
-        var current = 0;
-        var total = 0d;
+        var lastAdded = 0D;
+        var total = 0D;
         var locationsArray = locations as Location[] ?? locations.ToArray();
 
         foreach (var (_, currentLocation, nextLocation) in locationsArray.GetItems())
@@ -51,13 +51,13 @@ public static class LocationHelper
                 nextLocation.Lon);
 
             var totalRounded = Math.Round(total, 1);
-            if (totalRounded % EvenDistance != 0 || Math.Abs(totalRounded - current) == 0)
+            if (totalRounded % EvenDistance != 0 || totalRounded - lastAdded == 0)
             {
                 continue;
             }
 
             locationsAtEvenDistances.Add(currentLocation);
-            current = (int)totalRounded;
+            lastAdded = totalRounded;
         }
 
         if (locationsAtEvenDistances.Count == 0 && locationsArray.Any())
