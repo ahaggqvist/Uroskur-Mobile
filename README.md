@@ -23,7 +23,7 @@ The app is tested on the following platforms: Android, iOS, Windows 10/11 and ma
 ## Screenshots Android
 <p float="left">
 <img src="https://i.ibb.co/PWdTNq9/Routes.jpg" width="200" />
-<img src="https://i.ibb.co/crvWzsB/Route.jpg" width="200" />
+<img src="https://i.ibb.co/QPTLhGL/Route.jpg" width="200" />
 <img src="https://i.ibb.co/NKdJRQn/Forecast.jpg" width="200" />
 <img src="https://i.ibb.co/Zd7rkVJ/Screenshot-20220823-223332.jpg" width="200" />
 <img src="https://i.ibb.co/1bgpT7x/Settings.jpg" width="200" />
