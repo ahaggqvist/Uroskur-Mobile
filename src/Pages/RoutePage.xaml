@@ -68,7 +68,7 @@
                 </HorizontalStackLayout>
                 <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*"
                       ColumnSpacing="5" RowSpacing="0" Margin="0,0,0,10">
-                    <Label Grid.Row="0" Grid.Column="2" Text="Start Day" FontFamily="RobotoLight"
+                    <Label Grid.Row="0" Grid.Column="2" Text="Day" FontFamily="RobotoLight"
                            Margin="0,5,0,0" />
 
                     <Image Grid.Row="1" Source="calendar.png" WidthRequest="13"
@@ -77,7 +77,7 @@
                             SelectedItem="{Binding SelectedDay}"
                             FontSize="13" />
 
-                    <Label Grid.Row="2" Grid.Column="2" Text="Start Time" FontFamily="RobotoLight"
+                    <Label Grid.Row="2" Grid.Column="2" Text="Time" FontFamily="RobotoLight"
                            Margin="0,10,0,0" />
 
                     <Image Grid.Row="3" Source="clock.png" WidthRequest="13"
@@ -93,7 +93,7 @@
                     <Picker Grid.Row="5" Grid.Column="1"
                             ItemsSource="{Binding Speeds}" SelectedItem="{Binding SelectedSpeed}" FontSize="13" />
 
-                    <Label Grid.Row="6" Grid.Column="2" Text="Weather Forecast Source" FontFamily="RobotoLight"
+                    <Label Grid.Row="6" Grid.Column="2" Text="Source" FontFamily="RobotoLight"
                            Margin="0,10,0,0" />
                     <Image Grid.Row="7" Source="cloud_rain.png" WidthRequest="13"
                            HeightRequest="13" />
