@@ -14,13 +14,14 @@ public static class ChartHelper
 
     public static LineChart CreateTempChart(IEnumerable<LocationWeatherForecast> locationWeatherForecasts)
     {
+        var forecasts = locationWeatherForecasts.ToImmutableArray();
         return CreateLineChart(new List<ChartSerie>
         {
             new()
             {
                 Name = "Temp (°C)",
                 Color = SKColor.Parse("#fc4c02"),
-                Entries = GetChartEntries(locationWeatherForecasts, "Temp")
+                Entries = GetChartEntries(forecasts, "Temp")
             }
         });
     }
@@ -90,7 +91,7 @@ public static class ChartHelper
         return new LineChart
         {
             LineMode = LineMode.Spline,
-            LineAreaAlpha = 32,
+            LineAreaAlpha = 16,
             LabelOrientation = Orientation.Horizontal,
             ValueLabelOrientation = Orientation.Horizontal,
             IsAnimated = true,
@@ -102,7 +103,7 @@ public static class ChartHelper
             LegendOption = SeriesLegendOption.Top,
             ShowYAxisLines = false,
             ShowYAxisText = false,
-            EnableYFadeOutGradient = false,
+            EnableYFadeOutGradient = true,
             Series = series
         };
     }
@@ -128,7 +129,7 @@ public static class ChartHelper
         {
             return new ChartEntry(value)
             {
-                ValueLabel = value.ToString(CultureInfo.InvariantCulture),
+                ValueLabel = value.ToString(CultureInfo.CurrentCulture),
                 Label = withLabel ? dateTime.ToString("H:mm") : null
             };
         }
