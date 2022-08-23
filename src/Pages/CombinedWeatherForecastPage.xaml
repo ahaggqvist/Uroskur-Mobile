@@ -40,8 +40,8 @@
 
                     <Grid Grid.Row="1" RowSpacing="0" ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="55" />
-                            <ColumnDefinition Width="55" />
+                            <ColumnDefinition Width="57" />
+                            <ColumnDefinition Width="57" />
                             <ColumnDefinition Width="55" />
                             <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="65" />
@@ -94,8 +94,8 @@
                                     ColumnSpacing="0"
                                     RowSpacing="0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="55" />
-                                        <ColumnDefinition Width="55" />
+                                        <ColumnDefinition Width="57" />
+                                        <ColumnDefinition Width="57" />
                                         <ColumnDefinition Width="55" />
                                         <ColumnDefinition Width="100" />
                                         <ColumnDefinition Width="65" />
@@ -156,8 +156,8 @@
                     </HorizontalStackLayout>
                     <Grid Grid.Row="1" RowSpacing="0" ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="55" />
-                            <ColumnDefinition Width="55" />
+                            <ColumnDefinition Width="57" />
+                            <ColumnDefinition Width="57" />
                             <ColumnDefinition Width="55" />
                             <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="65" />
@@ -210,8 +210,8 @@
                                     ColumnSpacing="0"
                                     RowSpacing="0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="55" />
-                                        <ColumnDefinition Width="55" />
+                                        <ColumnDefinition Width="57" />
+                                        <ColumnDefinition Width="57" />
                                         <ColumnDefinition Width="55" />
                                         <ColumnDefinition Width="100" />
                                         <ColumnDefinition Width="65" />
@@ -273,8 +273,8 @@
 
                     <Grid Grid.Row="1" RowSpacing="0" ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="55" />
-                            <ColumnDefinition Width="55" />
+                            <ColumnDefinition Width="57" />
+                            <ColumnDefinition Width="57" />
                             <ColumnDefinition Width="55" />
                             <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="65" />
@@ -327,8 +327,8 @@
                                     ColumnSpacing="0"
                                     RowSpacing="0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="55" />
-                                        <ColumnDefinition Width="55" />
+                                        <ColumnDefinition Width="57" />
+                                        <ColumnDefinition Width="57" />
                                         <ColumnDefinition Width="55" />
                                         <ColumnDefinition Width="100" />
                                         <ColumnDefinition Width="65" />
