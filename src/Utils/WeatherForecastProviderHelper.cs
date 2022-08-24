@@ -6,7 +6,7 @@ public static class WeatherForecastProviderHelper
     {
         if (string.IsNullOrEmpty(url)) return null;
         if (url.Contains("openweathermap.org", StringComparison.InvariantCultureIgnoreCase)) return OpenWeather;
-        if (url.Contains("met.no", StringComparison.InvariantCultureIgnoreCase)) return Yr;
+        if (url.Contains("api.met.no/weatherapi/locationforecast", StringComparison.InvariantCultureIgnoreCase)) return Yr;
         return url.Contains("smhi.se", StringComparison.InvariantCultureIgnoreCase) ? Smhi : null;
     }
 }

@@ -8,6 +8,8 @@ public partial class WeatherForecastViewModel : BaseViewModel
     [ObservableProperty] private string? _emptyViewMessage;
     [ObservableProperty] private string? _forecastIssuedAt;
     [ObservableProperty] private string? _forecastIssuedFor;
+    [ObservableProperty] private DateTime? _sunrise;
+    [ObservableProperty] private DateTime? _sunset;
     [ObservableProperty] private LineChart? _tempLineChart;
     [ObservableProperty] private LineChart? _uviLineChart;
     [ObservableProperty] private WeatherForecastParameters? _weatherForecastParameters;
@@ -48,7 +50,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
             var hour = timeSpan!.Value.Hours;
             var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
             var weatherForecastProvider = Enumeration.FromId<WeatherForecastProvider>(WeatherForecastParameters?.WeatherForecastProviderId ?? 0);
-            var issuedForUnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(issuedFor);
+            var issuedForUnixTimestamp = DateTimeToUnixTimestamp(issuedFor);
             var route = _weatherForecastParameters?.Routes;
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
@@ -58,12 +60,25 @@ public partial class WeatherForecastViewModel : BaseViewModel
             var weatherForecastsArray = weatherForecasts.ToImmutableArray();
             if (weatherForecastsArray.Length > 0)
             {
-                var hourlyForecast = weatherForecastsArray[0].HourlyWeatherForecasts.ElementAt(0);
+                var weatherForecast = weatherForecastsArray[0];
+                var hourlyForecast = weatherForecast.HourlyWeatherForecasts.ElementAt(0);
                 var issuedAt =
                     new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local).AddSeconds(hourlyForecast.UnixTimestamp);
 
                 ForecastIssuedAt = $"{weatherForecastProvider} Weather Forecast updated at {issuedAt:ddd, d MMM H:mm}";
                 ForecastIssuedFor = $"{issuedFor:dddd, d MMM}";
+
+
+                if (_weatherForecastParameters?.DayId == Day.Today.Id)
+                {
+                    Sunrise = weatherForecast.SunriseToday;
+                    Sunset = weatherForecast.SunsetToday;
+                }
+                else
+                {
+                    Sunrise = weatherForecast.SunriseTomorrow;
+                    Sunset = weatherForecast.SunsetTomorrow;
+                }
             }
 
             foreach (var (weatherForecast, index) in weatherForecastsArray.WithIndex())

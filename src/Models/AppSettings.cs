@@ -9,4 +9,4 @@ public record AppSettings(bool IsDevelopment,
     string StravaCallbackUrl,
     string OpenWeatherApiUrl,
     string YrApiUrl,
-    string SmhiApiUrl);
+    string SmhiApiUrl, string YrSunriseApiUrl);

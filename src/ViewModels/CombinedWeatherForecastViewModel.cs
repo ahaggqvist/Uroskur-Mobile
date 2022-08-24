@@ -49,7 +49,7 @@ public partial class CombinedWeatherForecastViewModel : BaseViewModel
             var timeSpan = _weatherForecastParameters!.Time;
             var hour = timeSpan!.Value.Hours;
             var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
-            var issuedForUnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(issuedFor);
+            var issuedForUnixTimestamp = DateTimeToUnixTimestamp(issuedFor);
             var route = _weatherForecastParameters?.Routes;
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();

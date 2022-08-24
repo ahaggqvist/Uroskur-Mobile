@@ -138,28 +138,56 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                     <CollectionView.Footer>
-                        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
-                            <Label x:Name="ChartTemperatureHeader" Margin="0,5,0,0"
-                                   FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
-                                   FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
-                            <microcharts:ChartView Grid.Row="1" Chart="{Binding TempLineChart, Mode=OneWay}"
-                                                   HeightRequest="210" />
-                            <Label Grid.Row="2" x:Name="ChartChanceOfRainHeader" Margin="0,5,0,0"
-                                   FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
-                                   FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
-                            <microcharts:ChartView Grid.Row="3" Chart="{Binding ChanceOfRainLineChart, Mode=OneWay}"
-                                                   HeightRequest="210" />
-                            <Label Grid.Row="4" x:Name="ChartWindHeader" Margin="0,5,0,0"
-                                   FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
-                                   FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
-                            <microcharts:ChartView Grid.Row="5" Chart="{Binding WindLineChart, Mode=OneWay}"
-                                                   HeightRequest="210" />
-                            <Label Grid.Row="6" x:Name="ChartUvHeader" Margin="0,5,0,0"
-                                   FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
-                                   FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
-                            <microcharts:ChartView Grid.Row="7" Chart="{Binding UviLineChart, Mode=OneWay}"
-                                                   HeightRequest="210" />
-                        </Grid>
+                        <VerticalStackLayout>
+                            <Grid RowDefinitions="20,20" Margin="0,20,0,0" ColumnDefinitions="20,Auto,20,Auto"
+                                  HorizontalOptions="Center">
+                                <Label x:Name="SunriseTableHeader" Grid.ColumnSpan="2"
+                                       FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
+                                       FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}"
+                                       TextTransform="Uppercase"
+                                       HorizontalOptions="Center" />
+                                <Label Grid.Column="2" TextTransform="Uppercase" x:Name="SunsetTableHeader"
+                                       Grid.ColumnSpan="2"
+                                       FontSize="{x:Static utils:Constants.WeatherTableHeadingFontSize}"
+                                       FontFamily="{x:Static utils:Constants.WeatherForecastTableHeadingFontFamily}"
+                                       HorizontalOptions="Center" />
+
+                                <Image x:Name="SunriseImage" Grid.Row="1" WidthRequest="13" HeightRequest="13" />
+                                <Label Grid.Row="1" Grid.Column="1" FontFamily="RobotoRegular" FontSize="13"
+                                       HorizontalOptions="Center"
+                                       Text="{Binding Sunrise, StringFormat='{0:HH:mm}'}" Padding="0,0,10,0" />
+
+                                <Image x:Name="SunsetImage" Grid.Row="1" Grid.Column="2" WidthRequest="13"
+                                       HeightRequest="13" />
+                                <Label Grid.Row="1" Grid.Column="3"
+                                       FontFamily="RobotoRegular" FontSize="13" HorizontalOptions="Center"
+                                       Text="{Binding Sunset, StringFormat='{0:HH:mm}'}" />
+                            </Grid>
+
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                                <Label x:Name="ChartTemperatureHeader" Margin="0,5,0,0"
+                                       FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
+                                       FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
+                                <microcharts:ChartView Grid.Row="1" Chart="{Binding TempLineChart, Mode=OneWay}"
+                                                       HeightRequest="210" />
+                                <Label Grid.Row="2" x:Name="ChartChanceOfRainHeader" Margin="0,5,0,0"
+                                       FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
+                                       FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
+                                <microcharts:ChartView Grid.Row="3"
+                                                       Chart="{Binding ChanceOfRainLineChart, Mode=OneWay}"
+                                                       HeightRequest="210" />
+                                <Label Grid.Row="4" x:Name="ChartWindHeader" Margin="0,5,0,0"
+                                       FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
+                                       FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
+                                <microcharts:ChartView Grid.Row="5" Chart="{Binding WindLineChart, Mode=OneWay}"
+                                                       HeightRequest="210" />
+                                <Label Grid.Row="6" x:Name="ChartUvHeader" Margin="0,5,0,0"
+                                       FontFamily="{x:Static utils:Constants.ChartHeadingFontFamily}"
+                                       FontSize="{x:Static utils:Constants.ChartHeadingFontSize}" />
+                                <microcharts:ChartView Grid.Row="7" Chart="{Binding UviLineChart, Mode=OneWay}"
+                                                       HeightRequest="210" />
+                            </Grid>
+                        </VerticalStackLayout>
                     </CollectionView.Footer>
                 </CollectionView>
             </Grid>

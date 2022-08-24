@@ -40,6 +40,14 @@ public class WeatherForecastClient : IWeatherForecastClient
             };
         }
 
+        if (url.Contains("sunrise", StringComparison.InvariantCultureIgnoreCase))
+        {
+            return new WeatherForecastProviderData
+            {
+                YrSunriseData = await FetchDataAsync(YrSunriseData.FromJson, url)
+            };
+        }
+
         throw new ArgumentException($"Weather forecast provider is unknown for url: {url}.");
     }
 

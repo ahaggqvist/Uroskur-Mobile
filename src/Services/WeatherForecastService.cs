@@ -71,6 +71,33 @@ public class WeatherForecastService : IWeatherForecastService
                 weatherForecasts.Add(new WeatherForecast(hourlyWeatherForecasts));
             }
 
+            // Fetch sunrise and sunset
+            if (_appSettings?.YrSunriseApiUrl == null) return weatherForecasts;
+            if (locations.IsEmpty) return weatherForecasts;
+
+            var dateTime = DateTime.Today;
+            var timeSpan = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
+            var sign = timeSpan < TimeSpan.Zero ? "-" : "+";
+            var offset = sign + timeSpan.ToString(@"hh\:mm");
+            var apiUrl = _appSettings.YrSunriseApiUrl.Replace("@Lat", locations[0].Lat.ToString(CultureInfo.InvariantCulture))
+                .Replace("@Lon", locations[0].Lon.ToString(CultureInfo.InvariantCulture)).Replace("@Date", dateTime.ToString("yyyy-MM-dd")).Replace("@Offset", offset);
+            var weatherForecastProviderDataToday = await _weatherForecastClient.FetchWeatherForecastProviderDataAsync(apiUrl);
+            var weatherForecastProviderDataTomorrow =
+                await _weatherForecastClient.FetchWeatherForecastProviderDataAsync(apiUrl.Replace(dateTime.ToString("yyyy-MM-dd"), dateTime.AddDays(1).ToString("yyyy-MM-dd")));
+
+            foreach (var weatherForecast in weatherForecasts)
+            {
+                if (weatherForecastProviderDataToday?.YrSunriseData == null || weatherForecastProviderDataTomorrow?.YrSunriseData == null) continue;
+                var sunriseToday = weatherForecastProviderDataToday.YrSunriseData.Location.Time[0].Sunrise.Time;
+                var sunsetToday = weatherForecastProviderDataToday.YrSunriseData.Location.Time[0].Sunset.Time;
+                var sunriseTomorrow = weatherForecastProviderDataTomorrow.YrSunriseData.Location.Time[0].Sunrise.Time;
+                var sunsetTomorrow = weatherForecastProviderDataTomorrow.YrSunriseData.Location.Time[0].Sunset.Time;
+                if (sunriseToday != null) weatherForecast.SunriseToday = RoundUpSeconds(sunriseToday.Value.LocalDateTime);
+                if (sunsetToday != null) weatherForecast.SunsetToday = RoundUpSeconds(sunsetToday.Value.LocalDateTime);
+                if (sunriseTomorrow != null) weatherForecast.SunriseTomorrow = RoundUpSeconds(sunriseTomorrow.Value.LocalDateTime);
+                if (sunsetTomorrow != null) weatherForecast.SunsetTomorrow = RoundUpSeconds(sunsetTomorrow.Value.LocalDateTime);
+            }
+
             return weatherForecasts;
         }
         catch (Exception ex)
@@ -198,7 +225,7 @@ public class WeatherForecastService : IWeatherForecastService
         {
             hourlyWeatherForecasts.Add(new HourlyWeatherForecast
             {
-                Dt = DateTimeHelper.UnixTimestampToDateTime(hourly.Dt),
+                Dt = UnixTimestampToDateTime(hourly.Dt),
                 UnixTimestamp = hourly.Dt,
                 Temp = hourly.Temp,
                 FeelsLike = hourly.FeelsLike,
@@ -248,7 +275,7 @@ public class WeatherForecastService : IWeatherForecastService
             hourlyWeatherForecasts.Add(new HourlyWeatherForecast
             {
                 Dt = timesery.Time.LocalDateTime,
-                UnixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(timesery.Time.LocalDateTime),
+                UnixTimestamp = DateTimeToUnixTimestamp(timesery.Time.LocalDateTime),
                 Temp = timesery.Data.Instant.Details.ContainsKey("air_temperature")
                     ? timesery.Data.Instant.Details["air_temperature"]
                     : 0D,
@@ -312,7 +339,7 @@ public class WeatherForecastService : IWeatherForecastService
         foreach (var timesery in data.SmhiData.TimeSeries)
         {
             var dt = timesery.ValidTime.GetValueOrDefault().LocalDateTime;
-            var unixTimestamp = DateTimeHelper.DateTimeToUnixTimestamp(dt);
+            var unixTimestamp = DateTimeToUnixTimestamp(dt);
             var temp = 0D;
             var windSpeed = 0D;
             var windGust = 0D;

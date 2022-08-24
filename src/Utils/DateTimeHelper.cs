@@ -15,4 +15,10 @@ internal static class DateTimeHelper
         var unixTimestampInTicks = (dateTime.ToLocalTime() - unixStart).Ticks;
         return unixTimestampInTicks / TimeSpan.TicksPerSecond;
     }
+
+    public static DateTime RoundUpSeconds(DateTime dateTime)
+    {
+        var second = dateTime.Second;
+        return second >= 30 ? dateTime.AddSeconds(60 - second) : dateTime;
+    }
 }

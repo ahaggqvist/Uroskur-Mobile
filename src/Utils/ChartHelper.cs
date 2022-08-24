@@ -132,7 +132,7 @@ public static class ChartHelper
             return new ChartEntry(value)
             {
                 ValueLabel = value.ToString(CultureInfo.CurrentCulture),
-                Label = withLabel ? dateTime.ToString("H:mm") : string.Empty
+                Label = withLabel ? dateTime.ToString("HH:mm") : string.Empty
             };
         }
 

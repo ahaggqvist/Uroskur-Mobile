@@ -30,5 +30,10 @@ public partial class WeatherForecastPage
         WeatherTableTimeHeader.Text = "";
         WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
         WeatherTableWindHeader.Text = "Wind (m/s)";
+
+        SunriseTableHeader.Text = "Sunrise";
+        SunsetTableHeader.Text = "Sunset";
+        SunriseImage.Source = "sunrise.png";
+        SunsetImage.Source = "sunset.png";
     }
 }
