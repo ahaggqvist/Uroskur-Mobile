@@ -30,7 +30,7 @@ jobs:
       - name: Install MAUI Workload
         run: dotnet workload install maui
       - name: Build
-        run: dotnet build src/uroskur.csproj -c:Release -f:net6.0-android -o ./artifacts
+        run: dotnet build src/uroskur.csproj -c:Release -f:net7.0-android -o ./artifacts
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
