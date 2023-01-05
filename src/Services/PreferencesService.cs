@@ -36,15 +36,15 @@ public class PreferencesService : IPreferencesService
 
     public void SavePreferences(Preferences preferences)
     {
-        SavePreference(OpenWeatherAppIdKey, preferences.OpenWeatherAppId!);
-        SavePreference(StravaAccessTokenKey, preferences.StravaAccessToken!);
-        SavePreference(StravaAthleteIdKey, preferences.StravaAthleteId!);
-        SavePreference(StravaClientIdKey, preferences.StravaClientId!);
-        SavePreference(StravaClientSecretKey, preferences.StravaClientSecret!);
-        SavePreference(StravaExpiresAtKey, preferences.StravaExpiresAt!);
-        SavePreference(StravFirstNameKey, preferences.StravaFirstname!);
-        SavePreference(StravaLastNameKey, preferences.StravaLastname!);
-        SavePreference(StravaRefreshTokenKey, preferences.StravaRefreshToken!);
-        SavePreference(StravaUsernameKey, preferences.StravaUsername!);
+        SavePreference(OpenWeatherAppIdKey, preferences.OpenWeatherAppId);
+        SavePreference(StravaAccessTokenKey, preferences.StravaAccessToken);
+        SavePreference(StravaAthleteIdKey, preferences.StravaAthleteId);
+        SavePreference(StravaClientIdKey, preferences.StravaClientId);
+        SavePreference(StravaClientSecretKey, preferences.StravaClientSecret);
+        SavePreference(StravaExpiresAtKey, preferences.StravaExpiresAt);
+        SavePreference(StravFirstNameKey, preferences.StravaFirstname);
+        SavePreference(StravaLastNameKey, preferences.StravaLastname);
+        SavePreference(StravaRefreshTokenKey, preferences.StravaRefreshToken);
+        SavePreference(StravaUsernameKey, preferences.StravaUsername);
     }
 }

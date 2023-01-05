@@ -59,19 +59,19 @@ public partial class PreferencesViewModel : BaseViewModel
     [RelayCommand]
     private async void ConnectWithStrava()
     {
-        if (!Regex.IsMatch(_preferencesService.FindPreference(StravaClientIdKey) ?? string.Empty, PatternClientId))
+        if (!Regex.IsMatch(_preferencesService.FindPreference(StravaClientIdKey), PatternClientId))
         {
             await ShowToast("Strava client ID is invalid");
             return;
         }
 
-        if (!Regex.IsMatch(_preferencesService.FindPreference(StravaClientSecretKey) ?? string.Empty, PatternKey))
+        if (!Regex.IsMatch(_preferencesService.FindPreference(StravaClientSecretKey), PatternKey))
         {
             await ShowToast("Strava client secret is invalid");
             return;
         }
 
-        if (!Regex.IsMatch(_preferencesService.FindPreference(OpenWeatherAppIdKey) ?? string.Empty, PatternKey))
+        if (!Regex.IsMatch(_preferencesService.FindPreference(OpenWeatherAppIdKey), PatternKey))
         {
             await ShowToast("OpenWeather app ID is invalid");
             return;

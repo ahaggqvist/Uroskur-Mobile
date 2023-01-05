@@ -96,7 +96,7 @@ public partial class WeatherForecastViewModel : BaseViewModel
                     continue;
                 }
 
-                var windDeg = hourlyWeatherForecast?.WindDeg ?? 0L;
+                var windDeg = hourlyWeatherForecast.WindDeg;
                 var windIconId = WindDirection[(int)Math.Round(windDeg / 22.5, 0)];
                 var locationDt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local)
                     .AddSeconds(3600 * ((double)km / speed) + issuedForUnixTimestamp).ToLocalTime();
@@ -104,9 +104,9 @@ public partial class WeatherForecastViewModel : BaseViewModel
                 var locationForecast = new LocationWeatherForecast
                 {
                     Km = km,
-                    HourlyWeatherForecast = hourlyWeatherForecast!,
+                    HourlyWeatherForecast = hourlyWeatherForecast,
                     DateTime = locationDt,
-                    WeatherIcon = hourlyWeatherForecast!.Icon,
+                    WeatherIcon = hourlyWeatherForecast.Icon,
                     WindIcon = WindIconsDictionary[windIconId],
                     WindIconId = windIconId
                 };
