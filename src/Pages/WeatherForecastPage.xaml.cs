@@ -25,7 +25,7 @@ public partial class WeatherForecastPage
         ChartUvHeader.Text = "UV index and Cloudiness";
         ChartWindHeader.Text = "Wind Speed and Wind Gust";
 
-        WeatherTableTempHeader.Text = "Temp (°C)";
+        WeatherTableTempHeader.Text = "Temp (Â°C)";
         WeatherTablePrecipitationAmountHeader.Text = "Rain (mm)";
         WeatherTableTimeHeader.Text = "";
         WeatherTableChanceOfRainHeader.Text = "Chance of Rain";
