@@ -14,7 +14,7 @@ public class LocationHelperTests
     public void Number_of_locations_is_equal_to_expected()
     {
         var gpxToLocations = GpxParser.GpxToLocations(Gxp.FileAsString());
-        var locations = LocationHelper.FilterOutLocationsAtEvenDistances(gpxToLocations)?.ToList();
-        Assert.Equal(4, locations?.Count);
+        var locations = LocationHelper.FilterOutLocationsAtEvenDistances(gpxToLocations).ToList();
+        Assert.Equal(4, locations.Count);
     }
 }

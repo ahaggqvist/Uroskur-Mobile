@@ -10,6 +10,6 @@ public class Speed : Enumeration
 
     public Speed() { }
 
-    public Speed(int id, string name)
+    private Speed(int id, string name)
         : base(id, name) { }
 }

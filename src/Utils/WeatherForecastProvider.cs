@@ -9,6 +9,6 @@ public class WeatherForecastProvider : Enumeration
 
     public WeatherForecastProvider() { }
 
-    public WeatherForecastProvider(int id, string name)
+    private WeatherForecastProvider(int id, string name)
         : base(id, name) { }
 }

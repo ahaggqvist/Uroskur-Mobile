@@ -7,7 +7,7 @@ public class NavigationService : INavigationService
         return Shell.Current.GoToAsync(route);
     }
 
-    public Task NavigateToAsync(string route, Dictionary<string, object> parameters, bool animate = true)
+    public Task NavigateToAsync(string route, Dictionary<string, object>? parameters, bool animate = true)
     {
         if (parameters?.Count == 0)
         {

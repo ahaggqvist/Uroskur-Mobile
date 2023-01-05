@@ -22,7 +22,7 @@ public partial class CombinedWeatherForecastViewModel : BaseViewModel
 
     public async Task WeatherForecastAsync()
     {
-        Title = _weatherForecastParameters?.Routes?.Name!;
+        Title = WeatherForecastParameters?.Routes?.Name!;
 
         await Task.Delay(500);
 
@@ -41,16 +41,16 @@ public partial class CombinedWeatherForecastViewModel : BaseViewModel
         try
         {
             var today = DateTime.Today;
-            if (_weatherForecastParameters?.DayId == Day.Tomorrow.Id)
+            if (WeatherForecastParameters?.DayId == Day.Tomorrow.Id)
             {
                 today = today.AddDays(1);
             }
 
-            var timeSpan = _weatherForecastParameters!.Time;
+            var timeSpan = WeatherForecastParameters!.Time;
             var hour = timeSpan!.Value.Hours;
             var issuedFor = today.AddHours(hour).AddMinutes(0).AddSeconds(0).ToLocalTime();
             var issuedForUnixTimestamp = DateTimeToUnixTimestamp(issuedFor);
-            var route = _weatherForecastParameters?.Routes;
+            var route = WeatherForecastParameters?.Routes;
             var athlete = route?.Athlete;
             var athleteId = athlete?.Id.ToString();
             var routeId = route?.Id.ToString();
@@ -96,7 +96,7 @@ public partial class CombinedWeatherForecastViewModel : BaseViewModel
         foreach (var (weatherForecast, index) in weatherForecastsArray.WithIndex())
         {
             var km = index * 10 + 10;
-            var speed = int.Parse(Enumeration.FromId<Speed>(_weatherForecastParameters!.SpeedId).Name);
+            var speed = int.Parse(Enumeration.FromId<Speed>(WeatherForecastParameters!.SpeedId).Name);
             var time = km / speed;
             var seconds = 3600 * time + issuedForUnixTimestamp;
             var hourlyWeatherForecast = weatherForecast.HourlyWeatherForecasts.ToImmutableList()

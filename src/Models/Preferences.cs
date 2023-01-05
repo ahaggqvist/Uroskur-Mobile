@@ -2,9 +2,9 @@
 
 public class Preferences
 {
-    public string OpenWeatherAppId { get; set; } = string.Empty;
-    public string StravaClientId { get; set; } = string.Empty;
-    public string StravaClientSecret { get; set; } = string.Empty;
+    public string OpenWeatherAppId { get; init; } = string.Empty;
+    public string StravaClientId { get; init; } = string.Empty;
+    public string StravaClientSecret { get; init; } = string.Empty;
     public string StravaAthleteId { get; set; } = string.Empty;
     public string StravaAccessToken { get; set; } = string.Empty;
     public string StravaExpiresAt { get; set; } = string.Empty;
