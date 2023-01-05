@@ -18,90 +18,88 @@
         <converter:MeterToKilometerConverter x:Key="MeterToKilometer" />
     </ContentPage.Resources>
 
-    <Grid Margin="5,0,5,0" RowDefinitions="*">
-        <!--<RefreshView
-                Command="{Binding RoutesCommand}"
-                IsRefreshing="{Binding IsRefreshing}">-->
-        <CollectionView ItemsSource="{Binding Routes}" SelectionMode="None"
+    <RefreshView Margin="5,0,5,0" Command="{Binding RoutesCommand}" IsRefreshing="{Binding IsRefreshing}">
+        <Grid RowDefinitions="*">
+            <CollectionView ItemsSource="{Binding Routes}" SelectionMode="None"
                         ItemSizingStrategy="MeasureAllItems">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.EmptyView>
-                <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                    <Label x:Name="EmptyRoutesMessage" />
-                </StackLayout>
-            </CollectionView.EmptyView>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="strava:Routes">
-                    <VerticalStackLayout Margin="0,5,0,0">
-                        <VerticalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.EmptyView>
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <Label x:Name="EmptyRoutesMessage" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="strava:Routes">
+                        <VerticalStackLayout Margin="0,5,0,0">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
                                                   Command="{Binding 
                            Source={RelativeSource AncestorType={x:Type viewmodel:RoutesViewModel}}, Path=NavigateToCommand}" />
-                        </VerticalStackLayout.GestureRecognizers>
-                        <VerticalStackLayout Padding="0,5,0,0">
-                            <Label FontSize="20"
+                            </VerticalStackLayout.GestureRecognizers>
+                            <VerticalStackLayout Padding="0,5,0,0">
+                                <Label FontSize="20"
                                    FontFamily="RobotoMedium"
                                    Text="{Binding Name}" />
-                            <Grid ColumnDefinitions="12,Auto" Margin="5,5,0,0">
-                                <Image Source="{Binding RouteTypeImage}" WidthRequest="12"
+                                <Grid ColumnDefinitions="12,Auto" Margin="5,5,0,0">
+                                    <Image Source="{Binding RouteTypeImage}" WidthRequest="12"
                                        HeightRequest="12" />
-                                <Label Grid.Column="1" Padding="5,0,0,0"
+                                    <Label Grid.Column="1" Padding="5,0,0,0"
                                        FontFamily="RobotoLight" FontSize="12"
                                        Text="{Binding CreatedAt, StringFormat='{0:ddd, d MMM yyyy H:mm}', Converter={StaticResource StringToDateTime}}" />
-                            </Grid>
-                            <Grid RowDefinitions="25,25" ColumnDefinitions="Auto,Auto,Auto,Auto,*">
-                                <Label Padding="0,10,0,0"
+                                </Grid>
+                                <Grid RowDefinitions="25,25" ColumnDefinitions="Auto,Auto,Auto,Auto,*">
+                                    <Label Padding="0,10,0,0"
                                        FontSize="11"
                                        Text="Distance" FontFamily="RobotoLight" HeightRequest="30" />
-                                <Label Grid.Column="1" Padding="10,10,0,0"
+                                    <Label Grid.Column="1" Padding="10,10,0,0"
                                        FontSize="11"
                                        Text="Elev. Gain" FontFamily="RobotoLight" HeightRequest="30" />
-                                <Label Grid.Column="2" Padding="10,10,0,0"
+                                    <Label Grid.Column="2" Padding="10,10,0,0"
                                        FontSize="11"
                                        Text="Est. Moving Time" FontFamily="RobotoLight" HeightRequest="30" />
-                                <Label Grid.Row="1" Padding="0"
+                                    <Label Grid.Row="1" Padding="0"
                                        FontSize="13" FontFamily="RobotoRegular"
                                        Text="{Binding Distance, StringFormat='{0:0.00} km', Converter={StaticResource MeterToKilometer}}" />
-                                <Label Grid.Row="1" Grid.Column="1" Padding="10,0,0,0"
+                                    <Label Grid.Row="1" Grid.Column="1" Padding="10,0,0,0"
                                        FontSize="13" FontFamily="RobotoRegular"
                                        Text="{Binding ElevationGain, StringFormat='{0:0} m'}" />
-                                <Label Grid.Row="1" Grid.Column="2" Padding="10,0,0,0"
+                                    <Label Grid.Row="1" Grid.Column="2" Padding="10,0,0,0"
                                        FontSize="13" FontFamily="RobotoRegular"
                                        Text="{Binding EstimatedMovingTimeFormatted}" />
-                            </Grid>
-                        </VerticalStackLayout>
-                        <HorizontalStackLayout Padding="0,5,0,20">
-                            <Frame BorderColor="{StaticResource LightGray}" Padding="0"
+                                </Grid>
+                            </VerticalStackLayout>
+                            <HorizontalStackLayout Padding="0,5,0,20">
+                                <Frame BorderColor="{StaticResource LightGray}" Padding="0"
                                    CornerRadius="5">
-                                <Image Aspect="AspectFill" WidthRequest="380" HeightRequest="146">
-                                    <Image.Source>
-                                        <UriImageSource Uri="{Binding MapUrls.RetinaUrl}"
+                                    <Image Aspect="AspectFill" WidthRequest="380" HeightRequest="146">
+                                        <Image.Source>
+                                            <UriImageSource Uri="{Binding MapUrls.RetinaUrl}"
                                                         CacheValidity="7:00:00.0" />
-                                    </Image.Source>
-                                    <Image.Shadow>
-                                        <Shadow Brush="Black"
+                                        </Image.Source>
+                                        <Image.Shadow>
+                                            <Shadow Brush="Black"
                                                 Offset="1,1"
                                                 Radius="0"
                                                 Opacity="0.1" />
-                                    </Image.Shadow>
-                                </Image>
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                        </Image.Shadow>
+                                    </Image>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
                                                           Command="{Binding 
                            Source={RelativeSource AncestorType={x:Type viewmodel:RoutesViewModel}}, Path=NavigateToCommand}" />
-                                </Frame.GestureRecognizers>
-                            </Frame>
-                        </HorizontalStackLayout>
-                        <BoxView Color="{StaticResource LightGray}"
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </HorizontalStackLayout>
+                            <BoxView Color="{StaticResource LightGray}"
                                  HeightRequest="0.5"
                                  HorizontalOptions="Fill" />
-                    </VerticalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <!--</RefreshView>-->
-        <ActivityIndicator x:Name="ActivityIndicator" IsVisible="True" IsRunning="True" />
-    </Grid>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <ActivityIndicator x:Name="ActivityIndicator" IsVisible="True" IsRunning="True" />
+        </Grid>
+    </RefreshView>
 </ContentPage>
