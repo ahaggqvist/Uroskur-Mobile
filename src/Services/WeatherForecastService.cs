@@ -88,14 +88,14 @@ public class WeatherForecastService : IWeatherForecastService
             foreach (var weatherForecast in weatherForecasts)
             {
                 if (weatherForecastProviderDataToday?.YrSunriseData == null || weatherForecastProviderDataTomorrow?.YrSunriseData == null) continue;
-                var sunriseToday = weatherForecastProviderDataToday.YrSunriseData.Location.Time[0].Sunrise.Time;
-                var sunsetToday = weatherForecastProviderDataToday.YrSunriseData.Location.Time[0].Sunset.Time;
-                var sunriseTomorrow = weatherForecastProviderDataTomorrow.YrSunriseData.Location.Time[0].Sunrise.Time;
-                var sunsetTomorrow = weatherForecastProviderDataTomorrow.YrSunriseData.Location.Time[0].Sunset.Time;
-                if (sunriseToday != null) weatherForecast.SunriseToday = RoundUpSeconds(sunriseToday.Value.LocalDateTime);
-                if (sunsetToday != null) weatherForecast.SunsetToday = RoundUpSeconds(sunsetToday.Value.LocalDateTime);
-                if (sunriseTomorrow != null) weatherForecast.SunriseTomorrow = RoundUpSeconds(sunriseTomorrow.Value.LocalDateTime);
-                if (sunsetTomorrow != null) weatherForecast.SunsetTomorrow = RoundUpSeconds(sunsetTomorrow.Value.LocalDateTime);
+                var sunriseToday = DateTime.Parse(weatherForecastProviderDataToday.YrSunriseData.Properties.Sunrise.Time, new CultureInfo("sv-SE"));
+                var sunsetToday = DateTime.Parse(weatherForecastProviderDataToday.YrSunriseData.Properties.Sunset.Time, new CultureInfo("sv-SE"));
+                var sunriseTomorrow = DateTime.Parse(weatherForecastProviderDataTomorrow.YrSunriseData.Properties.Sunrise.Time, new CultureInfo("sv-SE"));
+                var sunsetTomorrow = DateTime.Parse(weatherForecastProviderDataTomorrow.YrSunriseData.Properties.Sunset.Time, new CultureInfo("sv-SE"));
+                weatherForecast.SunriseToday = RoundUpSeconds(sunriseToday);
+                weatherForecast.SunsetToday = RoundUpSeconds(sunsetToday);
+                weatherForecast.SunriseTomorrow = RoundUpSeconds(sunriseTomorrow);
+                weatherForecast.SunsetTomorrow = RoundUpSeconds(sunsetTomorrow);
             }
 
             return weatherForecasts;
@@ -112,11 +112,6 @@ public class WeatherForecastService : IWeatherForecastService
     {
         var locations = (await _stravaService.FindLocationsByAthleteIdRouteIdAsync(athleteId, routeId))
             .ToImmutableArray();
-
-        if (locations == null)
-        {
-            throw new ArgumentException("Locations are null.");
-        }
 
         if (locations.Length > MaxLocations)
         {

@@ -4,135 +4,77 @@
 //
 //    using Uroskur.Models.Yr;
 //
-//    var yrSunrise = YrSunrise.FromJson(jsonString);
+//    var yrSunriseData = YrSunriseData.FromJson(jsonString);
 
 namespace Uroskur.Models.Yr
 {
+    using System;
+    using Newtonsoft.Json;
+
     public partial class YrSunriseData
     {
-        [JsonProperty("location", NullValueHandling = NullValueHandling.Ignore)]
-        public Location Location { get; set; }
+        [JsonProperty("copyright")]
+        public string Copyright { get; set; }
 
-        [JsonProperty("meta", NullValueHandling = NullValueHandling.Ignore)]
-        public Meta Meta { get; set; }
+        [JsonProperty("licenseURL")]
+        public Uri LicenseUrl { get; set; }
+
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("geometry")]
+        public Geometry Geometry { get; set; }
+
+        [JsonProperty("when")]
+        public When When { get; set; }
+
+        [JsonProperty("properties")]
+        public Properties Properties { get; set; }
     }
 
-    public partial class Location
+    public partial class Properties
     {
-        [JsonProperty("height", NullValueHandling = NullValueHandling.Ignore)]
-        [JsonConverter(typeof(ParseStringConverter))]
-        public long? Height { get; set; }
+        [JsonProperty("body")]
+        public string Body { get; set; }
 
-        [JsonProperty("latitude", NullValueHandling = NullValueHandling.Ignore)]
-        public string Latitude { get; set; }
+        [JsonProperty("sunrise")]
+        public Sun Sunrise { get; set; }
 
-        [JsonProperty("longitude", NullValueHandling = NullValueHandling.Ignore)]
-        public string Longitude { get; set; }
+        [JsonProperty("sunset")]
+        public Sun Sunset { get; set; }
 
-        [JsonProperty("time", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Time> Time { get; set; }
+        [JsonProperty("solarnoon")]
+        public Solar Solarnoon { get; set; }
+
+        [JsonProperty("solarmidnight")]
+        public Solar Solarmidnight { get; set; }
     }
 
-    public partial class Time
+    public partial class Solar
     {
-        [JsonProperty("date", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? Date { get; set; }
+        [JsonProperty("time")]
+        public string Time { get; set; }
 
-        [JsonProperty("high_moon", NullValueHandling = NullValueHandling.Ignore)]
-        public HighMoon HighMoon { get; set; }
+        [JsonProperty("disc_centre_elevation")]
+        public double DiscCentreElevation { get; set; }
 
-        [JsonProperty("low_moon", NullValueHandling = NullValueHandling.Ignore)]
-        public HighMoon LowMoon { get; set; }
-
-        [JsonProperty("moonphase", NullValueHandling = NullValueHandling.Ignore)]
-        public Moonphase Moonphase { get; set; }
-
-        [JsonProperty("moonposition", NullValueHandling = NullValueHandling.Ignore)]
-        public Moonposition Moonposition { get; set; }
-
-        [JsonProperty("moonrise", NullValueHandling = NullValueHandling.Ignore)]
-        public Moonrise Moonrise { get; set; }
-
-        [JsonProperty("moonset", NullValueHandling = NullValueHandling.Ignore)]
-        public Moonrise Moonset { get; set; }
-
-        [JsonProperty("moonshadow", NullValueHandling = NullValueHandling.Ignore)]
-        public HighMoon Moonshadow { get; set; }
-
-        [JsonProperty("solarmidnight", NullValueHandling = NullValueHandling.Ignore)]
-        public HighMoon Solarmidnight { get; set; }
-
-        [JsonProperty("solarnoon", NullValueHandling = NullValueHandling.Ignore)]
-        public HighMoon Solarnoon { get; set; }
-
-        [JsonProperty("sunrise", NullValueHandling = NullValueHandling.Ignore)]
-        public Moonrise Sunrise { get; set; }
-
-        [JsonProperty("sunset", NullValueHandling = NullValueHandling.Ignore)]
-        public Moonrise Sunset { get; set; }
+        [JsonProperty("visible")]
+        public bool Visible { get; set; }
     }
 
-    public partial class HighMoon
+    public partial class Sun
     {
-        [JsonProperty("desc", NullValueHandling = NullValueHandling.Ignore)]
-        public string Desc { get; set; }
+        [JsonProperty("time")]
+        public string Time { get; set; }
 
-        [JsonProperty("elevation", NullValueHandling = NullValueHandling.Ignore)]
-        public string Elevation { get; set; }
-
-        [JsonProperty("time", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? Time { get; set; }
-
-        [JsonProperty("azimuth", NullValueHandling = NullValueHandling.Ignore)]
-        public string Azimuth { get; set; }
+        [JsonProperty("azimuth")]
+        public double Azimuth { get; set; }
     }
 
-    public partial class Moonphase
+    public partial class When
     {
-        [JsonProperty("desc", NullValueHandling = NullValueHandling.Ignore)]
-        public string Desc { get; set; }
-
-        [JsonProperty("time", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? Time { get; set; }
-
-        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
-        public string Value { get; set; }
-    }
-
-    public partial class Moonposition
-    {
-        [JsonProperty("azimuth", NullValueHandling = NullValueHandling.Ignore)]
-        public string Azimuth { get; set; }
-
-        [JsonProperty("desc", NullValueHandling = NullValueHandling.Ignore)]
-        public string Desc { get; set; }
-
-        [JsonProperty("elevation", NullValueHandling = NullValueHandling.Ignore)]
-        public string Elevation { get; set; }
-
-        [JsonProperty("phase", NullValueHandling = NullValueHandling.Ignore)]
-        public string Phase { get; set; }
-
-        [JsonProperty("range", NullValueHandling = NullValueHandling.Ignore)]
-        public string Range { get; set; }
-
-        [JsonProperty("time", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? Time { get; set; }
-    }
-
-    public partial class Moonrise
-    {
-        [JsonProperty("desc", NullValueHandling = NullValueHandling.Ignore)]
-        public string Desc { get; set; }
-
-        [JsonProperty("time", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? Time { get; set; }
-    }
-
-    public partial class Meta
-    {
-        [JsonProperty("licenseurl", NullValueHandling = NullValueHandling.Ignore)]
-        public Uri Licenseurl { get; set; }
+        [JsonProperty("interval")]
+        public DateTimeOffset[] Interval { get; set; }
     }
 
     public partial class YrSunriseData
