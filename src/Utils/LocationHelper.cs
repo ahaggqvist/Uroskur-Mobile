@@ -7,6 +7,12 @@ public static class LocationHelper
     private static double CalculateDistanceBetweenLocations(double lat1, double lon1, double lat2,
         double lon2)
     {
+        return 12745.6 *
+               Math.Asin(Math.Sqrt(
+                   Havf(lat2 - lat1) +
+                   Math.Cos(Rad(lat1)) * Math.Cos(Rad(lat2)) *
+                   Havf(lon2 - lon1)));
+
         double Rad(double angle)
         {
             return angle * 0.017453292519943295769236907684886127d;
@@ -16,12 +22,6 @@ public static class LocationHelper
         {
             return Math.Pow(Math.Sin(Rad(diff) / 2d), 2);
         }
-
-        return 12745.6 *
-               Math.Asin(Math.Sqrt(
-                   Havf(lat2 - lat1) +
-                   Math.Cos(Rad(lat1)) * Math.Cos(Rad(lat2)) *
-                   Havf(lon2 - lon1)));
     }
 
     public static double CalculateTotalDistance(IEnumerable<Location> locations)

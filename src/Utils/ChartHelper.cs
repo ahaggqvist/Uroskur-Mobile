@@ -119,13 +119,7 @@ public static class ChartHelper
             chartEntries.Add(CreateChartEntry(value, locationWeatherForecast.DateTime, withLabel));
         }
 
-        static float GetValue(HourlyWeatherForecast hourlyWeatherForecast, string propertyName)
-        {
-            var type = typeof(HourlyWeatherForecast);
-            var field = type.GetProperty(propertyName);
-            var obj = field?.GetValue(hourlyWeatherForecast);
-            return Convert.ToSingle(obj);
-        }
+        return chartEntries;
 
         static ChartEntry CreateChartEntry(float value, DateTime dateTime, bool withLabel)
         {
@@ -136,6 +130,12 @@ public static class ChartHelper
             };
         }
 
-        return chartEntries;
+        static float GetValue(HourlyWeatherForecast hourlyWeatherForecast, string propertyName)
+        {
+            var type = typeof(HourlyWeatherForecast);
+            var field = type.GetProperty(propertyName);
+            var obj = field?.GetValue(hourlyWeatherForecast);
+            return Convert.ToSingle(obj);
+        }
     }
 }
